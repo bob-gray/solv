@@ -25,7 +25,7 @@ define(
 		};
 
 		Invocation.prototype.needsSignature = function (router) {
-			return this.router !== router || null === signature;
+			return this.router !== router || null === this.signature;
 		};
 
 		Invocation.prototype.implementationNotFound = function (functionName) {
