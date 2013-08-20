@@ -41,10 +41,11 @@ define(
 		}
 
 		function renderMessage () {
-			var messageTemplate = "Function {{functionName}} was called with the signature ({{invocationSignature}}). A matching implementation does not exist. Existing implementation signatures: {{implementationSignatures}}",
+			var error = this,
+				messageTemplate = "Function {{functionName}} was called with the signature ({{invocationSignature}}). A matching implementation does not exist. Existing implementation signatures: {{implementationSignatures}}",
 				placeholders = /\{\{([^}]+)\}\}/g;
 			this.message = messageTemplate.replace(placeholders, function (withCurlies, placeholder) {
-				return this[placeholder];
+				return error[placeholder];
 			});
 		}
 
