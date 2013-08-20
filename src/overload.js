@@ -84,7 +84,7 @@ define(
 				implementationSignature = list("*", implementation.length);
 				router = routeByLength;
 			} else {
-				compiledSignature = Function.compileSignature(implementationSignature);
+				compiledSignature = Function.compileImplementationSignature(implementationSignature);
 				router = routeBySignature;
 			}
 
@@ -99,7 +99,7 @@ define(
 
 			function routeBySignature () {
 				if (invocation.needsSignature(router)) {
-					invocation.signature = Function.getArgumentsSignature(arguments);
+					invocation.signature = Function.getInvocationSignature(arguments);
 				}
 				if (compiledSignature.test(invocation.signature)) {
 					implementationIsMatch();
