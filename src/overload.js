@@ -2,9 +2,10 @@ define(
 	[
 		"./meta",
 		"./type",
+		"./invocation",
 		"./array"
 	],
-	function (meta, type) {
+	function (meta, type, Invocation) {
 		"use strict";
 
 		meta({
