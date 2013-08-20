@@ -78,7 +78,7 @@ define(
 				methods["@default: "+ options.name] = options.implementation;
 
 			} else {
-				existing = constructor[options.name];
+				existing = methods[options.name];
 				existingIsFunction = type.is("function", existing);
 
 				if (options.signature && (!existingIsFunction || options.override)) {
