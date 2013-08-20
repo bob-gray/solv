@@ -61,10 +61,13 @@ define(
 		function method (options) {
 			var constructor = this,
 				methods = constructor.prototype,
-				existing = constructor[options.name],
-				existingIsFunction = type.is("function", existing);
+				existing,
+				existingIsFunction;
 
 			if (options.static) {
+				existing = constructor[options.name];
+				existingIsFunction = type.is("function", existing);
+
 				if (!existingIsFunction || options.override) {
 					constructor[options.name] = options.implementation;
 				} else {
@@ -75,6 +78,9 @@ define(
 				methods["@default: "+ options.name] = options.implementation;
 
 			} else {
+				existing = constructor[options.name];
+				existingIsFunction = type.is("function", existing);
+
 				if (options.signature && (!existingIsFunction || options.override)) {
 					existing = Function.Abstract(options.name);
 					existingIsFunction = true;
