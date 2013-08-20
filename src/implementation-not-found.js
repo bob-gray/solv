@@ -30,7 +30,7 @@ define(
 			this._super.constructor.call(this, this.message);
 		}
 
-		ImplementationNotFound.prototype = ExtendError();
+		ExtendError();
 
 		function normalizeMessageParts () {
 			if (this.implementationSignatures && this.implementationSignatures.length) {
