@@ -36,5 +36,7 @@ define(
 			this.reset();
 			throw error;
 		};
+
+		return Invocation;
 	}
 );
