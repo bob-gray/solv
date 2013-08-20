@@ -28,5 +28,7 @@ define(
 				return this.instances && this.instances[0];
 			}
 		}));
+
+		return Singleton;
 	}
 );

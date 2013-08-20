@@ -85,5 +85,7 @@ define(
 				return method.apply.bind(method, this, args);
 			}
 		}));
+
+		return Base;
 	}
 );
