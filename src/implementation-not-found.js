@@ -51,8 +51,9 @@ define(
 
 		function ExtendError () {
 			var E = function () {},
-				proto = new E();
+				proto;
 			E.prototype = Error.prototype;
+			proto = new E();
 			ImplementationNotFound.prototype = proto;
 			proto._super = Error.prototype;
 			proto.constructor = ImplementationNotFound;
