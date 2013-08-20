@@ -70,7 +70,7 @@ define(
 		});
 
 		var whiteSpace = /\s+/g,
-			noneOneMany = /([^,]+)\s*([?*+])\s*,?/g,
+			noneOneMany = /,?([^,]+)([?*+])/g,
 			or = /((?:[^,|]+\|)+[^,]+)/g,
 			any = /\bany\b/g,
 			not = /!([^,|]+)/g;
@@ -83,7 +83,7 @@ define(
 		function createSignatureRegexSrc (signature) {
 			return "^"+
 				signature.replace(whiteSpace, "")
-					.replace(noneOneMany, "(?:$1,?)$2")
+					.replace(noneOneMany, "(?:,?$1)$2")
 					.replace(or, "(?:$1)")
 					.replace(not, "\\b(?!$1)[^,]+")
 					.replace(any, "[^,]+")
