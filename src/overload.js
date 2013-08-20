@@ -3,7 +3,8 @@ define(
 		"./meta",
 		"./type",
 		"./invocation",
-		"./array"
+		"./array",
+		"./signatures"
 	],
 	function (meta, type, Invocation) {
 		"use strict";
