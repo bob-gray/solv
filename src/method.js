@@ -50,11 +50,11 @@ define(
 				name: name,
 				implementation: implementation
 			};
-			return method.call(options);
+			return method.call(this, options);
 
 		}).overload("object, function", function (options, implementation) {
 			options.implementation = implementation;
-			return method.call(options);
+			return method.call(this, options);
 
 		}).overload("object", method);
 

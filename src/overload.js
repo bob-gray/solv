@@ -94,7 +94,7 @@ define(
 				} else {
 					implementationIsNotMatch();
 				}
-				return route();
+				return route.apply(this, arguments);
 			}
 
 			function routeBySignature () {
@@ -106,7 +106,7 @@ define(
 				} else {
 					implementationIsNotMatch();
 				}
-				return route();
+				return route.apply(this, arguments);
 			}
 
 			function implementationIsMatch () {
