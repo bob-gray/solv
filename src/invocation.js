@@ -18,7 +18,8 @@ define(
 		Invocation.prototype.reset = function () {
 			this.signature = null;
 			this.router = null;
-			if (!this.nonmatchingImplementationSignatures || !this.nonmatchingImplementationSignatures.length) {
+
+			if (!this.nonmatchingImplementationSignatures || this.nonmatchingImplementationSignatures.length) {
 				this.nonmatchingImplementationSignatures = [];
 			}
 		};
