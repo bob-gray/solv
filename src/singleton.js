@@ -9,24 +9,26 @@ define(
 		var Singleton = Class(
 			meta({
 				"name": "Singleton",
-				"extends":  Base,
-				"init": function () {
-					this.invoke(addInstance);
-					this.invoke(attachStaticGetInstance);
-				}
-			})
+				"extends":  Base
+			}),
+			constructor
 		);
 
-		//Singleton.extends(Base);
+		Singleton.method(
+			meta({
+				"entity": "method",
+				"for": "Singleton",
+				"static": true,
+				"name": "getInstance",
+				"description": "Useful for getting the singleton instance from class constructor."
+			}),
+			getInstance
+		);
 
-		Singleton.method(meta({
-			"entity": "method",
-			"for": "Singleton",
-			"static": true,
-			"name": "getInstance",
-			"description": "Useful for getting the singleton instance from class constructor.",
-			"implementation": getInstance
-		}));
+		function constructor () {
+			this.invoke(addInstance);
+			this.invoke(attachStaticGetInstance);
+		}
 
 		function addInstance () {
 			var constructor = this.constructor;

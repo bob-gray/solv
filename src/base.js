@@ -23,9 +23,9 @@ define(
 					"type": "any",
 					"required": false,
 					"repeating": true
-				}],
-				"implementation": superConstructor
-			})
+				}]
+			}),
+			superConstructor
 		);
 
 		Base.method(
@@ -37,9 +37,9 @@ define(
 					"type": "arguments|array",
 					"name": "args",
 					"required": false
-				}],
-				"implementation": superConstructorApply
-			})
+				}]
+			}),
+			superConstructorApply
 		);
 
 		Base.method(
@@ -55,9 +55,9 @@ define(
 					"required": false,
 					"repeating": true
 				}],
-				"implementation": superInvoke,
 				"returns": "any"
-			})
+			}),
+			superInvoke
 		);
 
 		Base.method(
@@ -69,9 +69,9 @@ define(
 					"name": "args",
 					"required": false
 				}],
-				"implementation": superApply,
 				"returns": "any"
-			})
+			}),
+			superApply
 		);
 
 		Base.method(
@@ -86,9 +86,9 @@ define(
 					"required": false,
 					"repeating": true
 				}],
-				"implementation": invokeFunction,
 				"returns": "any"
-			})
+			}),
+			invokeFunction
 		);
 
 		Base.method(
@@ -103,9 +103,9 @@ define(
 					"required": false,
 					"repeating": true
 				}],
-				"implementation": invokeMethod,
 				"returns": "any"
-			})
+			}),
+			invokeMethod
 		);
 
 		Base.method(
@@ -121,9 +121,9 @@ define(
 					"required": false,
 					"repeating": true
 				}],
-				"implementation": proxyFunction,
 				"returns": "function"
-			})
+			}),
+			proxyFunction
 		);
 
 		Base.method(
@@ -139,9 +139,9 @@ define(
 					"required": false,
 					"repeating": true
 				}],
-				"implementation": proxyMethod,
 				"returns": "function"
-			})
+			}),
+			proxyMethod
 		);
 
 		Base.prototype._super = {};
