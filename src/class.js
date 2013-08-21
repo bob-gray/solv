@@ -31,8 +31,22 @@ define(
 			}
 		});
 
+		meta({
+			"arguments": [{
+				"name": "options",
+				"type": "object",
+				"description": "Class options.",
+				"required": false
+			}],
+			"return": {
+				"type": "function",
+				"description": "Class constructor. Use this constructor other class setup tasks such as creating methods and setting up inheritance. Instance are created when is function is invoked with or without the new operator."
+			}
+		});
+
 		function Class (options) {
-			var forcingNew = false;
+			var forcingNew = false,
+				name = options.name || options.init.name;
 
 			if (options.extends) {
 				Constructor.extends(options.extends);
@@ -42,18 +56,13 @@ define(
 				return !forcingNew && type.is("function", options.init);
 			}
 
-			return function Constructor () {
+			function Constructor () {
 				var instance = this;
 
 				if (notAnInstance(instance)) {
 					forcingNew = true;
 					instance = new Constructor();
 					forcingNew = false;
-				}
-
-				if (options.name) {
-					Constructor = Constructor.toString().replace(/Constructor/g, options.name);
-					eval("Constructor = "+ Constructor +";");
 				}
 
 				if (shouldInvokeInit()) {
@@ -65,7 +74,14 @@ define(
 				}
 
 				return instance;
-			};
+			}
+
+			if (name) {
+				Constructor = Constructor.toString().replace(/Constructor/g, name);
+				eval("Constructor = "+ Constructor +";");
+			}
+
+			return Constructor;
 		}
 
 		Class = Class.overload("function?", ClassNoOptions);
