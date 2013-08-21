@@ -73,7 +73,7 @@ define(
 				if (!existingIsFunction || options.override) {
 					constructor[options.name] = options.implementation;
 				} else {
-					constructor[options.name] = existing.overload(options.signature, options.implementation);
+					constructor[options.name] = existing.overload(signature, options.implementation);
 				}
 
 			} else if (options["default"]) {
@@ -83,14 +83,14 @@ define(
 				existing = methods[options.name];
 				existingIsFunction = type.is("function", existing);
 
-				if (options.signature && (!existingIsFunction || options.override)) {
+				if (signature && (!existingIsFunction || options.override)) {
 					existing = Function.Abstract(options.name);
 					existingIsFunction = true;
 				}
 
 				if (existingIsFunction && !options.polyfill) {
-					methods[options.name] = existing.overload(options.signature, options.implementation);
-				} else if (!options.signature || options.polyfill) {
+					methods[options.name] = existing.overload(signature, options.implementation);
+				} else if (!signature || options.polyfill) {
 					methods[options.name] = options.implementation;
 				}
 			}
