@@ -101,21 +101,9 @@ define(
 		function getSignature (options) {
 			var signature = options.signature;
 			if (!signature && options["arguments"]) {
-				signature = options["arguments"].map(argToSignature).join(",");
+				signature = Function.getSignatureFromArgumentsOptions(options["arguments"]);
 			}
 			return signature;
-		}
-
-		function argToSignature (arg) {
-			var type = arg.type || "any";
-			if (arg.repeating && false !== arg.required) {
-				type += "+";
-			} else if (arg.repeating && false === arg.required) {
-				type += "*"
-			} else if (false === arg.required) {
-				type += "?";
-			}
-			return type;
 		}
 	}
 );

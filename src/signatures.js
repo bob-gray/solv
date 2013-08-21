@@ -100,5 +100,25 @@ define(
 		function getArgumentType (argument) {
 			return type.of(argument);
 		}
+
+		Function.getSignatureFromArgumentsOptions = function (args) {
+			var signature;
+			if (args.length) {
+				signature = args.map(argumentOptionToSignatureComponent).join(",");
+			}
+			return signature;
+		};
+
+		function argumentOptionToSignatureComponent (arg) {
+			var type = arg.type || "any";
+			if (arg.repeating && false !== arg.required) {
+				type += "+";
+			} else if (arg.repeating && false === arg.required) {
+				type += "*"
+			} else if (false === arg.required) {
+				type += "?";
+			}
+			return type;
+		}
 	}
 );
