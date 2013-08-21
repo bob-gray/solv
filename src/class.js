@@ -7,7 +7,6 @@ define(
 		"./overload"
 	],
 	function (meta, type) {
-		"use strict";
 
 		meta({
 			"entity": "module",
