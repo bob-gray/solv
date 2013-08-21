@@ -5,12 +5,19 @@ define(
 		"./base"
 	],
 	function (meta, Class, Base) {
-		var Singleton = Class(function () {
-			this.invoke(addInstance);
-			this.invoke(attachStaticGetInstance);
-		});
 
-		Singleton.extends(Base);
+		var Singleton = Class(
+			meta({
+				"name": "Singleton",
+				"extends":  Base,
+				"init": function () {
+					this.invoke(addInstance);
+					this.invoke(attachStaticGetInstance);
+				}
+			})
+		);
+
+		//Singleton.extends(Base);
 
 		Singleton.method(meta({
 			"entity": "method",
