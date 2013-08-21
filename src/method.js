@@ -2,7 +2,8 @@ define(
 	[
 		"./meta",
 		"./type",
-		"./overload"
+		"./overload",
+		"./array"
 	],
 	function (meta, type) {
 		"use strict";
@@ -62,7 +63,8 @@ define(
 			var constructor = this,
 				methods = constructor.prototype,
 				existing,
-				existingIsFunction;
+				existingIsFunction,
+				signature = getSignature(options);
 
 			if (options.static) {
 				existing = constructor[options.name];
@@ -94,6 +96,30 @@ define(
 			}
 
 			return constructor;
+		}
+
+		function getSignature (options) {
+			var signature = options.signature;
+			if (!signature && options["arguments"]) {
+				signature = options["arguments"].map(argToSignature).join(",");
+			}
+			return signature;
+		}
+
+		function argToSignature (arg) {
+			var type = arg.type || "any";
+			if (type) {
+				if (arg.repeating) {
+					if (arg.required) {
+						type += "+";
+					} else {
+						type += "*"
+					}
+				} else if (!arg.required) {
+					type += "?";
+				}
+			}
+			return type;
 		}
 	}
 );
