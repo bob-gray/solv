@@ -71,7 +71,7 @@ define(
 
 		var whiteSpace = /\s+/g,
 			noneOneMany = /,?([^,]+)([?*+])/g,
-			or = /((?:[^,|]+\|)+[^,]+)/g,
+			or = /((?:[^,?|()]+\|)+[^,?|()]+)/g,
 			any = /\bany\b/g,
 			not = /!([^,|]+)/g;
 
