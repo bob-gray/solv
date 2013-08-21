@@ -11,6 +11,15 @@ define(
 
 		Singleton.extends(Base);
 
+		Singleton.method(meta({
+			"entity": "method",
+			"for": "Singleton",
+			"static": true,
+			"name": "getInstance",
+			"description": "Useful for getting the singleton instance from class constructor.",
+			"implementation": getInstance
+		}));
+
 		function addInstance () {
 			var constructor = this.constructor;
 			if (!constructor.instances) {
@@ -19,15 +28,9 @@ define(
 			constructor.instances.unshift(this);
 		}
 
-		Singleton.method(meta({
-			"entity": "method",
-			"for": "Singleton",
-			"name": "getInstance",
-			"description": "Useful for getting the singleton instance from class constructor.",
-			"implementation": function () {
-				return this.instances && this.instances[0];
-			}
-		}));
+		function getInstance () {
+			return this.instances && this.instances[0];
+		}
 
 		return Singleton;
 	}
