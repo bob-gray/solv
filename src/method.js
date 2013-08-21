@@ -110,7 +110,7 @@ define(
 			var type = arg.type || "any";
 			if (arg.repeating && arg.required) {
 				type += "+";
-			} else if (args.repeating && !arg.required) {
+			} else if (arg.repeating && !arg.required) {
 				type += "*"
 			} else if (!arg.required) {
 				type += "?";
