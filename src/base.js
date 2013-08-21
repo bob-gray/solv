@@ -22,10 +22,7 @@ define(
 				"required": false,
 				"repeating": true
 			}],
-			"implementation": function (method) {
-				var args = Array.fromArguments(arguments).slice(1);
-				return method.apply(this, args);
-			}
+			"implementation": invokeFunction
 		}));
 
 		Base.method(meta({
@@ -41,10 +38,7 @@ define(
 				"required": false,
 				"repeating": true
 			}],
-			"implementation": function (method) {
-				var args = Array.fromArguments(arguments).slice(1);
-				return this[method].apply(this, args);
-			}
+			"implementation": invokeMethod
 		}));
 
 		Base.method(meta({
@@ -60,10 +54,7 @@ define(
 				"required": false,
 				"repeating": true
 			}],
-			"implementation": function (method) {
-				var args = Array.fromArguments(arguments).slice(1);
-				return method.apply.bind(method, this, args);
-			}
+			"implementation": proxyFunction
 		}));
 
 		Base.method(meta({
@@ -79,12 +70,31 @@ define(
 				"required": false,
 				"repeating": true
 			}],
-			"implementation": function (method) {
-				var args = Array.fromArguments(arguments).slice(1);
-				method = this[method];
-				return method.apply.bind(method, this, args);
-			}
+			"implementation": proxyMethod
 		}));
+
+		function invokeMethod (method) {
+			var args = Array.fromArguments(arguments).slice(1);
+			return this[method].apply(this, args);
+		}
+
+		function invokeFunction (method) {
+			var args = Array.fromArguments(arguments).slice(1);
+			return method.apply(this, args);
+		}
+
+		function proxyFunction (fn) {
+			var args = Array.fromArguments(arguments);
+			args.splice(0, 1, this);
+			return fn.bind.apply(fn, args);
+		}
+
+		function proxyMethod (method) {
+			var args = Array.fromArguments(arguments).slice(1),
+				method = this[method];
+			args.splice(0, 1, this);
+			return method.bind.apply(method, this, args);
+		}
 
 		return Base;
 	}
