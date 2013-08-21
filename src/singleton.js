@@ -7,6 +7,7 @@ define(
 	function (meta, Class, Base) {
 		var Singleton = Class(function () {
 			this.invoke(addInstance);
+			this.invoke(attachStaticGetInstance);
 		});
 
 		Singleton.extends(Base);
@@ -26,6 +27,13 @@ define(
 				constructor.instances = [];
 			}
 			constructor.instances.unshift(this);
+		}
+
+		function attachStaticGetInstance() {
+			var constructor = this.constructor;
+			if (!constructor.getInstance) {
+				constructor.getInstance = getInstance;
+			}
 		}
 
 		function getInstance () {
