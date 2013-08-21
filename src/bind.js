@@ -20,6 +20,7 @@ define(
 				}
 
 				bound.extends(fn);
+				return bound;
 			};
 		}
 	}
