@@ -108,16 +108,12 @@ define(
 
 		function argToSignature (arg) {
 			var type = arg.type || "any";
-			if (type) {
-				if (arg.repeating) {
-					if (arg.required) {
-						type += "+";
-					} else {
-						type += "*"
-					}
-				} else if (!arg.required) {
-					type += "?";
-				}
+			if (arg.repeating && arg.required) {
+				type += "+";
+			} else if (args.repeating && !arg.required) {
+				type += "*"
+			} else if (!arg.required) {
+				type += "?";
 			}
 			return type;
 		}
