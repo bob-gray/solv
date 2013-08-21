@@ -43,9 +43,9 @@ define(
 			}
 		});
 
-		function Class (options) {
+		function Class (options, init) {
 			var forcingNew = false,
-				name = options.name || options.init.name;
+				name = options.name || init.name;
 
 			if (name) {
 				Constructor = Constructor.toString().replace(/Constructor/g, name);
@@ -66,7 +66,7 @@ define(
 				}
 
 				if (shouldInvokeInit()) {
-					options.init.apply(instance, arguments);
+					init.apply(instance, arguments);
 				}
 
 				function notAnInstance(instance) {
@@ -77,7 +77,7 @@ define(
 			}
 
 			function shouldInvokeInit () {
-				return !forcingNew && type.is("function", options.init);
+				return !forcingNew && type.is("function", init);
 			}
 
 			return Constructor;
@@ -86,9 +86,7 @@ define(
 		Class = Class.overload("function?", ClassNoOptions);
 
 		function ClassNoOptions (init) {
-			return Class({
-				init: init
-			});
+			return Class({}, init);
 		}
 
 		return Class;
