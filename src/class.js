@@ -3,7 +3,8 @@ define(
 		"./meta",
 		"./type",
 		"./extends",
-		"./method"
+		"./method",
+		"./overload"
 	],
 	function (meta, type) {
 		"use strict";
@@ -16,7 +17,7 @@ define(
 
 		meta({
 			"entity": "function",
-			"name": "CreateClass",
+			"name": "Class",
 			"description": "Creates a new class",
 			"arguments": [{
 				"name": "init",
@@ -30,11 +31,11 @@ define(
 			}
 		});
 
-		function Class (init) {
+		function Class (options) {
 			var forcingNew = false;
 
 			function shouldInvokeInit () {
-				return !forcingNew && type.is("function", init);
+				return !forcingNew && type.is("function", options.init);
 			}
 
 			return function Constructor () {
@@ -46,8 +47,13 @@ define(
 					forcingNew = false;
 				}
 
+				if (options.name) {
+					Constructor = Constructor.toString().replace(/Constructor/g, options.name);
+					eval("Constructor = "+ Constructor +";");
+				}
+
 				if (shouldInvokeInit()) {
-					init.apply(instance, arguments);
+					options.init.apply(instance, arguments);
 				}
 
 				function notAnInstance(instance) {
@@ -56,6 +62,14 @@ define(
 
 				return instance;
 			};
+		}
+
+		Class = Class.overload("function?", ClassNoOptions);
+
+		function ClassNoOptions (init) {
+			return Class({
+				init: init
+			});
 		}
 
 		return Class;

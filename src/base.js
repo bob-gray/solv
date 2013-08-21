@@ -7,13 +7,15 @@ define(
 		"./array"
 	],
 	function (meta, Class, type) {
-		var Base = Class();
+		var Base = Class(
+			meta({
+				"entity": "class",
+				"name": "Base",
+				"description": "Abstract class."
+			})
+		);
 
-		meta({
-			"entity": "class",
-			"name": "Base",
-			"description": "Abstract class."
-		});
+
 
 		Base.method(meta({
 			"name": "superConstructor",
@@ -41,7 +43,6 @@ define(
 		Base.method(meta({
 			"name": "superInvoke",
 			"description": "Invokes a super method with this as the context.",
-			"signature": "string,any*",
 			"arguments": [{
 				"type": "string",
 				"name": "method",
@@ -57,7 +58,6 @@ define(
 		Base.method(meta({
 			"name": "superApply",
 			"description": "Invokes a super method with this as the context; applying args.",
-			"signature": "arguments|array",
 			"arguments": [{
 				"type": "arguments|array",
 				"name": "args",
@@ -69,7 +69,6 @@ define(
 		Base.method(meta({
 			"name": "invoke",
 			"description": "Useful for invoking local functions as private methods",
-			"signature": "function, any*",
 			"arguments": [{
 				"type": "function",
 				"name": "method"
@@ -83,7 +82,6 @@ define(
 
 		Base.method(meta({
 			"name": "invoke",
-			"signature": "string, any*",
 			"arguments": [{
 				"type": "string",
 				"name": "method"
@@ -97,7 +95,6 @@ define(
 
 		Base.method(meta({
 			"name": "proxy",
-			"signature": "function, any*",
 			"arguments": [{
 				"type": "function",
 				"name": "method"
@@ -111,7 +108,6 @@ define(
 
 		Base.method(meta({
 			"name": "proxy",
-			"signature": "string, any*",
 			"arguments": [{
 				"type": "function",
 				"name": "method"
@@ -150,15 +146,9 @@ define(
 			return this[method].apply(this, args);
 		}
 
-		function invokeFunction (method) {
+		function invokeFunction (fn) {
 			var args = Array.fromArguments(arguments).slice(1);
-			return method.apply(this, args);
-		}
-
-		function proxyFunction (fn) {
-			var args = Array.fromArguments(arguments);
-			args.splice(0, 1, this);
-			return fn.bind.apply(fn, args);
+			return fn.apply(this, args);
 		}
 
 		function proxyMethod (method) {
@@ -166,6 +156,12 @@ define(
 				method = this[method];
 			args.splice(0, 1, this);
 			return method.bind.apply(method, args);
+		}
+
+		function proxyFunction (fn) {
+			var args = Array.fromArguments(arguments);
+			args.splice(0, 1, this);
+			return fn.bind.apply(fn, args);
 		}
 
 		return Base;
