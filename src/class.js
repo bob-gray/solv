@@ -34,6 +34,10 @@ define(
 		function Class (options) {
 			var forcingNew = false;
 
+			if (options.extends) {
+				Constructor.extends(options.extends);
+			}
+
 			function shouldInvokeInit () {
 				return !forcingNew && type.is("function", options.init);
 			}
