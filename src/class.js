@@ -48,12 +48,13 @@ define(
 			var forcingNew = false,
 				name = options.name || options.init.name;
 
-			if (options.extends) {
-				Constructor.extends(options.extends);
+			if (name) {
+				Constructor = Constructor.toString().replace(/Constructor/g, name);
+				eval("Constructor = "+ Constructor +";");
 			}
 
-			function shouldInvokeInit () {
-				return !forcingNew && type.is("function", options.init);
+			if (options.extends) {
+				Constructor.extends(options.extends);
 			}
 
 			function Constructor () {
@@ -76,9 +77,8 @@ define(
 				return instance;
 			}
 
-			if (name) {
-				Constructor = Constructor.toString().replace(/Constructor/g, name);
-				eval("Constructor = "+ Constructor +";");
+			function shouldInvokeInit () {
+				return !forcingNew && type.is("function", options.init);
 			}
 
 			return Constructor;
