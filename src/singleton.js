@@ -6,7 +6,7 @@ define(
 	],
 	function (meta, Class, Base) {
 		var Singleton = Class(function () {
-			this.invoke("addInstance");
+			this.invoke(addInstance);
 		});
 
 		Singleton.extends(Base);
