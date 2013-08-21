@@ -60,7 +60,7 @@ define(
 			})
 		);
 
-		Base.method
+		Base.method(
 			meta({
 				"name": "superApply",
 				"description": "Invokes a super method with this as the context; applying args.",
