@@ -177,7 +177,7 @@ define(
 		}
 
 		function proxyMethod (method) {
-			var args = Array.fromArguments(arguments).slice(1),
+			var args = Array.fromArguments(arguments),
 				fn = this[method];
 			args.splice(0, 1, this);
 			return fn.bind.apply(fn, args);
