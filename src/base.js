@@ -2,15 +2,71 @@ define(
 	[
 		"./meta",
 		"./class",
+		"./type",
 		"./bind",
 		"./array"
 	],
-	function (meta, Class) {
+	function (meta, Class, type) {
 		var Base = Class();
 
+		meta({
+			"entity": "class",
+			"name": "Base",
+			"description": "Abstract class."
+		});
+
 		Base.method(meta({
-			"entity": "method",
-			"for": "Base",
+			"name": "superConstructor",
+			"description": "Calls this._super.constructor with this as the context.",
+			"arguments": [{
+				"type": "any",
+				"required": false,
+				"repeating": true
+			}],
+			"implementation": superConstructor
+		}));
+
+		Base.method(meta({
+			"name": "superConstructorApply",
+			"description": "Applies this._super.constructor with this as the context.",
+			"signature": "arguments|array",
+			"arguments": [{
+				"type": "arguments|array",
+				"name": "args",
+				"required": false
+			}],
+			"implementation": superConstructorApply
+		}));
+
+		Base.method(meta({
+			"name": "superInvoke",
+			"description": "Invokes a super method with this as the context.",
+			"signature": "string,any*",
+			"arguments": [{
+				"type": "string",
+				"name": "method",
+				"required": true
+			}, {
+				"type": "any",
+				"required": false,
+				"repeating": true
+			}],
+			"implementation": superInvoke
+		}));
+
+		Base.method(meta({
+			"name": "superApply",
+			"description": "Invokes a super method with this as the context; applying args.",
+			"signature": "arguments|array",
+			"arguments": [{
+				"type": "arguments|array",
+				"name": "args",
+				"required": false
+			}],
+			"implementation": superApply
+		}));
+
+		Base.method(meta({
 			"name": "invoke",
 			"description": "Useful for invoking local functions as private methods",
 			"signature": "function, any*",
@@ -26,8 +82,6 @@ define(
 		}));
 
 		Base.method(meta({
-			"entity": "method",
-			"for": "Base",
 			"name": "invoke",
 			"signature": "string, any*",
 			"arguments": [{
@@ -42,8 +96,6 @@ define(
 		}));
 
 		Base.method(meta({
-			"entity": "method",
-			"for": "Base",
 			"name": "proxy",
 			"signature": "function, any*",
 			"arguments": [{
@@ -58,8 +110,6 @@ define(
 		}));
 
 		Base.method(meta({
-			"entity": "method",
-			"for": "Base",
 			"name": "proxy",
 			"signature": "string, any*",
 			"arguments": [{
@@ -72,6 +122,28 @@ define(
 			}],
 			"implementation": proxyMethod
 		}));
+
+		Base.prototype._super = {};
+
+		function superConstructor () {
+			return this._super.constructor.apply(this, arguments);
+		}
+
+		function superConstructorApply (args) {
+			return this._super.constructor.apply(this, args);
+		}
+
+		function superInvoke (method) {
+			var args = Array.fromArguments(arguments).slice(1);
+			return this.superInvoke(method, args);
+		}
+
+		function superApply (method, args) {
+			var superMethod = this._super[method];
+			if (type.is("function", superMethod)) {
+				return this._super[method].apply(this, args);
+			}
+		}
 
 		function invokeMethod (method) {
 			var args = Array.fromArguments(arguments).slice(1);
@@ -93,7 +165,7 @@ define(
 			var args = Array.fromArguments(arguments).slice(1),
 				method = this[method];
 			args.splice(0, 1, this);
-			return method.bind.apply(method, this, args);
+			return method.bind.apply(method, args);
 		}
 
 		return Base;
