@@ -7,8 +7,13 @@ define(
 
 		meta({
 			"entity": "module",
-			"export": "Array",
-			"description": "Augments global Array class"
+			"description": "Augments Array prototype"
+		});
+
+		meta({
+			"entity": "class",
+			"name": "Array",
+			"global": true
 		});
 
 		meta({
