@@ -3,6 +3,7 @@ define(
 		"./meta",
 		"./type",
 		"./extend",
+		"./mixin",
 		"./method",
 		"./overload",
 		"./object",
@@ -51,26 +52,23 @@ define(
 
 			function Constructor () {
 				var instance = this;
-
 				if (notAnInstance(instance)) {
 					forcingNew = true;
 					instance = new Constructor();
 					forcingNew = false;
 				}
-
 				if (shouldInvokeInit()) {
 					init.apply(instance, arguments);
 				}
-
-				function notAnInstance(instance) {
-					return (instance instanceof Constructor) === false;
-				}
-
 				return instance;
 			}
 
 			function shouldInvokeInit () {
 				return !forcingNew && type.is("function", init);
+			}
+
+			function notAnInstance(instance) {
+				return (instance instanceof Constructor) === false;
 			}
 
 			if (name) {
@@ -83,18 +81,7 @@ define(
 			}
 
 			if (options.mixin) {
-				if (type.is("function", options.mixin)) {
-					options.mixin = options.mixin.prototype;
-				}
-				Object.keys(options.mixin).filter(isFunction).forEach(attachMethod);
-			}
-
-			function isFunction (name) {
-				return type.is("function", options.mixin[name]);
-			}
-
-			function attachMethod (name) {
-				Constructor.method(name, options.mixin[name]);
+				Constructor.mixin(options.mixin);
 			}
 
 			return Constructor;
