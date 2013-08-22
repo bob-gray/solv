@@ -2,7 +2,7 @@ define(
 	[
 		"./meta",
 		"./array",
-		"./extends"
+		"./extend"
 	],
 	function (meta) {
 		if (!Function.prototype.bind) {
@@ -19,7 +19,7 @@ define(
 					return fn.apply(context, args);
 				}
 
-				bound.extends(fn);
+				bound.extend(fn);
 				return bound;
 			};
 		}

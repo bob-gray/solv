@@ -27,7 +27,7 @@ define(
 			}
 		});
 
-		Function.prototype.extends = function (Parent) {
+		Function.prototype.extend = function (Parent) {
 			var Child = this,
 				Surrogate = createSurrogate(Parent);
 			inheritFromSurrogate(Child, Surrogate);

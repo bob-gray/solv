@@ -2,7 +2,7 @@ define(
 	[
 		"./meta",
 		"./type",
-		"./extends",
+		"./extend",
 		"./method",
 		"./overload"
 	],
@@ -47,15 +47,6 @@ define(
 			var forcingNew = false,
 				name = options.name || init.name;
 
-			if (name) {
-				Constructor = Constructor.toString().replace(/Constructor/g, name);
-				eval("Constructor = "+ Constructor +";");
-			}
-
-			if (options.extends) {
-				Constructor.extends(options.extends);
-			}
-
 			function Constructor () {
 				var instance = this;
 
@@ -78,6 +69,22 @@ define(
 
 			function shouldInvokeInit () {
 				return !forcingNew && type.is("function", init);
+			}
+
+			if (name) {
+				Constructor = Constructor.toString().replace(/Constructor/g, name);
+				eval("Constructor = "+ Constructor +";");
+			}
+
+			if (options.extends) {
+				Constructor.extend(options.extends);
+			}
+
+			if (options.mixin) {
+				if (type.is("function", options.mixin)) {
+					options.mixin = options.mixin.prototype;
+				}
+
 			}
 
 			return Constructor;
