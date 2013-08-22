@@ -52,15 +52,14 @@ define(
 
 		function mixin (mixins) {
 			var Constructor = this;
-
-			Object.keys(options.mixin).filter(isFunction).forEach(attachMethod);
+			Object.keys(mixins).filter(isFunction).forEach(attachMethod);
 
 			function isFunction (name) {
-				return type.is("function", options.mixin[name]);
+				return type.is("function", mixins[name]);
 			}
 
 			function attachMethod (name) {
-				Constructor.method(name, options.mixin[name]);
+				Constructor.method(name, mixins[name]);
 			}
 
 			return Constructor;
