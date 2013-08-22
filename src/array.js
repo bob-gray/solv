@@ -22,9 +22,7 @@ define(
 				"type": "arguments",
 				"description": "An arguments object from within a function"
 			}],
-			"return": {
-				"type": "array"
-			}
+			"return": "array"
 		});
 
 		meta({
@@ -60,9 +58,25 @@ define(
 				"type": "object",
 				"description": "Object to use as this when executing callback."
 			}],
-			"return": {
-				"type": "array"
-			}
+			"return": "array"
+		});
+
+		meta({
+			"entity": "method",
+			"for": "Array",
+			"name": "filter",
+			"polyfill": true,
+			"description": "Creates a new array with all elements that pass the test implemented by the provided function.",
+			"arguments": [{
+				"name": "callback",
+				"type": "function",
+				"description": "Function to test each element of the array."
+			}, {
+				"name": "context",
+				"type": "object",
+				"description": "Object to use as this when executing callback."
+			}],
+			"return": "array"
 		});
 
 		var slice = Array.prototype.slice;
@@ -90,6 +104,19 @@ define(
 					mapped[index] = callback.call(context, element, index, array);
 				}
 				return mapped;
+			};
+		}
+
+		if (!Array.prototype.filter) {
+			Array.prototype.filter = function (callback, context) {
+				var filtered = [];
+				this.forEach(map);
+				function filter (element, index, array) {
+					if (callback.call(context, element, index, array)) {
+						filtered.push(element);
+					}
+				}
+				return filtered;
 			};
 		}
 	}
