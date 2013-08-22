@@ -1,10 +1,10 @@
 define(
 	[
 		"./meta",
-		"./method",
-		"./type"
+		"./type",
+		"./method"
 	],
-	function (meta) {
+	function (meta, type) {
 		"use strict";
 
 		meta({
