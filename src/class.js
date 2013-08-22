@@ -4,7 +4,9 @@ define(
 		"./type",
 		"./extend",
 		"./method",
-		"./overload"
+		"./overload",
+		"./object",
+		"./array"
 	],
 	function (meta, type) {
 
@@ -84,7 +86,15 @@ define(
 				if (type.is("function", options.mixin)) {
 					options.mixin = options.mixin.prototype;
 				}
+				Object.keys(options.mixin).filter(isFunction).forEach(attachMethod);
+			}
 
+			function isFunction (name) {
+				return type.is("function", options.mixin[name]);
+			}
+
+			function attachMethod (name) {
+				Constructor.method(name, options.mixin[name]);
 			}
 
 			return Constructor;
