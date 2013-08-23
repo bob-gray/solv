@@ -26,6 +26,7 @@ define(function () {
 		if (isUndefined(value)) {
 			throw "Unable to get the value of "+ key;
 		}
+		return value;
 	}
 
 	function isUndefined (value) {
