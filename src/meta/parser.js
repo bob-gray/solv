@@ -46,11 +46,15 @@ define(
 		);
 
 		function parse (success, file) {
-			var blocks = [];
-			file.replace(this.regex, function (match, block) {
-				blocks.push(JSON.parse(block));
-			});
-			return blocks;
+			this.blocks = [];
+			file.replace(this.regex, this.proxy(pushParsedOnBlocks));
+			success(this.blocks);
+		}
+
+		function pushParsedOnBlocks (match, block) {
+			block = JSON.parse(block);
+			this.blocks.push(block);
+
 		}
 
 		return Parser;
