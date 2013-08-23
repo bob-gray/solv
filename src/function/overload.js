@@ -81,7 +81,7 @@ define(
 			}
 
 			if (!implementationSignature) {
-				implementationSignature = list("*", implementation.length);
+				implementationSignature = list("any", implementation.length);
 				router = routeByLength;
 			} else {
 				compiledSignature = Function.compileImplementationSignature(implementationSignature);
