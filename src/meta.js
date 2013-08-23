@@ -1,9 +1,9 @@
 define(function () {
 	function meta (data) {
-		var extends = data.extends,
+		var ext = data["extends"],
 			mixin = data.mixin;
-		if (extends) {
-			data.extends = get(extends);
+		if (ext) {
+			data["extends"] = get(ext);
 		}
 		if (mixin) {
 			data.mixin = get(mixin);
@@ -28,7 +28,7 @@ define(function () {
 		}
 	}
 
-	fuction isUndefined (value) {
+	function isUndefined (value) {
 		return typeof value === "undefined";
 	}
 
