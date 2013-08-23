@@ -7,71 +7,94 @@ define(
 
 		meta({
 			"entity": "module",
-			"description": "For type checking values. Unfortunately typeof falls short and returns 'object' for for native JavaScript types: array, date, regex, and null"
+			"description": "For testing value types. Unfortunately typeof falls short and returns 'object' for for native JavaScript types: array, date, regexp, arguments and null. Native type names for use with type.of and type.is include: string, number, boolean, array, object, date, regexp, function, undefined, arguments or null."
 		});
 
 		meta({
 			"entity": "function",
 			"name": "of",
-			"description": "I get the type of the value.",
+			"description": "I get the native type name of a value.",
 			"arguments": [{
 				"name": "value",
 				"type": "any"
+			}],
+			"return": "string"
+		});
+
+		meta({
+			"entity": "function",
+			"name": "is",
+			"description": "I test the type name of a value against a specified type name.",
+			"arguments": [{
+				"name": "type",
+				"type": "string"
 			}, {
-				"name": "custom",
-				"type": "object.function",
-				"description": "An object of functions. Key names map to type names. Functions will accept the value and return a string representing a custom type.",
-				"required": false
+				"name": "value",
+				"type": "any"
+			}],
+			"return": "boolean"
+		});
+
+		meta({
+			"entity": "function",
+			"name": "custom",
+			"description": "For creating a custom type tester that extends stock tester.",
+			"arguments": [{
+				"name": "subtypes",
+				"type": "object",
+				"description": "Object's keys map to native type names. Newly created tester's methods delegate to subtypes functions. Object's values must be functions that implement the type.of signature. A function for each native types is not required. Implement only as many subtypes as necessary."
 			}],
 			"return": {
-				"type": "string",
-				"description": "One of the following types: string, number, boolean, array, object, date, regexp, function, undefined, or null. Result may be a custom type if custom is passed in"
+				"type": "object",
+				"description": "Custom type tester containing 'of' and 'is' methods."
 			}
 		});
 
 		var toString = Object.prototype.toString;
 
-		function of (value, custom) {
+		function of (value) {
 			var type = typeof value;
 			if ("object" === type) {
 				type = toString.call(value).slice(8, -1).toLowerCase();
 			}
-			if (custom && custom[type]) {
-				type = custom[type](value);
-			}
 			return type;
 		}
 
-		meta({
-			"entity": "function",
-			"name": "is",
-			"description": "I test the type of value against a specified type.",
-			"arguments": [{
-				"name": "type",
-				"type": "string",
-				"description": "One of the following types: string, number, boolean, array, object, date, regexp, function, undefined, or null."
-			}, {
-				"name": "value",
-				"type": "any"
-			}, {
-				"name": "custom",
-				"type": "object.function",
-				"description": "An object of functions. Key names map to type names. Functions will accept the value and return a string representing a custom type.",
-				"required": false
-			}],
-			"return": {
-				"type": "boolean",
-				"description": "True if value is of the specified type"
-			}
-		});
+		function is (type, value) {
+			return of(value) === type;
+		}
 
-		function is (type, value, custom) {
-			return of(value, custom) === type;
+		function custom (subtypes) {
+			function _of (value) {
+				var type = of(value);
+				if (hasSubtypes(type)) {
+					type = getSubtype(type, value);
+				}
+				return type;
+			}
+
+			function _is (type, value) {
+				return _of(value) === type;
+			}
+
+			function hasSubtypes (type) {
+				return type in subtypes;
+			}
+
+			function getSubtype (type, value) {
+				return subtypes[type](value);
+			}
+
+			return {
+				of: _of,
+				is: _is
+			};
 		}
 
 		return {
 			of: of,
-			is: is
+			is: is,
+			custom: custom
 		};
 	}
 );
