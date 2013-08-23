@@ -13,7 +13,7 @@ define(
 				"name": "Parser",
 				"extends": Base,
 				"arguments": [{
-					"name"; "root",
+					"name": "root",
 					"type": "string"
 				}]
 			}),
