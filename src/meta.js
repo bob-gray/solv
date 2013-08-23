@@ -1,6 +1,46 @@
 define(function () {
 	function meta (data) {
+		var extends = data.extends,
+			mixin = data.mixin;
+		if (extends) {
+			data.extends = get(extends);
+		}
+		if (mixin) {
+			data.mixin = get(mixin);
+		}
 		return data;
+	}
+
+	function get (key) {
+		var value;
+		if (notModuleName(key)) {
+			try {
+				value = globalEval(key);
+			} catch (ignore) {}
+		}
+		if (isUndefined(value)) {
+			try {
+				value = require(key);
+			} catch (ignore) {}
+		}
+		if (isUndefined(value)) {
+			throw "Unable to get the value of "+ key;
+		}
+	}
+
+	fuction isUndefined (value) {
+		return typeof value === "undefined";
+	}
+
+	isIdentifier.identifier = /^(?!(?:\.|$))(?:(?:\.(?!$))?[_$a-zA-Z]+[_$a-zA-Z0-9]*)+$/;
+
+	function isIdentifier (key) {
+		return isIdentifier.identifier.test(key);
+	}
+
+	function globalEval (key) {
+		var getter = new Function("return "+ key +";");
+		return getter();
 	}
 
 	meta({
