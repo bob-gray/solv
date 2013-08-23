@@ -22,7 +22,7 @@ define(
 			}
 		);
 
-		Parser.regex = /\bmeta\s*\(((?:[^)"]*|".*")*)\)/g;
+		Parser.prototype.regex = /\bmeta\s*\(((?:[^)"]*|".*")*)\)/g;
 
 		Parser.method(
 			meta({
@@ -47,7 +47,7 @@ define(
 
 		function parse (success, file) {
 			var blocks = [];
-			file.replace(findBlocks, function (match, block) {
+			file.replace(this.regex, function (match, block) {
 				blocks.push(JSON.parse(block));
 			});
 			return blocks;
