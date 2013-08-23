@@ -1,7 +1,7 @@
 define(
 	[
-		"./meta",
-		"./type",
+		"../meta",
+		"../type",
 		"./method"
 	],
 	function (meta, type) {

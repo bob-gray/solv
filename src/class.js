@@ -2,12 +2,12 @@ define(
 	[
 		"./meta",
 		"./type",
-		"./extend",
-		"./mixin",
-		"./method",
-		"./overload",
-		"./object",
-		"./array"
+		"./class/extend",
+		"./class/method",
+		"./class/mixin",
+		"./function/overload",
+		"./shim/object",
+		"./shim/array"
 	],
 	function (meta, type) {
 

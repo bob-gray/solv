@@ -1,10 +1,10 @@
 define(
 	[
-		"./meta",
-		"./class",
-		"./type",
-		"./bind",
-		"./array"
+		"../meta",
+		"../class",
+		"../type",
+		"../shim/function",
+		"../shim/array"
 	],
 	function (meta, Class, type) {
 		var Base = Class(

@@ -1,6 +1,6 @@
 define(
 	[
-		"./meta"
+		"../meta"
 	],
 	function (meta) {
 		if (!Object.keys) {

@@ -1,8 +1,8 @@
 define(
 	[
-		"./meta",
-		"./array",
-		"./extend"
+		"../meta",
+		"../shim/array",
+		"../class/extend"
 	],
 	function (meta) {
 		"use strict";

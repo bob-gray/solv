@@ -1,9 +1,9 @@
 define(
 	[
-		"./meta",
-		"./type",
-		"./overload",
-		"./array"
+		"../meta",
+		"../type",
+		"../function/overload",
+		"../shim/array"
 	],
 	function (meta, type) {
 		"use strict";

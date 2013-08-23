@@ -1,10 +1,10 @@
 define(
 	[
-		"./meta",
-		"./type",
+		"../meta",
+		"../type",
 		"./invocation",
-		"./array",
-		"./signatures"
+		"./signatures",
+		"../shim/array"
 	],
 	function (meta, type, Invocation) {
 		"use strict";

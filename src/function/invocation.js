@@ -1,6 +1,6 @@
 define(
 	[
-		"./meta",
+		"../meta",
 		"./implementation-not-found"
 	],
 	function (meta, ImplementationNotFound) {

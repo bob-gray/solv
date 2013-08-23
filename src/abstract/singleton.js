@@ -1,7 +1,7 @@
 define(
 	[
-		"./meta",
-		"./class",
+		"../meta",
+		"../class",
 		"./base"
 	],
 	function (meta, Class, Base) {
