@@ -13,7 +13,7 @@ define(function () {
 
 	function get (key) {
 		var value;
-		if (notModuleName(key)) {
+		if (isIdentifier(key)) {
 			try {
 				value = globalEval(key);
 			} catch (ignore) {}
