@@ -4,12 +4,12 @@ define(
 		"../class",
 		"./base"
 	],
-	function (meta, Class, Base) {
+	function (meta, Class) {
 
 		var Singleton = Class(
 			meta({
 				"name": "Singleton",
-				"extends":  Base
+				"extends":  "solv/abstract/base"
 			}),
 			constructor
 		);
