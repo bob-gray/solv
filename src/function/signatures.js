@@ -69,6 +69,24 @@ define(
 			}
 		});
 
+		meta({
+			"entity": "method",
+			"for": "Function",
+			"name": "getSignatureFromArgumentsMeta",
+			"static": true,
+			"description": "Translates an array of arguments meta data into a signature string",
+			"arguments": [{
+				"name": "argumentsMeta",
+				"type": "array",
+				"description": "An array of object describing the arguments accepted by a function.",
+				"repeating": false
+			}],
+			"return": {
+				"type": "string",
+				"description": "A function signature string"
+			}
+		});
+
 		var whiteSpace = /\s+/g,
 			noneOneMany = /,?([^,]+)([?*+])/g,
 			or = /((?:[^,?|()]+\|)+[^,?|()]+)/g,
@@ -101,15 +119,15 @@ define(
 			return type.of(argument);
 		}
 
-		Function.getSignatureFromArgumentsOptions = function (args) {
+		Function.getSignatureFromArgumentsMeta = function (argumentsMeta) {
 			var signature;
-			if (args.length) {
-				signature = args.map(argumentOptionToSignatureComponent).join(",");
+			if (argumentsMeta.length) {
+				signature = argumentsMeta.map(argumentMetaToSignatureComponent).join(",");
 			}
 			return signature;
 		};
 
-		function argumentOptionToSignatureComponent (arg) {
+		function argumentMetaToSignatureComponent (arg) {
 			var type = arg.type || "any";
 			if (arg.repeating && false !== arg.required) {
 				type += "+";

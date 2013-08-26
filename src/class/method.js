@@ -101,7 +101,7 @@ define(
 		function getSignature (options) {
 			var signature = options.signature;
 			if (!signature && options["arguments"]) {
-				signature = Function.getSignatureFromArgumentsOptions(options["arguments"]);
+				signature = Function.getSignatureFromArgumentsMeta(options["arguments"]);
 			}
 			return signature;
 		}
