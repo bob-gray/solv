@@ -63,14 +63,15 @@ define(
 			var constructor = this,
 				methods = constructor.prototype,
 				existing,
-				existingIsFunction,
-				signature = getSignature(options);
+				overload,
+				signature = getSignature(options),
+				hasSignature = type.is("string", signature);
 
 			if (options.static) {
 				existing = constructor[options.name];
-				existingIsFunction = type.is("function", existing);
+				overload = type.is("function", existing);
 
-				if (!existingIsFunction || options.override) {
+				if (!overload || options.override) {
 					constructor[options.name] = options.implementation;
 				} else {
 					constructor[options.name] = existing.overload(signature, options.implementation);
@@ -81,16 +82,23 @@ define(
 
 			} else {
 				existing = methods[options.name];
-				existingIsFunction = type.is("function", existing);
 
-				if (signature && (!existingIsFunction || options.override)) {
-					existing = Function.Abstract(options.name);
-					existingIsFunction = true;
+				if (options.override) {
+					overload = false;
+				} else {
+					overload = type.is("function", existing);
 				}
 
-				if (existingIsFunction && !options.polyfill) {
+				if (hasSignature && !overload) {
+					existing = Function.Abstract(options.name);
+					overload = true;
+				} else if (overload && options.polyfill) {
+					overload = false;
+				}
+
+				if (overload) {
 					methods[options.name] = existing.overload(signature, options.implementation);
-				} else if (!signature || options.polyfill) {
+				} else if (!options.polyfill) {
 					methods[options.name] = options.implementation;
 				}
 			}
@@ -100,7 +108,7 @@ define(
 
 		function getSignature (options) {
 			var signature = options.signature;
-			if (!signature && options["arguments"]) {
+			if (!type.is("string", signature)) {
 				signature = Function.getSignatureFromArgumentsMeta(options["arguments"]);
 			}
 			return signature;

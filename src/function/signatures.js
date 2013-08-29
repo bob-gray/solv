@@ -121,7 +121,7 @@ define(
 
 		Function.getSignatureFromArgumentsMeta = function (argumentsMeta) {
 			var signature;
-			if (argumentsMeta.length) {
+			if (type.is("array", argumentsMeta)) {
 				signature = argumentsMeta.map(argumentMetaToSignatureComponent).join(",");
 			}
 			return signature;
