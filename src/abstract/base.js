@@ -48,8 +48,7 @@ define(
 				"description": "Invokes a super method with this as the context.",
 				"arguments": [{
 					"type": "string",
-					"name": "method",
-					"required": true
+					"name": "method"
 				}, {
 					"type": "any",
 					"required": false,
@@ -65,6 +64,9 @@ define(
 				"name": "superApply",
 				"description": "Invokes a super method with this as the context; applying args.",
 				"arguments": [{
+					"type": "string",
+					"name": "method"
+				}, {
 					"type": "arguments|array",
 					"name": "args",
 					"required": false
