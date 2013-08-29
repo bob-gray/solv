@@ -63,7 +63,7 @@ define(
 				}
 
 				if (!invocation.signature) {
-					invocation.signature = Function.getArgumentsSignature(arguments);
+					invocation.signature = Function.getInvocationSignature(arguments);
 				}
 
 				invocation.implementationNotFound(functionName);
