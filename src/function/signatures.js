@@ -127,7 +127,10 @@ define(
 				replacement: "(?:$1)"
 			},
 			not = {
-				matcher: /!([^,|]+)/g,
+				matcher: {
+					group: /!\(([^)]+)\)/g,
+					single: /[^?]?!([^,|]+)/g
+				},
 				replacement: "\\b(?!$1)[^,]+"
 			},
 			any = {
@@ -140,7 +143,8 @@ define(
 				signature.replace(whiteSpace.matcher, whiteSpace.replacement)
 					.replace(noneOneMany.matcher, noneOneMany.replacement)
 					.replace(or.matcher, or.replacement)
-					.replace(not.matcher, not.replacement)
+					.replace(not.matcher.group, not.replacement)
+					.replace(not.matcher.single, not.replacement)
 					.replace(any.matcher, any.replacement)
 				+"$";
 		}
@@ -149,7 +153,8 @@ define(
 			return "^"+
 				signature.replace(whiteSpace.matcher, whiteSpace.replacement)
 					.replace(or.matcher, or.replacement)
-					.replace(not.matcher, not.replacement)
+					.replace(not.matcher.group, not.replacement)
+					.replace(not.matcher.single, not.replacement)
 					.replace(any.matcher, any.replacement)
 				+"$";
 		}
