@@ -65,7 +65,18 @@ define(
 				existing,
 				overload,
 				signature = getSignature(options),
-				hasSignature = type.is("string", signature);
+				hasSignature = type.is("string", signature),
+				returnType;
+
+			if (type.is("string", options.returns)) {
+				returnType = options.returns;
+			} else if (options.returns && type.is("string", options.returns.type)) {
+				returnType = options.returns.type;
+			}
+
+			if (returnType) {
+				options.implementation = options.implementation.validateReturnType(returnType, returnTypeFail);
+			}
 
 			if (options.static) {
 				existing = constructor[options.name];
@@ -101,6 +112,10 @@ define(
 				} else if (!options.polyfill) {
 					methods[options.name] = options.implementation;
 				}
+			}
+
+			function returnTypeFail () {
+
 			}
 
 			return constructor;
