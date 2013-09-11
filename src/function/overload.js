@@ -3,19 +3,17 @@ define(
 		"../meta",
 		"../type",
 		"./invocation",
-		"./signatures",
-		"../shim/array"
+		"./signatures"
 	],
 	function (meta, type, Invocation) {
 		"use strict";
 
 		meta({
 			"entity": "module",
-			"export": "Function",
-			"description": "Allows for function overloading and argument validation"
+			"description": "Allows for function overloading by argument signature validation"
 		});
 
-		var Abstract = meta({
+		meta({
 			"entity": "method",
 			"for": "Function",
 			"name": "Abstract",
@@ -32,7 +30,7 @@ define(
 			}
 		});
 
-		var overload = meta({
+		meta({
 			"entity": "method",
 			"for": "Function",
 			"name": "overload",
