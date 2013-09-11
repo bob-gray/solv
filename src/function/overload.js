@@ -24,7 +24,7 @@ define(
 				"type": "string",
 				"description": "The "
 			}],
-			"return": {
+			"returns": {
 				"type": "function",
 				"description": "First looks for a default implementation and invokes it if found. If default implementation is not found throws an ImplementationNotFound error."
 			}
@@ -44,7 +44,7 @@ define(
 				"name": "implementation",
 				"type": "function"
 			}],
-			"return": {
+			"returns": {
 				"type": "function",
 				"description": "New router proxy function"
 			}

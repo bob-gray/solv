@@ -19,10 +19,12 @@ define(
 			"types": "string, number, boolean, array, object, date, regexp, function, undefined, null or any",
 			"examples": {
 				"boolean?, string|number, function": "Matches (boolean, number, function) and (boolean, string, function) and (string,function) and (number,function). Does not match (boolean, function) or (boolean, number)",
-				"string, object, any, !null*": "Matches (string, object, object) and (string, object, number, number) and (string, object, null). Does not match (string, object, object, null)."
+				"string, object, any, !(null|undefined)*": "Matches (string, object, object) and (string, object, number, number) and (string, object, null). Does not match (string, object, object, null)."
 			},
 			"meta characters": [{
 				"!": "Exclude a type. !string can be read 'not string'"
+			}, {
+				"()": "Creates a group to be excluded. !(number|string) can be read 'not number or string'"
 			}, {
 				"|": "Any of a group of types (or exclusions). number|boolean can be read 'number or boolean'"
 			}, {
@@ -45,7 +47,7 @@ define(
 				"type": "string",
 				"description": "A comma delimited list that describes the argument types to be passed to a function. Can include '?*+|!'. See function signature."
 			}],
-			"return": {
+			"returns": {
 				"type": "regexp",
 				"description": "Can be used for testing against an arguments signature"
 			}
@@ -62,7 +64,7 @@ define(
 				"type": "string",
 				"description": "A pipe delimited list of possible return types. Can include '!'. See function signature."
 			}],
-			"return": {
+			"returns": {
 				"type": "regexp",
 				"description": "Can be used for testing against the type of a function's return value"
 			}
@@ -80,7 +82,7 @@ define(
 				"description": "An arguments object from a function invocation.",
 				"repeating": false
 			}],
-			"return": {
+			"returns": {
 				"type": "string",
 				"description": "Comma delimited list of types"
 			}
@@ -98,7 +100,7 @@ define(
 				"description": "An array of object describing the arguments accepted by a function.",
 				"repeating": false
 			}],
-			"return": {
+			"returns": {
 				"type": "string",
 				"description": "A function signature string"
 			}

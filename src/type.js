@@ -18,7 +18,7 @@ define(
 				"name": "value",
 				"type": "any"
 			}],
-			"return": "string"
+			"returns": "string"
 		});
 
 		meta({
@@ -32,7 +32,7 @@ define(
 				"name": "value",
 				"type": "any"
 			}],
-			"return": "boolean"
+			"returns": "boolean"
 		});
 
 		meta({
@@ -44,7 +44,7 @@ define(
 				"type": "object",
 				"description": "Object's keys map to native type names. Object's values must be functions that implement the type.of signature. Newly created tester's methods delegate to subtypes functions where provided. A function for each native types is not required. Implement only the required subtypes."
 			}],
-			"return": {
+			"returns": {
 				"type": "object",
 				"description": "Custom type tester containing 'of' and 'is' methods."
 			}

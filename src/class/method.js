@@ -39,7 +39,7 @@ define(
 				"type": "function",
 				"description": "This an implementation of the method. It is executed when the method is invoked and the arguments match this implementation signature."
 			}],
-			"return": {
+			"returns": {
 				"type": "function",
 				"description": "The constructor (the method's owner). This allows chaining."
 			}

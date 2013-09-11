@@ -27,7 +27,7 @@ define(
 				"type": "function",
 				"description": "Callback executed when the type of the function return value doesn't match returnSignature."
 			}],
-			"return": {
+			"returns": {
 				"type": "function",
 				"description": "Proxy function to be executed in place of original function."
 			}

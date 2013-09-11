@@ -27,7 +27,7 @@ define(
 				"type": "arguments",
 				"description": "An arguments object from within a function"
 			}],
-			"return": "array"
+			"returns": "array"
 		});
 
 		meta({
@@ -63,7 +63,7 @@ define(
 				"type": "object",
 				"description": "Object to use as this when executing callback."
 			}],
-			"return": "array"
+			"returns": "array"
 		});
 
 		meta({
@@ -81,7 +81,7 @@ define(
 				"type": "object",
 				"description": "Object to use as this when executing callback."
 			}],
-			"return": "array"
+			"returns": "array"
 		});
 
 		var slice = Array.prototype.slice;

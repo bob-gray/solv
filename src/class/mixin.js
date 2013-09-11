@@ -28,7 +28,7 @@ define(
 					"type": "object",
 					"description": ""
 				}],
-				"return": "function"
+				"returns": "function"
 			}),
 			mixin
 		);
@@ -43,7 +43,7 @@ define(
 					"type": "function",
 					"description": ""
 				}],
-				"return": "function"
+				"returns": "function"
 			}),
 			function (constructor) {
 				return mixin.call(this, constructor.prototype)

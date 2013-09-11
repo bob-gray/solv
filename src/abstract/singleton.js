@@ -20,7 +20,11 @@ define(
 				"for": "Singleton",
 				"static": true,
 				"name": "getInstance",
-				"description": "Useful for getting the singleton instance from class constructor."
+				"description": "Useful for getting the singleton instance from class constructor.",
+				"returns": {
+					"type": "object",
+					"description": "Single instance."
+				}
 			}),
 			getInstance
 		);

@@ -33,7 +33,7 @@ define(
 				"required": false,
 				"repeating": true
 			}],
-			"return": "function"
+			"returns": "function"
 		});
 
 		if (!Function.prototype.bind) {

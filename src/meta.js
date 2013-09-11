@@ -58,7 +58,7 @@ define(function () {
 			"type": "object",
 			"description": "Must be written as valid JSON including quoted key names. This allows meta to be extracted and parsed by documentation systems."
 		}],
-		"return": {
+		"returns": {
 			"type": "object",
 			"description": "The data the was passed in"
 		}

@@ -21,7 +21,7 @@ define(
 				"type": "function",
 				"description": "Parent class constructor"
 			}],
-			"return": {
+			"returns": {
 				"type": "function",
 				"description": "Child's constructor (the method's owner). This allows chaining."
 			}
