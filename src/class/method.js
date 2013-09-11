@@ -3,7 +3,7 @@ define(
 		"../meta",
 		"../type",
 		"../function/overload",
-		"../shim/array"
+		"../function/validate-return-type"
 	],
 	function (meta, type) {
 		"use strict";
