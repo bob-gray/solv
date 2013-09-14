@@ -1,0 +1,10 @@
+{
+	"name": "solv",
+	"version": "0.3.0",
+	"devDependencies": {
+		"grunt": "~0.4.1",
+		"grunt-contrib-jshint": "~0.6.4",
+		"grunt-karma": "~0.6.2",
+		"grunt-contrib-requirejs": "~0.4.1"
+	}
+}
