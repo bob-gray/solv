@@ -1,48 +1,7 @@
+/* jshint evil:true */
+
 define(function () {
-	function meta (data) {
-		var ext = data["extends"],
-			mixin = data.mixin;
-		if (ext) {
-			data["extends"] = get(ext);
-		}
-		if (mixin) {
-			data.mixin = get(mixin);
-		}
-		return data;
-	}
-
-	function get (key) {
-		var value;
-		if (isIdentifier(key)) {
-			try {
-				value = globalEval(key);
-			} catch (ignore) {}
-		}
-		if (isUndefined(value)) {
-			try {
-				value = require(key);
-			} catch (ignore) {}
-		}
-		if (isUndefined(value)) {
-			throw "Unable to get the value of "+ key;
-		}
-		return value;
-	}
-
-	function isUndefined (value) {
-		return typeof value === "undefined";
-	}
-
-	isIdentifier.identifier = /^(?!(?:\.|$))(?:(?:\.(?!$))?[_$a-zA-Z]+[_$a-zA-Z0-9]*)+$/;
-
-	function isIdentifier (key) {
-		return isIdentifier.identifier.test(key);
-	}
-
-	function globalEval (key) {
-		var getter = new Function("return "+ key +";");
-		return getter();
-	}
+	"use strict";
 
 	meta({
 		"entity": "module",
@@ -63,6 +22,59 @@ define(function () {
 			"description": "The data the was passed in"
 		}
 	});
+
+	function meta (data) {
+		var ext = data["extends"],
+			mixin = data.mixin;
+		if (ext) {
+			data["extends"] = get(ext);
+		}
+		if (mixin) {
+			data.mixin = get(mixin);
+		}
+		return data;
+	}
+
+	function get (key) {
+		var value;
+		if (isIdentifier(key)) {
+			value = getGlobal(key);
+		}
+		if (isUndefined(value)) {
+			value = getModule(key);
+		}
+		if (isUndefined(value)) {
+			throw "Unable to get the value of "+ key;
+		}
+		return value;
+	}
+
+	isIdentifier.identifier = /^(?!(?:\.|$))(?:(?:\.(?!$))?[_$a-zA-Z]+[_$a-zA-Z0-9]*)+$/;
+
+	function isIdentifier (key) {
+		return isIdentifier.identifier.test(key);
+	}
+
+	function getGlobal (key) {
+		try {
+			return globalEval(key);
+		} catch (ignore) {}
+	}
+
+	function getModule (key) {
+		try {
+			return require(key);
+		} catch (ignore) {}
+	}
+
+	function isUndefined (value) {
+		return typeof value === "undefined";
+	}
+
+	function globalEval (key) {
+		var getter = new Function("return "+ key +";");
+		return getter();
+	}
 
 	return meta;
 });

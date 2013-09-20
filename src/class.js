@@ -1,3 +1,5 @@
+/*jshint evil:true, -W021 */
+
 define(
 	[
 		"./meta",
@@ -10,16 +12,17 @@ define(
 		"./shim/array"
 	],
 	function (meta, type) {
+		"use strict";
 
 		meta({
 			"entity": "module",
-			"export": "Class",
+			"export": "createClass",
 			"description": "System for building classes"
 		});
 
 		meta({
 			"entity": "function",
-			"name": "Class",
+			"name": "createClass",
 			"description": "Creates a new class",
 			"arguments": [{
 				"name": "init",
@@ -46,7 +49,7 @@ define(
 			}
 		});
 
-		function Class (options, init) {
+		function createClass (options, init) {
 			var forcingNew = false,
 				name = options.name || init.name;
 
@@ -71,6 +74,8 @@ define(
 				return (instance instanceof Constructor) === false;
 			}
 
+			// evil: only useful for inspecting constructor names in development
+			// safe to remove
 			if (name) {
 				Constructor = Constructor.toString().replace(/Constructor/g, name);
 				eval("Constructor = "+ Constructor +";");
@@ -87,12 +92,13 @@ define(
 			return Constructor;
 		}
 
-		Class = Class.overload("function?", ClassNoOptions);
+		// W021: jshint
+		createClass = createClass.overload("function?", createClassNoOptions);
 
-		function ClassNoOptions (init) {
-			return Class({}, init);
+		function createClassNoOptions (init) {
+			return createClass({}, init);
 		}
 
-		return Class;
+		return createClass;
 	}
 );

@@ -34,7 +34,7 @@ define(
 			"name": "forEach",
 			"entity": "method",
 			"for": "Array",
-			"polyfill": true,
+			"shim": true,
 			"description": "Executes a provided function once per array element.",
 			"arguments": [{
 				"name": "callback",
@@ -52,7 +52,7 @@ define(
 			"entity": "method",
 			"for": "Array",
 			"name": "map",
-			"polyfill": true,
+			"shim": true,
 			"description": "Creates a new array with the results of calling a provided function on every element in this array.",
 			"arguments": [{
 				"name": "callback",
@@ -70,7 +70,7 @@ define(
 			"entity": "method",
 			"for": "Array",
 			"name": "filter",
-			"polyfill": true,
+			"shim": true,
 			"description": "Creates a new array with all elements that pass the test implemented by the provided function.",
 			"arguments": [{
 				"name": "callback",
@@ -95,7 +95,7 @@ define(
 				var i = 0,
 					len = this.length;
 
-				for (; i < len; ++i) {
+				for (; i < len; i += 1) {
 					callback.call(context, this[i], i, this);
 				}
 			};
@@ -115,7 +115,7 @@ define(
 		if (!Array.prototype.filter) {
 			Array.prototype.filter = function (callback, context) {
 				var filtered = [];
-				this.forEach(map);
+				this.forEach(filter);
 				function filter (element, index, array) {
 					if (callback.call(context, element, index, array)) {
 						filtered.push(element);

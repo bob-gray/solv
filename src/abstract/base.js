@@ -6,8 +6,10 @@ define(
 		"../shim/function",
 		"../shim/array"
 	],
-	function (meta, Class, type) {
-		var Base = Class(
+	function (meta, createClass, type) {
+		"use strict";
+
+		var Base = createClass(
 			meta({
 				"entity": "class",
 				"name": "Base",

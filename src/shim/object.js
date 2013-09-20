@@ -3,11 +3,13 @@ define(
 		"../meta"
 	],
 	function (meta) {
+		"use strict";
+
 		if (!Object.keys) {
 			Object.keys = function(object) {
 				var keys = [];
 				if (isValidObject(object)) {
-					throw TypeError("Object.keys called on non-object");
+					throw new TypeError("Object.keys called on non-object");
 				}
 				for (var key in object) {
 					if (object.hasOwnProperty(key)) {
@@ -15,12 +17,12 @@ define(
 					}
 				}
 				return keys;
-			}
+			};
 		}
 
 		function isValidObject (object) {
 			var type = typeof object;
-			return type != "object" && type != "function" || object == null;
+			return type !== "object" && type !== "function" || object === null;
 		}
 	}
 );

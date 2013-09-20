@@ -4,9 +4,10 @@ define(
 		"../class",
 		"./base"
 	],
-	function (meta, Class) {
+	function (meta, createClass) {
+		"use strict";
 
-		var Singleton = Class(
+		var Singleton = createClass(
 			meta({
 				"name": "Singleton",
 				"extends":  "solv/abstract/base"

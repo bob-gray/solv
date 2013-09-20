@@ -46,7 +46,7 @@ define(
 				"returns": "function"
 			}),
 			function (constructor) {
-				return mixin.call(this, constructor.prototype)
+				return mixin.call(this, constructor.prototype);
 			}
 		);
 

@@ -2,7 +2,7 @@ define(
 	[
 		"../meta",
 		"../type",
-	 	"../shim/array"
+		"../shim/array"
 	],
 	function (meta, type) {
 		"use strict";
@@ -147,8 +147,7 @@ define(
 					.replace(or.matcher, or.replacement)
 					.replace(not.matcher.group, not.replacement)
 					.replace(not.matcher.single, not.replacement)
-					.replace(any.matcher, any.replacement)
-				+"$";
+					.replace(any.matcher, any.replacement) +"$";
 		}
 
 		function createReturnSignatureSrc (signature) {
@@ -157,8 +156,7 @@ define(
 					.replace(or.matcher, or.replacement)
 					.replace(not.matcher.group, not.replacement)
 					.replace(not.matcher.single, not.replacement)
-					.replace(any.matcher, any.replacement)
-				+"$";
+					.replace(any.matcher, any.replacement) +"$";
 		}
 
 		Function.getInvocationSignature = function (args) {
@@ -185,7 +183,7 @@ define(
 			if (arg.repeating && false !== arg.required) {
 				type += "+";
 			} else if (arg.repeating && false === arg.required) {
-				type += "*"
+				type += "*";
 			} else if (false === arg.required) {
 				type += "?";
 			}

@@ -30,7 +30,7 @@ define(
 			this._super.constructor.call(this, this.message);
 		}
 
-		ExtendError();
+		extendError();
 
 		function normalizeMessageParts () {
 			if (this.implementationSignatures && this.implementationSignatures.length) {
@@ -49,7 +49,7 @@ define(
 			});
 		}
 
-		function ExtendError () {
+		function extendError () {
 			var E = function () {},
 				proto;
 			E.prototype = Error.prototype;
