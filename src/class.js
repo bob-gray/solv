@@ -74,8 +74,7 @@ define(
 				return (instance instanceof Constructor) === false;
 			}
 
-			// evil: only useful for inspecting constructor names in development
-			// safe to remove
+			// evil: only useful for inspecting constructor names in development - safe to remove
 			if (name) {
 				Constructor = Constructor.toString().replace(/Constructor/g, name);
 				eval("Constructor = "+ Constructor +";");
