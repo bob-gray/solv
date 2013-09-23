@@ -66,7 +66,7 @@ define(["src/type"], function (type) {
 		return function () {
 			var moreArgs = argsToArray(arguments);
 			return fn.apply(this, args.concat(moreArgs));
-		}
+		};
 	}
 
 	function argsToArray (args) {
