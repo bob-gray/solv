@@ -146,19 +146,19 @@ define(
 
 		function method (options) {
 			validateReturnType(options);
-			attachMethod(options);
+			attachMethod(this, options);
 			return this;
 		}
 
-		function attachMethod (options) {
+		function attachMethod (constructor, options) {
 			if (options.static) {
-				attachStaticMethod(this, options);
+				attachStaticMethod(constructor, options);
 			} else if (options["default"]) {
-				attachDefaultMethod(this, options);
+				attachDefaultMethod(constructor, options);
 			} else if (options.shim) {
-				attachShimMethod(this, options);
+				attachShimMethod(constructor, options);
 			} else {
-				attachInstanceMethod(this, options);
+				attachInstanceMethod(constructor, options);
 			}
 		}
 
