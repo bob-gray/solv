@@ -51,7 +51,12 @@ define(
 
 		function createClass (options, init) {
 			var forcingNew = false,
-				name = options.name || init.name;
+				hasInit = type.is("function", init),
+				name = options.name;
+
+			if (!name && hasInit && init.name) {
+				name = init.name;
+			}
 
 			function Constructor () {
 				var instance = this;
@@ -67,7 +72,7 @@ define(
 			}
 
 			function shouldInvokeInit () {
-				return !forcingNew && type.is("function", init);
+				return !forcingNew && hasInit;
 			}
 
 			function notAnInstance(instance) {
