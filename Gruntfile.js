@@ -19,7 +19,7 @@ module.exports = function (grunt) {
 				validthis: true,
 				maxparams: 3,
 				maxdepth: 2,
-				maxstatements: 5,
+				//maxstatements: 5,
 				maxcomplexity: 5,
 				globals: {
 					require: false,
