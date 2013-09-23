@@ -7,7 +7,7 @@ define(
 
 		meta({
 			"entity": "module",
-			"description": "For testing value types. Unfortunately typeof falls short and returns 'object' for for native JavaScript types: array, date, regexp, arguments and null. Native type names for use with type.of and type.is include: string, number, boolean, array, object, date, regexp, function, undefined, arguments or null."
+			"description": "Native typeof operator returns 'object' for for JavaScript types: array, date, regexp, arguments and null. Native type names for use with type.of and type.is include: string, number, boolean, array, object, date, regexp, function, undefined, arguments or null."
 		});
 
 		meta({
@@ -24,7 +24,7 @@ define(
 		meta({
 			"entity": "function",
 			"name": "is",
-			"description": "I test the type name of a value against a specified type name.",
+			"description": "I test the native type name of a value against a specified type name.",
 			"arguments": [{
 				"name": "type",
 				"type": "string"
@@ -50,14 +50,21 @@ define(
 			}
 		});
 
-		var toString = Object.prototype.toString;
-
 		function of (value) {
 			var type = typeof value;
-			if ("object" === type) {
-				type = toString.call(value).slice(8, -1).toLowerCase();
+			if (null === value) {
+				type = "null";
+			} else if ("object" === type) {
+				type = getObjectType(value);
 			}
 			return type;
+		}
+
+		var toString = Object.prototype.toString;
+
+		function getObjectType (value) {
+			var objectString = toString.call(value);
+			return objectString.slice(8, -1).toLowerCase();
 		}
 
 		function is (type, value) {
