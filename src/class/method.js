@@ -150,6 +150,15 @@ define(
 			return this;
 		}
 
+		function validateReturnType (options) {
+			var returnType = getReturnType(options),
+				failHandler;
+			if (returnType) {
+				failHandler = returnTypeFail(options.name);
+				options.implementation = options.implementation.validateReturnType(returnType, failHandler);
+			}
+		}
+
 		function attachMethod (constructor, options) {
 			if (options.static) {
 				attachStaticMethod(constructor, options);
@@ -160,6 +169,23 @@ define(
 			} else {
 				attachInstanceMethod(constructor, options);
 			}
+		}
+
+		function getReturnType (options) {
+			var returns = options.returns,
+				returnType;
+			if (type.is("string", returns)) {
+				returnType = returns;
+			} else if (returns && type.is("string", returns.type)) {
+				returnType = returns.type;
+			}
+			return returnType;
+		}
+
+		function returnTypeFail (method) {
+			return function (returnType) {
+				throw "Method "+ method +" return type was expected to be "+ returnType.expected +"; actual return type was "+ returnType.actual;
+			};
 		}
 
 		function attachStaticMethod (constructor, options) {
@@ -191,20 +217,14 @@ define(
 		function attachInstanceMethod (constructor, options) {
 			var methods = constructor.prototype,
 				existing = methods[options.name],
-				overload,
+				overload = true,
 				signature = getSignature(options),
-				hasSignature = type.is("string", signature);
+				hasSignature = type.is("string", signature),
+				implementationExists = type.is("function", existing);
 
-			if (options.override) {
-				overload = false;
-			} else {
-				overload = type.is("function", existing);
-			}
-
-			if (hasSignature && !overload) {
+			if (hasSignature && (!implementationExists || options.override)) {
 				existing = Function.Abstract(options.name);
-				overload = true;
-			} else if (overload) {
+			} else if (options.override) {
 				overload = false;
 			}
 
@@ -221,29 +241,6 @@ define(
 				signature = Function.getSignatureFromArgumentsMeta(options["arguments"]);
 			}
 			return signature;
-		}
-
-		function validateReturnType (options) {
-			var returnType = getReturnType(options);
-
-			if (returnType) {
-				options.implementation = options.implementation.validateReturnType(returnType, returnTypeFail);
-			}
-
-			function returnTypeFail (returnType) {
-				throw "Method "+ options.name +" return type was expected to be "+ returnType.expected +"; actual return type was "+ returnType.actual;
-			}
-		}
-
-		function getReturnType (options) {
-			var returns = options.returns,
-				returnType;
-			if (type.is("string", returns)) {
-				returnType = returns;
-			} else if (returns && type.is("string", returns.type)) {
-				returnType = returns.type;
-			}
-			return returnType;
 		}
 	}
 );
