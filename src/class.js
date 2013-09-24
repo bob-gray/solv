@@ -89,8 +89,8 @@ define(
 				Constructor.extend(options.extends);
 			}
 
-			if (options.mixin) {
-				Constructor.mixin(options.mixin);
+			if (options.mixins) {
+				Constructor.mixin(options.mixins);
 			}
 
 			return Constructor;
