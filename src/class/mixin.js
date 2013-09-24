@@ -2,14 +2,15 @@ define(
 	[
 		"../meta",
 		"../type",
-		"./method"
+		"./method",
+		"../shim/array"
 	],
 	function (meta, type) {
 		"use strict";
 
 		meta({
 			"entity": "module",
-			"description": "Augments Function prototype"
+			"description": "Augments Function prototype with mixin method for decorating a constructor function's prototype."
 		});
 
 		meta({
@@ -22,11 +23,10 @@ define(
 			meta({
 				"entity": "method",
 				"name": "mixin",
-				"description": "",
+				"description": "Objects own methods will be appended to function's prototype.",
 				"arguments": [{
 					"name": "mixins",
-					"type": "object",
-					"description": ""
+					"type": "object"
 				}],
 				"returns": "function"
 			}),
@@ -37,11 +37,10 @@ define(
 			meta({
 				"entity": "method",
 				"name": "mixin",
-				"description": "",
+				"description": "Constructor's own methods will be appended to function's prototype.",
 				"arguments": [{
 					"name": "constructor",
-					"type": "function",
-					"description": ""
+					"type": "function"
 				}],
 				"returns": "function"
 			}),
@@ -49,6 +48,28 @@ define(
 				return mixin.call(this, constructor.prototype);
 			}
 		);
+
+		Function.method(
+			meta({
+				"entity": "method",
+				"name": "mixin",
+				"description": "Object's and Constructor's own methods will be appended to function's prototype.",
+				"arguments": [{
+					"name": "mixins",
+					"type": "array",
+					"description": "Array of objects or constructor functions"
+				}],
+				"returns": "function"
+			}),
+			function (mixins) {
+				mixins.forEach(mixinConstructorOrObject, this);
+				return this;
+			}
+		);
+
+		function mixinConstructorOrObject (mixin, index, array) {
+			this.mixin(mixin);
+		}
 
 		function mixin (mixins) {
 			var Constructor = this;
