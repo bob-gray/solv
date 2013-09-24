@@ -15,7 +15,7 @@ define(function () {
 		"arguments": [{
 			"name": "data",
 			"type": "object",
-			"description": "Must be written as valid JSON including quoted key names. This allows meta to be extracted and parsed by documentation systems."
+			"description": "Must be written as valid JSON. This allows meta to be extracted and parsed by documentation systems."
 		}],
 		"returns": {
 			"type": "object",
@@ -25,17 +25,35 @@ define(function () {
 
 	function meta (data) {
 		var ext = data["extends"],
-			mixin = data.mixin;
+			mixins = data.mixins;
 		if (ext) {
 			data["extends"] = get(ext);
 		}
-		if (mixin) {
-			data.mixin = get(mixin);
+		if (mixins) {
+			data.mixins = get(mixins);
 		}
 		return data;
 	}
 
 	function get (key) {
+		var value;
+		if (isArray(key)) {
+			value = getFromKeyArray(key);
+		} else {
+			value = getFromKey(key);
+		}
+		return value;
+	}
+
+	function isArray (value) {
+		return "Array" === Object.prototype.toString.call(value).slice(8, -1);
+	}
+
+	function getFromKeyArray (keyArray) {
+		return mapKeys(keyArray, getFromKey);
+	}
+
+	function getFromKey (key) {
 		var value;
 		if (isIdentifier(key)) {
 			value = getGlobal(key);
@@ -49,10 +67,22 @@ define(function () {
 		return value;
 	}
 
-	isIdentifier.identifier = /^(?!(?:\.|$))(?:(?:\.(?!$))?[_$a-zA-Z]+[_$a-zA-Z0-9]*)+$/;
+	function mapKeys (array, callback) {
+		var mapped = [];
+		arrayLoop(array, function (key) {
+			mapped.push(callback(key));
+		});
+		return mapped;
+	}
 
 	function isIdentifier (key) {
 		return isIdentifier.identifier.test(key);
+	}
+
+	isIdentifier.identifier = /^(?!(?:\.|$))(?:(?:\.(?!$))?[_$a-zA-Z]+[_$a-zA-Z0-9]*)+$/;
+
+	function isUndefined (value) {
+		return typeof value === "undefined";
 	}
 
 	function getGlobal (key) {
@@ -67,8 +97,12 @@ define(function () {
 		} catch (ignore) {}
 	}
 
-	function isUndefined (value) {
-		return typeof value === "undefined";
+	function arrayLoop (array, callback) {
+		var i = 0,
+			length = array.length;
+		for (; i < length; i += 1) {
+			callback(array[i]);
+		}
 	}
 
 	function globalEval (key) {
