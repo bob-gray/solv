@@ -216,15 +216,15 @@ define(
 
 		function attachInstanceMethod (constructor, options) {
 			var methods = constructor.prototype,
-				existing = methods[options.name],
 				overload = true,
 				signature = getSignature(options),
 				hasSignature = type.is("string", signature),
+				existing = methods[options.name],
 				implementationExists = type.is("function", existing);
 
 			if (hasSignature && (!implementationExists || options.override)) {
 				existing = Function.Abstract(options.name);
-			} else if (options.override) {
+			} else if (!hasSignature) {
 				overload = false;
 			}
 
