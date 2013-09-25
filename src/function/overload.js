@@ -26,7 +26,7 @@ define(
 			}],
 			"returns": {
 				"type": "function",
-				"description": "First looks for a default implementation and invokes it if found. If default implementation is not found throws an ImplementationNotFound error."
+				"description": "throws an ImplementationNotFound error."
 			}
 		});
 
@@ -52,12 +52,9 @@ define(
 
 		var invocation = new Invocation();
 
+		// defined here for scope reference to invocation
 		Function.Abstract = function (functionName) {
 			return function () {
-				var defaultImplementation = this["__default__: "+ functionName];
-				if (type.is("function", defaultImplementation)) {
-					return defaultImplementation.apply(this, arguments);
-				}
 				if (!invocation.signature) {
 					invocation.signature = Function.getInvocationSignature(arguments);
 				}

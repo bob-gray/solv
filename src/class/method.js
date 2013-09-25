@@ -72,11 +72,6 @@ define(
 				"default": false,
 				"description": "Override existing implementation as opposed to overloading it."
 			}, {
-				"name": "default",
-				"type": "boolean",
-				"default": false,
-				"description": "Default implementations are only executed if no matching signature is found."
-			}, {
 				"name": "shim",
 				"type": "boolean",
 				"default": "false",
@@ -130,7 +125,7 @@ define(
 			}]
 		});
 
-		Function.prototype.method = Function.Abstract("method")
+		Function.prototype.method = new Function.Abstract("method")
 		.overload("string, function", function (name, implementation) {
 			var options = {
 				name: name,
@@ -162,8 +157,6 @@ define(
 		function attachMethod (constructor, options) {
 			if (options.static) {
 				attachStaticMethod(constructor, options);
-			} else if (options["default"]) {
-				attachDefaultMethod(constructor, options);
 			} else if (options.shim) {
 				attachShimMethod(constructor, options);
 			} else {
@@ -200,12 +193,6 @@ define(
 			}
 		}
 
-		function attachDefaultMethod (constructor, options) {
-			var methods = constructor.prototype,
-				defaultName = "__default__: "+ options.name;
-			methods[defaultName] = options.implementation;
-		}
-
 		function attachShimMethod (constructor, options) {
 			var methods = constructor.prototype,
 				existing = methods[options.name];
@@ -223,7 +210,7 @@ define(
 				implementationExists = type.is("function", existing);
 
 			if (hasSignature && (!implementationExists || options.override)) {
-				existing = Function.Abstract(options.name);
+				existing = new Function.Abstract(options.name);
 			} else if (!hasSignature) {
 				overload = false;
 			}
