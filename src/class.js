@@ -1,4 +1,4 @@
-/*jshint evil:true, -W021 */
+/*jshint evil:true */
 
 define(
 	[
@@ -49,7 +49,15 @@ define(
 			}
 		});
 
-		function createClass (options, init) {
+		var createClass = new Function.Abstract("createClass")
+			.overload("function?", createNoOptions)
+			.overload("object,function?", create);
+
+		function createNoOptions (init) {
+			return create({}, init);
+		}
+
+		function create (options, init) {
 			var forcingNew = false,
 				hasInit = type.is("function", init),
 				name = options.name;
@@ -85,8 +93,8 @@ define(
 				eval("Constructor = "+ Constructor +";");
 			}
 
-			if (options.extends) {
-				Constructor.extend(options.extends);
+			if (options["extends"]) {
+				Constructor.extend(options["extends"]);
 			}
 
 			if (options.mixins) {
@@ -94,13 +102,6 @@ define(
 			}
 
 			return Constructor;
-		}
-
-		// W021: jshint
-		createClass = createClass.overload("function?", createClassNoOptions);
-
-		function createClassNoOptions (init) {
-			return createClass({}, init);
 		}
 
 		return createClass;
