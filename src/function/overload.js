@@ -54,75 +54,57 @@ define(
 
 		Function.Abstract = function (functionName) {
 			return function () {
-				var defaultImplementation = this["@default: "+ functionName];
-
+				var defaultImplementation = this["__default__: "+ functionName];
 				if (type.is("function", defaultImplementation)) {
 					return defaultImplementation.apply(this, arguments);
 				}
-
 				if (!invocation.signature) {
 					invocation.signature = Function.getInvocationSignature(arguments);
 				}
-
 				invocation.implementationNotFound(functionName);
 			};
 		};
 
-		Function.prototype.overload = function (implementationSignature, implementation) {
-			var fn = this,
-				compiledSignature,
-				router;
+		Function.prototype.overload = function (implementationSignature, thisImplementation) {
+			var nextImplementation = this,
+				compiledImplementationSignature,
+				overloaded;
 
 			if (1 === arguments.length) {
-				implementation = implementationSignature;
-				implementationSignature = null;
-			}
-
-			if (!implementationSignature) {
-				implementationSignature = list("any", implementation.length);
-				router = routeByLength;
+				thisImplementation = implementationSignature;
+				implementationSignature = list("any", thisImplementation.length);
+				overloaded = overloadByLength;
 			} else {
-				compiledSignature = Function.compileImplementationSignature(implementationSignature);
-				router = routeBySignature;
+				compiledImplementationSignature = Function.compileImplementationSignature(implementationSignature);
+				overloaded = overloadBySignature;
 			}
 
-			function routeByLength () {
-				if (arguments.length === implementation.length) {
-					implementationIsMatch();
+			function overloadByLength () {
+				if (arguments.length === thisImplementation.length) {
+					invocation.matchingImplementationFound(thisImplementation);
+					invocation.setRoute(thisImplementation);
 				} else {
-					implementationIsNotMatch();
+					invocation.addNonMatchingImplementation(implementationSignature);
+					invocation.setRoute(nextImplementation);
 				}
-				return route.apply(this, arguments);
+				return invocation.route(this, arguments);
 			}
 
-			function routeBySignature () {
-				if (invocation.needsSignature(router)) {
-					invocation.signature = Function.getInvocationSignature(arguments);
+			function overloadBySignature () {
+				if (invocation.needsSignature(overloaded)) {
+					invocation.setSignature(arguments);
 				}
-				if (compiledSignature.test(invocation.signature)) {
-					implementationIsMatch();
+				if (invocation.testImplementation(compiledImplementationSignature)) {
+					invocation.matchingImplementationFound(thisImplementation);
+					invocation.setRoute(thisImplementation);
 				} else {
-					implementationIsNotMatch();
+					invocation.addNonMatchingImplementation(implementationSignature);
+					invocation.setRoute(nextImplementation);
 				}
-				return route.apply(this, arguments);
+				return invocation.route(this, arguments);
 			}
 
-			function implementationIsMatch () {
-				invocation.router = implementation;
-			}
-
-			function implementationIsNotMatch () {
-				invocation.router = fn;
-				invocation.nonmatchingImplementationSignatures.push(implementationSignature);
-			}
-
-			function route () {
-				var result = invocation.router.apply(this, arguments);
-				invocation.reset();
-				return result;
-			}
-
-			return router;
+			return overloaded;
 		};
 
 		function list (text, times) {
