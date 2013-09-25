@@ -87,7 +87,7 @@ define(
 					invocation.addNonMatchingImplementation(implementationSignature);
 					invocation.setRoute(nextImplementation);
 				}
-				return invocation.route(this, arguments);
+				return invocation.proceed(this, arguments);
 			}
 
 			function overloadBySignature () {
@@ -101,7 +101,7 @@ define(
 					invocation.addNonMatchingImplementation(implementationSignature);
 					invocation.setRoute(nextImplementation);
 				}
-				return invocation.route(this, arguments);
+				return invocation.proceed(this, arguments);
 			}
 
 			return overloaded;

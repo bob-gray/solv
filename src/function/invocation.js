@@ -55,7 +55,7 @@ define(
 			throw error;
 		};
 
-		Invocation.prototype.route = function (context, args) {
+		Invocation.prototype.proceed = function (context, args) {
 			var route = this.route;
 			if (route === this.matchingImplementation) {
 				this.reset();
