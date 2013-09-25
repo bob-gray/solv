@@ -7,7 +7,7 @@ define(
 
 		meta({
 			"entity": "module",
-			"description": "Native typeof operator returns 'object' for for JavaScript types: array, date, regexp, arguments and null. Native type names for use with type.of and type.is include: string, number, boolean, array, object, date, regexp, function, undefined, arguments or null."
+			"description": "Native typeof operator returns 'object' for for JavaScript types: array, date, regexp, arguments and null. Native type names for use with type.of and type.is include: string, number, boolean, array, object, date, regexp, function, undefined or null."
 		});
 
 		meta({

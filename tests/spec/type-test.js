@@ -2,7 +2,6 @@ define(["src/type"], function (type) {
 	"use strict";
 
 	var subjects = {
-		"arguments": arguments,
 		"array": [],
 		"boolean": true,
 		"date": new Date(),
