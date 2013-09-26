@@ -16,23 +16,6 @@ define(
 		meta({
 			"entity": "method",
 			"for": "Function",
-			"name": "Abstract",
-			"static": true,
-			"description": "A higher-order function that returns a function to serve as an abstract implementation.",
-			"arguments": [{
-				"name": "functionName",
-				"type": "string",
-				"description": "The "
-			}],
-			"returns": {
-				"type": "function",
-				"description": "throws an ImplementationNotFound error."
-			}
-		});
-
-		meta({
-			"entity": "method",
-			"for": "Function",
 			"name": "overload",
 			"description": "A higher-order function that accepts an optional signature and a new implementation and returns a new router that acts as a proxy. The returned router function capable of executing the original function or the new implementation depending on the arguments passed to it.",
 			"arguments": [{
@@ -52,31 +35,17 @@ define(
 
 		var invocation = new Invocation();
 
-		// defined here for scope reference to invocation
-		Function.Abstract = function (functionName) {
-			return function () {
-				if (!invocation.signature) {
-					invocation.signature = Function.getInvocationSignature(arguments);
-				}
-				invocation.implementationNotFound(functionName);
-			};
-		};
+		Function.prototype.overload = overloadByLength.call(overloadByLength, overloadBySignature);
 
-		Function.prototype.overload = function (implementationSignature, thisImplementation) {
+		function overloadByLength (thisImplementation) {
 			var nextImplementation = this,
-				compiledImplementationSignature,
-				overloaded;
-
-			if (1 === arguments.length) {
-				thisImplementation = implementationSignature;
 				implementationSignature = list("any", thisImplementation.length);
-				overloaded = overloadByLength;
-			} else {
-				compiledImplementationSignature = Function.compileImplementationSignature(implementationSignature);
-				overloaded = overloadBySignature;
-			}
 
-			function overloadByLength () {
+			return function byLength () {
+				if (invocation.isNewRoute(byLength)) {
+					invocation.reset();
+					invocation.setSignature(arguments);
+				}
 				if (arguments.length === thisImplementation.length) {
 					invocation.matchingImplementationFound(thisImplementation);
 					invocation.setRoute(thisImplementation);
@@ -85,10 +54,16 @@ define(
 					invocation.setRoute(nextImplementation);
 				}
 				return invocation.proceed(this, arguments);
-			}
+			};
+		}
 
-			function overloadBySignature () {
-				if (invocation.needsSignature(overloaded)) {
+		function overloadBySignature (implementationSignature, thisImplementation) {
+			var nextImplementation = this,
+				compiledImplementationSignature = Function.compileImplementationSignature(implementationSignature);
+
+			return function bySignature () {
+				if (invocation.isNewRoute(bySignature)) {
+					invocation.reset();
 					invocation.setSignature(arguments);
 				}
 				if (invocation.testImplementation(compiledImplementationSignature)) {
@@ -99,10 +74,8 @@ define(
 					invocation.setRoute(nextImplementation);
 				}
 				return invocation.proceed(this, arguments);
-			}
-
-			return overloaded;
-		};
+			};
+		}
 
 		function list (text, times) {
 			return new Array(times + 1).join(text).split("").join(",");
