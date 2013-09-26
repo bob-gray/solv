@@ -1,9 +1,8 @@
 define(
 	[
-		"../meta",
-		"./implementation-not-found"
+		"../meta"
 	],
-	function (meta, ImplementationNotFound) {
+	function (meta) {
 		"use strict";
 
 		meta({
@@ -13,6 +12,7 @@ define(
 
 		function Invocation () {
 			this.reset();
+			Invocation.instance = this;
 		}
 
 		Invocation.prototype.reset = function () {
@@ -20,13 +20,12 @@ define(
 			this.nonMatchingImplementationSignatures = [];
 		};
 
-		Invocation.prototype.needsSignature = function (route) {
-			return this.route !== route || null === this.signature;
+		Invocation.prototype.isNewRoute = function (route) {
+			return this.route !== route;
 		};
 
 		Invocation.prototype.setSignature = function (args) {
 			this.signature = Function.getInvocationSignature(args);
-			this.nonMatchingImplementationSignatures = [];
 		};
 
 		Invocation.prototype.testImplementation = function (compiledSignature) {
@@ -43,16 +42,6 @@ define(
 
 		Invocation.prototype.addNonMatchingImplementation = function (implementationSignature) {
 			this.nonMatchingImplementationSignatures.push(implementationSignature);
-		};
-
-		Invocation.prototype.implementationNotFound = function (functionName) {
-			var error = new ImplementationNotFound(
-				functionName,
-				this.signature,
-				this.nonMatchingImplementationSignatures
-			);
-			this.reset();
-			throw error;
 		};
 
 		Invocation.prototype.proceed = function (context, args) {
