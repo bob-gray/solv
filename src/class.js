@@ -8,6 +8,7 @@ define(
 		"./class/method",
 		"./class/mixin",
 		"./function/overload",
+		"./function/abstract",
 		"./shim/object",
 		"./shim/array"
 	],
