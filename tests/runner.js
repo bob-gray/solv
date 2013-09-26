@@ -7,7 +7,8 @@ require.config({
 require(
 	[
 		"spec/class-test",
-		"spec/type-test"
+		"spec/type-test",
+		"spec/function/get-name-test"
 	],
 	function () {
 		"use strict";
