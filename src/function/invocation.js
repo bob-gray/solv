@@ -16,7 +16,9 @@ define(
 		}
 
 		Invocation.prototype.reset = function () {
-			this.signature = null;this.route = null;
+                        this.route = null;
+			this.signature = null;
+			this.matchingImplementation = null;
 			this.nonMatchingImplementationSignatures = [];
 		};
 

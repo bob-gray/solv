@@ -41,7 +41,7 @@ define(
 
 		ImplementationNotFound.prototype.setDetails = function  (errorDetails) {
 			this.functionName = errorDetails.functionName || "unknown";
-			this.signature = errorDetails.invocationSignature || "[no arguments]";
+			this.signature = errorDetails.signature || "[no arguments]";
 			this.nonMatchingSignatures = errorDetails.nonMatchingSignatures || [];
 		};
 
@@ -55,7 +55,7 @@ define(
 
 		ImplementationNotFound.prototype.renderMessage = function  () {
 			var error = this,
-				messageTemplate = "Function {{functionName}} was called with the signature ({{signature}})."+
+				messageTemplate = "Function {{functionName}} was called with the signature ({{signature}}). "+
 					"A matching implementation does not exist. Existing implementation signatures: {{nonMatchingSignatures}}",
 				placeholders = /\{\{([^}]+)\}\}/g;
 			this.message = messageTemplate.replace(placeholders, function (withCurlies, placeholder) {
