@@ -3,6 +3,8 @@ define(
 		"../meta",
 		"../type",
 		"../function/overload",
+		"../function/abstract",
+		"../function/get-name",
 		"../function/validate-return-type"
 	],
 	function (meta, type) {
@@ -207,10 +209,11 @@ define(
 				signature = getSignature(options),
 				hasSignature = type.is("string", signature),
 				existing = methods[options.name],
-				implementationExists = type.is("function", existing);
+				implementationExists = type.is("function", existing),
+				methodFullName = getMethodFullName(constructor, options.name);
 
 			if (hasSignature && (!implementationExists || options.override)) {
-				existing = new Function.Abstract(options.name);
+				existing = new Function.Abstract(methodFullName);
 			} else if (!hasSignature) {
 				overload = false;
 			}
@@ -228,6 +231,16 @@ define(
 				signature = Function.getSignatureFromArgumentsMeta(options["arguments"]);
 			}
 			return signature;
+		}
+
+		function getMethodFullName (constructor, name) {
+			var fullName = "",
+				className = constructor.getName();
+			if (className) {
+				fullName = className +".";
+			}
+			fullName += name;
+			return fullName;
 		}
 	}
 );
