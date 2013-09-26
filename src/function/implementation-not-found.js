@@ -55,7 +55,8 @@ define(
 
 		ImplementationNotFound.prototype.renderMessage = function  () {
 			var error = this,
-				messageTemplate = "Function {{functionName}} was called with the signature ({{signature}}). A matching implementation does not exist. Existing implementation signatures: {{nonMatchingSignatures}}",
+				messageTemplate = "Function {{functionName}} was called with the signature ({{signature}})."+
+					"A matching implementation does not exist. Existing implementation signatures: {{nonMatchingSignatures}}",
 				placeholders = /\{\{([^}]+)\}\}/g;
 			this.message = messageTemplate.replace(placeholders, function (withCurlies, placeholder) {
 				return error[placeholder];
