@@ -11,7 +11,8 @@ define(
 			"extends": "Error",
 			"arguments": [{
 				"name": "errorDetails",
-				"type": "object"
+				"type": "object",
+				"required": false
 			}]
 		});
 
@@ -20,18 +21,21 @@ define(
 			"name": "errorDetails",
 			"properties": [{
 				"name": "functionName",
-				"type": "string"
+				"type": "string",
+				"default": "unknown"
 			}, {
 				"name": "signature",
-				"type": "string"
+				"type": "string",
+				"default": "unknown"
 			}, {
 				"name": "nonMatchingSignatures",
-				"type": "array"
+				"type": "array",
+				"default": "unknown"
 			}]
 		});
 
 		function ImplementationNotFound (errorDetails) {
-			this.setDetails(errorDetails);
+			this.setDetails(errorDetails || {});
 			this.joinNonMatchingSignatures();
 			this.renderMessage();
 			this._super.constructor.call(this, this.message);
@@ -41,8 +45,14 @@ define(
 
 		ImplementationNotFound.prototype.setDetails = function  (errorDetails) {
 			this.functionName = errorDetails.functionName || "unknown";
-			this.signature = errorDetails.signature || "[no arguments]";
 			this.nonMatchingSignatures = errorDetails.nonMatchingSignatures || [];
+			if ("" === errorDetails.signature) {
+				this.signature = "[no arguments]";
+			} else if (!errorDetails.signature) {
+				this.signature = "unknown";
+			} else {
+				this.signature =  errorDetails.signature;
+			}
 		};
 
 		ImplementationNotFound.prototype.joinNonMatchingSignatures = function  () {
