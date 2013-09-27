@@ -16,11 +16,11 @@ define(
 			"arguments": [{
 				"name": "functionName",
 				"type": "string",
-				"description": "The "
+				"description": "The name of the function which should overload or override the return abstract function."
 			}],
 			"returns": {
 				"type": "function",
-				"description": "throws an ImplementationNotFound error."
+				"description": "Throws an ImplementationNotFound errors."
 			}
 		});
 
