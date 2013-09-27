@@ -42,16 +42,15 @@ define(
 				implementationSignature = list("any", thisImplementation.length);
 
 			return function byLength () {
-				if (invocation.isNewRoute(byLength)) {
+				if (invocation.isStart(byLength)) {
 					invocation.reset();
 					invocation.setSignature(arguments);
 				}
 				if (arguments.length === thisImplementation.length) {
 					invocation.matchingImplementationFound(thisImplementation);
-					invocation.setRoute(thisImplementation);
 				} else {
-					invocation.addNonMatchingImplementation(implementationSignature);
-					invocation.setRoute(nextImplementation);
+					invocation.addNonMatchingSignature(implementationSignature);
+					invocation.setNext(nextImplementation);
 				}
 				return invocation.proceed(this, arguments);
 			};
@@ -62,16 +61,15 @@ define(
 				compiledImplementationSignature = Function.compileImplementationSignature(implementationSignature);
 
 			return function bySignature () {
-				if (invocation.isNewRoute(bySignature)) {
+				if (invocation.isStart(bySignature)) {
 					invocation.reset();
 					invocation.setSignature(arguments);
 				}
 				if (invocation.testImplementation(compiledImplementationSignature)) {
 					invocation.matchingImplementationFound(thisImplementation);
-					invocation.setRoute(thisImplementation);
 				} else {
-					invocation.addNonMatchingImplementation(implementationSignature);
-					invocation.setRoute(nextImplementation);
+					invocation.addNonMatchingSignature(implementationSignature);
+					invocation.setNext(nextImplementation);
 				}
 				return invocation.proceed(this, arguments);
 			};
