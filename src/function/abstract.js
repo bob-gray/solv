@@ -33,7 +33,7 @@ define(
 						};
 					if (invocation) {
 						errorDetails.signature = invocation.signature;
-						errorDetails.nonMatchingSignatures = invocation.nonMatchingImplementationSignatures;
+						errorDetails.nonMatchingSignatures = invocation.nonMatchingSignatures;
 						invocation.reset();
 					}
 					if (!errorDetails.signature) {
