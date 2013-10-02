@@ -2,9 +2,11 @@ define(
 	[
 		"../meta",
 		"../type",
+		"./invalid-return-type",
+		"./overload",
 		"./signatures"
 	],
-	function (meta, type) {
+	function (meta, type, InvalidReturnType) {
 		"use strict";
 
 		meta({
@@ -13,19 +15,18 @@ define(
 		});
 
 		meta({
+			"entity": "class",
+			"name": "Function",
+			"global": true
+		});
+
+		meta({
 			"entity": "method",
-			"for": "Function",
 			"name": "validateReturnType",
 			"description": "A higher-order function that accepts an expected return type and optional fail callback.",
 			"arguments": [{
-				"name": "returnSignature",
-				"type": "string",
-				"description": "A pipe delimited list of possible return types. Can include '!'. See function signature.",
-				"required": false
-			}, {
-				"name": "typeInvalid",
-				"type": "function",
-				"description": "Callback executed when the type of the function return value doesn't match returnSignature."
+				"name": "signature",
+				"type": "string"
 			}],
 			"returns": {
 				"type": "function",
@@ -33,27 +34,65 @@ define(
 			}
 		});
 
-		Function.prototype.validateReturnType = function (returnSignature, typeInvalid) {
-			var compiledReturnSignature = Function.compileReturnSignature(returnSignature),
-				fn = this;
+		meta({
+			"entity": "method",
+			"name": "validateReturnType",
+			"description": "A higher-order function that accepts an expected return type and optional fail callback.",
+			"arguments": [{
+				"name": "options",
+				"type": "object"
+			}],
+			"returns": {
+				"type": "function",
+				"description": "Proxy function to be executed in place of original function."
+			}
+		});
 
-			return function proxy () {
-				var result = fn.apply(this, arguments),
+		meta({
+			"entity": "object",
+			"name": "options",
+			"properties": [{
+				"name": "functionName",
+				"type": "string"
+			}, {
+				"name": "signature",
+				"type": "string",
+				"description": "A pipe delimited list of possible return types. Can include '!'. See function signature."
+			}]
+		});
+
+		Function.prototype.validateReturnType = validateWithSignature.overload("object", validateWithOptions);
+
+		function validateWithSignature (signature) {
+			return validateWithOptions.call(this, {
+				signature: signature
+			});
+		}
+
+		function validateWithOptions (options) {
+			var compiledReturnSignature = Function.compileReturnSignature(options.signature),
+				func = this;
+			if (!options.functionName) {
+				options.functionName = "";
+			}
+
+			function proxy () {
+				var result = func.apply(this, arguments),
 					returnType = type.of(result);
 
 				if (compiledReturnSignature.test(returnType)) {
 					return result;
 
-				} else if (typeInvalid) {
-					return typeInvalid({
-						expected: returnSignature,
-						actual: returnType
-					});
-
 				} else {
-					throw "Function return type was expected to be "+ returnSignature +"; actual return type was "+ returnType;
+					throw new InvalidReturnType({
+						functionName: options.functionName,
+						actualReturnType: returnType,
+						expectedReturnType: options.signature
+					});
 				}
-			};
-		};
+			}
+
+			return proxy;
+		}
 	}
 );

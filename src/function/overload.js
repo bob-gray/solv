@@ -14,22 +14,40 @@ define(
 		});
 
 		meta({
+			"entity": "class",
+			"name": "Function",
+			"global": true
+		});
+
+		meta({
 			"entity": "method",
-			"for": "Function",
 			"name": "overload",
-			"description": "A higher-order function that accepts an optional signature and a new implementation and returns a new router that acts as a proxy. The returned router function capable of executing the original function or the new implementation depending on the arguments passed to it.",
+			"description": "A higher-order function that accepts an optional signature and a new implementation and returns a new proxy function. When call the new function will execute the original function or the new implementation depending on the arguments passed to it.",
 			"arguments": [{
 				"name": "signature",
 				"type": "string",
 				"description": "A comma delimited list that describes the argument types to be passed to a function. Can include ?*+|!. See function signature.",
-				"required": false
 			}, {
 				"name": "implementation",
 				"type": "function"
 			}],
 			"returns": {
 				"type": "function",
-				"description": "New router proxy function"
+				"description": "New proxy function"
+			}
+		});
+
+		meta({
+			"entity": "method",
+			"name": "overload",
+			"description": "For overloading by argument length only.",
+			"arguments": [{
+				"name": "implementation",
+				"type": "function"
+			}],
+			"returns": {
+				"type": "function",
+				"description": "New proxy function"
 			}
 		});
 

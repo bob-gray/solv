@@ -11,7 +11,10 @@ require(
 		"spec/function/get-name-test",
 		"spec/function/abstract-test",
 		"spec/function/implementation-not-found-test",
-		"spec/function/invocation-test"
+		"spec/function/invocation-test",
+		"spec/function/overload-test",
+		"spec/function/signatures-test",
+		"spec/function/validate-return-type-test"
 	],
 	function () {
 		"use strict";

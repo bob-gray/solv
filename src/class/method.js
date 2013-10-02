@@ -17,7 +17,6 @@ define(
 		});
 
 		meta({
-			"entity": "method",
 			"name": "method",
 			"description": "To be called as a static method of a class constructor. Adds a new method to the class prototype. Methods are overloaded when more than one method of the same name is added. Inherited methods are also overloaded.",
 			"arguments": [{
@@ -34,7 +33,6 @@ define(
 		});
 
 		meta({
-			"entity": "method",
 			"name": "method",
 			"arguments": [{
 				"name": "signature",
@@ -42,16 +40,6 @@ define(
 			}, {
 				"name": "implementation",
 				"type": "function"
-			}],
-			"returns": "function"
-		});
-
-		meta({
-			"entity": "method",
-			"name": "method",
-			"arguments": [{
-				"name": "options",
-				"type": "object"
 			}],
 			"returns": "function"
 		});
@@ -134,39 +122,41 @@ define(
 				implementation: implementation
 			};
 			return method.call(this, options);
-
-		}).overload("object, function", function (options, implementation) {
+		})
+		.overload("object, function", function (options, implementation) {
 			options.implementation = implementation;
 			return method.call(this, options);
-
-		}).overload("object", method);
+		});
 
 		function method (options) {
+			var constructor = this;
+			setFullName(constructor, options);
 			validateReturnType(options);
-			attachMethod(this, options);
+			attachMethod(constructor, options);
 			return this;
 		}
 
 		function validateReturnType (options) {
-			var returnType = getReturnType(options),
-				failHandler;
-			if (returnType) {
-				failHandler = returnTypeFail(options.name);
-				options.implementation = options.implementation.validateReturnType(returnType, failHandler);
+			var returnSignature = getReturnSignature(options);
+			if (returnSignature) {
+				options.implementation = options.implementation.validateReturnType({
+					functionName: options.fullName,
+					signature: returnSignature
+				});
 			}
 		}
 
 		function attachMethod (constructor, options) {
 			if (options.static) {
-				attachStaticMethod(constructor, options);
+				attachMethodToTarget(constructor, options);
 			} else if (options.shim) {
 				attachShimMethod(constructor, options);
 			} else {
-				attachInstanceMethod(constructor, options);
+				attachMethodToTarget(constructor.prototype, options);
 			}
 		}
 
-		function getReturnType (options) {
+		function getReturnSignature (options) {
 			var returns = options.returns,
 				returnType;
 			if (type.is("string", returns)) {
@@ -177,24 +167,6 @@ define(
 			return returnType;
 		}
 
-		function returnTypeFail (method) {
-			return function (returnType) {
-				throw "Method "+ method +" return type was expected to be "+ returnType.expected +"; actual return type was "+ returnType.actual;
-			};
-		}
-
-		function attachStaticMethod (constructor, options) {
-			var existing = constructor[options.name],
-				signature = getSignature(options),
-				overload = type.is("function", existing);
-
-			if (!overload || options.override) {
-				constructor[options.name] = options.implementation;
-			} else {
-				constructor[options.name] = existing.overload(signature, options.implementation);
-			}
-		}
-
 		function attachShimMethod (constructor, options) {
 			var methods = constructor.prototype,
 				existing = methods[options.name];
@@ -203,25 +175,23 @@ define(
 			}
 		}
 
-		function attachInstanceMethod (constructor, options) {
-			var methods = constructor.prototype,
-				overload = true,
+		function attachMethodToTarget (target, options) {
+			var overload = true,
 				signature = getSignature(options),
 				hasSignature = type.is("string", signature),
-				existing = methods[options.name],
-				implementationExists = type.is("function", existing),
-				methodFullName = getMethodFullName(constructor, options.name);
+				existing = target[options.name],
+				implementationExists = type.is("function", existing);
 
 			if (hasSignature && (!implementationExists || options.override)) {
-				existing = new Function.Abstract(methodFullName);
+				existing = new Function.Abstract(options.fullName);
 			} else if (!hasSignature) {
 				overload = false;
 			}
 
 			if (overload) {
-				methods[options.name] = existing.overload(signature, options.implementation);
+				target[options.name] = existing.overload(signature, options.implementation);
 			} else {
-				methods[options.name] = options.implementation;
+				target[options.name] = options.implementation;
 			}
 		}
 
@@ -233,14 +203,12 @@ define(
 			return signature;
 		}
 
-		function getMethodFullName (constructor, name) {
-			var fullName = "",
-				className = constructor.getName();
+		function setFullName (constructor, options) {
+			var className = constructor.getName() || "";
 			if (className) {
-				fullName = className +".";
+				className += ".";
 			}
-			fullName += name;
-			return fullName;
+			options.fullName = className + options.name;
 		}
 	}
 );

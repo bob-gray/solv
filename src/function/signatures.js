@@ -13,8 +13,8 @@ define(
 		});
 
 		meta({
-			"name": "Invocation Signature",
-			"description": "Specification for defining the calling signature of a function.",
+			"name": "Implementation Signature",
+			"description": "Specification for defining the expected calling signature of a function.",
 			"overview":	"Function signatures in this module are special comma delimited lists of signature components that describe the argument types expected by a function. The length of signature components doesn't necessarily match the length of a matching arguments collection because arguments can be specified as optional or repeating. Signatures are composed of one or more comma delimited components. Components are composed of one or more pipe delimited types each optional prefix with an exclamation point. Each component may optional be suffixed with a meta character indicating quantity. All white space is ignored and argument types are assumed to be lower case single word identifiers listed below.",
 			"types": "string, number, boolean, array, object, date, regexp, function, undefined, null or any",
 			"examples": {
@@ -116,47 +116,87 @@ define(
 			return new RegExp(regexSrc);
 		};
 
-		var whiteSpace = {
-				matcher: /\s+/g,
-				replacement: ""
-			},
-			noneOneMany = {
-				matcher: /,?([^,]+)([?*+])/g,
-				replacement: "(?:,?$1)$2"
-			},
-			or = {
-				matcher: /((?:[^,?|()]+\|)+[^,?|()]+)/g,
-				replacement: "(?:$1)"
-			},
-			not = {
-				matcher: {
-					group: /!\(\(\?:([^)]+)\)\)/g,
-					single: /(?:[^?]|^)!([^,|]+)/g
-				},
-				replacement: "\\b(?!$1)[^,]+"
-			},
-			any = {
-				matcher: /\bany\b/g,
-				replacement: "[^,]+"
-			};
+		var component = /(?:^|,)([^?+*,]+)([?+*])?/g,
+			metaCharacters = /[-[\]{}()\\^$]/g,
+			whitespace = /\s+/g,
+			lineBegin = "^",
+			lineEnd = "$",
+			commaOrLineBegin = "(?:^|,)",
+			any = "[^,]+",
+			noCommaNext = "(?!,)",
+			oneOrMore = "+",
+			noneOrMore = "*",
+			oneOrNone = "?";
 
 		function createImplementationSignatureSrc (signature) {
-			return "^"+
-				signature.replace(whiteSpace.matcher, whiteSpace.replacement)
-					.replace(noneOneMany.matcher, noneOneMany.replacement)
-					.replace(or.matcher, or.replacement)
-					.replace(not.matcher.group, not.replacement)
-					.replace(not.matcher.single, not.replacement)
-					.replace(any.matcher, any.replacement) +"$";
+			signature = stripWhitespace(signature);
+			signature = escapeMetaCharacters(signature);
+			signature = signature.replace(component, processComponent);
+			return noCommaNext + signature + lineEnd;
 		}
 
 		function createReturnSignatureSrc (signature) {
-			return "^"+
-				signature.replace(whiteSpace.matcher, whiteSpace.replacement)
-					.replace(or.matcher, or.replacement)
-					.replace(not.matcher.group, not.replacement)
-					.replace(not.matcher.single, not.replacement)
-					.replace(any.matcher, any.replacement) +"$";
+			signature = stripWhitespace(signature);
+			signature = escapeMetaCharacters(signature);
+			signature = processReturnType(signature);
+			return lineBegin + signature + lineEnd;
+		}
+
+		function stripWhitespace (signature) {
+			return signature.replace(whitespace, "");
+		}
+
+		function escapeMetaCharacters (signature) {
+			return signature.replace(metaCharacters, "\\$&");
+		}
+
+		function processComponent (match, types, occurences) {
+			var replacement;
+			if (isAny(types)) {
+				types = any;
+			} else if (isNot(types)) {
+				types = not(types);
+			} else if (isOr(types)) {
+				types = group(types);
+			}
+			replacement = commaOrLineBegin + types;
+			if (occurences) {
+				replacement = group(replacement) + occurences;
+			}
+			return replacement;
+		}
+
+		function processReturnType (types) {
+			var replacement;
+			if (isAny(types)) {
+				types = any;
+			} else if (isNot(types)) {
+				types = not(types);
+			} else if (isOr(types)) {
+				types = group(types);
+			}
+			replacement = types;
+			return replacement;
+		}
+
+		function isAny (types) {
+			return "any" === types;
+		}
+
+		function isNot (types) {
+			return "!" === types.charAt(0);
+		}
+
+		function isOr (types) {
+			return types.indexOf("|") > -1;
+		}
+
+		function not (types) {
+			return "(?"+ types +")[^,]+";
+		}
+
+		function group (value) {
+			return "(?:"+ value +")";
 		}
 
 		Function.getInvocationSignature = function (args) {
@@ -180,14 +220,26 @@ define(
 
 		function argumentMetaToSignatureComponent (arg) {
 			var type = arg.type || "any";
-			if (arg.repeating && false !== arg.required) {
-				type += "+";
-			} else if (arg.repeating && false === arg.required) {
-				type += "*";
-			} else if (false === arg.required) {
-				type += "?";
+			if (isOneOrMore(arg)) {
+				type += oneOrMore;
+			} else if (isNoneOrMore(arg)) {
+				type += noneOrMore;
+			} else if (isOneOrNone(arg)) {
+				type += oneOrNone;
 			}
 			return type;
+		}
+
+		function isOneOrMore (arg) {
+			return arg.repeating && false !== arg.required;
+		}
+
+		function isNoneOrMore (arg) {
+			return arg.repeating && false === arg.required;
+		}
+
+		function isOneOrNone (arg) {
+			return !arg.repeating && false === arg.required;
 		}
 	}
 );
