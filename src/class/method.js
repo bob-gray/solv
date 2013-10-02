@@ -115,18 +115,20 @@ define(
 			}]
 		});
 
-		Function.prototype.method = new Function.Abstract("method")
-		.overload("string, function", function (name, implementation) {
-			var options = {
-				name: name,
-				implementation: implementation
-			};
-			return method.call(this, options);
-		})
-		.overload("object, function", function (options, implementation) {
-			options.implementation = implementation;
-			return method.call(this, options);
-		});
+		if (!Function.prototype.method) {
+			Function.prototype.method = new Function.Abstract("method")
+			.overload("string, function", function (name, implementation) {
+				var options = {
+					name: name,
+					implementation: implementation
+				};
+				return method.call(this, options);
+			})
+			.overload("object, function", function (options, implementation) {
+				options.implementation = implementation;
+				return method.call(this, options);
+			});
+		}
 
 		function method (options) {
 			var constructor = this;

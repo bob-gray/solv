@@ -19,53 +19,55 @@ define(
 			"global": true
 		});
 
-		Function.method(
-			meta({
-				"entity": "method",
-				"name": "mixin",
-				"description": "Objects own methods will be appended to function's prototype.",
-				"arguments": [{
-					"name": "mixins",
-					"type": "object"
-				}],
-				"returns": "function"
-			}),
-			mixin
-		);
+		if (!Function.prototype.mixin) {
+			Function.method(
+				meta({
+					"entity": "method",
+					"name": "mixin",
+					"description": "Objects own methods will be appended to function's prototype.",
+					"arguments": [{
+						"name": "mixins",
+						"type": "object"
+					}],
+					"returns": "function"
+				}),
+				mixin
+			);
 
-		Function.method(
-			meta({
-				"entity": "method",
-				"name": "mixin",
-				"description": "Constructor's own methods will be appended to function's prototype.",
-				"arguments": [{
-					"name": "constructor",
-					"type": "function"
-				}],
-				"returns": "function"
-			}),
-			function (constructor) {
-				return mixin.call(this, constructor.prototype);
-			}
-		);
+			Function.method(
+				meta({
+					"entity": "method",
+					"name": "mixin",
+					"description": "Constructor's own methods will be appended to function's prototype.",
+					"arguments": [{
+						"name": "constructor",
+						"type": "function"
+					}],
+					"returns": "function"
+				}),
+				function (constructor) {
+					return mixin.call(this, constructor.prototype);
+				}
+			);
 
-		Function.method(
-			meta({
-				"entity": "method",
-				"name": "mixin",
-				"description": "Object's and Constructor's own methods will be appended to function's prototype.",
-				"arguments": [{
-					"name": "mixins",
-					"type": "array",
-					"description": "Array of objects or constructor functions"
-				}],
-				"returns": "function"
-			}),
-			function (mixins) {
-				mixins.forEach(mixinConstructorOrObject, this);
-				return this;
-			}
-		);
+			Function.method(
+				meta({
+					"entity": "method",
+					"name": "mixin",
+					"description": "Object's and Constructor's own methods will be appended to function's prototype.",
+					"arguments": [{
+						"name": "mixins",
+						"type": "array",
+						"description": "Array of objects or constructor functions"
+					}],
+					"returns": "function"
+				}),
+				function (mixins) {
+					mixins.forEach(mixinConstructorOrObject, this);
+					return this;
+				}
+			);
+		}
 
 		function mixinConstructorOrObject (mixin, index, array) {
 			this.mixin(mixin);

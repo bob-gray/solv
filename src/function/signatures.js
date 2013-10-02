@@ -106,15 +106,19 @@ define(
 			}
 		});
 
-		Function.compileImplementationSignature = function (signature) {
-			var regexSrc = createImplementationSignatureSrc(signature);
-			return new RegExp(regexSrc);
-		};
+		if (!Function.compileImplementationSignature) {
+			Function.compileImplementationSignature = function (signature) {
+				var regexSrc = createImplementationSignatureSrc(signature);
+				return new RegExp(regexSrc);
+			};
+		}
 
-		Function.compileReturnSignature = function (signature) {
-			var regexSrc = createReturnSignatureSrc(signature);
-			return new RegExp(regexSrc);
-		};
+		if (!Function.compileReturnSignature) {
+			Function.compileReturnSignature = function (signature) {
+				var regexSrc = createReturnSignatureSrc(signature);
+				return new RegExp(regexSrc);
+			};
+		}
 
 		var component = /(?:^|,)([^?+*,]+)([?+*])?/g,
 			metaCharacters = /[-[\]{}()\\^$]/g,

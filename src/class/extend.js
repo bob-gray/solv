@@ -27,12 +27,14 @@ define(
 			}
 		});
 
-		Function.prototype.extend = function (Parent) {
-			var Child = this,
-				Surrogate = createSurrogate(Parent);
-			inheritFromSurrogate(Child, Surrogate);
-			return Child;
-		};
+		if (!Function.prototype.extend) {
+			Function.prototype.extend = function (Parent) {
+				var Child = this,
+					Surrogate = createSurrogate(Parent);
+				inheritFromSurrogate(Child, Surrogate);
+				return Child;
+			};
+		}
 
 		function createSurrogate (Parent) {
 			function Surrogate () {}

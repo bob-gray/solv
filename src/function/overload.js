@@ -53,7 +53,9 @@ define(
 
 		var invocation = new Invocation();
 
-		Function.prototype.overload = overloadByLength.call(overloadByLength, overloadBySignature);
+		if (!Function.prototype.overload) {
+			Function.prototype.overload = overloadByLength.call(overloadByLength, overloadBySignature);
+		}
 
 		function overloadByLength (thisImplementation) {
 			var nextImplementation = this,

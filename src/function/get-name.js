@@ -1,13 +1,15 @@
 define(function () {
 	"use strict";
 
-	Function.prototype.getName = function getFuncName () {
-		var name = this.name;
-		if (!name) {
-			name = getNameFromFunctionString(this);
-		}
-		return name;
-	};
+	if (!Function.prototype.getName) {
+		Function.prototype.getName = function getFuncName () {
+			var name = this.name;
+			if (!name) {
+				name = getNameFromFunctionString(this);
+			}
+			return name;
+		};
+	}
 
 	var regex = /^\s*function\s+([^\s(]+)?/;
 

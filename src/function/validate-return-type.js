@@ -61,7 +61,9 @@ define(
 			}]
 		});
 
-		Function.prototype.validateReturnType = validateWithSignature.overload("object", validateWithOptions);
+		if (!Function.prototype.validateReturnType) {
+			Function.prototype.validateReturnType = validateWithSignature.overload("object", validateWithOptions);
+		}
 
 		function validateWithSignature (signature) {
 			return validateWithOptions.call(this, {

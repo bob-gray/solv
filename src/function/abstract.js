@@ -24,22 +24,24 @@ define(
 			}
 		});
 
-		Function.Abstract = function (functionName) {
-			return function () {
-				var invocation = Invocation.instance,
-					errorDetails = {
-						functionName: functionName
-					};
-				if (invocation) {
-					errorDetails.signature = invocation.signature;
-					errorDetails.nonMatchingSignatures = invocation.nonMatchingImplementationSignatures;
-					invocation.reset();
-				}
-				if (!errorDetails.signature) {
-					errorDetails.signature = Function.getInvocationSignature(arguments);
-				}
-				throw new ImplementationNotFound(errorDetails);
+		if (!Function.Abstract) {
+			Function.Abstract = function (functionName) {
+				return function () {
+					var invocation = Invocation.instance,
+						errorDetails = {
+							functionName: functionName
+						};
+					if (invocation) {
+						errorDetails.signature = invocation.signature;
+						errorDetails.nonMatchingSignatures = invocation.nonMatchingImplementationSignatures;
+						invocation.reset();
+					}
+					if (!errorDetails.signature) {
+						errorDetails.signature = Function.getInvocationSignature(arguments);
+					}
+					throw new ImplementationNotFound(errorDetails);
+				};
 			};
-		};
+		}
 	}
 );
