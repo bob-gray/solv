@@ -19,7 +19,7 @@ define(function () {
 		}],
 		"returns": {
 			"type": "object",
-			"description": "The data the was passed in"
+			"description": "data (object passed in)"
 		}
 	});
 
