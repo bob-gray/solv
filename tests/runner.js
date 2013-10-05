@@ -16,6 +16,7 @@ require(
 		"spec/function/validate-return-type-test",
 		"spec/shim/object-test",
 		"spec/shim/array-test",
+		"spec/shim/function-test",
 		"spec/class-test",
 		"spec/meta-test",
 		"spec/type-test"
