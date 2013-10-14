@@ -34,6 +34,37 @@ define(["src/meta"], function (meta) {
 			});
 			expect(data["extends"]).toBe(describe);
 		});
+
+		it("accepts and array of mixins", function () {
+			var data = meta({
+				"mixins": [
+					"describe",
+					"src/meta"
+				]
+			});
+			expect(data.mixins[0]).toBe(describe);
+			expect(data.mixins[1]).toBe(meta);
+		});
+
+		it("throws an error if mixins or extends identifiers cannot be found as an amd module or global", function () {
+			expect(undefinedExtendsIdentifier).toThrow();
+			expect(undefinedMixinsIdentifier).toThrow();
+
+			function undefinedExtendsIdentifier () {
+				meta({
+					"extends": "fooeyfooey123"
+				});
+			}
+
+			function undefinedMixinsIdentifier () {
+				meta({
+					"mixins": [
+						"describe",
+						"fooeyfooey123"
+					]
+				});
+			}
+		});
 	});
 });
 
