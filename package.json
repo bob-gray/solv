@@ -7,6 +7,7 @@
     "grunt-karma": "~0.6.2",
     "grunt-contrib-requirejs": "~0.4.1",
     "karma-ie-launcher": "~0.1.1",
-    "karma-safari-launcher": "~0.1.1"
+    "karma-safari-launcher": "~0.1.1",
+    "karma-coverage": "~0.1.0"
   }
 }

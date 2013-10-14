@@ -74,7 +74,20 @@ module.exports = function (grunt) {
 						"jasmine",
 						"requirejs"
 					],
-					singleRun: true
+					singleRun: true,
+					preprocessors: {
+						"src/**/*.js": [
+							"coverage"
+						]
+					},
+					reporters: [
+						"progress",
+						"coverage"
+					],
+					coverageReporter: {
+						type: "html",
+						dir: "tests/coverage/"
+					}
 				}
 			}
 		}
