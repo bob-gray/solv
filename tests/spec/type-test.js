@@ -32,6 +32,26 @@ define(["src/type"], function (type) {
 		});
 	}
 
+	describe("type.custom(subtypes)", function () {
+		it("accepts an object of subtypes for further processing given native types", function () {
+			var tester = type.custom({
+				string: function (value) {
+					var type = "string";
+					if (/\d{3}-\d{3}-\d{4}/.test(value)) {
+						type += ".phone";
+					}
+					return type;
+				}
+			});
+			expect(tester.is("number", 0)).toBe(true);
+			expect(tester.of(true)).toBe("boolean");
+			expect(tester.is("object", [])).toBe(false);
+			expect(tester.of("")).toBe("string");
+			expect(tester.is("string.phone", "515-555-3333")).toBe(true);
+			expect(tester.of("515-555")).toBe("string");
+		});
+	});
+
 	function testIs (isName, valueName, value) {
 		var result = valueName === isName,
 			specTitle = getSpecTitle(valueName, isName, result);
