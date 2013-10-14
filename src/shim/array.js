@@ -93,6 +93,7 @@ define(
 		});
 
 		var slice = Array.prototype.slice,
+			shimMethods = ["map", "filter", "reduce", "every", "some"],
 			arrayShims = {};
 
 		Array.fromArguments = function (args) {
@@ -120,6 +121,7 @@ define(
 			return value;
 		};
 
+		/* jshint -W072 */ //Array extras native APIs have 4 parameters
 		arrayShims.map = function (callback, context) {
 			return this.reduce(function (mapped, element, index, array) {
 				mapped[index] = callback.call(context, element, index, array);
@@ -153,29 +155,18 @@ define(
 				return result;
 			}, false);
 		};
+		/* jshint +W072 */
 
 		if (!Array.prototype.forEach) {
 			Array.prototype.forEach = arrayShims.forEach;
 		}
 
-		if (!Array.prototype.map) {
-			Array.prototype.map = arrayShims.map;
-		}
+		shimMethods.forEach(attachIfNoNative);
 
-		if (!Array.prototype.filter) {
-			Array.prototype.filter = arrayShims.filter;
-		}
-
-		if (!Array.prototype.reduce) {
-			Array.prototype.reduce = arrayShims.reduce;
-		}
-
-		if (!Array.prototype.every) {
-			Array.prototype.every = arrayShims.every;
-		}
-
-		if (!Array.prototype.some) {
-			Array.prototype.some = arrayShims.some;
+		function attachIfNoNative (method) {
+			if (!Array.prototype[method]) {
+				Array.prototype[method] = arrayShims[method];
+			}
 		}
 
 		return arrayShims;
