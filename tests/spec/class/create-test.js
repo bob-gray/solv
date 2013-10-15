@@ -113,7 +113,7 @@ define(["src/class"], function (createClass) {
 	});
 
 	describe("class constructors created with createClass()", function () {
-		it("are inject with class name", function () {
+		it("are injected with class name", function () {
 			var Foo = createClass({
 				name: "Foo"
 			}, function () {});
@@ -129,10 +129,41 @@ define(["src/class"], function (createClass) {
 			expect(foo.id).toBe(1);
 		});
 
+		it("init function can call this.superCall or this.superApply", function () {
+			var parent = createClass({
+				"name": "parent"
+			}, parentInit);
+
+			var child = createClass({
+				"name": "child",
+				"extends": parent
+			}, childInit);
+
+			function parentInit (name) {
+				this.name = name;
+			}
+
+			function childInit () {
+				this.superApply(arguments);
+			}
+
+			useClass(parent);
+			useClass(child);
+			expect(parent("Ollie").name).toBe("Ollie");
+			expect(child("Ollie").name).toBe("Ollie");
+		});
+
 		it("can be called with or with new operator", function () {
 			var foo = createClass(),
-				fooInstance = foo();
+				bar = createClass({
+					name: bar,
+					"extends": foo
+				}),
+				fooInstance = foo(),
+				barInstance = bar();
 			expect(fooInstance instanceof foo).toBe(true);
+			expect(barInstance instanceof foo).toBe(true);
+			expect(barInstance instanceof bar).toBe(true);
 		});
 	});
 
@@ -140,5 +171,8 @@ define(["src/class"], function (createClass) {
 		expect(typeof Constructor).toBe("function");
 		expect(typeof Constructor.prototype).toBe("object");
 		expect(new Constructor() instanceof Constructor).toBe(true);
+		if (Constructor.Super) {
+			expect(Constructor.prototype instanceof Constructor.Super).toBe(true);
+		}
 	}
 });

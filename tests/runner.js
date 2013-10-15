@@ -6,6 +6,8 @@ require.config({
 
 require(
 	[
+		"spec/abstract/base-test",
+		"spec/class/create-test",
 		"spec/function/get-name-test",
 		"spec/function/abstract-test",
 		"spec/function/implementation-not-found-test",
@@ -17,7 +19,6 @@ require(
 		"spec/shim/object-test",
 		"spec/shim/array-test",
 		"spec/shim/function-test",
-		"spec/class-test",
 		"spec/meta-test",
 		"spec/type-test"
 	],
