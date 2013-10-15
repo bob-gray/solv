@@ -121,7 +121,7 @@ define(
 			return value;
 		};
 
-		/* jshint -W072 */ //Array extras native APIs have 4 parameters
+		/* jshint -W072 */ //Array extras map, filter, every, some native APIs have 4 parameters
 		arrayShims.map = function (callback, context) {
 			return this.reduce(function (mapped, element, index, array) {
 				mapped[index] = callback.call(context, element, index, array);

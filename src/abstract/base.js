@@ -2,11 +2,10 @@ define(
 	[
 		"../meta",
 		"../class",
-		"../type",
 		"../shim/function",
 		"../shim/array"
 	],
-	function (meta, createClass, type) {
+	function (meta, createClass) {
 		"use strict";
 
 		var Base = createClass(
@@ -15,67 +14,6 @@ define(
 				"name": "Base",
 				"description": "Abstract class."
 			})
-		);
-
-		Base.method(
-			meta({
-				"name": "superConstructor",
-				"description": "Calls this._super.constructor with this as the context.",
-				"arguments": [{
-					"type": "any",
-					"required": false,
-					"repeating": true
-				}]
-			}),
-			superConstructor
-		);
-
-		Base.method(
-			meta({
-				"name": "superConstructorApply",
-				"description": "Applies this._super.constructor with this as the context.",
-				"signature": "arguments|array",
-				"arguments": [{
-					"type": "arguments|array",
-					"name": "args",
-					"required": false
-				}]
-			}),
-			superConstructorApply
-		);
-
-		Base.method(
-			meta({
-				"name": "superInvoke",
-				"description": "Invokes a super method with this as the context.",
-				"arguments": [{
-					"type": "string",
-					"name": "method"
-				}, {
-					"type": "any",
-					"required": false,
-					"repeating": true
-				}],
-				"returns": "any"
-			}),
-			superInvoke
-		);
-
-		Base.method(
-			meta({
-				"name": "superApply",
-				"description": "Invokes a super method with this as the context; applying args.",
-				"arguments": [{
-					"type": "string",
-					"name": "method"
-				}, {
-					"type": "arguments|array",
-					"name": "args",
-					"required": false
-				}],
-				"returns": "any"
-			}),
-			superApply
 		);
 
 		Base.method(
@@ -93,23 +31,6 @@ define(
 				"returns": "any"
 			}),
 			invokeFunction
-		);
-
-		Base.method(
-			meta({
-				"name": "invoke",
-				"description": "Included for consistency with the proxy method api.",
-				"arguments": [{
-					"type": "string",
-					"name": "method"
-				}, {
-					"type": "any",
-					"required": false,
-					"repeating": true
-				}],
-				"returns": "any"
-			}),
-			invokeMethod
 		);
 
 		Base.method(
@@ -149,31 +70,6 @@ define(
 		);
 
 		Base.prototype._super = {};
-
-		function superConstructor () {
-			return this._super.constructor.apply(this, arguments);
-		}
-
-		function superConstructorApply (args) {
-			return this._super.constructor.apply(this, args);
-		}
-
-		function superInvoke (method) {
-			var args = Array.fromArguments(arguments).slice(1);
-			return this.superApply(method, args);
-		}
-
-		function superApply (method, args) {
-			var superMethod = this._super[method];
-			if (type.is("function", superMethod)) {
-				return this._super[method].apply(this, args);
-			}
-		}
-
-		function invokeMethod (method) {
-			var args = Array.fromArguments(arguments).slice(1);
-			return this[method].apply(this, args);
-		}
 
 		function invokeFunction (fn) {
 			var args = Array.fromArguments(arguments).slice(1);
