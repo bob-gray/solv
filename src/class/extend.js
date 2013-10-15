@@ -12,8 +12,6 @@ define(
 		});
 
 		meta({
-			"entity": "method",
-			"for": "Function",
 			"name": "extend",
 			"description": "To be called as a method of a class constructor. Wires up a class to inherit from a parent class. Assigns the Parent's prototype to an \"_super\" property of the child's prototype.",
 			"arguments": [{
@@ -29,10 +27,10 @@ define(
 
 		if (!Function.prototype.extend) {
 			Function.prototype.extend = function (Parent) {
-				var Child = this,
-					Surrogate = createSurrogate(Parent);
-				inheritFromSurrogate(Child, Surrogate);
-				return Child;
+				var Surrogate = createSurrogate(Parent);
+				inherit(this, Surrogate);
+				this.Super = Parent;
+				return this;
 			};
 		}
 
@@ -42,10 +40,9 @@ define(
 			return Surrogate;
 		}
 
-		function inheritFromSurrogate (Child, Surrogate) {
+		function inherit (Child, Surrogate) {
 			Child.prototype = new Surrogate();
 			Child.prototype.constructor = Child;
-			Child.prototype._super = new Surrogate();
 		}
 	}
 );

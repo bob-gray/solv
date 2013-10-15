@@ -2,12 +2,13 @@ define(
 	[
 		"../meta",
 		"../type",
+		"./super",
 		"../function/overload",
 		"../function/abstract",
 		"../function/get-name",
 		"../function/validate-return-type"
 	],
-	function (meta, type) {
+	function (meta, type, injectSuper) {
 		"use strict";
 
 		meta({
@@ -134,8 +135,17 @@ define(
 			var constructor = this;
 			setFullName(constructor, options);
 			validateReturnType(options);
+			injectSuperImplementation(constructor, options);
 			attachMethod(constructor, options);
 			return this;
+		}
+
+		function setFullName (constructor, options) {
+			var className = constructor.getName() || "";
+			if (className) {
+				className += ".";
+			}
+			options.fullName = className + options.name;
 		}
 
 		function validateReturnType (options) {
@@ -145,6 +155,16 @@ define(
 					functionName: options.fullName,
 					signature: returnSignature
 				});
+			}
+		}
+
+		function injectSuperImplementation (constructor, options) {
+			var methods,
+				existing;
+			if (!options.static && !options.shim) {
+				methods = constructor.prototype;
+				existing = methods[options.name];
+				options.implementation = injectSuper(options.implementation, existing);
 			}
 		}
 
@@ -203,14 +223,6 @@ define(
 				signature = Function.getSignatureFromArgumentsMeta(options["arguments"]);
 			}
 			return signature;
-		}
-
-		function setFullName (constructor, options) {
-			var className = constructor.getName() || "";
-			if (className) {
-				className += ".";
-			}
-			options.fullName = className + options.name;
 		}
 	}
 );
