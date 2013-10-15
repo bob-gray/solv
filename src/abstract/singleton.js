@@ -4,23 +4,23 @@ define(
 		"../class",
 		"./base"
 	],
-	function (meta, createClass) {
+	function (meta, createClass, Base) {
 		"use strict";
+
+		meta.define("solv/abstract/base", Base);
 
 		var Singleton = createClass(
 			meta({
 				"name": "Singleton",
-				"extends":  "solv/abstract/base"
+				"extends": "solv/abstract/base"
 			}),
-			constructor
+			init
 		);
 
 		Singleton.method(
 			meta({
-				"entity": "method",
-				"for": "Singleton",
-				"static": true,
 				"name": "getInstance",
+				"static": true,
 				"description": "Useful for getting the singleton instance from class constructor.",
 				"returns": {
 					"type": "object",
@@ -30,7 +30,7 @@ define(
 			getInstance
 		);
 
-		function constructor () {
+		function init () {
 			this.invoke(addInstance);
 			this.invoke(attachStaticGetInstance);
 		}
