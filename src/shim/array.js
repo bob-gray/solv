@@ -17,13 +17,13 @@ define(
 		});
 
 		meta({
-			"name": "fromArguments",
+			"name": "from",
 			"static": true,
 			"description": "Gets a real array from an arguments object.",
 			"arguments": [{
-				"name": "args",
-				"type": "arguments",
-				"description": "An arguments object from within a function"
+				"name": "fauxArray",
+				"type": "object",
+				"description": "An array-like object with a length property and indexed values; such as arguments"
 			}],
 			"returns": "array"
 		});
@@ -96,8 +96,8 @@ define(
 			shimMethods = ["map", "filter", "reduce", "every", "some"],
 			arrayShims = {};
 
-		Array.fromArguments = function (args) {
-			return slice.call(args, 0);
+		Array.from = function (fauxArray) {
+			return slice.call(fauxArray, 0);
 		};
 
 		arrayShims.forEach = function(callback, context) {

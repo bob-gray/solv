@@ -72,19 +72,19 @@ define(
 		Base.prototype._super = {};
 
 		function invokeFunction (fn) {
-			var args = Array.fromArguments(arguments).slice(1);
+			var args = Array.from(arguments).slice(1);
 			return fn.apply(this, args);
 		}
 
 		function proxyMethod (method) {
-			var args = Array.fromArguments(arguments),
+			var args = Array.from(arguments),
 				fn = this[method];
 			args.splice(0, 1, this);
 			return fn.bind.apply(fn, args);
 		}
 
 		function proxyFunction (fn) {
-			var args = Array.fromArguments(arguments);
+			var args = Array.from(arguments);
 			args.splice(0, 1, this);
 			return fn.bind.apply(fn, args);
 		}

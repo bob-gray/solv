@@ -22,17 +22,17 @@ define(["src/shim/array"], function (arrayShims) {
 		return Object.prototype.toString.call(value) === "[object Array]";
 	}
 
-	describe("Array.fromArguments(arguments)", function () {
+	describe("Array.from)", function () {
 		it("returns a real array", function () {
 			expect(isArray(arguments)).toBe(false);
-			expect(isArray(Array.fromArguments(arguments))).toBe(true);
+			expect(isArray(Array.from(arguments))).toBe(true);
 		});
 
 		it("returns a real array filled with the same values as arguments", function () {
 			var obj = {};
 			test("first arg", obj, null);
 			function test () {
-				var args = Array.fromArguments(arguments);
+				var args = Array.from(arguments);
 				expect(args.length).toBe(3);
 				expect(args[0]).toBe("first arg");
 				expect(args[1]).toBe(obj);

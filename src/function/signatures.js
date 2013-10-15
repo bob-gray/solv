@@ -204,7 +204,7 @@ define(
 		}
 
 		Function.getInvocationSignature = function (args) {
-			var argumentsArray = Array.fromArguments(args),
+			var argumentsArray = Array.from(args),
 				argumentTypes = argumentsArray.map(getArgumentType),
 				invocationSignature = argumentTypes.join(",");
 			return invocationSignature;
