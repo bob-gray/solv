@@ -49,20 +49,20 @@ define(
 		function create (options, init) {
 			var hasInit = type.is("function", init),
 				name = getName(),
-				forcingNew = false,
+				forcingNew = false;
 
-				Constructor = function Constructor () {
-					var instance = this;
-					if (notAnInstance(instance)) {
-						forcingNew = true;
-						instance = new Constructor();
-						forcingNew = false;
-					}
-					if (shouldInvokeInit()) {
-						init.apply(instance, arguments);
-					}
-					return instance;
-				};
+			function Constructor () {
+				var instance = this;
+				if (notAnInstance(instance)) {
+					forcingNew = true;
+					instance = new Constructor();
+					forcingNew = false;
+				}
+				if (shouldInvokeInit()) {
+					init.apply(instance, arguments);
+				}
+				return instance;
+			}
 
 			if (name) {
 				injectClassName();
@@ -102,7 +102,7 @@ define(
 			function injectClassName () {
 				/* jshint evil:true */
 				// useful for inspecting constructor names, safe to remove
-				Constructor = Constructor.toString().replace(/Constructor/g, name);
+				Constructor = Constructor.toString().replace("Constructor", name);
 				eval("Constructor = "+ Constructor +";");
 			}
 
