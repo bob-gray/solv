@@ -1,5 +1,3 @@
-/* jshint evil:true */
-
 define(function () {
 	"use strict";
 
@@ -23,6 +21,8 @@ define(function () {
 		}
 	});
 
+	var local = {};
+
 	function meta (data) {
 		var ext = data["extends"],
 			mixins = data.mixins;
@@ -34,6 +34,10 @@ define(function () {
 		}
 		return data;
 	}
+
+	meta.define = function (key, value) {
+		local[key] = value;
+	};
 
 	function get (key) {
 		var value;
@@ -54,8 +58,8 @@ define(function () {
 	}
 
 	function getFromKey (key) {
-		var value;
-		if (isIdentifier(key)) {
+		var value = getLocal(key);
+		if (isUndefined(value) && isIdentifier(key)) {
 			value = getGlobal(key);
 		}
 		if (isUndefined(value)) {
@@ -85,6 +89,10 @@ define(function () {
 		return typeof value === "undefined";
 	}
 
+	function getLocal (key) {
+		return local[key];
+	}
+
 	function getGlobal (key) {
 		try {
 			return globalEval(key);
@@ -106,6 +114,7 @@ define(function () {
 	}
 
 	function globalEval (key) {
+		/* jshint evil:true */
 		var getter = new Function("return "+ key +";");
 		return getter();
 	}

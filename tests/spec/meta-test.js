@@ -7,6 +7,26 @@ define(["src/meta"], function (meta) {
 			expect(meta(data)).toBe(data);
 		});
 
+		it("looks up data.mixins as a local value passed to meta.define", function () {
+			var fooey = {},
+				data;
+			meta.define("fooey", fooey);
+			data = meta({
+				"mixins": "fooey"
+			});
+			expect(data.mixins).toBe(fooey);
+		});
+
+		it("looks up data.extends as a local value passed to meta.define", function () {
+			var fooey = {},
+				data;
+			meta.define("fooey", fooey);
+			data = meta({
+				"extends": "fooey"
+			});
+			expect(data["extends"]).toBe(fooey);
+		});
+
 		it("looks up data.mixins as an amd module", function () {
 			var data = meta({
 				"mixins": "src/meta"
@@ -36,14 +56,19 @@ define(["src/meta"], function (meta) {
 		});
 
 		it("accepts and array of mixins", function () {
-			var data = meta({
+			var fooey = {},
+				data;
+			meta.define("fooey", fooey);
+			data = meta({
 				"mixins": [
 					"describe",
-					"src/meta"
+					"src/meta",
+					"fooey"
 				]
 			});
 			expect(data.mixins[0]).toBe(describe);
 			expect(data.mixins[1]).toBe(meta);
+			expect(data.mixins[2]).toBe(fooey);
 		});
 
 		it("throws an error if mixins or extends identifiers cannot be found as an amd module or global", function () {
