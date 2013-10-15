@@ -69,8 +69,6 @@ define(
 			proxyMethod
 		);
 
-		Base.prototype._super = {};
-
 		function invokeFunction (fn) {
 			var args = Array.from(arguments).slice(1);
 			return fn.apply(this, args);
