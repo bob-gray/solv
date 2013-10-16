@@ -36,23 +36,29 @@ define(
 			"returns": "function"
 		});
 
-		if (!Function.prototype.bind) {
-			Function.prototype.bind = function (context) {
-				var fn = this,
-					args = Array.from(arguments).slice(1);
+		var functionShims = {};
 
-				function bound () {
-					var newArgs = Array.from(arguments),
-						combinedArgs = args.concat(newArgs);
-					if (this instanceof bound) {
-						context = this;
-					}
-					return fn.apply(context, combinedArgs);
+		functionShims.bind = function (context) {
+			var fn = this,
+				args = Array.from(arguments).slice(1);
+
+			function bound () {
+				var newArgs = Array.from(arguments),
+					combinedArgs = args.concat(newArgs);
+				if (this instanceof bound) {
+					context = this;
 				}
+				return fn.apply(context, combinedArgs);
+			}
 
-				bound.extend(fn);
-				return bound;
-			};
+			bound.extend(fn);
+			return bound;
+		};
+
+		if (!Function.prototype.bind) {
+			Function.prototype.bind = functionShims.bind;
 		}
+
+		return functionShims;
 	}
 );
