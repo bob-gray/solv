@@ -3,6 +3,7 @@ define(
 		"../meta",
 		"../type",
 		"./method",
+		"../shim/object",
 		"../shim/array"
 	],
 	function (meta, type) {
