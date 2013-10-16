@@ -1,7 +1,42 @@
-define(["src/shim/function"], function () {
+define(["src/shim/function"], function (functionShims) {
 	"use strict";
 
-	describe("function.bind(context, nArgs...)", function () {
+	var nativeBind;
+
+	function runTests () {
+		if (bindIsNotShim()) {
+			nativeTests();
+		}
+		shimTests();
+	}
+
+	function nativeTests () {
+		describe("function.bind [native]", testBind);
+	}
+
+	function shimTests (method) {
+		describe("function.bind [shim]", function () {
+			beforeEach(injectBindShim);
+			afterEach(removeBindShim);
+			testBind();
+		});
+	}
+
+	function injectBindShim () {
+		nativeBind = Function.prototype.bind;
+		Function.prototype.bind = functionShims.bind;
+	}
+
+	function removeBindShim () {
+		Function.prototype.bind = nativeBind;
+		nativeBind = null;
+	}
+
+	function bindIsNotShim () {
+		return Function.prototype.bind !== functionShims.bind;
+	}
+
+	function testBind () {
 		it("binds an invocation context to a function", function () {
 			var context = {},
 				bound = func.bind(context),
@@ -23,14 +58,16 @@ define(["src/shim/function"], function () {
 				obj = {
 					fn: bound
 				};
-			bound();
-			bound.apply({}, []);
-			bound.call(obj);
-			obj.fn();
-			function func (one, two) {
+			bound(3);
+			bound.apply({}, [3]);
+			bound.call(obj, 3);
+			obj.fn(3);
+			function func (one, two, three) {
 				expect(this).toBe(context);
 				expect(one).toBe(1);
 				expect(two).toBe(2);
+				expect(three).toBe(3);
+				expect(arguments.length).toBe(3);
 			}
 		});
 
@@ -49,6 +86,8 @@ define(["src/shim/function"], function () {
 				expect(this instanceof Bound).toBe(true);
 			}
 		});
-	});
+	}
+
+	runTests();
 });
 
