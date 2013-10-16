@@ -18,8 +18,7 @@ define(
 			"arguments": [{
 				"name": "method",
 				"type": "function",
-				"description": "This function is executed by the proxy function with the same context and arguments",
-				"required": true
+				"description": "This function is executed by the proxy function with the same context and arguments"
 			}, {
 				"name": "superMethod",
 				"type": "function",
