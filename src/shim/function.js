@@ -42,12 +42,12 @@ define(
 					args = Array.from(arguments).slice(1);
 
 				function bound () {
-					var newArgs = Array.from(arguments);
-					args = args.concat(newArgs);
+					var newArgs = Array.from(arguments),
+						combinedArgs = args.concat(newArgs);
 					if (this instanceof bound) {
 						context = this;
 					}
-					return fn.apply(context, args);
+					return fn.apply(context, combinedArgs);
 				}
 
 				bound.extend(fn);
