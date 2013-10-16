@@ -9,6 +9,7 @@ require(
 		"spec/abstract/base-test",
 		"spec/abstract/singleton-test",
 		"spec/class/create-test",
+		"spec/class/singleton-test",
 		"spec/function/get-name-test",
 		"spec/function/abstract-test",
 		"spec/function/implementation-not-found-test",
