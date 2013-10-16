@@ -4,55 +4,21 @@ define(["src/shim/array"], function (arrayShims) {
 	var nativeMethods = {},
 		shimMethods = ["forEach", "map", "filter", "reduce", "every", "some"];
 
-	function injectArrayShim (method) {
-		nativeMethods[method] = Array.prototype[method];
-		Array.prototype[method] = arrayShims[method];
-	}
-
-	function removeArrayShim (method) {
-		Array.prototype[method] = nativeMethods[method];
-		nativeMethods[method] = null;
+	function runTests (method) {
+		if (arrayMethodIsNotShim(method)) {
+			nativeTests(method);
+		}
+		shimTests(method);
 	}
 
 	function arrayMethodIsNotShim (method) {
 		return Array.prototype[method] !== arrayShims[method];
 	}
 
-	function isArray (value) {
-		return Object.prototype.toString.call(value) === "[object Array]";
-	}
-
-	describe("Array.from)", function () {
-		it("returns a real array", function () {
-			expect(isArray(arguments)).toBe(false);
-			expect(isArray(Array.from(arguments))).toBe(true);
-		});
-
-		it("returns a real array filled with the same values as arguments", function () {
-			var obj = {};
-			test("first arg", obj, null);
-			function test () {
-				var args = Array.from(arguments);
-				expect(args.length).toBe(3);
-				expect(args[0]).toBe("first arg");
-				expect(args[1]).toBe(obj);
-				expect(args.pop()).toBeNull();
-				expect(args.length).toBe(2);
-			}
-		});
-	});
-
-	function runTests (method) {
-		nativeTests(method);
-		shimTests(method);
-	}
-
 	function nativeTests (method) {
-		if (arrayMethodIsNotShim(method)) {
-			describe("array."+ method +" [native]", function () {
-				tests[method]();
-			});
-		}
+		describe("array."+ method +" [native]", function () {
+			tests[method]();
+		});
 	}
 
 	function shimTests (method) {
@@ -65,6 +31,20 @@ define(["src/shim/array"], function (arrayShims) {
 			});
 			tests[method]();
 		});
+	}
+
+	function injectArrayShim (method) {
+		nativeMethods[method] = Array.prototype[method];
+		Array.prototype[method] = arrayShims[method];
+	}
+
+	function removeArrayShim (method) {
+		Array.prototype[method] = nativeMethods[method];
+		nativeMethods[method] = null;
+	}
+
+	function isArray (value) {
+		return Object.prototype.toString.call(value) === "[object Array]";
 	}
 
 	var tests = {
@@ -403,6 +383,26 @@ define(["src/shim/array"], function (arrayShims) {
 			});
 		}
 	};
+
+	describe("Array.from)", function () {
+		it("returns a real array", function () {
+			expect(isArray(arguments)).toBe(false);
+			expect(isArray(Array.from(arguments))).toBe(true);
+		});
+
+		it("returns a real array filled with the same values as arguments", function () {
+			var obj = {};
+			test("first arg", obj, null);
+			function test () {
+				var args = Array.from(arguments);
+				expect(args.length).toBe(3);
+				expect(args[0]).toBe("first arg");
+				expect(args[1]).toBe(obj);
+				expect(args.pop()).toBeNull();
+				expect(args.length).toBe(2);
+			}
+		});
+	});
 
 	shimMethods.forEach(runTests);
 });
