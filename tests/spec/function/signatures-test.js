@@ -50,5 +50,12 @@ define(["src/function/signatures"], function () {
 			expect(compiled.test("null,number")).toBe(true);
 			expect(compiled.test("array,array")).toBe(false);
 		});
+
+		it("supports empty string", function () {
+			var compiled = Function.compileImplementationSignature("");
+			expect(compiled.test("object,string,array")).toBe(false);
+			expect(compiled.test("null")).toBe(false);
+			expect(compiled.test("")).toBe(true);
+		});
 	});
 });

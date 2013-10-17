@@ -134,8 +134,12 @@ define(
 
 		function createImplementationSignatureSrc (signature) {
 			signature = stripWhitespace(signature);
-			signature = escapeMetaCharacters(signature);
-			signature = signature.replace(component, processComponent);
+			if (signature) {
+				signature = escapeMetaCharacters(signature);
+				signature = signature.replace(component, processComponent);
+			} else {
+				signature = lineBegin;
+			}
 			return noCommaNext + signature + lineEnd;
 		}
 
