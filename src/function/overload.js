@@ -51,10 +51,18 @@ define(
 			}
 		});
 
-		var invocation = new Invocation();
+		var invocation = new Invocation(),
+			overload = buildOverload();
+
+		function buildOverload () {
+			var overload = overloadByLength.call(overloadByLength, overloadByLengthSignature);
+			overload = overloadByLength.call(overload, overloadByLengthSignature);
+			overload = overloadBySignature.call(overload, "string,function", overloadBySignature);
+			return overload;
+		}
 
 		if (!Function.prototype.overload) {
-			Function.prototype.overload = overloadByLength.call(overloadByLength, overloadBySignature);
+			Function.prototype.overload = overload;
 		}
 
 		function overloadByLength (thisImplementation) {
@@ -95,8 +103,29 @@ define(
 			};
 		}
 
-		function list (text, times) {
-			return new Array(times + 1).join(text).split("").join(",");
+		function overloadByLengthSignature (length, thisImplementation) {
+			var nextImplementation = this,
+				implementationSignature = list("any", length);
+
+			return function byLength () {
+				if (invocation.isStart(byLength)) {
+					invocation.reset();
+					invocation.setSignature(arguments);
+				}
+				if (arguments.length === length) {
+					invocation.matchingImplementationFound(thisImplementation);
+				} else {
+					invocation.addNonMatchingSignature(implementationSignature);
+					invocation.setNext(nextImplementation);
+				}
+				return invocation.proceed(this, arguments);
+			};
 		}
+
+		function list (text, times) {
+			return new Array(times + 1).join(","+ text).slice(1);
+		}
+
+		return overload;
 	}
 );
