@@ -74,6 +74,9 @@ define(
 		function validateWithOptions (options) {
 			var compiledReturnSignature = Function.compileReturnSignature(options.signature),
 				func = this;
+			if ("any" === options.signature) {
+				proxy = func;
+			}
 			if (!options.functionName) {
 				options.functionName = "";
 			}
