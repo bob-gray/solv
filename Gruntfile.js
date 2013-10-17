@@ -92,11 +92,17 @@ module.exports = function (grunt) {
 					}
 				}
 			}
+		},
+		dependo: {
+			targetPath: "src",
+			outputPath: "docs/deps",
+			format: "amd"
 		}
 	});
 
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-karma");
+	grunt.loadNpmTasks("grunt-dependo");
 
 	grunt.registerTask("default", [
 		"jshint",
