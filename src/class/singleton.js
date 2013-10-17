@@ -41,7 +41,7 @@ define(
 				if (!this.instance) {
 					args = Array.from(arguments);
 					args.unshift(ignoredContext);
-					this.instance = new (this.bind.apply(this, args));
+					this.instance = new (this.bind.apply(this, args))();
 				}
 				return this.instance;
 			};
