@@ -10,9 +10,9 @@ define(
 
 		var Base = createClass(
 			meta({
-				"entity": "class",
 				"name": "Base",
-				"description": "Abstract class."
+				"type": "class",
+				"description": "Abstract class"
 			})
 		);
 
@@ -21,10 +21,13 @@ define(
 				"name": "invoke",
 				"description": "Useful for invoking local functions as private methods.",
 				"arguments": [{
+					"name": "fn",
 					"type": "function",
-					"name": "fn"
+					"description": "Invoked as a method of the instance."
 				}, {
+					"name": "additionalArgs",
 					"type": "any",
+					"description": "All additional arguments are forwarded to fn.",
 					"required": false,
 					"repeating": true
 				}],
@@ -36,13 +39,15 @@ define(
 		Base.method(
 			meta({
 				"name": "proxy",
-				"description": "Creates a function bound to this; useful for attaching event listeners.",
+				"description": "Creates a function bound to this; useful for creating bound callbacks.",
 				"arguments": [{
-					"type": "function",
 					"name": "fn",
-					"description": "Any function in scope. Doesn't need to be a public method."
+					"type": "function",
+					"description": "Useful for private functions. Invoked as method of the instance."
 				}, {
+					"name": "additionalArgs",
 					"type": "any",
+					"description": "All additional arguments are forwarded to fn as preceeding arguments.",
 					"required": false,
 					"repeating": true
 				}],
@@ -54,13 +59,14 @@ define(
 		Base.method(
 			meta({
 				"name": "proxy",
-				"description": "Creates a function bound to this; useful for attaching event listeners.",
 				"arguments": [{
-					"type": "string",
 					"name": "method",
+					"type": "string",
 					"description": "The name of the method to bind."
 				}, {
+					"name": "additionalArgs",
 					"type": "any",
+					"description": "All additional arguments are forwarded to the method as preceeding arguments.",
 					"required": false,
 					"repeating": true
 				}],
@@ -70,19 +76,20 @@ define(
 		);
 
 		function invokeFunction (fn) {
-			var args = Array.from(arguments).slice(1);
+			var args = Array.from(arguments);
+			args.shift();
 			return fn.apply(this, args);
+		}
+
+		function proxyFunction (fn) {
+			var args = Array.from(arguments);
+			args.splice(0, 1, this);
+			return fn.bind.apply(fn, args);
 		}
 
 		function proxyMethod (method) {
 			var args = Array.from(arguments),
 				fn = this[method];
-			args.splice(0, 1, this);
-			return fn.bind.apply(fn, args);
-		}
-
-		function proxyFunction (fn) {
-			var args = Array.from(arguments);
 			args.splice(0, 1, this);
 			return fn.bind.apply(fn, args);
 		}
