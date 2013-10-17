@@ -90,7 +90,7 @@ define(
 		};
 
 		MethodMaker.prototype.noExistingImplementation = function () {
-			return type.is("function", this.existing);
+			return !type.is("function", this.existing);
 		};
 
 		MethodMaker.prototype.hasReturnSignature = function () {
@@ -138,5 +138,7 @@ define(
 			}
 			this.target[this.name] = this.existing.overload(this.signature, this.implementation);
 		};
+
+		return MethodMaker;
 	}
 );
