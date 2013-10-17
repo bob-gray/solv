@@ -104,14 +104,12 @@ define(
 			});
 		};
 
-		MethodMaker.prototype.injectSuper = function () {
-			if (this.isNonShimInstanceMethod()) {
-				this.implementation = injectSuper(this.implementation, this.existing);
-			}
-		};
-
 		MethodMaker.prototype.isNonShimInstanceMethod = function () {
 			return !this.static && !this.shim;
+		};
+
+		MethodMaker.prototype.injectSuperHelpers = function () {
+			this.implementation = injectSuper(this.implementation, this.existing);
 		};
 
 		MethodMaker.prototype.attachMethod = function () {

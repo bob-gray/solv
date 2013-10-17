@@ -1,19 +1,14 @@
 define(
 	[
 		"../meta",
-		"../type",
-		"./super",
-		"../function/overload",
-		"../function/abstract",
-		"../function/get-name",
-		"../function/validate-return-type"
+		"./method-maker"
 	],
-	function (meta, type, injectSuper) {
+	function (meta, MethodMaker) {
 		"use strict";
 
 		meta({
-			"entity": "class",
 			"name": "Function",
+			"type": "class",
 			"global": true
 		});
 
@@ -36,7 +31,7 @@ define(
 		meta({
 			"name": "method",
 			"arguments": [{
-				"name": "signature",
+				"name": "name",
 				"type": "string"
 			}, {
 				"name": "implementation",
@@ -46,8 +41,8 @@ define(
 		});
 
 		meta({
-			"entity": "object",
 			"name": "options",
+			"type": "object",
 			"properties": [{
 				"name": "name",
 				"type": "string",
@@ -80,16 +75,12 @@ define(
 				"name": "returns",
 				"type": "string|object",
 				"description": "Type of return value"
-			}, {
-				"name": "implementation",
-				"type": "function",
-				"description": "This an implementation of the method. It is executed when the method is invoked with a matching signature."
 			}]
 		});
 
 		meta({
-			"entity": "object",
-			"name": "argument",
+			"name": "arguments",
+			"type": "object",
 			"properties": [{
 				"name": "name",
 				"type": "string"
@@ -108,8 +99,8 @@ define(
 		});
 
 		meta({
-			"entity": "object",
 			"name": "returns",
+			"type": "object",
 			"properties": [{
 				"name": "type",
 				"type": "string"
@@ -118,111 +109,27 @@ define(
 
 		if (!Function.prototype.method) {
 			Function.prototype.method = new Function.Abstract("method")
-			.overload("string, function", function (name, implementation) {
-				var options = {
-					name: name,
-					implementation: implementation
-				};
-				return method.call(this, options);
-			})
-			.overload("object, function", function (options, implementation) {
-				options.implementation = implementation;
-				return method.call(this, options);
-			});
+				.overload("string, function", methodWithName)
+				.overload("object, function", methodWithOptions);
 		}
 
-		function method (options) {
-			var constructor = this;
-			setFullName(constructor, options);
-			validateReturnType(options);
-			injectSuperImplementation(constructor, options);
-			attachMethod(constructor, options);
+		function methodWithName (name, implementation) {
+			var options = {
+				name: name
+			};
+			return methodWithOptions.call(this, options, implementation);
+		}
+
+		function methodWithOptions (options, implementation) {
+			var method = new MethodMaker(this, options, implementation);
+			if (method.hasReturnSignature()) {
+				method.injectReturnTypeValidation();
+			}
+			if (method.isNonShimInstanceMethod()) {
+				method.injectSuperHelpers();
+			}
+			method.attachMethod();
 			return this;
-		}
-
-		function setFullName (constructor, options) {
-			var className = constructor.getName() || "";
-			if (className) {
-				className += ".";
-			}
-			options.fullName = className + options.name;
-		}
-
-		function validateReturnType (options) {
-			var returnSignature = getReturnSignature(options);
-			if (returnSignature) {
-				options.implementation = options.implementation.validateReturnType({
-					functionName: options.fullName,
-					signature: returnSignature
-				});
-			}
-		}
-
-		function injectSuperImplementation (constructor, options) {
-			var methods,
-				existing;
-			if (!options.static && !options.shim) {
-				methods = constructor.prototype;
-				existing = methods[options.name];
-				options.implementation = injectSuper(options.implementation, existing);
-			}
-		}
-
-		function attachMethod (constructor, options) {
-			if (options.static) {
-				attachMethodToTarget(constructor, options);
-			} else if (options.shim) {
-				attachShimMethod(constructor, options);
-			} else {
-				attachMethodToTarget(constructor.prototype, options);
-			}
-		}
-
-		function getReturnSignature (options) {
-			var returns = options.returns,
-				returnType;
-			if (type.is("string", returns)) {
-				returnType = returns;
-			} else if (returns && type.is("string", returns.type)) {
-				returnType = returns.type;
-			}
-			return returnType;
-		}
-
-		function attachShimMethod (constructor, options) {
-			var methods = constructor.prototype,
-				existing = methods[options.name];
-			if (!type.is("function", existing)) {
-				methods[options.name] = options.implementation;
-			}
-		}
-
-		function attachMethodToTarget (target, options) {
-			var overload = true,
-				signature = getSignature(options),
-				hasSignature = type.is("string", signature),
-				existing = target[options.name],
-				implementationExists = type.is("function", existing);
-
-			if (hasSignature && (!implementationExists || options.override)) {
-				existing = new Function.Abstract(options.fullName);
-			} else if (!hasSignature) {
-				overload = false;
-			}
-
-			if (overload) {
-				target[options.name] = existing.overload(signature, options.implementation);
-			} else {
-				target[options.name] = options.implementation;
-			}
-		}
-
-		function getSignature (options) {
-			var signature = options.signature;
-			if (!type.is("string", signature)) {
-				signature = Function.getSignatureFromArgumentsMeta(options["arguments"]);
-			}
-			return signature;
 		}
 	}
 );
