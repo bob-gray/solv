@@ -6,7 +6,8 @@ define(
 		"../function/overload",
 		"../function/abstract",
 		"../function/get-name",
-		"../function/validate-return-type"
+		"../function/validate-return-type",
+		"../object/merge"
 	],
 	function (meta, type, injectSuper) {
 		"use strict";
@@ -14,28 +15,15 @@ define(
 		function MethodMaker (constructor, options, implementation) {
 			this.classConstructor = constructor;
 			this.implementation = implementation;
-			this.setOptions(options);
-			this.init();
-		}
-
-		MethodMaker.prototype.setOptions = function (options) {
-			this.name = options.name;
-			this.static = options.static;
-			this.override = options.override;
-			this.shim = options.shim;
-			this.signature = options.signature;
-			this.argsMeta = options["arguments"];
-			this.returns = options.returns;
-		};
-
-		MethodMaker.prototype.init = function () {
+			Object.merge(this, options);
 			this.setClassPrefix();
 			this.setFullName();
-			this.setSignature();
 			this.setTarget();
 			this.setExisting();
 			this.setReturnSignature();
-		};
+		}
+
+
 
 		MethodMaker.prototype.setClassPrefix = function () {
 			var className = this.classConstructor.getName();
@@ -47,16 +35,6 @@ define(
 
 		MethodMaker.prototype.setFullName = function () {
 			this.fullName = this.classPrefix + this.name;
-		};
-
-		MethodMaker.prototype.setSignature = function () {
-			if (this.needsSignature()) {
-				if (this.hasArgumentsMeta()) {
-					this.signature = Function.getSignatureFromArgumentsMeta(this.argsMeta);
-				} else {
-					this.signature = this.implementation.length;
-				}
-			}
 		};
 
 		MethodMaker.prototype.setTarget = function () {
@@ -85,12 +63,24 @@ define(
 			return "string" !== signatureType && "number" !== signatureType;
 		};
 
-		MethodMaker.prototype.hasArgumentsMeta = function () {
-			return type.is("array", this.argsMeta);
+		MethodMaker.prototype.setSignature = function () {
+			if (this.hasArgumentsMeta()) {
+				this.setSignatureFromArgsMeta();
+			} else {
+				this.signature = this.implementation.length;
+			}
 		};
 
-		MethodMaker.prototype.noExistingImplementation = function () {
-			return !type.is("function", this.existing);
+		MethodMaker.prototype.hasArgumentsMeta = function () {
+			return type.is("array", this["arguments"]);
+		};
+
+		MethodMaker.prototype.setSignatureFromArgsMeta = function () {
+			if (this["arguments"].length) {
+				this.signature = Function.getSignatureFromArgumentsMeta(this["arguments"]);
+			} else {
+				this.signature = 0;
+			}
 		};
 
 		MethodMaker.prototype.hasReturnSignature = function () {
@@ -137,6 +127,10 @@ define(
 				this.existing = new Function.Abstract(this.fullName);
 			}
 			this.target[this.name] = this.existing.overload(this.signature, this.implementation);
+		};
+
+		MethodMaker.prototype.noExistingImplementation = function () {
+			return !type.is("function", this.existing);
 		};
 
 		return MethodMaker;

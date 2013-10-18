@@ -70,7 +70,7 @@ define(
 			);
 		}
 
-		function mixinConstructorOrObject (mixin, index, array) {
+		function mixinConstructorOrObject (mixin) {
 			this.mixin(mixin);
 		}
 

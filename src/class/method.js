@@ -122,6 +122,9 @@ define(
 
 		function methodWithOptions (options, implementation) {
 			var method = new MethodMaker(this, options, implementation);
+			if (method.needsSignature()) {
+				method.setSignature();
+			}
 			if (method.hasReturnSignature()) {
 				method.injectReturnTypeValidation();
 			}

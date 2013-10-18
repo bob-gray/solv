@@ -6,13 +6,13 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "module",
+			"type": "module",
 			"description": "Augments Array prototype"
 		});
 
 		meta({
-			"entity": "class",
 			"name": "Array",
+			"type": "class",
 			"global": true
 		});
 
