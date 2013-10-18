@@ -18,6 +18,7 @@ require(
 		"spec/function/overload-test",
 		"spec/function/signatures-test",
 		"spec/function/validate-return-type-test",
+		"spec/object/merge-test",
 		"spec/shim/object-test",
 		"spec/shim/array-test",
 		"spec/shim/function-test",
