@@ -9,6 +9,7 @@ define(
 
 		meta({
 			"type": "module",
+			"exports": "merge",
 			"description": "Utility for merging objects together"
 		});
 
@@ -64,5 +65,7 @@ define(
 		if (!Object.merge) {
 			Object.merge = merge;
 		}
+
+		return merge;
 	}
 );

@@ -8,7 +8,7 @@ define(
 
 		meta({
 			"type": "module",
-			"export": "extend",
+			"exports": "extend",
 			"description": "Allows one class to easily inherit from another"
 		});
 

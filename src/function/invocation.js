@@ -1,26 +1,16 @@
 define(
 	[
-		"../meta"
+		"../meta",
+		"../type"
 	],
-	function (meta) {
+	function (meta, type) {
 		"use strict";
 
 		meta({
-			"entity": "class",
 			"name": "Invocation",
-			"properties": [{
-				"name": "instance",
-				"type": "object",
-				"static": true
-			}, {
-				"name": "signature",
-				"type": "string",
-				"default": null
-			}, {
-				"name": "nonMatchingSignatures",
-				"type": "array"
-			}]
+			"type": "class"
 		});
+
 		meta({
 			"name": "reset",
 			"arguments": []
@@ -36,7 +26,7 @@ define(
 		});
 
 		meta({
-			"name": "setSignature",
+			"name": "setSignatureAndLength",
 			"arguments": [{
 				"name": "args",
 				"type": "arguments"
@@ -46,8 +36,8 @@ define(
 		meta({
 			"name": "testImplementation",
 			"arguments": [{
-				"name": "compiledSignature",
-				"type": "regex"
+				"name": "tester",
+				"type": "number|regex"
 			}],
 			"returns": "boolean"
 		});
@@ -89,12 +79,12 @@ define(
 
 		function Invocation () {
 			this.reset();
-			Invocation.instance = this;
 		}
 
 		Invocation.prototype.reset = function () {
 			this.next = null;
 			this.signature = null;
+			this.length = null;
 			this.matchingImplementation = null;
 			this.nonMatchingSignatures = [];
 		};
@@ -103,12 +93,19 @@ define(
 			return next !== this.next;
 		};
 
-		Invocation.prototype.setSignature = function (args) {
+		Invocation.prototype.setSignatureAndLength = function (args) {
 			this.signature = Function.getInvocationSignature(args);
+			this.length = args.length;
 		};
 
-		Invocation.prototype.testImplementation = function (compiledSignature) {
-			return compiledSignature.test(this.signature);
+		Invocation.prototype.testImplementation = function (tester) {
+			var match;
+			if (type.is("number", tester)) {
+				match = tester === this.length;
+			} else {
+				match = tester.test(this.signature);
+			}
+			return match;
 		};
 
 		Invocation.prototype.matchingImplementationFound = function (implementation) {

@@ -23,8 +23,6 @@ define(
 			this.setReturnSignature();
 		}
 
-
-
 		MethodMaker.prototype.setClassPrefix = function () {
 			var className = this.classConstructor.getName();
 			this.classPrefix = "";

@@ -2,23 +2,19 @@ define(["src/function/invocation"], function (Invocation) {
 	"use strict";
 
 	describe("Invocation class", function () {
-		it("has a static property (Invocation.instance) equal to the latest created instance", function () {
-			var invocation = new Invocation ();
-			expect(invocation).toBe(Invocation.instance);
-		});
-
 		it("instances have a signature property that's default is null", function () {
 			var invocation = new Invocation ();
 			expect(invocation.signature).toBeNull();
 		});
 
-		it("instances have a method setSignature(args) that sets the signature property by inspecting the types of the args passed to it", function () {
+		it("instances have a method setSignatureAndLength(args) that sets the signature and length properties by inspecting the types of the args passed to it", function () {
 			var invocation = new Invocation ();
 			set([], {}, function(){});
 			function set () {
-				invocation.setSignature(arguments);
+				invocation.setSignatureAndLength(arguments);
 			}
 			expect(invocation.signature).toBe("array,object,function");
+			expect(invocation.length).toBe(3);
 		});
 
 		it("instances have a nonMatchingSignatures property that's default is an empty array", function () {
@@ -51,7 +47,7 @@ define(["src/function/invocation"], function (Invocation) {
 				compiledNonMatch = /^string,null$/;
 			set([], {}, function(){});
 			function set () {
-				invocation.setSignature(arguments);
+				invocation.setSignatureAndLength(arguments);
 			}
 			expect(invocation.testImplementation(compiledMatch)).toBe(true);
 			expect(invocation.testImplementation(compiledNonMatch)).toBe(false);
@@ -78,7 +74,7 @@ define(["src/function/invocation"], function (Invocation) {
 				};
 			set([], {}, function(){});
 			function set () {
-				invocation.setSignature(arguments);
+				invocation.setSignatureAndLength(arguments);
 			}function next (n) {
 				this.i += n;
 				expect(this).toBe(context);
@@ -95,7 +91,7 @@ define(["src/function/invocation"], function (Invocation) {
 				badSignature = "array,!null,function";
 			set([], {}, function(){});
 			function set () {
-				invocation.setSignature(arguments);
+				invocation.setSignatureAndLength(arguments);
 			}
 			invocation.addNonMatchingSignature(badSignature);
 			expect(invocation.nonMatchingSignatures.length).toBeGreaterThan(0);
