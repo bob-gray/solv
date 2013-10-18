@@ -53,9 +53,11 @@ define(["src/type"], function (type) {
 			expect(tester.is("number", 0)).toBe(true);
 			expect(tester.of(true)).toBe("boolean");
 			expect(tester.is("object", [])).toBe(false);
+			expect(tester.is.not("object", [])).toBe(true);
 			expect(tester.of("")).toBe("string");
 			expect(tester.is("string.phone", "515-555-3333")).toBe(true);
 			expect(tester.of("515-555")).toBe("string");
+			expect(tester.is.not("string.phone", "515-555-3333")).toBe(false);
 		});
 	});
 
