@@ -1,18 +1,26 @@
 define(
 	[
-		"../meta"
+		"../meta",
+		"../shim/object"
 	],
 	function (meta) {
 		"use strict";
 
 		meta({
-			"entity": "module",
-			"export": "Function",
+			"type": "module",
+			"export": "extend",
 			"description": "Allows one class to easily inherit from another"
 		});
 
 		meta({
+			"name": "Function",
+			"type": "class",
+			"global": true
+		});
+
+		meta({
 			"name": "extend",
+			"static": true,
 			"description": "To be called as a method of a class constructor. Wires up a class to inherit from a parent class. Assigns the Parent's prototype to an \"_super\" property of the child's prototype.",
 			"arguments": [{
 				"name": "Parent",
@@ -25,24 +33,17 @@ define(
 			}
 		});
 
+		function extend (Super) {
+			this.prototype = Object.create(Super.prototype);
+			this.prototype.constructor = this;
+			this.Super = Super;
+			return this;
+		}
+
 		if (!Function.prototype.extend) {
-			Function.prototype.extend = function (Parent) {
-				var Surrogate = createSurrogate(Parent);
-				inherit(this, Surrogate);
-				this.Super = Parent;
-				return this;
-			};
+			Function.prototype.extend = extend;
 		}
 
-		function createSurrogate (Parent) {
-			function Surrogate () {}
-			Surrogate.prototype = Parent.prototype;
-			return Surrogate;
-		}
-
-		function inherit (Child, Surrogate) {
-			Child.prototype = new Surrogate();
-			Child.prototype.constructor = Child;
-		}
+		return extend;
 	}
 );
