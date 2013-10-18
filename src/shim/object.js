@@ -58,9 +58,8 @@ define(
 			}
 		}
 
-		function isNonObject (object) {
-			var type = type.of(object);
-			return "object" !== type  && "function" !== type;
+		function isNonObject (value) {
+			return type.is.not("object", value) && type.is.not("function", value);
 		}
 
 		if (!Object.keys) {
