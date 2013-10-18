@@ -11,9 +11,9 @@ define(
 		});
 
 		meta({
-			"entity": "function",
 			"name": "of",
-			"description": "I get the native type name of a value.",
+			"type": "function",
+			"description": "Gets the native type name of a value.",
 			"arguments": [{
 				"name": "value",
 				"type": "any"
@@ -22,9 +22,9 @@ define(
 		});
 
 		meta({
-			"entity": "function",
 			"name": "is",
-			"description": "I test the native type name of a value against a specified type name.",
+			"type": "function",
+			"description": "Tests the native type name of a value against a specified type name.",
 			"arguments": [{
 				"name": "type",
 				"type": "string"
@@ -36,8 +36,22 @@ define(
 		});
 
 		meta({
-			"entity": "function",
+			"name": "is.not",
+			"type": "function",
+			"description": "Tests the native type name of a value not to be a specified type name.",
+			"arguments": [{
+				"name": "type",
+				"type": "string"
+			}, {
+				"name": "value",
+				"type": "any"
+			}],
+			"returns": "boolean"
+		});
+
+		meta({
 			"name": "custom",
+			"type": "function",
 			"description": "For creating a custom type tester that extends stock tester.",
 			"arguments": [{
 				"name": "subtypes",
@@ -46,9 +60,11 @@ define(
 			}],
 			"returns": {
 				"type": "object",
-				"description": "Custom type tester containing 'of' and 'is' methods."
+				"description": "Custom type tester containing .of, .is and .is.not methods."
 			}
 		});
+
+		var toString = Object.prototype.toString;
 
 		function of (value) {
 			var type = typeof value;
@@ -60,7 +76,6 @@ define(
 			return type;
 		}
 
-		var toString = Object.prototype.toString;
 
 		function getObjectType (value) {
 			var objectString = toString.call(value);
@@ -70,6 +85,10 @@ define(
 		function is (type, value) {
 			return of(value) === type;
 		}
+
+		is.not = function (type, value) {
+			return of(value) !== type;
+		};
 
 		function custom (subtypes) {
 			function _of (value) {
@@ -83,6 +102,10 @@ define(
 			function _is (type, value) {
 				return _of(value) === type;
 			}
+
+			_is.not = function (type, value) {
+				return _of(value) !== type;
+			};
 
 			function hasSubtypes (type) {
 				return type in subtypes;

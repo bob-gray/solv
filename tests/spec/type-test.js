@@ -14,11 +14,12 @@ define(["src/type"], function (type) {
 		"undefined": undefined
 	};
 
-	describe("type.of(value)", function () {
+	describe("type.of", function () {
 		forEach(subjects, testOfFunction);
 	});
 
 	forEach(subjects, testIsFunction);
+	forEach(subjects, testIsNotFunction);
 
 	function testOfFunction (name, value) {
 		it("gets the type of "+ name, function () {
@@ -27,12 +28,18 @@ define(["src/type"], function (type) {
 	}
 
 	function testIsFunction (isName) {
-		describe("type.is('"+ isName +"', value)", function () {
+		describe("type.is "+ isName, function () {
 			forEach(subjects, curry(testIs, isName));
 		});
 	}
 
-	describe("type.custom(subtypes)", function () {
+	function testIsNotFunction (isNotName) {
+		describe("type.is.not "+ isNotName, function () {
+			forEach(subjects, curry(testIsNot, isNotName));
+		});
+	}
+
+	describe("type.custom", function () {
 		it("accepts an object of subtypes for further processing given native types", function () {
 			var tester = type.custom({
 				string: function (value) {
@@ -54,19 +61,38 @@ define(["src/type"], function (type) {
 
 	function testIs (isName, valueName, value) {
 		var result = valueName === isName,
-			specTitle = getSpecTitle(valueName, isName, result);
+			specTitle = getIsSpecTitle(valueName, isName, result);
 
 		it(specTitle, function () {
 			expect(type.is(isName, value)).toEqual(result);
 		});
 	}
 
-	function getSpecTitle (valueName, isName, result) {
+	function testIsNot (isName, valueName, value) {
+		var result = valueName !== isName,
+			specTitle = getIsNotSpecTitle(valueName, isName, result);
+
+		it(specTitle, function () {
+			expect(type.is.not(isName, value)).toEqual(result);
+		});
+	}
+
+	function getIsSpecTitle (valueName, isName, result) {
 		var resultText;
 		if (result) {
 			resultText = " is ";
 		} else {
 			resultText = " is not ";
+		}
+		return valueName + resultText + isName;
+	}
+
+	function getIsNotSpecTitle (valueName, isName, result) {
+		var resultText;
+		if (result) {
+			resultText = " is not ";
+		} else {
+			resultText = " is ";
 		}
 		return valueName + resultText + isName;
 	}
