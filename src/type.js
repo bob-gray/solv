@@ -6,8 +6,8 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "module",
-			"description": "Native typeof operator returns 'object' for for JavaScript types: array, date, regexp, arguments and null. Native type names for use with type.of and type.is include: string, number, boolean, array, object, date, regexp, function, undefined or null."
+			"type": "module",
+			"description": "Native typeof operator fails and returns 'object' for JavaScript types: array, date, regexp and null. Native type names for use with this module include: string, number, boolean, array, object, date, regexp, function, undefined and null."
 		});
 
 		meta({
