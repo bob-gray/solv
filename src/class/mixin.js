@@ -55,7 +55,7 @@ define(
 				meta({
 					"entity": "method",
 					"name": "mixin",
-					"description": "Object's and Constructor's own methods will be appended to function's prototype.",
+					"description": "Object's and Constructor's own methods will be appended to function's prototype overriding inherited methods.",
 					"arguments": [{
 						"name": "mixins",
 						"type": "array",
@@ -83,7 +83,7 @@ define(
 			}
 
 			function attachMethod (name) {
-				Constructor.method(name, mixins[name]);
+				Constructor.prototype[name] = mixins[name];
 			}
 
 			return Constructor;
