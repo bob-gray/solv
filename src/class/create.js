@@ -110,8 +110,8 @@ define(
 		}
 
 		function getSuperInit (Constructor) {
-			var init,
-				Super = Constructor.Super;
+			var Super = Constructor.Super,
+				init = Super;
 			while (Super) {
 				if (Super.init) {
 					init = Super.init;
