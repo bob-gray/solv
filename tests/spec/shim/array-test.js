@@ -2,7 +2,15 @@ define(["src/shim/array"], function (arrayShims) {
 	"use strict";
 
 	var nativeMethods = {},
-		shimMethods = ["forEach", "map", "filter", "reduce", "every", "some"];
+		shimMethods = [
+			"forEach",
+			"reduce",
+			"indexOf",
+			"map",
+			"filter",
+			"every",
+			"some"
+		];
 
 	function runTests (method) {
 		if (arrayMethodIsNotShim(method)) {
@@ -49,9 +57,7 @@ define(["src/shim/array"], function (arrayShims) {
 
 	var tests = {
 		forEach: function () {
-			var nativeOrShim = arrayMethodIsNotShim("forEach") ? " [native]" : " [shim]";
-
-			it("executes callback once per array element"+ nativeOrShim, function () {
+			it("executes callback once per array element", function () {
 				var array = [1, 2, 3];
 				array.forEach(function (num, index, arr) {
 					expect(num).toBe(index + 1);
@@ -59,21 +65,21 @@ define(["src/shim/array"], function (arrayShims) {
 				});
 			});
 
-			it("passes (element, index, array) to callback"+ nativeOrShim, function () {
+			it("passes (element, index, array) to callback", function () {
 				var array = [1, 2, 3];
 				array.forEach(function (num, index, arr) {
 					expect(num).toBe(arr[index]);
 				});
 			});
 
-			it("loops 0 to length forwards"+ nativeOrShim, function () {
+			it("loops 0 to length forwards", function () {
 				var array = [1, 2, 3];
 				[1, 2, 3].forEach(function (num, index, arr) {
 					expect(num).toBe(array.shift());
 				});
 			});
 
-			it("executes callback with context passed as second parameter"+ nativeOrShim, function () {
+			it("executes callback with context passed as second parameter", function () {
 				var array = [1, 2, 3],
 					context = {};
 				array.forEach(function (num, index, arr) {
@@ -82,117 +88,9 @@ define(["src/shim/array"], function (arrayShims) {
 			});
 		},
 
-		map: function () {
-			var nativeOrShim = arrayMethodIsNotShim("map") ? " [native]" : " [shim]";
-
-			it("returns new array"+ nativeOrShim, function () {
-				var array = [1, 2, 3],
-					other = array.map(function (num, index, arr) {
-						return num;
-					});
-				expect(isArray(other)).toBe(true);
-				expect(other).toNotBe(array);
-			});
-
-			it("new array is filled with items returned from callback"+ nativeOrShim, function () {
-				var array = [1, 2, 3],
-					other = array.map(function (num, index, arr) {
-						return num * 2;
-					});
-				expect(other[0]).toBe(2);
-				expect(other[1]).toBe(4);
-				expect(other[2]).toBe(6);
-			});
-
-			it("executes callback once per array element"+ nativeOrShim, function () {
-				var array = [1, 2, 3];
-				array.map(function (num, index, arr) {
-					expect(num).toBe(index + 1);
-					expect(arr).toBe(array);
-				});
-			});
-
-			it("passes (element, index, array) to callback"+ nativeOrShim, function () {
-				var array = [1, 2, 3];
-				array.map(function (num, index, arr) {
-					expect(num).toBe(arr[index]);
-				});
-			});
-
-			it("loops 0 to length forwards"+ nativeOrShim, function () {
-				var array = [1, 2, 3];
-				[1, 2, 3].map(function (num, index, arr) {
-					expect(num).toBe(array.shift());
-				});
-			});
-
-			it("executes callback with context passed as second parameter"+ nativeOrShim, function () {
-				var array = [1, 2, 3],
-					context = {};
-				array.map(function (num, index, arr) {
-					expect(this).toBe(context);
-				}, context);
-			});
-		},
-
-		filter: function () {
-			var nativeOrShim = arrayMethodIsNotShim("filter") ? " [native]" : " [shim]";
-
-			it("returns new array"+ nativeOrShim, function () {
-				var array = [1, 2, 3],
-					other = array.filter(function (num, index, arr) {
-						return false;
-					});
-				expect(isArray(other)).toBe(true);
-				expect(other).toNotBe(array);
-			});
-
-			it("new array is filled with items that produced a truthy response from callback"+ nativeOrShim, function () {
-				var array = [1, 2, 3],
-					other = array.filter(function (num, index, arr) {
-						return num > 1;
-					});
-				expect(other.length).toBe(2);
-				expect(other[0]).toBe(2);
-				expect(other[1]).toBe(3);
-			});
-
-			it("executes callback once per array element"+ nativeOrShim, function () {
-				var array = [1, 2, 3];
-				array.filter(function (num, index, arr) {
-					expect(num).toBe(index + 1);
-					expect(arr).toBe(array);
-				});
-			});
-
-			it("passes (element, index, array) to callback"+ nativeOrShim, function () {
-				var array = [1, 2, 3];
-				array.filter(function (num, index, arr) {
-					expect(num).toBe(arr[index]);
-				});
-			});
-
-			it("loops 0 to length forwards"+ nativeOrShim, function () {
-				var array = [1, 2, 3];
-				[1, 2, 3].filter(function (num, index, arr) {
-					expect(num).toBe(array.shift());
-				});
-			});
-
-			it("executes callback with context passed as second parameter"+ nativeOrShim, function () {
-				var array = [1, 2, 3],
-					context = {};
-				array.filter(function (num, index, arr) {
-					expect(this).toBe(context);
-				}, context);
-			});
-		},
-
 		reduce: function () {
-			var nativeOrShim = arrayMethodIsNotShim("reduce") ? " [native]" : " [shim]";
-
-			/* jshint -W072 */ //reduce method accepts 4 parameters
-			it("passes each element to the callback in sequences when initialValue is supplied"+ nativeOrShim, function () {
+			/* jshint -W072 */ //reduce callback accepts 4 parameters
+			it("passes each element to the callback in sequences when initialValue is supplied", function () {
 				var arr = [1, 2, 3, 4],
 					control = arr.slice(0);
 				arr.reduce(function (previousValue, currentValue, index, array) {
@@ -200,7 +98,7 @@ define(["src/shim/array"], function (arrayShims) {
 				}, 0);
 			});
 
-			it("assigns the first element in the array as the initial value if not initial value is supplied"+ nativeOrShim, function () {
+			it("assigns the first element in the array as the initial value if not initial value is supplied", function () {
 				var arr = [1, 2, 3, 4],
 					firstLoop = true;
 				arr.reduce(function (previousValue, currentValue, index, array) {
@@ -211,7 +109,7 @@ define(["src/shim/array"], function (arrayShims) {
 				});
 			});
 
-			it("doesn't execute callback for first element if not initial value is supplied"+ nativeOrShim, function () {
+			it("doesn't execute callback for first element if not initial value is supplied", function () {
 				var arr = [1, 2, 3, 4],
 					firstLoop = true;
 				arr.reduce(function (previousValue, currentValue, index, array) {
@@ -222,21 +120,21 @@ define(["src/shim/array"], function (arrayShims) {
 				});
 			});
 
-			it("passes index to callback"+ nativeOrShim, function () {
+			it("passes index to callback", function () {
 				var arr = [1, 2, 3, 4];
 				arr.reduce(function (previousValue, currentValue, index, array) {
 					expect(arr[index]).toBe(array[index]);
 				});
 			});
 
-			it("passes array to callback"+ nativeOrShim, function () {
+			it("passes array to callback", function () {
 				var arr = [1, 2, 3, 4];
 				arr.reduce(function (previousValue, currentValue, index, array) {
 					expect(arr).toBe(array);
 				});
 			});
 
-			it("passes the value returned from each callback execution the to the next execution"+ nativeOrShim, function () {
+			it("passes the value returned from each callback execution the to the next execution", function () {
 				var arr = [1, 2, 3, 4],
 					previous = 0;
 				arr.reduce(function (previousValue, currentValue, index, array) {
@@ -246,7 +144,7 @@ define(["src/shim/array"], function (arrayShims) {
 				}, 0);
 			});
 
-			it("returns the value returned by the last execution of callback or initialValue if callback is not executed"+ nativeOrShim, function () {
+			it("returns the value returned by the last execution of callback or initialValue if callback is not executed", function () {
 				var arr = [1, 2, 3, 4],
 					result;
 
@@ -279,10 +177,138 @@ define(["src/shim/array"], function (arrayShims) {
 			/* jshint +W072 */
 		},
 
-		every: function () {
-			var nativeOrShim = arrayMethodIsNotShim("every") ? " [native]" : " [shim]";
+		indexOf: function () {
+			it("return the first index of a matching element", function () {
+				var array = ["a", "b", "c"],
+					found = array.indexOf("b");
+				expect(found).toBe(1);
+				expect(array[found]).toBe("b");
+			});
 
-			it("executes call back once for each element until callback returns a falsey"+ nativeOrShim, function () {
+			it("returns -1 if not found", function () {
+				var notFound = ["a", "b", "c"].indexOf("z");
+				expect(notFound).toBe(-1);
+			});
+
+			it("optionally accepts a starting index", function () {
+				var found = ["a","b","c"].indexOf("c", 1),
+					notFound = ["a","b","c"].indexOf("a", 1);
+				expect(found).toBe(2);
+				expect(notFound).toBe(-1);
+			});
+
+			it("starting index can be negative", function () {
+				var notFound = ["a","b","c"].indexOf("a", -1),
+					found = ["a","b","c"].indexOf("b", -3);
+				expect(notFound).toBe(-1);
+				expect(found).toBe(1);
+			});
+		},
+
+		map: function () {
+			it("returns new array", function () {
+				var array = [1, 2, 3],
+					other = array.map(function (num, index, arr) {
+						return num;
+					});
+				expect(isArray(other)).toBe(true);
+				expect(other).toNotBe(array);
+			});
+
+			it("new array is filled with items returned from callback", function () {
+				var array = [1, 2, 3],
+					other = array.map(function (num, index, arr) {
+						return num * 2;
+					});
+				expect(other[0]).toBe(2);
+				expect(other[1]).toBe(4);
+				expect(other[2]).toBe(6);
+			});
+
+			it("executes callback once per array element", function () {
+				var array = [1, 2, 3];
+				array.map(function (num, index, arr) {
+					expect(num).toBe(index + 1);
+					expect(arr).toBe(array);
+				});
+			});
+
+			it("passes (element, index, array) to callback", function () {
+				var array = [1, 2, 3];
+				array.map(function (num, index, arr) {
+					expect(num).toBe(arr[index]);
+				});
+			});
+
+			it("loops 0 to length forwards", function () {
+				var array = [1, 2, 3];
+				[1, 2, 3].map(function (num, index, arr) {
+					expect(num).toBe(array.shift());
+				});
+			});
+
+			it("executes callback with context passed as second parameter", function () {
+				var array = [1, 2, 3],
+					context = {};
+				array.map(function (num, index, arr) {
+					expect(this).toBe(context);
+				}, context);
+			});
+		},
+
+		filter: function () {
+			it("returns new array", function () {
+				var array = [1, 2, 3],
+					other = array.filter(function (num, index, arr) {
+						return false;
+					});
+				expect(isArray(other)).toBe(true);
+				expect(other).toNotBe(array);
+			});
+
+			it("new array is filled with items that produced a truthy response from callback", function () {
+				var array = [1, 2, 3],
+					other = array.filter(function (num, index, arr) {
+						return num > 1;
+					});
+				expect(other.length).toBe(2);
+				expect(other[0]).toBe(2);
+				expect(other[1]).toBe(3);
+			});
+
+			it("executes callback once per array element", function () {
+				var array = [1, 2, 3];
+				array.filter(function (num, index, arr) {
+					expect(num).toBe(index + 1);
+					expect(arr).toBe(array);
+				});
+			});
+
+			it("passes (element, index, array) to callback", function () {
+				var array = [1, 2, 3];
+				array.filter(function (num, index, arr) {
+					expect(num).toBe(arr[index]);
+				});
+			});
+
+			it("loops 0 to length forwards", function () {
+				var array = [1, 2, 3];
+				[1, 2, 3].filter(function (num, index, arr) {
+					expect(num).toBe(array.shift());
+				});
+			});
+
+			it("executes callback with context passed as second parameter", function () {
+				var array = [1, 2, 3],
+					context = {};
+				array.filter(function (num, index, arr) {
+					expect(this).toBe(context);
+				}, context);
+			});
+		},
+
+		every: function () {
+			it("executes call back once for each element until callback returns a falsey", function () {
 				var arr = [1, 2, 3, 4],
 					count = 0;
 				arr.every(function (element, index, array) {
@@ -303,7 +329,7 @@ define(["src/shim/array"], function (arrayShims) {
 				expect(count).toBe(1);
 			});
 
-			it("return is false if any callback execution returns falsey value"+ nativeOrShim, function () {
+			it("return is false if any callback execution returns falsey value", function () {
 				var arr = [1, 2, 3, 4],
 					result = arr.every(function (element, index, array) {
 						return element < 3;
@@ -321,7 +347,7 @@ define(["src/shim/array"], function (arrayShims) {
 				expect(result).toBe(true);
 			});
 
-			it("accepts a context to be passed to the callback"+ nativeOrShim, function () {
+			it("accepts a context to be passed to the callback", function () {
 				var arr = [1, 2, 3, 4],
 					context = {};
 				arr.every(function (element, index, array) {
@@ -332,9 +358,7 @@ define(["src/shim/array"], function (arrayShims) {
 		},
 
 		some: function () {
-			var nativeOrShim = arrayMethodIsNotShim("some") ? " [native]" : " [shim]";
-
-			it("executes call back once for each element until callback returns a truthy"+ nativeOrShim, function () {
+			it("executes call back once for each element until callback returns a truthy", function () {
 				var arr = [1, 2, 3, 4],
 					count = 0;
 				arr.some(function (element, index, array) {
@@ -355,7 +379,7 @@ define(["src/shim/array"], function (arrayShims) {
 				expect(count).toBe(4);
 			});
 
-			it("return is false if any callback execution returns falsey value"+ nativeOrShim, function () {
+			it("return is false if any callback execution returns falsey value", function () {
 				var arr = [1, 2, 3, 4],
 					result = arr.every(function (element, index, array) {
 						return element < 3;
@@ -373,7 +397,7 @@ define(["src/shim/array"], function (arrayShims) {
 				expect(result).toBe(true);
 			});
 
-			it("accepts a context to be passed to the callback"+ nativeOrShim, function () {
+			it("accepts a context to be passed to the callback", function () {
 				var arr = [1, 2, 3, 4],
 					context = {};
 				arr.every(function (element, index, array) {
@@ -383,6 +407,8 @@ define(["src/shim/array"], function (arrayShims) {
 			});
 		}
 	};
+
+	shimMethods.forEach(runTests);
 
 	describe("Array.from)", function () {
 		it("returns a real array", function () {
@@ -403,6 +429,4 @@ define(["src/shim/array"], function (arrayShims) {
 			}
 		});
 	});
-
-	shimMethods.forEach(runTests);
 });

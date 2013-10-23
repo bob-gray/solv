@@ -45,6 +45,21 @@ define(
 		});
 
 		meta({
+			"name": "indexOf",
+			"shim": true,
+			"description": "Returns the first index at which a given element can be found in the array, or -1 if it is not present.",
+			"arguments": [{
+				"name": "element",
+				"type": "start"
+			}, {
+				"name": "from",
+				"type": "number",
+				"required": false,
+				"description": "The index to start the search"
+			}]
+		});
+
+		meta({
 			"name": "map",
 			"shim": true,
 			"description": "Creates a new array with the results of calling a provided function on every element in this array.",
@@ -93,7 +108,15 @@ define(
 		});
 
 		var slice = Array.prototype.slice,
-			shimMethods = ["map", "filter", "reduce", "every", "some"],
+			shimMethods = [
+				"forEach",
+				"reduce",
+				"indexOf",
+				"map",
+				"filter",
+				"every",
+				"some"
+			],
 			arrayShims = {};
 
 		Array.from = function (fauxArray) {
@@ -119,6 +142,20 @@ define(
 				}
 			});
 			return value;
+		};
+
+		arrayShims.indexOf = function (element, start) {
+			if (!start) {
+				start = 0;
+			} else if (start < 0) {
+				start = Math.max(this.length - Math.abs(start), 0);
+			}
+			return this.reduce(function (found, item, index) {
+				if (index >= start && found === -1 && element === item) {
+					found = index;
+				}
+				return found;
+			}, -1);
 		};
 
 		/* jshint -W072 */ //Array extras map, filter, every, some native APIs have 4 parameters
@@ -157,11 +194,7 @@ define(
 		};
 		/* jshint +W072 */
 
-		if (!Array.prototype.forEach) {
-			Array.prototype.forEach = arrayShims.forEach;
-		}
-
-		shimMethods.forEach(attachIfNoNative);
+		arrayShims.forEach.call(shimMethods, attachIfNoNative);
 
 		function attachIfNoNative (method) {
 			if (!Array.prototype[method]) {
