@@ -31,19 +31,26 @@ define(
 			}
 		});
 
-		var temp = {};
+		var temp = {},
+			emptyContext = this;
 
 		function injectSuper (method, superMethod) {
 			if (!superMethod) {
 				superMethod = new SuperMethodAbstract();
 			}
 			return function () {
-				prep.call(this);
-				inject.call(this, superMethod);
+				setup.call(this, superMethod);
 				execute.call(this, method, arguments);
 				cleanup.call(this);
 				return temp.result;
 			};
+		}
+
+		function setup (superMethod) {
+			if (this !== emptyContext) {
+				prep.call(this);
+				inject.call(this, superMethod);
+			}
 		}
 
 		function prep () {
@@ -61,8 +68,10 @@ define(
 		}
 
 		function cleanup () {
-			this.superCall = temp.superCall;
-			this.superApply = temp.superApply;
+			if (this !== emptyContext) {
+				this.superCall = temp.superCall;
+				this.superApply = temp.superApply;
+			}
 		}
 
 		function superApply (superMethod) {
