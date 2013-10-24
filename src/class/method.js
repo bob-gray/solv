@@ -110,7 +110,7 @@ define(
 		if (!Function.prototype.method) {
 			Function.prototype.method = new Function.Abstract("method")
 				.overload("string, function", methodWithName)
-				.overload("object, function", methodWithOptions);
+				.overload("object, function?", methodWithOptions);
 		}
 
 		function methodWithName (name, implementation) {
@@ -121,7 +121,8 @@ define(
 		}
 
 		function methodWithOptions (options, implementation) {
-			var method = new MethodMaker(this, options, implementation);
+			var Constructor = this,
+				method = new MethodMaker(Constructor, options, implementation);
 			if (method.needsSignature()) {
 				method.setSignature();
 			}

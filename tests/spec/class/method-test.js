@@ -29,7 +29,7 @@ define(["src/class/method"], function () {
 			expect(typeof Person.sort).toBe("function");
 		});
 
-		it("attaches a class a shim method only if method doesn't already exist", function () {
+		it("attaches a class shim method only if method doesn't already exist", function () {
 			var shim = function () {};
 			Array.method({
 				name: "sort",
@@ -151,10 +151,21 @@ define(["src/class/method"], function () {
 			}, function () {
 				return this.age;
 			});
+			Person.method({
+				name: "getName",
+				"returns": {
+					"type": "string"
+				}
+			}, function () {
+				return this.name;
+			});
 			var Bob = new Person("Bob", 33);
 			expect(Bob.getAge()).toBe(33);
 			Bob.age = "";
 			expect(Bob.getAge).toThrow();
+			expect(Bob.getName()).toBe("Bob");
+			Bob.name = null;
+			expect(Bob.getName).toThrow();
 		});
 
 		it("allows invocation signature validation", function () {
@@ -183,6 +194,56 @@ define(["src/class/method"], function () {
 			expect(field.val()).toBe(0);
 			field.val(100);
 			expect(field.val()).toBe(100);
+		});
+
+		it("create an abstract instance method", function () {
+			var Person = function (name, age) {
+					this.name = name;
+					this.age = age;
+				},
+				Bob = new Person("Bob", 33);
+
+			Person.method({
+				"name": "greet",
+				"abstract": true,
+				"arguments": [{
+					"name": "salutation",
+					"type": "string"
+				}],
+				"returns": {
+					"name": "greeting",
+					"type": "string"
+				}
+			});
+			Person.method({
+				"name": "beAwesome"
+			});
+			expect(typeof Bob.greet).toBe("function");
+			expect(Bob.greet).toThrow();
+			expect(typeof Bob.beAwesome).toBe("function");
+			expect(Bob.beAwesome).toThrow();
+		});
+
+		it("create an abstract static method", function () {
+			function Person (name, age) {
+				this.name = name;
+				this.age = age;
+			}
+			Person.method({
+				"name": "greet",
+				"abstract": true,
+				"static": true,
+				"arguments": [{
+					"name": "salutation",
+					"type": "string"
+				}],
+				"returns": {
+					"name": "greeting",
+					"type": "string"
+				}
+			});
+			expect(typeof Person.greet).toBe("function");
+			expect(Person.greet).toThrow();
 		});
 	});
 });

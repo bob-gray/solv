@@ -12,10 +12,10 @@ define(
 	function (meta, type, injectSuper) {
 		"use strict";
 
-		function MethodMaker (constructor, options, implementation) {
-			this.classConstructor = constructor;
-			this.implementation = implementation;
+		function MethodMaker (Constructor, options, implementation) {
+			this.classConstructor = Constructor;
 			Object.merge(this, options);
+			this.setImplementation(implementation);
 			this.setClassPrefix();
 			this.setFullName();
 			this.setTarget();
@@ -33,6 +33,15 @@ define(
 
 		MethodMaker.prototype.setFullName = function () {
 			this.fullName = this.classPrefix + this.name;
+		};
+
+		MethodMaker.prototype.setImplementation = function (implementation) {
+			if (implementation) {
+				this.implementation = implementation;
+			} else {
+				this.implementation = this.createAbstractImplementation();
+				this.abstract = true;
+			}
 		};
 
 		MethodMaker.prototype.setTarget = function () {
@@ -64,7 +73,7 @@ define(
 		MethodMaker.prototype.setSignature = function () {
 			if (this.hasArgumentsMeta()) {
 				this.setSignatureFromArgsMeta();
-			} else {
+			} else if (!this.abstract) {
 				this.signature = this.implementation.length;
 			}
 		};
@@ -86,10 +95,12 @@ define(
 		};
 
 		MethodMaker.prototype.injectReturnTypeValidation = function () {
-			this.implementation = this.implementation.validateReturnType({
-				functionName: this.fullName,
-				signature: this.returnSignature
-			});
+			if (!this.abstract) {
+				this.implementation = this.implementation.validateReturnType({
+					functionName: this.fullName,
+					signature: this.returnSignature
+				});
+			}
 		};
 
 		MethodMaker.prototype.isNonShimInstanceMethod = function () {
@@ -97,13 +108,15 @@ define(
 		};
 
 		MethodMaker.prototype.injectSuperHelpers = function () {
-			this.implementation = injectSuper(this.implementation, this.existing);
+			if (!this.abstract) {
+				this.implementation = injectSuper(this.implementation, this.existing);
+			}
 		};
 
 		MethodMaker.prototype.attachMethod = function () {
 			if (this.shim) {
 				this.attachShimMethod();
-			} else if (this.override) {
+			} else if (this.override || this.abstract) {
 				this.directlyAttachMethod();
 			} else {
 				this.overloadMethod();
@@ -122,13 +135,17 @@ define(
 
 		MethodMaker.prototype.overloadMethod = function () {
 			if (this.noExistingImplementation()) {
-				this.existing = new Function.Abstract(this.fullName);
+				this.existing = this.createAbstractImplementation();
 			}
 			this.target[this.name] = this.existing.overload(this.signature, this.implementation);
 		};
 
 		MethodMaker.prototype.noExistingImplementation = function () {
 			return !type.is("function", this.existing);
+		};
+
+		MethodMaker.prototype.createAbstractImplementation = function () {
+			return new Function.Abstract(this.fullName);
 		};
 
 		return MethodMaker;
