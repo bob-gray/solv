@@ -145,17 +145,21 @@ define(
 		};
 
 		arrayShims.indexOf = function (element, start) {
+			var len = this.length,
+				found = -1,
+				i;
 			if (!start) {
 				start = 0;
 			} else if (start < 0) {
-				start = Math.max(this.length - Math.abs(start), 0);
+				start = Math.max(len + start, 0);
 			}
-			return this.reduce(function (found, item, index) {
-				if (index >= start && found === -1 && element === item) {
-					found = index;
+			for (i = start; i < len; i += 1) {
+				if (i in this && element === this[i]) {
+					found = i;
+					break;
 				}
-				return found;
-			}, -1);
+			}
+			return found;
 		};
 
 		/* jshint -W072 */ //Array extras map, filter, every, some native APIs have 4 parameters
