@@ -10,13 +10,13 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "module",
+			"type": "module",
 			"exports": "overload",
 			"description": "Allows for function overloading by argument signature validation"
 		});
 
 		meta({
-			"entity": "class",
+			"type": "class",
 			"name": "Function",
 			"global": true
 		});

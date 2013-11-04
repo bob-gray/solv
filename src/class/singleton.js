@@ -8,13 +8,13 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "module",
+			"type": "module",
 			"export": "Function.prototype.singleton",
 			"description": ""
 		});
 
 		meta({
-			"entity": "class",
+			"type": "class",
 			"name": "Function",
 			"global": true
 		});

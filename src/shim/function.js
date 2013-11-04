@@ -8,18 +8,18 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "module",
+			"type": "module",
 			"description": "Augments Function prototype"
 		});
 
 		meta({
-			"entity": "class",
+			"type": "class",
 			"name": "Function",
 			"global": true
 		});
 
 		meta({
-			"entity": "method",
+			"type": "method",
 			"name": "bind",
 			"description": "Creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.",
 			"arguments": [{

@@ -10,18 +10,18 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "module",
+			"type": "module",
 			"description": "Allows for the return type of a function to be validated."
 		});
 
 		meta({
-			"entity": "class",
+			"type": "class",
 			"name": "Function",
 			"global": true
 		});
 
 		meta({
-			"entity": "method",
+			"type": "method",
 			"name": "validateReturnType",
 			"description": "A higher-order function that accepts an expected return type and optional fail callback.",
 			"arguments": [{
@@ -35,7 +35,7 @@ define(
 		});
 
 		meta({
-			"entity": "method",
+			"type": "method",
 			"name": "validateReturnType",
 			"description": "A higher-order function that accepts an expected return type and optional fail callback.",
 			"arguments": [{
@@ -49,7 +49,7 @@ define(
 		});
 
 		meta({
-			"entity": "object",
+			"type": "object",
 			"name": "options",
 			"properties": [{
 				"name": "functionName",

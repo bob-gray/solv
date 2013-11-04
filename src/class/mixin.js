@@ -10,12 +10,12 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "module",
+			"type": "module",
 			"description": "Augments Function prototype with mixin method for decorating a constructor function's prototype."
 		});
 
 		meta({
-			"entity": "class",
+			"type": "class",
 			"name": "Function",
 			"global": true
 		});
@@ -23,7 +23,7 @@ define(
 		if (!Function.prototype.mixin) {
 			Function.method(
 				meta({
-					"entity": "method",
+					"type": "method",
 					"name": "mixin",
 					"description": "Objects own methods will be appended to function's prototype.",
 					"arguments": [{
@@ -37,7 +37,7 @@ define(
 
 			Function.method(
 				meta({
-					"entity": "method",
+					"type": "method",
 					"name": "mixin",
 					"description": "Constructor's own methods will be appended to function's prototype.",
 					"arguments": [{
@@ -53,7 +53,7 @@ define(
 
 			Function.method(
 				meta({
-					"entity": "method",
+					"type": "method",
 					"name": "mixin",
 					"description": "Object's and Constructor's own methods will be appended to function's prototype overriding inherited methods.",
 					"arguments": [{

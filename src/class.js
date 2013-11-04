@@ -11,7 +11,7 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "module",
+			"type": "module",
 			"export": "createClass",
 			"description": "System for creating classes"
 		});

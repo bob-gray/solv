@@ -2,13 +2,13 @@ define(function () {
 	"use strict";
 
 	meta({
-		"entity": "module",
+		"type": "module",
 		"description": "Runtime shim for meta()",
 		"export": "function"
 	});
 
 	meta({
-		"entity": "function",
+		"type": "function",
 		"name": "meta",
 		"arguments": [{
 			"name": "data",

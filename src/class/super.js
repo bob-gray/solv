@@ -6,13 +6,13 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "module",
+			"type": "module",
 			"export": "injectSuper",
 			"description": "super methods"
 		});
 
 		meta({
-			"entity": "function",
+			"type": "function",
 			"name": "injectSuper",
 			"description": "Generates a proxy function with injected instance methods of superCall and superApply",
 			"arguments": [{

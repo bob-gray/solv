@@ -8,7 +8,7 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "method",
+			"type": "method",
 			"for": "Function",
 			"name": "Abstract",
 			"static": true,

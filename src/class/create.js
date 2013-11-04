@@ -12,13 +12,13 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "module",
+			"type": "module",
 			"export": "createClass",
 			"description": "System for creating classes"
 		});
 
 		meta({
-			"entity": "function",
+			"type": "function",
 			"name": "createClass",
 			"description": "Creates a new class",
 			"arguments": [{

@@ -6,7 +6,7 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "class",
+			"type": "class",
 			"name": "InvalidReturnType",
 			"extends": "Error",
 			"arguments": [{
@@ -17,7 +17,7 @@ define(
 		});
 
 		meta({
-			"entity": "object",
+			"type": "object",
 			"name": "errorDetails",
 			"properties": [{
 				"name": "functionName",

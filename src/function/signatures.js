@@ -8,7 +8,7 @@ define(
 		"use strict";
 
 		meta({
-			"entity": "module",
+			"type": "module",
 			"description": "For getting invocation signatures from argument objects and compiling implementation signatures into regular expression that can used to test invocation signatures"
 		});
 
@@ -37,7 +37,7 @@ define(
 		});
 
 		meta({
-			"entity": "method",
+			"type": "method",
 			"for": "Function",
 			"name": "compileImplementationSignature",
 			"static": true,
@@ -54,7 +54,7 @@ define(
 		});
 
 		meta({
-			"entity": "method",
+			"type": "method",
 			"for": "Function",
 			"name": "compileReturnSignature",
 			"static": true,
@@ -71,7 +71,7 @@ define(
 		});
 
 		meta({
-			"entity": "method",
+			"type": "method",
 			"for": "Function",
 			"name": "getInvocationSignature",
 			"static": true,
@@ -89,7 +89,7 @@ define(
 		});
 
 		meta({
-			"entity": "method",
+			"type": "method",
 			"for": "Function",
 			"name": "getSignatureFromArgumentsMeta",
 			"static": true,
