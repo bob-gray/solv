@@ -23,7 +23,7 @@ define(
 
 		meta({
 			"name": "overload",
-			"description": "A higher-order function that accepts an optional signature and a new implementation and returns a new proxy function. When called the new function will execute the original function or the new implementation depending on the arguments passed to it.",
+			"description": "A higher-order function that accepts a signature and a implementation and returns a new proxy function. When called the proxy function will execute the original function or the new implementation depending on the arguments passed to it.",
 			"arguments": [{
 				"name": "signature",
 				"type": "string|number",

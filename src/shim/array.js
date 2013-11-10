@@ -56,7 +56,8 @@ define(
 				"type": "number",
 				"required": false,
 				"description": "The index to start the search"
-			}]
+			}],
+			"returns": "number"
 		});
 
 		meta({

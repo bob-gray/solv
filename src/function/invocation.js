@@ -8,42 +8,63 @@ define(
 
 		meta({
 			"name": "Invocation",
-			"type": "class"
+			"type": "class",
+			"singleton": true,
+			"description": "Utilized by function.overload to aid in routing an invocation to the proper implementation",
+			"properties": {
+				"nonMatchingSignatures": {
+					"type": "array",
+					"description": "Fills with signatures of implementations that were not a match for the current invocation"
+				}
+			}
 		});
 
 		meta({
 			"name": "reset",
+			"description": "Resets invocation to initial state",
 			"arguments": []
 		});
 
 		meta({
 			"name": "isStart",
+			"description": "Tests if this is the start of a new invocation or if a invocation is already in progress",
 			"arguments": [{
-				"name": "next",
+				"name": "router",
 				"type": "function"
 			}],
-			"returns": "boolean"
+			"returns": {
+				"type": "boolean",
+				"description": "True if router is not the next implementation router"
+			}
 		});
 
 		meta({
 			"name": "setSignatureAndLength",
+			"description": "Sets the invocation signature and length from arguments",
 			"arguments": [{
 				"name": "args",
-				"type": "arguments"
+				"type": "arguments",
+				"description": "passed into overloaded function"
 			}]
 		});
 
 		meta({
 			"name": "testImplementation",
+			"description": "Tests if invocation matches implementation",
 			"arguments": [{
 				"name": "tester",
-				"type": "number|regex"
+				"type": "regex|number",
+				"description": "A compiled implementation signature or implementation arguments length"
 			}],
-			"returns": "boolean"
+			"returns": {
+				"type": "boolean",
+				"description": "True if tester matches invocation signature or length"
+			}
 		});
 
 		meta({
 			"name": "matchingImplementationFound",
+			"description": "Sets up invocation to invoke matching implementation and reset itself on the next call to invocation.proceed",
 			"arguments": [{
 				"name": "implementation",
 				"type": "function"
@@ -51,15 +72,8 @@ define(
 		});
 
 		meta({
-			"name": "setNext",
-			"arguments": [{
-				"name": "next",
-				"type": "function"
-			}]
-		});
-
-		meta({
 			"name": "addNonMatchingSignature",
+			"description": "Add an implementationSignature to invocation.nonMatchingSignatures",
 			"arguments": [{
 				"name": "implementationSignature",
 				"type": "string"
@@ -67,7 +81,17 @@ define(
 		});
 
 		meta({
+			"name": "setNext",
+			"description": "Sets next to be invoked on the next call to invocation.proceed",
+			"arguments": [{
+				"name": "next",
+				"type": "function"
+			}]
+		});
+
+		meta({
 			"name": "proceed",
+			"description": "Invoke invocation.next",
 			"arguments": [{
 				"name": "context",
 				"type": "arguments"
@@ -113,8 +137,8 @@ define(
 			this.setNext(implementation);
 		};
 
-		Invocation.prototype.setNext = function (next) {
-			this.next = next;
+		Invocation.prototype.setNext = function (router) {
+			this.next = router;
 		};
 
 		Invocation.prototype.addNonMatchingSignature = function (implementationSignature) {

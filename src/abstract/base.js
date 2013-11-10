@@ -12,26 +12,30 @@ define(
 			meta({
 				"name": "Base",
 				"type": "class",
-				"description": "Abstract class"
+				"description": "General abstract class"
 			})
 		);
 
 		Base.method(
 			meta({
 				"name": "invoke",
-				"description": "Useful for invoking local functions as private methods.",
+				"description": "Useful for invoking local functions as private methods",
 				"arguments": [{
 					"name": "fn",
 					"type": "function",
-					"description": "Invoked as a method of the instance."
+					"description": "Invoked as a method of the instance"
 				}, {
-					"name": "additionalArgs",
+					"name": "nArgs",
 					"type": "any",
-					"description": "All additional arguments are forwarded to fn.",
+					"description": "All additional arguments are forwarded to fn",
 					"required": false,
 					"repeating": true
 				}],
-				"returns": "any"
+				"returns": {
+					"name": "result",
+					"type": "any",
+					"description": "Return from fn"
+				}
 			}),
 			invokeFunction
 		);
@@ -39,19 +43,22 @@ define(
 		Base.method(
 			meta({
 				"name": "proxy",
-				"description": "Creates a function bound to this; useful for creating bound callbacks.",
+				"description": "Creates a function bound to the instance; useful for creating bound callbacks",
 				"arguments": [{
 					"name": "fn",
 					"type": "function",
-					"description": "Useful for private functions. Invoked as method of the instance."
+					"description": "Useful for private functions. Invoked as method of the instance"
 				}, {
-					"name": "additionalArgs",
+					"name": "nArgs",
 					"type": "any",
-					"description": "All additional arguments are forwarded to fn as preceeding arguments.",
+					"description": "All additional arguments are forwarded to fn as preceeding arguments",
 					"required": false,
 					"repeating": true
 				}],
-				"returns": "function"
+				"returns": {
+					"type": "function",
+					"description": "fn bound the instance"
+				}
 			}),
 			proxyFunction
 		);
@@ -59,18 +66,22 @@ define(
 		Base.method(
 			meta({
 				"name": "proxy",
+				"description": "Creates a function bound the instance where method is the name of an instance method",
 				"arguments": [{
 					"name": "method",
 					"type": "string",
 					"description": "The name of the method to bind."
 				}, {
-					"name": "additionalArgs",
+					"name": "nArgs",
 					"type": "any",
-					"description": "All additional arguments are forwarded to the method as preceeding arguments.",
+					"description": "All additional arguments are forwarded to the method as preceeding arguments",
 					"required": false,
 					"repeating": true
 				}],
-				"returns": "function"
+				"returns": {
+					"type": "function",
+					"description": "instance.method bound to instance"
+				}
 			}),
 			proxyMethod
 		);

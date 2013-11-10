@@ -15,9 +15,10 @@ define(
 		});
 
 		meta({
-			"type": "class",
 			"name": "Function",
-			"global": true
+			"type": "class",
+			"global": true,
+			"deprecated": true
 		});
 
 		meta({

@@ -11,7 +11,7 @@ define(
 		var Parser = Class(
 			meta({
 				"name": "Parser",
-				"extends": Base,
+				"extends": "Base",
 				"arguments": [{
 					"name": "root",
 					"type": "string"

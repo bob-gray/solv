@@ -37,8 +37,12 @@ define(
 		});
 
 		meta({
-			"type": "method",
-			"for": "Function",
+			"name": "Function",
+			"type": "class",
+			"global": true
+		});
+
+		meta({
 			"name": "compileImplementationSignature",
 			"static": true,
 			"description": "Transform a function signature into regular expression capable of testing argument signatures for a match.",
@@ -54,8 +58,6 @@ define(
 		});
 
 		meta({
-			"type": "method",
-			"for": "Function",
 			"name": "compileReturnSignature",
 			"static": true,
 			"description": "Transform a function return signature into regular expression capable of testing a function's return value type.",
@@ -71,8 +73,6 @@ define(
 		});
 
 		meta({
-			"type": "method",
-			"for": "Function",
 			"name": "getInvocationSignature",
 			"static": true,
 			"description": "Gets a list of the types of arguments used to invoke a function",
@@ -89,8 +89,6 @@ define(
 		});
 
 		meta({
-			"type": "method",
-			"for": "Function",
 			"name": "getSignatureFromArgumentsMeta",
 			"static": true,
 			"description": "Translates an array of arguments meta data into a signature string",

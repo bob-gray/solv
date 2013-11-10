@@ -21,11 +21,11 @@ define(
 		meta({
 			"name": "extend",
 			"static": true,
-			"description": "To be called as a method of a class constructor. Wires up a class to inherit from a parent class. Assigns the Parent's prototype to an \"_super\" property of the child's prototype.",
+			"description": "To be called as a method of a class constructor. Wires up a class to inherit from a super class. Assigns Super as a static property of child class.",
 			"arguments": [{
-				"name": "Parent",
+				"name": "Super",
 				"type": "function",
-				"description": "Parent class constructor"
+				"description": "Super class constructor"
 			}],
 			"returns": {
 				"type": "function",

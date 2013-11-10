@@ -8,8 +8,12 @@ define(
 		"use strict";
 
 		meta({
-			"type": "method",
-			"for": "Function",
+			"name": "Function",
+			"type": "class",
+			"global": true
+		});
+
+		meta({
 			"name": "Abstract",
 			"static": true,
 			"description": "A higher-order function that returns a function to serve as an abstract implementation.",
