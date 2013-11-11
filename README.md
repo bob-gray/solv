@@ -27,10 +27,10 @@ Once set up is complete, run `grunt test` to execute test in PhantomJS.
 See the Gruntfile more test options including running test and lint on file
 change.
 
-##Browser
+###Browser
 
 **Set up**
 
 1. Run `bower install jasmine requirejs` to install test dependencies
 
-Open `tests/index.html` in the browser of your choice
+Open `tests/index.html` in the browser of your choice.
