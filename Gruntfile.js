@@ -1,6 +1,16 @@
 module.exports = function (grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
+		watch: {
+			files: [
+				"src/**/*.js",
+				"tests/spec/**/*.js"
+			],
+			tasks: [
+				"jshint",
+				"karma:watch:run"
+			]
+		},
 		jshint: {
 			options: {
 				strict: true,
@@ -24,10 +34,7 @@ module.exports = function (grunt) {
 				globals: {
 					require: false,
 					define: false
-				},
-				ignores: [
-					"src/meta/parser.js"
-				]
+				}
 			},
 			src: [
 				"src/**/*.js"
@@ -56,41 +63,59 @@ module.exports = function (grunt) {
 			}
 		},
 		karma: {
-			unit: {
-				options: {
-					files: [{
-						pattern: "src/**/*.js",
-						included: false
-					}, {
-						pattern: "tests/spec/**/*-test.js",
-						included: false
-					}, "tests/karma/runner.js"],
-					browsers: [
-						"Chrome",
-						"Firefox",
-						"IE",
-						"Safari",
-						"PhantomJS"
-					],
-					frameworks: [
-						"jasmine",
-						"requirejs"
-					],
-					singleRun: true,
-					preprocessors: {
-						"src/**/*.js": [
-							"coverage"
-						]
-					},
-					reporters: [
-						"progress",
+			options: {
+				files: [{
+					pattern: "src/**/*.js",
+					included: false
+				}, {
+					pattern: "tests/spec/**/*-test.js",
+					included: false
+				}, "tests/karma/runner.js"],
+				frameworks: [
+					"jasmine",
+					"requirejs"
+				]
+			},
+			watch: {
+				browsers: [
+					"PhantomJS"
+				],
+				hostname: process.env.IP,
+				port: process.env.PORT,
+				runnerPort: 0,
+				background: true
+			},
+			phantom: {
+				browsers: [
+					"PhantomJS"
+				],
+				hostname: process.env.IP,
+				port: process.env.PORT,
+				runnerPort: 0,
+				singleRun: true
+			},
+			coverage: {
+				browsers: [
+					"Chrome",
+					"Firefox",
+					"IE",
+					"Safari",
+					"PhantomJS"
+                ],
+				preprocessors: {
+					"src/**/*.js": [
 						"coverage"
-					],
-					coverageReporter: {
-						type: "html",
-						dir: "tests/coverage/"
-					}
-				}
+					]
+				},
+				reporters: [
+					"progress",
+					"coverage"
+				],
+				coverageReporter: {
+					type: "html",
+					dir: "tests/coverage/"
+				},
+				singleRun: true
 			}
 		},
 		dependo: {
@@ -100,12 +125,26 @@ module.exports = function (grunt) {
 		}
 	});
 
+	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-karma");
 	grunt.loadNpmTasks("grunt-dependo");
 
 	grunt.registerTask("default", [
 		"jshint",
-		"karma"
+		"test"
+	]);
+	
+	grunt.registerTask("test", [
+		"karma:phantom"
+	]);
+	
+	grunt.registerTask("coverage", [
+		"karma:coverage"
+	]);
+	
+	grunt.registerTask("startWatch", [
+		"karma:watch:start",
+		"watch"
 	]);
 };

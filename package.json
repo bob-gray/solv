@@ -1,6 +1,12 @@
 {
   "name": "solv",
-  "version": "0.3.0",
+  "version": "0.1.0",
+  "author": "Bob Gray <gray.bob98@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bob-gray/solv.git"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.4",
@@ -9,6 +15,7 @@
     "karma-ie-launcher": "~0.1.1",
     "karma-safari-launcher": "~0.1.1",
     "karma-coverage": "~0.1.0",
-    "grunt-dependo": "~0.1.0"
+    "grunt-dependo": "~0.1.0",
+    "grunt-contrib-watch": "~0.5.3"
   }
 }
