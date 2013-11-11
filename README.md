@@ -13,15 +13,24 @@ in progess and contributions are welcome.
 Run Tests
 ---------
 
-###Set up
+To run test `Node.js` and `npm` must be installed.
+
+###Command Line
+
+**Set up**
   
-1. Install `nodejs` and `npm`
-2. Run `npm install -g grunt-cli` to install grunt command line interface
-3. Run `npm install` to install test dependecies
+1. Run `npm install -g grunt-cli` to install grunt command line interface
+2. Run `npm install` to install test dependencies
 
 Once set up is complete, run `grunt test` to execute test in PhantomJS.
 
 See the Gruntfile more test options including running test and lint on file
 change.
-    
-    
+
+##Browser
+
+**Set up**
+
+1. Run `bower install jasmine requirejs` to install test dependencies
+
+Open `tests/index.html` in the browser of your choice
