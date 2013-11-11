@@ -13,11 +13,11 @@ in progess and contributions are welcome.
 Run Tests
 ---------
 
-  + **Set up**
+###Set up
   
-    1. Install `nodejs` and `npm`
-    2. Run `npm install -g grunt-cli` to install grunt command line interface
-	3. Run `npm install` to install test dependecies
+1. Install `nodejs` and `npm`
+2. Run `npm install -g grunt-cli` to install grunt command line interface
+3. Run `npm install` to install test dependecies
 
 Once set up is complete, run `grunt test` to execute test in PhantomJS.
 
