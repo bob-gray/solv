@@ -13,7 +13,7 @@ in progess and contributions are welcome.
 Run Tests
 ---------
 
-To run tests [Node.js][http://nodejs.org] and [npm][https://npmjs.org] must be
+To run tests [Node.js](http://nodejs.org) and [npm](https://npmjs.org) must be
 installed and a couple set commands need to be run.
 
 ###Command Line
