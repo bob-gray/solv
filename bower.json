@@ -1,0 +1,26 @@
+{
+  "name": "solv",
+  "version": "0.1.0",
+  "homepage": "https://github.com/bob-gray/solv",
+  "authors": "Bob Gray <gray.bob98@gmail.com>",
+  "description": "Enterprise JavaScript Toolset",
+  "keywords": [
+    "class",
+    "method",
+    "overload",
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "Gruntfile.js",
+    "package.json"
+  ],
+  "devDependencies": {
+  	"requirejs": "~2.1.9",
+  	"jasmine": "~1.3.1"
+  }
+}

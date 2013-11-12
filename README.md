@@ -13,7 +13,8 @@ in progess and contributions are welcome.
 Run Tests
 ---------
 
-To run test `Node.js` and `npm` must be installed.
+To run tests [Node.js][http://nodejs.org] and [npm][https://npmjs.org] must be
+installed and a couple set commands need to be run.
 
 ###Command Line
 
@@ -22,15 +23,16 @@ To run test `Node.js` and `npm` must be installed.
 1. Run `npm install -g grunt-cli` to install grunt command line interface
 2. Run `npm install` to install test dependencies
 
-Once set up is complete, run `grunt test` to execute test in PhantomJS.
+Once set up is complete run `grunt test` to execute tests in PhantomJS.
 
-See the Gruntfile more test options including running test and lint on file
-change.
+*See the Gruntfile for more test options including running tests and lint on
+file change.*
 
 ###Browser
 
 **Set up**
 
-1. Run `bower install jasmine requirejs` to install test dependencies
+1. Run `npm install -g bower` to install bower 
+2. Run `bower install` to install test dependencies
 
-Open `tests/index.html` in the browser of your choice.
+Once set up is complete open `tests/index.html` in the browser of your choice.

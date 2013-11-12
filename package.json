@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "author": "Bob Gray <gray.bob98@gmail.com>",
   "license": "MIT",
+  "description": "Enterprise JavaScript Toolset",
   "repository": {
     "type": "git",
     "url": "https://github.com/bob-gray/solv.git"
