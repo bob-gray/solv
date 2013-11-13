@@ -3,6 +3,7 @@ define(
 		"../meta",
 		"../type",
 		"./method",
+		"../function/constrict",
 		"../shim/object",
 		"../shim/array",
 		"../shim/function"
@@ -67,12 +68,8 @@ define(
 		}
 		
 		function mixinArray (mixins) {
-			mixins.forEach(mixinArrayItem, this);
+			mixins.forEach(this.mixin.constrict(1), this);
 			return this;
-		}
-		
-		function mixinArrayItem (item) {
-			this.mixin(item);
 		}
 		
 		function mixinClass (Constructor) {
