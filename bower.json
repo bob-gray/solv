@@ -2,7 +2,7 @@
   "name": "solv",
   "version": "0.1.0",
   "homepage": "https://github.com/bob-gray/solv",
-  "authors": "Bob Gray <gray.bob98@gmail.com>",
+  "author": "Bob Gray <gray.bob98@gmail.com>",
   "description": "Enterprise JavaScript Toolset",
   "keywords": [
     "class",
