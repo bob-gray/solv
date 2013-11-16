@@ -1,4 +1,4 @@
-define(["src/function/implementation-not-found"], function (ImplementationNotFound) {
+define(["src/error/implementation-not-found"], function (ImplementationNotFound) {
 		"use strict";
 
 		describe("ImplementationNotFound", function () {

@@ -2,7 +2,7 @@ define(
 	[
 		"../meta",
 		"./invocation",
-		"./implementation-not-found"
+		"../error/implementation-not-found"
 	],
 	function (meta, Invocation, ImplementationNotFound) {
 		"use strict";

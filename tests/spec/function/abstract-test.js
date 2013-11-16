@@ -1,6 +1,6 @@
 define(
 	[
-		"src/function/implementation-not-found",
+		"src/error/implementation-not-found",
 		"src/function/abstract"
 	],
 	function (ImplementationNotFound) {

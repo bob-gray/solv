@@ -2,7 +2,7 @@ define(
 	[
 		"../meta",
 		"../type",
-		"./invalid-return-type",
+		"../error/invalid-return-type",
 		"./overload",
 		"./signatures"
 	],

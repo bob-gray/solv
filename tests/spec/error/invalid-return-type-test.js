@@ -1,4 +1,4 @@
-define(["src/function/invalid-return-type"], function (InvalidReturnType) {
+define(["src/error/invalid-return-type"], function (InvalidReturnType) {
 	"use strict";
 
 	describe("InvalidReturnType", function () {

@@ -1,6 +1,6 @@
 define(
 	[
-		"src/function/invalid-return-type",
+		"src/error/invalid-return-type",
 		"src/function/validate-return-type"
 	],
 	function (InvalidReturnType) {
