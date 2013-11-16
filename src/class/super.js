@@ -6,35 +6,32 @@ define(
 		"use strict";
 
 		meta({
-			"type": "module",
-			"export": "injectSuper",
-			"description": "super methods"
+			"name": "Function",
+			"type": "class",
+			"global": true
 		});
 
 		meta({
-			"type": "function",
 			"name": "injectSuper",
-			"description": "Generates a proxy function with injected instance methods of superCall and superApply",
+			"description": "Higher-order function that creates a proxy function which while the the original being invoked injects instance methods on the context of superCall and superApply",
 			"arguments": [{
-				"name": "method",
-				"type": "function",
-				"description": "This function is executed by the proxy function with the same context and arguments"
-			}, {
 				"name": "superMethod",
 				"type": "function",
-				"description": "This function accessible on the context from superCall or superApply while method is executing",
+				"description": "Becomes accessible on the context from superCall or superApply while method is executing",
 				"required": false
 			}],
-			"return": {
-				"type": "function",
-				"description": "A proxy for method"
-			}
+			"return": "function"
 		});
+
+		if (!Function.prototype.injectSuper) {
+			Function.prototype.injectSuper = injectSuper;
+		}
 
 		var temp = {},
 			emptyContext = this;
 
-		function injectSuper (method, superMethod) {
+		function injectSuper (superMethod) {
+			var method = this;
 			if (!superMethod) {
 				superMethod = new SuperMethodAbstract();
 			}
@@ -85,7 +82,5 @@ define(
 				throw new Error("No super implementation exists for method");
 			};
 		}
-
-		return injectSuper;
 	}
 );

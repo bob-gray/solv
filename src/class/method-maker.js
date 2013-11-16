@@ -10,7 +10,7 @@ define(
 		"../function/validate-return-type",
 		"../object/merge"
 	],
-	function (meta, type, signatures, injectSuper) {
+	function (meta, type, signatures) {
 		"use strict";
 
 		function MethodMaker (Constructor, options, implementation) {
@@ -110,7 +110,7 @@ define(
 
 		MethodMaker.prototype.injectSuperHelpers = function () {
 			if (!this.abstract) {
-				this.implementation = injectSuper(this.implementation, this.existing);
+				this.implementation = this.implementation.injectSuper(this.existing);
 			}
 		};
 

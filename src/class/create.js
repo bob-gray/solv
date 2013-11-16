@@ -8,7 +8,7 @@ define(
 		"../function/overload",
 		"../function/abstract"
 	],
-	function (meta, type, injectSuper) {
+	function (meta, type) {
 		"use strict";
 
 		meta({
@@ -73,7 +73,7 @@ define(
 			}
 
 			if (hasInit) {
-				init = injectSuper(init, getSuperInit(Constructor));
+				init = init.injectSuper(getSuperInit(Constructor));
 				Constructor.init = init;
 			}
 
