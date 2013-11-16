@@ -1,7 +1,7 @@
 define(["src/function/get-name"], function () {
 	"use strict";
 
-	describe("function.getName()", function () {
+	describe("function.getName", function () {
 		it("gets the name of a function declaration", function () {
 			function func () {}
 			expect(func.getName()).toBe("func");

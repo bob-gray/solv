@@ -3,63 +3,63 @@ define(
 		"../meta",
 		"../type",
 		"../error/invalid-return-type",
-		"./overload",
-		"./signatures"
+		"./signatures",
+		"./overload"
 	],
-	function (meta, type, InvalidReturnType) {
+	function (meta, type, InvalidReturnType, signatures) {
 		"use strict";
 
 		meta({
 			"type": "module",
-			"description": "Allows for the return type of a function to be validated."
+			"description": "Allows for the return type of a function to be validated"
 		});
 
 		meta({
 			"name": "Function",
 			"type": "class",
-			"global": true,
-			"deprecated": true
+			"global": true
 		});
 
 		meta({
 			"type": "method",
 			"name": "validateReturnType",
-			"description": "A higher-order function that accepts an expected return type and optional fail callback.",
+			"description": "Higher-order function that returns a proxy function that returns an error when the original function's return value's type doesn't match the signature",
 			"arguments": [{
 				"name": "signature",
 				"type": "string"
 			}],
 			"returns": {
 				"type": "function",
-				"description": "Proxy function to be executed in place of original function."
+				"throws": "InvalidReturnType"
 			}
 		});
 
 		meta({
 			"type": "method",
 			"name": "validateReturnType",
-			"description": "A higher-order function that accepts an expected return type and optional fail callback.",
 			"arguments": [{
 				"name": "options",
 				"type": "object"
 			}],
 			"returns": {
 				"type": "function",
-				"description": "Proxy function to be executed in place of original function."
+				"throws": "InvalidReturnType"
 			}
 		});
 
 		meta({
-			"type": "object",
 			"name": "options",
-			"properties": [{
-				"name": "functionName",
-				"type": "string"
-			}, {
-				"name": "signature",
-				"type": "string",
-				"description": "A pipe delimited list of possible return types. Can include '!'. See function signature."
-			}]
+			"type": "object",
+			"properties": {
+				"functionName": {
+					"type": "string",
+					"required": false
+				},
+				"signature": {
+					"type": "string",
+					"description": "A pipe delimited list of possible return types optionally preceeding by an exclamation point making the signature negating"
+				}
+			}
 		});
 
 		if (!Function.prototype.validateReturnType) {
@@ -73,17 +73,17 @@ define(
 		}
 
 		function validateWithOptions (options) {
-			var compiledReturnSignature = Function.compileReturnSignature(options.signature),
-				func = this;
+			var compiledReturnSignature = signatures.compileReturnSignature(options.signature),
+				fn = this;
 			if ("any" === options.signature) {
-				proxy = func;
+				proxy = fn;
 			}
 			if (!options.functionName) {
 				options.functionName = "";
 			}
 
 			function proxy () {
-				var result = func.apply(this, arguments),
+				var result = fn.apply(this, arguments),
 					returnType = type.of(result);
 
 				if (compiledReturnSignature.test(returnType)) {

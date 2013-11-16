@@ -6,7 +6,7 @@ define(
 	function (ImplementationNotFound) {
 		"use strict";
 
-		describe("Function.Abstract(functionName)", function () {
+		describe("Function.Abstract", function () {
 			it("returns a function", function () {
 				var abstract = Function.Abstract("overloadMe");
 				expect(typeof abstract).toBe("function");

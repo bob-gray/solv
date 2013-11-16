@@ -6,8 +6,8 @@ define(
 		"use strict";
 
 		meta({
-			"type": "class",
 			"name": "ImplementationNotFound",
+			"type": "class",
 			"extends": "Error",
 			"arguments": [{
 				"name": "errorDetails",
@@ -19,19 +19,20 @@ define(
 		meta({
 			"type": "object",
 			"name": "errorDetails",
-			"properties": [{
-				"name": "functionName",
-				"type": "string",
-				"default": "unknown"
-			}, {
-				"name": "signature",
-				"type": "string",
-				"default": "unknown"
-			}, {
-				"name": "nonMatchingSignatures",
-				"type": "array",
-				"default": "unknown"
-			}]
+			"properties": {
+				functionName: {
+					"type": "string",
+					"default": "unknown"
+				},
+				"signature": {
+					"type": "string",
+					"default": "unknown"
+				},
+				"nonMatchingSignatures": {
+					"type": "array",
+					"default": "unknown"
+				}
+			}
 		});
 
 		function ImplementationNotFound (errorDetails) {

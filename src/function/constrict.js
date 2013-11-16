@@ -14,7 +14,7 @@ define(
 		
 		meta({
 			"name": "constrict",
-			"description": "Higher order function that returns a proxy which slices arguments passed to original function",
+			"description": "Higher-order function that returns a proxy which slices arguments passed to original function",
 			"arguments": [{
 				"name": "begin",
 				"type": "number",

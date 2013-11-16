@@ -6,36 +6,46 @@ define(
 		"./signatures",
 		"../class/singleton"
 	],
-	function (meta, type, Invocation) {
+	function (meta, type, Invocation, signatures) {
 		"use strict";
 
 		meta({
 			"type": "module",
 			"exports": "overload",
-			"description": "Allows for function overloading by argument signature validation"
+			"description": "Allows for function overloading by length and type of arguments"
 		});
 
 		meta({
-			"type": "class",
 			"name": "Function",
+			"type": "class",
 			"global": true
 		});
 
 		meta({
 			"name": "overload",
-			"description": "A higher-order function that accepts a signature and a implementation and returns a new proxy function. When called the proxy function will execute the original function or the new implementation depending on the arguments passed to it.",
+			"description": "Higher-order function that accepts a signature and an implementation and returns a new proxy function. When called the proxy function will execute the original function or the new implementation depending on the arguments passed to it.",
 			"arguments": [{
 				"name": "signature",
-				"type": "string|number",
-				"description": "A comma delimited list that describes the argument types to be passed to a function. Can include ?*+|!. See function signature. Or the length of arguments"
+				"type": "string",
+				"description": "An implemenation signature string"
 			}, {
 				"name": "implementation",
 				"type": "function"
 			}],
-			"returns": {
-				"type": "function",
-				"description": "New proxy function"
-			}
+			"returns": "function"
+		});
+
+		meta({
+			"name": "overload",
+			"arguments": [{
+				"name": "length",
+				"type": "number",
+				"description": "An implemenation arguments length"
+			}, {
+				"name": "implementation",
+				"type": "function"
+			}],
+			"returns": "function"
 		});
 
 		meta({
@@ -78,7 +88,7 @@ define(
 		}
 
 		function overloadBySignature (implementationSignature, thisImplementation) {
-			var tester = Function.compileImplementationSignature(implementationSignature);
+			var tester = signatures.compileImplementationSignature(implementationSignature);
 			return createRouter({
 				signature: implementationSignature,
 				tester: tester,

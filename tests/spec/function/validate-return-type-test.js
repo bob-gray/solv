@@ -6,7 +6,7 @@ define(
 	function (InvalidReturnType) {
 		"use strict";
 
-		describe("function.validateReturnType(signature|options)", function () {
+		describe("function.validateReturnType", function () {
 			it("can be called passing a signature string", function () {
 				var getObject = function () {
 					return {};

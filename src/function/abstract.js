@@ -2,9 +2,11 @@ define(
 	[
 		"../meta",
 		"./invocation",
-		"../error/implementation-not-found"
+		"../error/implementation-not-found",
+		"./signatures",
+		"../class/singleton"
 	],
-	function (meta, Invocation, ImplementationNotFound) {
+	function (meta, Invocation, ImplementationNotFound, signatures) {
 		"use strict";
 
 		meta({
@@ -16,7 +18,7 @@ define(
 		meta({
 			"name": "Abstract",
 			"static": true,
-			"description": "A higher-order function that returns a function to serve as an abstract implementation.",
+			"description": "Higher-order function that returns a function to serve as an abstract implementation",
 			"arguments": [{
 				"name": "functionName",
 				"type": "string",
@@ -24,14 +26,14 @@ define(
 			}],
 			"returns": {
 				"type": "function",
-				"description": "Throws an ImplementationNotFound errors."
+				"throws": "ImplementationNotFound"
 			}
 		});
 
 		if (!Function.Abstract) {
 			Function.Abstract = function (functionName) {
 				return function () {
-					var invocation = Invocation.instance,
+					var invocation = Invocation.singleton(),
 						errorDetails = {
 							functionName: functionName
 						};
@@ -41,7 +43,7 @@ define(
 						invocation.reset();
 					}
 					if (!errorDetails.signature) {
-						errorDetails.signature = Function.getInvocationSignature(arguments);
+						errorDetails.signature = signatures.getInvocationSignature(arguments);
 					}
 					throw new ImplementationNotFound(errorDetails);
 				};

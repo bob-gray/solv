@@ -1,7 +1,7 @@
 define(["src/function/overload"], function () {
 	"use strict";
 
-	describe("function.overload(signature, implementation)", function () {
+	describe("function.overload", function () {
 		it("returns a new function to be called in place of the original function", function () {
 			var obj = {
 				prop: function (key) {
@@ -29,7 +29,7 @@ define(["src/function/overload"], function () {
 		});
 	});
 
-	describe("function.overload(implementation)", function () {
+	describe("function.overload", function () {
 		it("returns a new function to be called in place of the original function", function () {
 			var obj = {
 				prop: function (key) {

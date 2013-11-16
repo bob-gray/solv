@@ -2,6 +2,7 @@ define(
 	[
 		"../meta",
 		"../type",
+		"../function/signatures",
 		"./super",
 		"../function/overload",
 		"../function/abstract",
@@ -9,7 +10,7 @@ define(
 		"../function/validate-return-type",
 		"../object/merge"
 	],
-	function (meta, type, injectSuper) {
+	function (meta, type, signatures, injectSuper) {
 		"use strict";
 
 		function MethodMaker (Constructor, options, implementation) {
@@ -84,7 +85,7 @@ define(
 
 		MethodMaker.prototype.setSignatureFromArgsMeta = function () {
 			if (this["arguments"].length) {
-				this.signature = Function.getSignatureFromArgumentsMeta(this["arguments"]);
+				this.signature = signatures.getSignatureFromMeta(this["arguments"]);
 			} else {
 				this.signature = 0;
 			}

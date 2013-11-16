@@ -1,9 +1,10 @@
 define(
 	[
 		"../meta",
-		"../type"
+		"../type",
+		"./signatures"
 	],
-	function (meta, type) {
+	function (meta, type, signatures) {
 		"use strict";
 
 		meta({
@@ -118,7 +119,7 @@ define(
 		};
 
 		Invocation.prototype.setSignatureAndLength = function (args) {
-			this.signature = Function.getInvocationSignature(args);
+			this.signature = signatures.getInvocationSignature(args);
 			this.length = args.length;
 		};
 
