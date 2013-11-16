@@ -68,7 +68,7 @@ define(
 		}
 		
 		function mixinArray (mixins) {
-			mixins.forEach(this.mixin.constrict(1), this);
+			mixins.forEach(this.mixin.constrict(0, 1), this);
 			return this;
 		}
 		
