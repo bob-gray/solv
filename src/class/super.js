@@ -1,6 +1,7 @@
 define(
 	[
-		"../meta"
+		"../meta",
+		"./shim"
 	],
 	function (meta) {
 		"use strict";
@@ -13,6 +14,7 @@ define(
 
 		meta({
 			"name": "injectSuper",
+			"shim": true,
 			"description": "Higher-order function that creates a proxy function which while the the original being invoked injects instance methods on the context of superCall and superApply",
 			"arguments": [{
 				"name": "superMethod",
@@ -22,10 +24,8 @@ define(
 			}],
 			"return": "function"
 		});
-
-		if (!Function.prototype.injectSuper) {
-			Function.prototype.injectSuper = injectSuper;
-		}
+		
+		Function.shim(injectSuper);
 
 		var temp = {},
 			emptyContext = this;

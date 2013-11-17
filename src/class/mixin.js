@@ -51,7 +51,7 @@ define(
 				}),
 				mixinClass
 			);
-			
+	
 			Function.method(
 				meta({
 					"type": "method",

@@ -3,7 +3,8 @@ define(
 		"../meta",
 		"../shim/object",
 		"../shim/array",
-		"../array/from"
+		"../array/from",
+		"../class/shim"
 	],
 	function (meta) {
 		"use strict";
@@ -23,6 +24,7 @@ define(
 		meta({
 			"name": "merge",
 			"static": true,
+			"shim": true,
 			"description": "Copies own properties that are not null or undefined from source objects to a target object",
 			"arguments": [{
 				"name": "target",
@@ -39,9 +41,7 @@ define(
 			}
 		});
 
-		if (!Object.merge) {
-			Object.merge = merge;
-		}
+		Object.shimStatic(merge);
 
 		function merge (target) {
 			var sources = Array.from(arguments).slice(1);

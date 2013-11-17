@@ -2,7 +2,8 @@ define(
 	[
 		"../meta",
 		"../shim/function",
-		"../array/from"
+		"../array/from",
+		"./shim"
 	],
 	function (meta) {
 		"use strict";
@@ -32,10 +33,8 @@ define(
 				"description": "Singleton instance"
 			}
 		});
-
-		if (!Function.prototype.singleton) {
-			Function.prototype.singleton = singleton;
-		}
+		
+		Function.shim(singleton);
 		
 		function singleton () {
 			var args,

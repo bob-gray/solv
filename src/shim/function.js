@@ -2,7 +2,8 @@ define(
 	[
 		"../meta",
 		"../array/from",
-		"../class/extend"
+		"../class/extend",
+		"../class/shim"
 	],
 	function (meta) {
 		"use strict";
@@ -55,9 +56,7 @@ define(
 			return bound;
 		};
 
-		if (!Function.prototype.bind) {
-			Function.prototype.bind = functionShims.bind;
-		}
+		Function.shim("bind", functionShims.bind);
 
 		return functionShims;
 	}

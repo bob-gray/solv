@@ -107,11 +107,11 @@ define(
 			}]
 		});
 
-		if (!Function.prototype.method) {
-			Function.prototype.method = new Function.Abstract("method")
+		var method = new Function.Abstract("method")
 				.overload("string, function", methodWithName)
 				.overload("object, function?", methodWithOptions);
-		}
+		
+		Function.shim("method", method);
 
 		function methodWithName (name, implementation) {
 			var options = {

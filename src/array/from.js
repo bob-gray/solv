@@ -1,6 +1,7 @@
 define(
 	[
-		"../meta"
+		"../meta",
+		"../class/shim"
 	],
 	function (meta) {
 		"use strict";
@@ -23,9 +24,7 @@ define(
 			"returns": "array"
 		});
 	
-		if (!Array.prototype.from) {
-			Array.from = from;
-		}
+		Array.shimStatic(from);
 		
 		function from (arrayLike) {
 			return this.prototype.slice.call(arrayLike);

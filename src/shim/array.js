@@ -1,6 +1,7 @@
 define(
 	[
-		"../meta"
+		"../meta",
+		"../class/shim"
 	],
 	function (meta) {
 		"use strict";
@@ -96,7 +97,47 @@ define(
 			"returns": "array"
 		});
 
-		var shimMethods = [
+		meta({
+			"name": "every",
+			"shim": true,
+			"description": "Tests whether all elements in the array pass the test implemented by callback",
+			"arguments": [{
+				"name": "callback",
+				"type": "function",
+				"description": "Function to execute for each element"
+			}, {
+				"name": "context",
+				"type": "object",
+				"description": "Object to use as this when executing callback",
+				"required": false
+			}],
+			"returns": {
+				"type": "boolean",
+				"description": "True if callback returns a truthy value for each item"
+			}
+		});
+
+		meta({
+			"name": "some",
+			"shim": true,
+			"description": "Tests whether some element in the array passes the test implemented by callback",
+			"arguments": [{
+				"name": "callback",
+				"type": "function",
+				"description": "Function to execute for each element"
+			}, {
+				"name": "context",
+				"type": "object",
+				"description": "Object to use as this when executing callback",
+				"required": false
+			}],
+			"returns": {
+				"type": "boolean",
+				"description": "True if callback returns a truthy value for any item"
+			}
+		});
+
+		var methods = [
 				"forEach",
 				"reduce",
 				"indexOf",
@@ -105,9 +146,9 @@ define(
 				"every",
 				"some"
 			],
-			arrayShims = {};
+			shims = {};
 
-		arrayShims.forEach = function(callback, context) {
+		shims.forEach = function(callback, context) {
 			var i = 0,
 				len = this.length;
 			for (; i < len; i += 1) {
@@ -115,7 +156,7 @@ define(
 			}
 		};
 
-		arrayShims.reduce = function (callback, initialValue) {
+		shims.reduce = function (callback, initialValue) {
 			var initialValueIsEmpty = "undefined" === typeof initialValue,
 				value = initialValue;
 			this.forEach(function (element, index, array) {
@@ -128,7 +169,7 @@ define(
 			return value;
 		};
 
-		arrayShims.indexOf = function (element, start) {
+		shims.indexOf = function (element, start) {
 			var len = this.length,
 				found = -1,
 				i;
@@ -147,14 +188,14 @@ define(
 		};
 
 		/* jshint -W072 */ //Array extras map, filter, every, some native APIs have 4 parameters
-		arrayShims.map = function (callback, context) {
+		shims.map = function (callback, context) {
 			return this.reduce(function (mapped, element, index, array) {
 				mapped[index] = callback.call(context, element, index, array);
 				return mapped;
 			}, []);
 		};
 
-		arrayShims.filter = function (callback, context) {
+		shims.filter = function (callback, context) {
 			return this.reduce(function (filtered, element, index, array) {
 				if (callback.call(context, element, index, array)) {
 					filtered.push(element);
@@ -163,7 +204,7 @@ define(
 			}, []);
 		};
 
-		arrayShims.every = function (callback, context) {
+		shims.every = function (callback, context) {
 			return this.reduce(function (result, element, index, array) {
 				if (result) {
 					result = !!callback.call(context, element, index, array);
@@ -172,7 +213,7 @@ define(
 			}, true);
 		};
 
-		arrayShims.some = function (callback, context) {
+		shims.some = function (callback, context) {
 			return this.reduce(function (result, element, index, array) {
 				if (!result) {
 					result = !!callback.call(context, element, index, array);
@@ -182,14 +223,14 @@ define(
 		};
 		/* jshint +W072 */
 
-		arrayShims.forEach.call(shimMethods, attachIfNoNative);
+		Array.shim("forEach", shims.forEach);
+		
+		methods.forEach(attachIfUndefined);
 
-		function attachIfNoNative (method) {
-			if (!Array.prototype[method]) {
-				Array.prototype[method] = arrayShims[method];
-			}
+		function attachIfUndefined (method) {
+			Array.shim(method, shims[method]);
 		}
 
-		return arrayShims;
+		return shims;
 	}
 );

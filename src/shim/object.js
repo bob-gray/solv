@@ -1,7 +1,8 @@
 define(
 	[
 		"../meta",
-		"../type"
+		"../type",
+		"../class/shim"
 	],
 	function (meta, type) {
 		"use strict";
@@ -19,6 +20,7 @@ define(
 		meta({
 			"name": "keys",
 			"static": true,
+			"shim": true,
 			"description": "Returns an array of an object's own enumerable properties.",
 			"arguments": [{
 				"name": "object",
@@ -27,14 +29,26 @@ define(
 			"returns": "array"
 		});
 
-		var objectStaticShims = {};
+		meta({
+			"name": "create",
+			"static": true,
+			"shim": true,
+			"description": "Create a new object with proto set as object's prototype",
+			"arguments": [{
+				"name": "proto",
+				"type": "object"
+			}],
+			"returns": "object"
+		});
 
-		objectStaticShims.keys = function(object) {
+		var shims = {};
+
+		shims.keys = function(object) {
 			throwIfNonObject(object);
 			return getKeys(object);
 		};
 
-		objectStaticShims.create = function (proto) {
+		shims.create = function (proto) {
 			Surrogate.prototype = proto;
 			return new Surrogate();
 		};
@@ -62,14 +76,9 @@ define(
 			return type.is.not("object", value) && type.is.not("function", value);
 		}
 
-		if (!Object.keys) {
-			Object.keys = objectStaticShims.keys;
-		}
+		Object.shimStatic("keys", shims.keys);
+		Object.shimStatic("create", shims.create);
 
-		if (!Object.create) {
-			Object.create = objectStaticShims.create;
-		}
-
-		return objectStaticShims;
+		return shims;
 	}
 );

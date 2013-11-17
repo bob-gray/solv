@@ -4,7 +4,8 @@ define(
 		"./invocation",
 		"../error/implementation-not-found",
 		"./signatures",
-		"../class/singleton"
+		"../class/singleton",
+		"../class/shim"
 	],
 	function (meta, Invocation, ImplementationNotFound, signatures) {
 		"use strict";
@@ -29,24 +30,24 @@ define(
 				"throws": "ImplementationNotFound"
 			}
 		});
+		
+		Function.shimStatic(Abstract);
 
-		if (!Function.Abstract) {
-			Function.Abstract = function (functionName) {
-				return function () {
-					var invocation = Invocation.singleton(),
-						errorDetails = {
-							functionName: functionName
-						};
-					if (invocation) {
-						errorDetails.signature = invocation.signature;
-						errorDetails.nonMatchingSignatures = invocation.nonMatchingSignatures;
-						invocation.reset();
-					}
-					if (!errorDetails.signature) {
-						errorDetails.signature = signatures.getInvocationSignature(arguments);
-					}
-					throw new ImplementationNotFound(errorDetails);
-				};
+		function Abstract (functionName) {
+			return function () {
+				var invocation = Invocation.singleton(),
+					errorDetails = {
+						functionName: functionName
+					};
+				if (invocation) {
+					errorDetails.signature = invocation.signature;
+					errorDetails.nonMatchingSignatures = invocation.nonMatchingSignatures;
+					invocation.reset();
+				}
+				if (!errorDetails.signature) {
+					errorDetails.signature = signatures.getInvocationSignature(arguments);
+				}
+				throw new ImplementationNotFound(errorDetails);
 			};
 		}
 	}

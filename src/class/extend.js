@@ -1,7 +1,8 @@
 define(
 	[
 		"../meta",
-		"../shim/object"
+		"../shim/object",
+		"./shim"
 	],
 	function (meta) {
 		"use strict";
@@ -33,15 +34,13 @@ define(
 			}
 		});
 
+		Function.shim(extend);
+
 		function extend (Super) {
 			this.prototype = Object.create(Super.prototype);
 			this.prototype.constructor = this;
 			this.Super = Super;
 			return this;
-		}
-
-		if (!Function.prototype.extend) {
-			Function.prototype.extend = extend;
 		}
 
 		return extend;
