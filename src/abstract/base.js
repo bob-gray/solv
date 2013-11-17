@@ -3,7 +3,7 @@ define(
 		"../meta",
 		"../class",
 		"../shim/function",
-		"../shim/array"
+		"../array/from"
 	],
 	function (meta, createClass) {
 		"use strict";

@@ -7,25 +7,13 @@ define(
 
 		meta({
 			"type": "module",
-			"description": "Augments Array prototype"
+			"description": "Augments Array prototype with es5 array extras"
 		});
 
 		meta({
 			"name": "Array",
 			"type": "class",
 			"global": true
-		});
-
-		meta({
-			"name": "from",
-			"static": true,
-			"description": "Gets a real array from an arguments object.",
-			"arguments": [{
-				"name": "fauxArray",
-				"type": "object",
-				"description": "An array-like object with a length property and indexed values; such as arguments"
-			}],
-			"returns": "array"
 		});
 
 		meta({
@@ -108,8 +96,7 @@ define(
 			"returns": "array"
 		});
 
-		var slice = Array.prototype.slice,
-			shimMethods = [
+		var shimMethods = [
 				"forEach",
 				"reduce",
 				"indexOf",
@@ -119,10 +106,6 @@ define(
 				"some"
 			],
 			arrayShims = {};
-
-		Array.from = function (fauxArray) {
-			return slice.call(fauxArray, 0);
-		};
 
 		arrayShims.forEach = function(callback, context) {
 			var i = 0,

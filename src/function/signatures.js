@@ -2,7 +2,8 @@ define(
 	[
 		"../meta",
 		"../type",
-		"../shim/array"
+		"../shim/array",
+		"../array/from"
 	],
 	function (meta, type) {
 		"use strict";

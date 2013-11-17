@@ -1,7 +1,7 @@
 define(
 	[
 		"../meta",
-		"../shim/array"
+		"../array/from"
 	],
 	function (meta) {
 		"use strict";
@@ -27,12 +27,19 @@ define(
 			"returns": "function"
 		});
 
-		Function.prototype.constrict = function (begin, end) {
+		if (!Function.prototype.constrict) {
+			Function.prototype.constrict = constrict;
+		}
+		
+		function constrict (begin, end) {
 			var fn = this;
+			
 			return function () {
 				var constricted = Array.from(arguments).slice(begin, end);
 				return fn.apply(this, constricted);
 			};
-		};
+		}
+		
+		return constrict;
 	}
 );

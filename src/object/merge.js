@@ -2,7 +2,8 @@ define(
 	[
 		"../meta",
 		"../shim/object",
-		"../shim/array"
+		"../shim/array",
+		"../array/from"
 	],
 	function (meta) {
 		"use strict";
@@ -22,7 +23,7 @@ define(
 		meta({
 			"name": "merge",
 			"static": true,
-			"description": "Copies values that are not null and not undefined from source objects to a target object.",
+			"description": "Copies own properties that are not null or undefined from source objects to a target object",
 			"arguments": [{
 				"name": "target",
 				"type": "object"
@@ -34,9 +35,13 @@ define(
 			}],
 			"returns": {
 				"type": "object",
-				"description": "target object"
+				"description": "target"
 			}
 		});
+
+		if (!Object.merge) {
+			Object.merge = merge;
+		}
 
 		function merge (target) {
 			var sources = Array.from(arguments).slice(1);
@@ -60,10 +65,6 @@ define(
 		function defined (name) {
 			/* jshint eqnull:true */
 			return this[name] != null;
-		}
-
-		if (!Object.merge) {
-			Object.merge = merge;
 		}
 
 		return merge;

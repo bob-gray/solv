@@ -7,6 +7,7 @@ require.config({
 require(
 	[
 		"spec/abstract/base-test",
+		"spec/array/from-test",
 		"spec/class/create-test",
 		"spec/class/method-test",
 		"spec/class/singleton-test",

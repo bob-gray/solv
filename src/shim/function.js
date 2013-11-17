@@ -1,7 +1,7 @@
 define(
 	[
 		"../meta",
-		"../shim/array",
+		"../array/from",
 		"../class/extend"
 	],
 	function (meta) {

@@ -2,20 +2,19 @@ define(
 	[
 		"../meta",
 		"../shim/function",
-		"../shim/array"
+		"../array/from"
 	],
 	function (meta) {
 		"use strict";
 
 		meta({
 			"type": "module",
-			"export": "Function.prototype.singleton",
-			"description": ""
+			"export": "Function.prototype.singleton"
 		});
 
 		meta({
-			"type": "class",
 			"name": "Function",
+			"type": "class",
 			"global": true
 		});
 
@@ -35,19 +34,22 @@ define(
 		});
 
 		if (!Function.prototype.singleton) {
-			Function.prototype.singleton = function () {
-				var args,
-					ignoredContext = {};
-				if (!this.instance) {
-					args = Array.from(arguments);
-					args.unshift(ignoredContext);
-					this.instance = new (this.bind.apply(this, args))();
-				}
-				return this.instance;
-			};
+			Function.prototype.singleton = singleton;
+		}
+		
+		function singleton () {
+			var args,
+				ignoredContext = {};
+			
+			if (!this.instance) {
+				args = Array.from(arguments);
+				args.unshift(ignoredContext);
+				this.instance = new (this.bind.apply(this, args))();
+			}
+			return this.instance;
 		}
 
-		return Function.prototype.singleton;
+		return singleton;
 	}
 );
 
