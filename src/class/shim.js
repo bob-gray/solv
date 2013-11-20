@@ -1,6 +1,7 @@
 define(
 	[
-		"../meta"
+		"../meta",
+		"../function/get-name"
 	],
 	function (meta) {
 		"use strict";
@@ -61,10 +62,11 @@ define(
 		}
 		
 		function attachIfUndefined (target, name, implementation) {
-			if (!implementation) {
-				implementation = name;
+			if (!arguments[2]) {
+				implementation = arguments[1];
 				name = implementation.getName();
 			}
+		
 			if (!target[name]) {
 				target[name] = implementation;
 			}
