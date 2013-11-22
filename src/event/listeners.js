@@ -142,28 +142,29 @@ define(
 			
 			listeners.filter(forTarget).forEach(remove, this);
 		}
-		
+
 		function removeByTargetAndEventName (targetId, eventName) {
 			var listeners = this.invoke(toArray),
 				forTargetAndEvent = this.proxy(isTargetAndEvent, targetId);
 			
 			listeners.filter(forTargetAndEvent).forEach(remove, this);
 		}
-		
+
 		function toArray () {
 			return Object.keys(this.catalog).map(toListener, this);
 		}
-		
+
 		function toListener (listenerId) {
 			return this.catalog[listenerId];
 		}
-		
+
 		function isTarget (targetId, listener) {
-			return targetId !== listener.targetId;
+			return listener && listener.targetId === targetId;
 		}
 		
 		function isTargetAndEvent (targetId, eventName, listener) {
-			return targetId !== listener.targetId || eventName !== listener.targetId;
+			return listener && listener.targetId === targetId &&
+					listener.eventName === eventName;
 		}
 		
 		return Listeners;
