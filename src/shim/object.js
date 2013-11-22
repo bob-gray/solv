@@ -21,7 +21,7 @@ define(
 			"name": "keys",
 			"static": true,
 			"shim": true,
-			"description": "Returns an array of an object's own enumerable properties.",
+			"description": "Returns an array of an object's own enumerable properties",
 			"arguments": [{
 				"name": "object",
 				"type": "object"

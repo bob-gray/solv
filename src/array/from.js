@@ -15,6 +15,7 @@ define(
 		meta({
 			"name": "from",
 			"static": true,
+			"shim": true,
 			"description": "Gets a real array from an array-like object",
 			"arguments": [{
 				"name": "arrayLike",
