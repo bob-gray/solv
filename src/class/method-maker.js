@@ -1,14 +1,14 @@
 define(
 	[
-		"../meta",
-		"../type",
-		"../function/signatures",
-		"./super",
-		"../function/overload",
-		"../function/abstract",
-		"../function/get-name",
-		"../function/validate-return-type",
-		"../object/merge"
+		"solv/meta",
+		"solv/type",
+		"solv/function/signatures",
+		"solv/class/super",
+		"solv/function/overload",
+		"solv/function/abstract",
+		"solv/function/get-name",
+		"solv/function/validate-return-type",
+		"solv/object/merge"
 	],
 	function (meta, type, signatures) {
 		"use strict";

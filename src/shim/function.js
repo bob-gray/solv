@@ -1,9 +1,9 @@
 define(
 	[
-		"../meta",
-		"../array/from",
-		"../class/extend",
-		"../class/shim"
+		"solv/meta",
+		"solv/array/from",
+		"solv/class/extend",
+		"solv/class/shim"
 	],
 	function (meta) {
 		"use strict";

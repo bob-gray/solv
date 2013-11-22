@@ -1,8 +1,8 @@
 define(
 	[
-		"../meta",
-		"../type",
-		"./signatures"
+		"solv/meta",
+		"solv/type",
+		"solv/function/signatures"
 	],
 	function (meta, type, signatures) {
 		"use strict";

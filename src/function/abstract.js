@@ -1,11 +1,11 @@
 define(
 	[
-		"../meta",
-		"./invocation",
-		"../error/implementation-not-found",
-		"./signatures",
-		"../class/singleton",
-		"../class/shim"
+		"solv/meta",
+		"solv/function/invocation",
+		"solv/error/implementation-not-found",
+		"solv/function/signatures",
+		"solv/class/singleton",
+		"solv/class/shim"
 	],
 	function (meta, Invocation, ImplementationNotFound, signatures) {
 		"use strict";

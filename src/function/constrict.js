@@ -1,7 +1,7 @@
 define(
 	[
-		"../meta",
-		"../array/from"
+		"solv/meta",
+		"solv/array/from"
 	],
 	function (meta) {
 		"use strict";

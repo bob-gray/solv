@@ -1,8 +1,8 @@
 define(
 	[
-		"../meta",
-		"./from",
-		"../class/shim"
+		"solv/meta",
+		"solv/array/from",
+		"solv/class/shim"
 	],
 	function (meta, from) {
 		"use strict";

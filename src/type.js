@@ -1,6 +1,6 @@
 define(
 	[
-		"./meta"
+		"solv/meta"
 	],
 	function (meta) {
 		"use strict";

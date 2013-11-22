@@ -1,11 +1,11 @@
 define(
 	[
-		"./meta",
-		"./class/create",
-		"./class/extend",
-		"./class/method",
-		"./class/mixin",
-		"./class/super"
+		"solv/meta",
+		"solv/class/create",
+		"solv/class/extend",
+		"solv/class/method",
+		"solv/class/mixin",
+		"solv/class/super"
 	],
 	function (meta, createClass) {
 		"use strict";

@@ -1,7 +1,7 @@
 define(
 	[
-		"../meta",
-		"../function/get-name"
+		"solv/meta",
+		"solv/function/get-name"
 	],
 	function (meta) {
 		"use strict";

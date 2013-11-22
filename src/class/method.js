@@ -1,7 +1,7 @@
 define(
 	[
-		"../meta",
-		"./method-maker"
+		"solv/meta",
+		"solv/class/method-maker"
 	],
 	function (meta, MethodMaker) {
 		"use strict";

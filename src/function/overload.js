@@ -1,10 +1,10 @@
 define(
 	[
-		"../meta",
-		"../type",
-		"./invocation",
-		"./signatures",
-		"../class/singleton"
+		"solv/meta",
+		"solv/type",
+		"solv/function/invocation",
+		"solv/function/signatures",
+		"solv/class/singleton"
 	],
 	function (meta, type, Invocation, signatures) {
 		"use strict";

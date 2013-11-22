@@ -1,12 +1,12 @@
 define(
 	[
-		"../meta",
-		"../type",
-		"./super",
-		"./extend",
-		"./mixin",
-		"../function/overload",
-		"../function/abstract"
+		"solv/meta",
+		"solv/type",
+		"solv/class/super",
+		"solv/class/extend",
+		"solv/class/mixin",
+		"solv/function/overload",
+		"solv/function/abstract"
 	],
 	function (meta, type) {
 		"use strict";

@@ -1,11 +1,11 @@
 define(
 	[
-		"../meta",
-		"../class",
-		"./util/id",
-		"../abstract/base",
-		"../shim/array",
-		"../array/remove"
+		"solv/meta",
+		"solv/class",
+		"solv/util/id",
+		"solv/abstract/base",
+		"solv/shim/array",
+		"solv/array/remove"
 	],
 	function (meta, createClass, Id) {
 		"use strict";

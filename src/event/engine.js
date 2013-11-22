@@ -1,14 +1,14 @@
 define(
 	[
-		"./meta",
-		"./type",
-		"./class",
-		"./event/callbacks",
-		"./event/listener",
-		"./util/id",
-		"../abstract/base",
-		"./shim/date",
-		"../object/is-empty"
+		"solv/meta",
+		"solv/type",
+		"solv/class",
+		"solv/event/callbacks",
+		"solv/event/listener",
+		"solv/util/id",
+		"solv/abstract/base",
+		"solv/shim/date",
+		"solv/object/is-empty"
 	],
 	function (meta, type, createClass, Callbacks, Listener, Id) {
 		"use strict";

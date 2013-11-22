@@ -1,8 +1,8 @@
 define(
 	[
-		"../meta",
-		"../shim/object",
-		"../class/shim"
+		"solv/meta",
+		"solv/shim/object",
+		"solv/class/shim"
 	],
 	function (meta) {
 		"use strict";
@@ -30,7 +30,7 @@ define(
 		function isEmpty (object) {
 			var ownProperties = [];
 			
-			if (Object.getOwnPropertyNames(object)) {
+			if (Object.getOwnPropertyNames) {
 				ownProperties = Object.getOwnPropertyNames(object);
 			} else {
 				ownProperties = Object.keys(object);

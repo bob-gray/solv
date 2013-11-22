@@ -1,12 +1,12 @@
 define(
 	[
-		"../meta",
-		"../type",
-		"./method",
-		"../function/constrict",
-		"../shim/object",
-		"../shim/array",
-		"../shim/function"
+		"solv/meta",
+		"solv/type",
+		"solv/class/method",
+		"solv/function/constrict",
+		"solv/shim/object",
+		"solv/shim/array",
+		"solv/shim/function"
 	],
 	function (meta, type) {
 		"use strict";

@@ -1,11 +1,11 @@
 define(
 	[
-		"../meta",
-		"../class",
-		"../abstract/base",
-		"../shim/array",
-		"../array/remove",
-		"../array/copy"
+		"solv/meta",
+		"solv/class",
+		"solv/abstract/base",
+		"solv/shim/array",
+		"solv/array/remove",
+		"solv/array/copy"
 	],
 	function (meta, createClass) {
 		"use strict";
@@ -15,7 +15,7 @@ define(
 				"name": "Callbacks",
 				"type": "class",
 				"description": "A queue of callback functions",
-				"extends": "../abstract/base"
+				"extends": "solv/abstract/base"
 			}),
 			init
 		);

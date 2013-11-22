@@ -1,8 +1,8 @@
 define(
 	[
-		"./meta",
-		"./event/engine",
-		"./class/singleton"
+		"solv/meta",
+		"solv/event/engine",
+		"solv/class/singleton"
 	],
 	function (meta, Event) {
 		"use strict";

@@ -1,10 +1,10 @@
 define(
 	[
-		"../meta",
-		"../type",
-		"../error/invalid-return-type",
-		"./signatures",
-		"./overload"
+		"solv/meta",
+		"solv/type",
+		"solv/error/invalid-return-type",
+		"solv/function/signatures",
+		"solv/function/overload"
 	],
 	function (meta, type, InvalidReturnType, signatures) {
 		"use strict";

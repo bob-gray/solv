@@ -1,10 +1,10 @@
 define(
 	[
-		"../meta",
-		"../shim/object",
-		"../shim/array",
-		"../array/from",
-		"../class/shim"
+		"solv/meta",
+		"solv/shim/object",
+		"solv/shim/array",
+		"solv/array/from",
+		"solv/class/shim"
 	],
 	function (meta) {
 		"use strict";

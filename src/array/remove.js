@@ -1,8 +1,8 @@
 define(
 	[
-		"../meta",
-		"../class/method",
-		"../shim/array"
+		"solv/meta",
+		"solv/class/method",
+		"solv/shim/array"
 	],
 	function (meta) {
 		"use strict";
@@ -16,7 +16,7 @@ define(
 		Array.method(
 			meta({
 				"name": "remove",
-				"descriptions": "Removes the first occurence of an item from an array",
+				"descriptions": "Removes the first occurrence of an item from an array",
 				"shim": true,
 				"arguments": [{
 					"name": "item",

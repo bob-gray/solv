@@ -1,7 +1,7 @@
 define(
 	[
-		"../meta",
-		"../class/shim"
+		"solv/meta",
+		"solv/class/shim"
 	],
 	function (meta) {
 		"use strict";
