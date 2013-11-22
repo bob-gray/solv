@@ -1,4 +1,4 @@
-solv
+Solv
 ====
 
 Enterprise JavaScript Toolset
@@ -23,9 +23,9 @@ installed and a couple set commands need to be run.
 1. Run `npm install -g grunt-cli` to install grunt command line interface
 2. Run `npm install` to install test dependencies
 
-Once set up is complete run `grunt test` to execute tests in PhantomJS.
+When set up is complete run `grunt test` to execute tests in PhantomJS.
 
-*See the Gruntfile for more test options including running tests and lint on
+*See the Gruntfile for more test options including running tests and linting on
 file change.*
 
 ###Browser
@@ -35,4 +35,4 @@ file change.*
 1. Run `npm install -g bower` to install bower 
 2. Run `bower install` to install test dependencies
 
-Once set up is complete open `tests/index.html` in the browser of your choice.
+When set up is complete open `tests/index.html` in the browser of your choice.
