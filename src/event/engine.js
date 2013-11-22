@@ -4,13 +4,13 @@ define(
 		"solv/type",
 		"solv/class",
 		"solv/event/callbacks",
-		"solv/event/listener",
+		"solv/event/listeners",
 		"solv/util/id",
 		"solv/abstract/base",
 		"solv/shim/date",
 		"solv/object/is-empty"
 	],
-	function (meta, type, createClass, Callbacks, Listener, Id) {
+	function (meta, type, createClass, Callbacks, Listeners, Id) {
 		"use strict";
 		
 		var Event = createClass(
@@ -18,7 +18,7 @@ define(
 				"name": "Event",
 				"type": "class",
 				"description": "",
-				"extends": "../abstract/base"
+				"extends": "solv/abstract/base"
 			}),
 			init
 		);
@@ -85,7 +85,7 @@ define(
 		
 		Event.method(
 			meta({
-				"name": "removeAllListener",
+				"name": "removeAllListeners",
 				"description": "Removes all listeners from an object",
 				"arguments": [{
 					"name": "target",
@@ -132,19 +132,19 @@ define(
 			trigger
 		);
 		
+		var id = new Id();
+		
 		function init () {
 			this.expando = "events-"+ Date.now();
 			this.registry = {};
-			this.listeners = {};
+			this.listeners = new Listeners();
 		}
 		
 		function addListener (target, eventName, handler) {
-			var targetId = getId(target),
-				listener = new Listener(targetId, eventName, handler),
-				listenerKey = listener.getKey(),
-				callbacks = getCallbacks(targetId, eventName);
+			var targetId = this.invoke(getId, target),
+				listenerKey = this.listeners.add(targetId, eventName, handler),
+				callbacks = this.invoke(getCallbacks, targetId, eventName);
 			
-			this.listeners[listenerKey.listenerId] = listener;
 			callbacks.add(handler);
 			
 			return listenerKey;
@@ -163,8 +163,7 @@ define(
 		}
 		
 		function removeListener (target, listenerKey) {
-			var listenerId = listenerKey.listenerId,
-				listener = this.listeners[listenerId],
+			var listener = this.listeners.get(listenerKey),
 				handlers = this.registry[listener.targetId],
 				callbacks;
 			
@@ -173,27 +172,24 @@ define(
 			}
 			
 			if (callbacks) {
-				callbacks.remove(listenerKey.handler);
-			}
-			
-			if (callbacks && callbacks.isEmpty()) {
-				handlers[listener.eventName] = null;
+				callbacks.remove(listener.handler);
 			}
 			
 			if (handlers && Object.isEmpty(handlers)) {
 				this.registry[listener.targetId] = null;
+			
+			} else if (callbacks && callbacks.isEmpty()) {
+				handlers[listener.eventName] = null;
 			}
 			
-			this.listeners[listenerId] = null;
+			this.listeners.remove(listenerKey);
 		}
 		
 		function removeAllListeners (target) {
 			var targetId = target[this.expando];
 				
 			if (targetId) {
-				this.listeners = this.listeners.filter(
-					this.proxy(isOtherTarget, targetId)
-				);
+				this.listeners.remove(targetId);
 				this.registry[targetId] = null;
 			}
 			
@@ -204,24 +200,21 @@ define(
 				handlers;
 				
 			if (targetId) {
-				this.listeners = this.listeners.filter(
-					this.proxy(isOtherTargetAndEvent, targetId, eventName)
-				);
+				this.listeners.remove(targetId, eventName);
 				handlers = this.registry[targetId];
-				
-				if (handlers) {
-					handlers[eventName] = null;
-				}
 				
 				if (handlers && Object.isEmpty(handlers)) {
 					this.registry[targetId] = null;
+				
+				} else if (handlers) {
+					handlers[eventName] = null;
 				}
 			}
 		}
 		
 		function trigger (target, eventName) {
-			var targetId = getId(target),
-				callbacks = getCallbacks(targetId, eventName),
+			var targetId = this.invoke(getId, target),
+				callbacks = this.invoke(getCallbacks, targetId, eventName),
 				eventArgs = Array.from(arguments).slice(2);
 			
 			callbacks.execute(target, eventArgs);
@@ -250,8 +243,6 @@ define(
 			}
 		}
 		
-		stamp.id = new Id();
-		
 		function getHandlers (targetId) {
 			var handlers = this.registry[targetId];
 			
@@ -261,14 +252,6 @@ define(
 			}
 			
 			return handlers;
-		}
-		
-		function isOtherTarget (targetId, listener) {
-			return targetId !== listener.targetId;
-		}
-		
-		function isOtherTargetAndEvent (targetId, eventName, listener) {
-			return targetId !== listener.targetId || eventName !== listener.targetId;
 		}
 		
 		return Event;

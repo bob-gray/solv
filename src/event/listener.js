@@ -15,7 +15,17 @@ define(
 				"name": "Listener",
 				"type": "class",
 				"description": "",
-				"extends": "../abstract/base"
+				"extends": "solv/abstract/base",
+				"arguments": [{
+					"name": "targetId",
+					"type": "number"
+				}, {
+					"name": "eventName",
+					"type": "string"
+				}, {
+					"name": "handler",
+					"type": "function"
+				}]
 			}),
 			init
 		);
@@ -52,15 +62,3 @@ define(
 		return Listener;
 	}
 );
-
-
-
-
-
-
-
-
-
-
-
-
