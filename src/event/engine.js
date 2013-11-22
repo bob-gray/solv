@@ -239,7 +239,7 @@ define(
 		
 		function stamp (target) {
 			if (!target[this.expando]) {
-				target[this.expando] = stamp.id.getNext();
+				target[this.expando] = id.getNext();
 			}
 		}
 		
