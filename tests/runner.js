@@ -1,6 +1,6 @@
 require.config({
 	paths: {
-		src: "../src"
+		solv: "../src"
 	}
 });
 
@@ -8,11 +8,15 @@ require(
 	[
 		"spec/abstract/base-test",
 		"spec/array/from-test",
+		"spec/array/remove",
+		"spec/array/copy",
+		"spec/array/of",
 		"spec/class/create-test",
 		"spec/class/method-test",
 		"spec/class/singleton-test",
 		"spec/error/implementation-not-found-test",
 		"spec/error/invalid-return-type-test",
+		"spec/event/callbacks-test",
 		"spec/function/get-name-test",
 		"spec/function/abstract-test",
 		"spec/function/invocation-test",
