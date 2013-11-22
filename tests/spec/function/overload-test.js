@@ -1,4 +1,4 @@
-define(["src/function/overload"], function () {
+define(["solv/function/overload"], function () {
 	"use strict";
 
 	describe("function.overload", function () {

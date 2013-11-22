@@ -1,4 +1,4 @@
-define(["src/class/singleton"], function () {
+define(["solv/class/singleton"], function () {
 	"use strict";
 
 	describe("Constructor.singleton", function () {

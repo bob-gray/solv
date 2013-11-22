@@ -1,7 +1,7 @@
 define(
 	[
-		"src/error/invalid-return-type",
-		"src/function/validate-return-type"
+		"solv/error/invalid-return-type",
+		"solv/function/validate-return-type"
 	],
 	function (InvalidReturnType) {
 		"use strict";

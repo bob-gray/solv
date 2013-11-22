@@ -1,4 +1,4 @@
-define(["src/class"], function (createClass) {
+define(["solv/class"], function (createClass) {
 	"use strict";
 
 	describe("createClass()", function () {

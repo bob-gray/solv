@@ -1,4 +1,4 @@
-define(["src/function/invocation"], function (Invocation) {
+define(["solv/function/invocation"], function (Invocation) {
 	"use strict";
 
 	describe("Invocation class", function () {

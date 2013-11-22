@@ -1,4 +1,4 @@
-define(["src/object/merge"], function () {
+define(["solv/object/merge"], function () {
 	"use strict";
 
 	describe("Object.merge", function () {

@@ -1,4 +1,4 @@
-define(["src/function/get-name"], function () {
+define(["solv/function/get-name"], function () {
 	"use strict";
 
 	describe("function.getName", function () {

@@ -1,4 +1,4 @@
-define(["src/class/method"], function () {
+define(["solv/class/method"], function () {
 	"use strict";
 
 	describe("Constructor.method", function () {

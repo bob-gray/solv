@@ -1,4 +1,4 @@
-define(["src/meta"], function (meta) {
+define(["solv/meta"], function (meta) {
 	"use strict";
 
 	describe("meta()", function () {
@@ -29,14 +29,14 @@ define(["src/meta"], function (meta) {
 
 		it("looks up data.mixins as an amd module", function () {
 			var data = meta({
-				"mixins": "src/meta"
+				"mixins": "solv/meta"
 			});
 			expect(data.mixins).toBe(meta);
 		});
 
 		it("looks up data.extends as an amd module", function () {
 			var data = meta({
-				"extends": "src/meta"
+				"extends": "solv/meta"
 			});
 			expect(data["extends"]).toBe(meta);
 		});
@@ -62,7 +62,7 @@ define(["src/meta"], function (meta) {
 			data = meta({
 				"mixins": [
 					"describe",
-					"src/meta",
+					"solv/meta",
 					"fooey"
 				]
 			});

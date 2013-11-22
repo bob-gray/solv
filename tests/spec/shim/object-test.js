@@ -1,4 +1,4 @@
-define(["src/shim/object"], function () {
+define(["solv/shim/object"], function () {
 	"use strict";
 
 	describe("Object.keys(obj)", function () {

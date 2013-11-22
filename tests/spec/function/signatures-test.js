@@ -1,4 +1,4 @@
-define(["src/function/signatures"], function (signatures) {
+define(["solv/function/signatures"], function (signatures) {
 	"use strict";
 
 	describe("signatures.compileImplementationSignature(signature)", function () {

@@ -1,4 +1,4 @@
-define(["src/array/from"], function (from) {
+define(["solv/array/from"], function (from) {
 	"use strict";
 
 	describe("Array.from", function () {

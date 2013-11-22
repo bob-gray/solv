@@ -1,4 +1,4 @@
-define(["src/type"], function (type) {
+define(["solv/type"], function (type) {
 	"use strict";
 
 	var subjects = {

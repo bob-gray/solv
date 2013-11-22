@@ -1,4 +1,4 @@
-define(["src/abstract/base"], function (Base) {
+define(["solv/abstract/base"], function (Base) {
 	"use strict";
 
 	describe("Base", function () {

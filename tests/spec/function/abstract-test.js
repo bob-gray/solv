@@ -1,7 +1,7 @@
 define(
 	[
-		"src/error/implementation-not-found",
-		"src/function/abstract"
+		"solv/error/implementation-not-found",
+		"solv/function/abstract"
 	],
 	function (ImplementationNotFound) {
 		"use strict";
