@@ -7,7 +7,8 @@ define(
 		"./event/listener",
 		"./util/id",
 		"../abstract/base",
-		"./shim/date"
+		"./shim/date",
+		"../object/is-empty"
 	],
 	function (meta, type, createClass, Callbacks, Listener, Id) {
 		"use strict";
@@ -206,7 +207,7 @@ define(
 				this.listeners = this.listeners.filter(
 					this.proxy(isOtherTargetAndEvent, targetId, eventName)
 				);
-				handlers = this.registry[targetId];;
+				handlers = this.registry[targetId];
 				
 				if (handlers) {
 					handlers[eventName] = null;

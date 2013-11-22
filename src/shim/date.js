@@ -30,7 +30,7 @@ define(
 
 		function now () {
 			return new Date().getTime();
-		};
+		}
 
 		shims.now = now;
 
