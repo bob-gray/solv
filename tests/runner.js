@@ -8,9 +8,9 @@ require(
 	[
 		"spec/abstract/base-test",
 		"spec/array/from-test",
-		"spec/array/remove",
-		"spec/array/copy",
-		"spec/array/of",
+		"spec/array/remove-test",
+		"spec/array/copy-test",
+		"spec/array/of-test",
 		"spec/class/create-test",
 		"spec/class/method-test",
 		"spec/class/singleton-test",
