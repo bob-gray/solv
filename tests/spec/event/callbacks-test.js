@@ -1,15 +1,15 @@
 define(["solv/event/callbacks"], function (Callbacks) {
 	"use strict";
 	
-	var callbacks,
-		callback;
-	
-	beforeEach(function () {
-		callbacks = new Callbacks();
-		callback = jasmine.createSpy("callback");	
-	});
-	
 	describe("Callbacks", function () {
+		var callbacks,
+			callback;
+		
+		beforeEach(function () {
+			callbacks = new Callbacks();
+			callback = jasmine.createSpy("callback");	
+		});
+		
 		it(".isEmpty tests if the callback queue is empty", function () {
 			expect(callbacks.isEmpty()).toBe(true);
 		});
