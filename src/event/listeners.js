@@ -51,7 +51,7 @@ define(
 					"type": "object"
 				}],
 				"returns": {
-					"type": "object",
+					"type": "object|null",
 					"description": "listener instance"
 				}
 			}),
@@ -125,7 +125,7 @@ define(
 		function get (listenerKey) {
 			var listenerId = listenerKey.listenerId;
 
-			return this.catalog[listenerId];
+			return this.catalog[listenerId] || null;
 		}
 
 		function remove (listenerKey) {

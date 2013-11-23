@@ -2,10 +2,7 @@ define(
 	[
 		"solv/meta",
 		"solv/class",
-		"solv/util/id",
-		"solv/abstract/base",
-		"solv/shim/array",
-		"solv/array/remove"
+		"solv/util/id"
 	],
 	function (meta, createClass, Id) {
 		"use strict";
@@ -15,7 +12,6 @@ define(
 				"name": "Listener",
 				"type": "class",
 				"description": "",
-				"extends": "solv/abstract/base",
 				"arguments": [{
 					"name": "targetId",
 					"type": "number"
