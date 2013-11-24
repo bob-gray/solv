@@ -1,7 +1,6 @@
 define(
 	[
 		"solv/meta",
-		"solv/type",
 		"solv/class",
 		"solv/event/callbacks",
 		"solv/event/listeners",
@@ -10,7 +9,7 @@ define(
 		"solv/shim/date",
 		"solv/object/is-empty"
 	],
-	function (meta, type, createClass, Callbacks, Listeners, Id) {
+	function (meta, createClass, Callbacks, Listeners, Id) {
 		"use strict";
 		
 		var EventEngine = createClass(
@@ -213,7 +212,8 @@ define(
 				
 			if (targetId) {
 				this.listeners.remove(targetId);
-				this.registry[targetId] = null;
+				delete this.registry[targetId];
+				delete target[this.expando];
 			}
 			
 		}
