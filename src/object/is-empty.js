@@ -32,11 +32,12 @@ define(
 			
 			if (Object.getOwnPropertyNames) {
 				ownProperties = Object.getOwnPropertyNames(object);
+			
 			} else {
 				ownProperties = Object.keys(object);
 			}
 			
-			return ownProperties.length;
+			return 0 === ownProperties.length;
 		}
 
 		return isEmpty;
