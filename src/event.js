@@ -4,9 +4,9 @@ define(
 		"solv/event/engine",
 		"solv/class/singleton"
 	],
-	function (meta, Event) {
+	function (meta, EventEngine) {
 		"use strict";
 		
-		return Event.singleton();
+		return EventEngine.singleton();
 	}
 );

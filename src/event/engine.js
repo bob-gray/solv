@@ -13,9 +13,9 @@ define(
 	function (meta, type, createClass, Callbacks, Listeners, Id) {
 		"use strict";
 		
-		var Event = createClass(
+		var EventEngine = createClass(
 			meta({
-				"name": "Event",
+				"name": "EventEngine",
 				"type": "class",
 				"description": "",
 				"extends": "solv/abstract/base"
@@ -23,7 +23,7 @@ define(
 			init
 		);
 		
-		Event.method(
+		EventEngine.method(
 			meta({
 				"name": "addListener",
 				"description": "Adds a listener to an object",
@@ -45,7 +45,7 @@ define(
 			addListener
 		);
 		
-		Event.method(
+		EventEngine.method(
 			meta({
 				"name": "addListenerOnce",
 				"description": "Adds a listener to an object which will be removed after the first trigger",
@@ -67,7 +67,7 @@ define(
 			addListenerOnce
 		);
 		
-		Event.method(
+		EventEngine.method(
 			meta({
 				"name": "removeListener",
 				"description": "Removes a listener from an object",
@@ -83,19 +83,7 @@ define(
 			removeListener
 		);
 		
-		Event.method(
-			meta({
-				"name": "removeAllListeners",
-				"description": "Removes all listeners from an object",
-				"arguments": [{
-					"name": "target",
-					"type": "object"
-				}]
-			}),
-			removeAllListeners
-		);
-		
-		Event.method(
+		EventEngine.method(
 			meta({
 				"name": "removeListeners",
 				"description": "Removes all listeners of an event name from an object",
@@ -110,7 +98,19 @@ define(
 			removeListeners
 		);
 		
-		Event.method(
+		EventEngine.method(
+			meta({
+				"name": "removeAllListeners",
+				"description": "Removes all listeners from an object",
+				"arguments": [{
+					"name": "target",
+					"type": "object"
+				}]
+			}),
+			removeAllListeners
+		);
+		
+		EventEngine.method(
 			meta({
 				"name": "trigger",
 				"description": "Executes all handler functions listening for the event on an object ",
@@ -164,8 +164,12 @@ define(
 		
 		function removeListener (target, listenerKey) {
 			var listener = this.listeners.get(listenerKey),
-				handlers = this.registry[listener.targetId],
+				handlers,
 				callbacks;
+			
+			if (listener) {
+				handlers = this.registry[listener.targetId];
+			}
 			
 			if (handlers) {
 				callbacks = handlers[listener.eventName];
@@ -175,16 +179,35 @@ define(
 				callbacks.remove(listener.handler);
 			}
 			
-			if (handlers && Object.isEmpty(handlers)) {
-				this.registry[listener.targetId] = null;
+			if (callbacks && callbacks.isEmpty()) {
+				delete handlers[listener.eventName];
+			}
 			
-			} else if (callbacks && callbacks.isEmpty()) {
-				handlers[listener.eventName] = null;
+			if (handlers && Object.isEmpty(handlers)) {
+				delete this.registry[listener.targetId];
 			}
 			
 			this.listeners.remove(listenerKey);
 		}
-		
+
+		function removeListeners (target, eventName) {
+			var targetId = target[this.expando],
+				handlers;
+
+			if (targetId) {
+				this.listeners.remove(targetId, eventName);
+				handlers = this.registry[targetId];
+				
+				if (handlers) {
+					delete handlers[eventName];
+				}
+				
+				if (handlers && Object.isEmpty(handlers)) {
+					delete this.registry[targetId];
+				}
+			}
+		}
+
 		function removeAllListeners (target) {
 			var targetId = target[this.expando];
 				
@@ -193,23 +216,6 @@ define(
 				this.registry[targetId] = null;
 			}
 			
-		}
-		
-		function removeListeners (target, eventName) {
-			var targetId = target[this.expando],
-				handlers;
-				
-			if (targetId) {
-				this.listeners.remove(targetId, eventName);
-				handlers = this.registry[targetId];
-				
-				if (handlers && Object.isEmpty(handlers)) {
-					this.registry[targetId] = null;
-				
-				} else if (handlers) {
-					handlers[eventName] = null;
-				}
-			}
 		}
 		
 		function trigger (target, eventName) {
@@ -254,6 +260,6 @@ define(
 			return handlers;
 		}
 		
-		return Event;
+		return EventEngine;
 	}
 );

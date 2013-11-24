@@ -61,18 +61,6 @@ define(
 		Listeners.method(
 			meta({
 				"name": "remove",
-				"description": "Removes listener from the catalog",
-				"arguments": [{
-					"name": "listenerKey",
-					"type": "object"
-				}]
-			}),
-			remove
-		);
-		
-		Listeners.method(
-			meta({
-				"name": "remove",
 				"description": "Removes listener from the catalog by it's key",
 				"arguments": [{
 					"name": "listenerKey",
@@ -94,7 +82,7 @@ define(
 			removeByTargetId
 		);
 		
-		Listener.method(
+		Listeners.method(
 			meta({
 				"name": "remove",
 				"description": "Removes listener from the catalog by it's targetId and eventName",
@@ -140,14 +128,18 @@ define(
 			var listeners = this.invoke(toArray),
 				forTarget = this.proxy(isTarget, targetId);
 			
-			listeners.filter(forTarget).forEach(remove, this);
+			listeners.filter(forTarget).forEach(removeListener, this);
 		}
 
 		function removeByTargetAndEventName (targetId, eventName) {
 			var listeners = this.invoke(toArray),
-				forTargetAndEvent = this.proxy(isTargetAndEvent, targetId);
+				forTargetAndEvent = this.proxy(isTargetAndEvent, targetId, eventName);
 			
-			listeners.filter(forTargetAndEvent).forEach(remove, this);
+			listeners.filter(forTargetAndEvent).forEach(removeListener, this);
+		}
+		
+		function removeListener (listener) {
+			this.invoke(remove, listener.getKey());
 		}
 
 		function toArray () {
