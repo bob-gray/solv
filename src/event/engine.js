@@ -5,11 +5,13 @@ define(
 		"solv/event/callbacks",
 		"solv/event/listeners",
 		"solv/util/id",
+		"solv/error/invalid-event-arguments",
+		"solv/function/signatures",
 		"solv/abstract/base",
 		"solv/shim/date",
 		"solv/object/is-empty"
 	],
-	function (meta, createClass, Callbacks, Listeners, Id) {
+	function (meta, createClass, Callbacks, Listeners, Id, InvalidEventArguments, signatures) {
 		"use strict";
 		
 		var EventEngine = createClass(
@@ -131,6 +133,28 @@ define(
 			trigger
 		);
 		
+		EventEngine.method(
+			meta({
+				"name": "trigger",
+				"description": "Executes all handler functions listening for the event on an object ",
+				"arguments": [{
+					"name": "target",
+					"type": "object",
+					"description": "thisArg within handlers"
+				}, {
+					"name": "options",
+					"type": "object"
+				}, {
+					"name": "nArgs",
+					"type": "any",
+					"required": false,
+					"repeating": true,
+					"description": "Arguments to pass to handler functions"
+				}]
+			}),
+			triggerWithOptions
+		);
+		
 		var id = new Id();
 		
 		function init () {
@@ -211,6 +235,30 @@ define(
 			
 			if (callbacks) {
 				callbacks.execute(target, eventArgs);
+			}
+		}
+		
+		function triggerWithOptions (target, options) {
+			var eventArgs = Array.from(arguments).slice(2);
+				
+			if (options["arguments"]) {
+				validateEventArgs(eventArgs, options["arguments"], options.eventName);
+			}
+			
+			this.invoke(trigger, target, options.eventName);
+		}
+		
+		function validateEventArgs (eventArgs, optionsArgs, eventName) {
+			var triggerSignature = signatures.getSignatureFromMeta(optionsArgs),
+				tester = signatures.compileImplementationSignature(triggerSignature),
+				eventArgsSignature = signatures.getInvocationSignature(eventArgs);
+			
+			if (!tester.test(eventArgsSignature)) {
+				throw new InvalidEventArguments({
+					eventName: eventName,
+					actualArgumentsSignature: eventArgsSignature,
+					expectedArgumentsSignature: triggerSignature
+				});
 			}
 		}
 		
