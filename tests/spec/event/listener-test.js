@@ -34,6 +34,6 @@ define(["solv/event/listener"], function (Listener) {
 				"property equal to listener.id", function () {
 			var key = listener.getKey();
 			expect(key.listenerId).toBe(listener.id);
-		})
+		});
 	});
 });

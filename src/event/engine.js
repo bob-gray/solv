@@ -16,7 +16,7 @@ define(
 			meta({
 				"name": "EventEngine",
 				"type": "class",
-				"description": "",
+				"description": "Custom event system",
 				"extends": "solv/abstract/base"
 			}),
 			init
@@ -144,6 +144,10 @@ define(
 				listenerKey = this.listeners.add(targetId, eventName, handler),
 				callbacks = this.invoke(getCallbacks, targetId, eventName);
 			
+			if (!callbacks) {
+				callbacks = this.invoke(makeCallbacks, targetId, eventName);
+			}
+			
 			callbacks.add(handler);
 			
 			return listenerKey;
@@ -162,31 +166,13 @@ define(
 		}
 		
 		function removeListener (target, listenerKey) {
-			var listener = this.listeners.get(listenerKey),
-				handlers,
-				callbacks;
+			var listener = this.listeners.get(listenerKey);
 			
 			if (listener) {
-				handlers = this.registry[listener.targetId];
+				this.invoke(removeHandler, listener);
+				this.listeners.remove(listenerKey);
+				this.invoke(cleanup, listener);
 			}
-			
-			if (handlers) {
-				callbacks = handlers[listener.eventName];
-			}
-			
-			if (callbacks) {
-				callbacks.remove(listener.handler);
-			}
-			
-			if (callbacks && callbacks.isEmpty()) {
-				delete handlers[listener.eventName];
-			}
-			
-			if (handlers && Object.isEmpty(handlers)) {
-				delete this.registry[listener.targetId];
-			}
-			
-			this.listeners.remove(listenerKey);
 		}
 
 		function removeListeners (target, eventName) {
@@ -223,7 +209,9 @@ define(
 				callbacks = this.invoke(getCallbacks, targetId, eventName),
 				eventArgs = Array.from(arguments).slice(2);
 			
-			callbacks.execute(target, eventArgs);
+			if (callbacks) {
+				callbacks.execute(target, eventArgs);
+			}
 		}
 		
 		function getId (target) {
@@ -232,32 +220,59 @@ define(
 		}
 		
 		function getCallbacks (targetId, eventName) {
-			var handlers = this.invoke(getHandlers, targetId),
-				callbacks = handlers[eventName];
+			var handlers = this.registry[targetId],
+				callbacks;
 			
-			if (!callbacks) {
-				callbacks = new Callbacks();
-				handlers[eventName] = callbacks;
+			if (handlers) {
+				callbacks = handlers[eventName];
 			}
 			
 			return callbacks;
 		}
 		
-		function stamp (target) {
-			if (!target[this.expando]) {
-				target[this.expando] = id.getNext();
-			}
-		}
-		
-		function getHandlers (targetId) {
-			var handlers = this.registry[targetId];
+		function makeCallbacks (targetId, eventName) {
+			var handlers = this.registry[targetId],
+				callbacks = new Callbacks();
 			
 			if (!handlers) {
 				handlers = {};
 				this.registry[targetId] = handlers;
 			}
 			
-			return handlers;
+			handlers[eventName] = callbacks;
+			
+			return callbacks;
+		}
+		
+		function removeHandler (listener) {
+			var callbacks = this.invoke(getCallbacks, listener.targetId, listener.eventName);
+			
+			if (callbacks) {
+				callbacks.remove(listener.handler);
+			}
+		}
+		
+		function cleanup (listener) {
+			var handlers = this.registry[listener.targetId],
+				callbacks;
+			
+			if (handlers) {
+				callbacks = handlers[listener.eventName];
+				
+				if (callbacks && callbacks.isEmpty()) {
+					delete handlers[listener.eventName];
+				}
+				
+				if (Object.isEmpty(handlers)) {
+					delete this.registry[listener.targetId];
+				}
+			}
+		}
+		
+		function stamp (target) {
+			if (!target[this.expando]) {
+				target[this.expando] = id.getNext();
+			}
 		}
 		
 		return EventEngine;
