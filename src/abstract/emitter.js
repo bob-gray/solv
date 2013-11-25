@@ -106,6 +106,24 @@ define(
 			trigger
 		);
 
+		Emitter.method(
+			meta({
+				"name": "trigger",
+				"description": "Executes all handler functions listening for an event",
+				"arguments": [{
+					"name": "options",
+					"type": "object"
+				}, {
+					"name": "nArgs",
+					"type": "any",
+					"required": false,
+					"repeating": true,
+					"description": "Arguments to pass to handler functions"
+				}]
+			}),
+			trigger
+		);
+
 		function on (eventName, handler) {
 			return event.addListener(this, eventName, handler);
 		}
