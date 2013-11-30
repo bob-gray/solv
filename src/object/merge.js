@@ -1,12 +1,13 @@
 define(
 	[
-		"solv/meta",
-		"solv/shim/object",
-		"solv/shim/array",
-		"solv/array/from",
-		"solv/class/shim"
+		"../meta",
+		"../type",
+		"../shim/object",
+		"../shim/array",
+		"../array/from",
+		"../class/shim"
 	],
-	function (meta) {
+	function (meta, type) {
 		"use strict";
 
 		meta({
@@ -42,11 +43,21 @@ define(
 		});
 
 		Object.shimStatic(merge);
+		
+		var deep = false;
 
 		function merge (target) {
 			var sources = Array.from(arguments).slice(1);
 			return sources.reduce(copy, target);
 		}
+
+		merge.deep = function () {
+			deep = true;
+			var result = merge.apply(this, arguments);
+			deep = false;
+			
+			return result;
+		};
 
 		function copy (target, source) {
 			var properties = ownNonNullProperties(source);
@@ -58,7 +69,20 @@ define(
 		}
 
 		function assign (target, name) {
-			target[name] = this[name];
+			var value = this[name],
+				targetValue = target[name];
+			
+			if (deep && type.is("object", value)) {
+				
+				if (type.is.not("object", targetValue)) {
+					targetValue = {};
+				}
+				
+				value = merge(targetValue, value);
+			}
+			
+			target[name] = value;
+
 			return target;
 		}
 
