@@ -2,13 +2,14 @@ define(
 	[
 		"solv/meta",
 		"solv/type",
+		"solv/error/invalid-constructor-context",
 		"solv/class/super",
 		"solv/class/extend",
 		"solv/class/mixin",
 		"solv/function/overload",
 		"solv/function/abstract"
 	],
-	function (meta, type) {
+	function (meta, type, InvalidConstructorContext) {
 		"use strict";
 
 		meta({
@@ -48,20 +49,18 @@ define(
 
 		function create (options, init) {
 			var hasInit = type.is("function", init),
-				name = getName(),
-				forcingNew = false;
+				name = getName();
 
 			function Constructor () {
-				var instance = this;
-				if (notAnInstance(instance)) {
-					forcingNew = true;
-					instance = new Constructor();
-					forcingNew = false;
+				
+				if (notAnInstance(this)) {
+					
+					throw new InvalidConstructorContext({
+						className: name
+					});
 				}
-				if (shouldInvokeInit()) {
-					init.apply(instance, arguments);
-				}
-				return instance;
+				
+				init.apply(this, arguments);
 			}
 
 			if (name) {
@@ -83,16 +82,15 @@ define(
 
 			function getName () {
 				var name;
+				
 				if (options.name) {
 					name = options.name;
+				
 				} else if (hasInit && init.name) {
 					name = init.name;
 				}
+				
 				return name;
-			}
-
-			function shouldInvokeInit () {
-				return !forcingNew && hasInit;
 			}
 
 			function notAnInstance(instance) {
@@ -101,6 +99,7 @@ define(
 
 			function injectClassName () {
 				/* jshint evil:true */
+				
 				// useful for inspecting constructor names, safe to remove
 				Constructor = Constructor.toString().replace("Constructor", name);
 				eval("Constructor = "+ Constructor +";");
@@ -112,6 +111,7 @@ define(
 		function getSuperInit (Constructor) {
 			var Super = Constructor.Super,
 				init = Super;
+			
 			while (Super) {
 				if (Super.init) {
 					init = Super.init;
@@ -119,6 +119,7 @@ define(
 				}
 				Super = Super.Super;
 			}
+			
 			return init;
 		}
 
