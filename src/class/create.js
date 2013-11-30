@@ -60,7 +60,9 @@ define(
 					});
 				}
 				
-				init.apply(this, arguments);
+				if (hasInit) {
+					init.apply(this, arguments);
+				}
 			}
 
 			if (name) {

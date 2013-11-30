@@ -130,13 +130,13 @@ define(["solv/class"], function (createClass) {
 		});
 
 		it("init function can call this.superCall or this.superApply", function () {
-			var parent = createClass({
-				"name": "parent"
+			var Parent = createClass({
+				"name": "Parent"
 			}, parentInit);
 
-			var child = createClass({
-				"name": "child",
-				"extends": parent
+			var Child = createClass({
+				"name": "Child",
+				"extends": Parent
 			}, childInit);
 
 			function parentInit (name) {
@@ -147,23 +147,15 @@ define(["solv/class"], function (createClass) {
 				this.superApply(arguments);
 			}
 
-			useClass(parent);
-			useClass(child);
-			expect(parent("Ollie").name).toBe("Ollie");
-			expect(child("Ollie").name).toBe("Ollie");
+			useClass(Parent);
+			useClass(Child);
+			expect(new Parent("Ollie").name).toBe("Ollie");
+			expect(new Child("Ollie").name).toBe("Ollie");
 		});
 
-		it("can be called with or with new operator", function () {
-			var foo = createClass(),
-				bar = createClass({
-					name: bar,
-					"extends": foo
-				}),
-				fooInstance = foo(),
-				barInstance = bar();
-			expect(fooInstance instanceof foo).toBe(true);
-			expect(barInstance instanceof foo).toBe(true);
-			expect(barInstance instanceof bar).toBe(true);
+		it("throws an error if called without new operator", function () {
+			var Foo = createClass();
+			expect(Foo).toThrow();
 		});
 	});
 
