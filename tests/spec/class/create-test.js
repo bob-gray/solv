@@ -110,6 +110,91 @@ define(["solv/class"], function (createClass) {
 			useClass(Bar);
 			expect(new Foo().getId()).toBe(1);
 		});
+		
+		it("can have default property values automatically assigned", function () {
+			var Person = createClass({
+				name: "Person",
+				properties: {
+					name: {
+						type: "string",
+						"default": "John Doe"
+					},
+					hometown: {
+						type: "string",
+						"default": "unknown"
+					}
+				}
+			});
+			
+			useClass(Person);
+			expect(new Person().name).toBe("John Doe");
+			expect(new Person().hometown).toBe("unknown");
+		});
+		
+		it("can have default property values overridden by constructor argument", function () {
+			var Person = createClass({
+				name: "Person",
+				properties: {
+					name: {
+						type: "string",
+						"default": "John Doe"
+					},
+					hometown: {
+						type: "string",
+						"default": "unknown"
+					}
+				},
+				"arguments": [{
+					name: "properties",
+					type: "object"
+				}]
+			});
+			
+			useClass(Person);
+			expect(new Person({name: "Bob"}).name).toBe("Bob");
+		});
+		
+		it("can have default property values automatically assigned", function () {
+			var Person = createClass({
+				name: "Person",
+				properties: {
+					name: {
+						type: "string",
+						"default": "John Doe"
+					},
+					hometown: {
+						type: "string",
+						"default": "unknown"
+					}
+				}
+			});
+			
+			useClass(Person);
+			expect(new Person().name).toBe("John Doe");
+			expect(new Person().hometown).toBe("unknown");
+		});
+		
+		it("can have default options values overridden by constructor argument", function () {
+			var personInit = jasmine.createSpy("personInit"),
+				Person = createClass({
+					name: "Person",
+					"arguments": [{
+						name: "options",
+						type: "object",
+						"default": {
+							name: "John Doe",
+							hometown: "unknown"
+						}
+					}]
+				}, personInit),
+				person = new Person();
+			
+			useClass(Person);
+			expect(personInit).toHaveBeenCalledWith({
+				name: "John Doe",
+				hometown: "unknown"
+			});
+		});
 	});
 
 	describe("class constructors created with createClass()", function () {
