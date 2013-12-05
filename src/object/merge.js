@@ -46,11 +46,6 @@ define(
 		
 		var deep = false;
 
-		function merge (target) {
-			var sources = Array.from(arguments).slice(1);
-			return sources.reduce(copy, target);
-		}
-
 		merge.deep = function () {
 			deep = true;
 			var result = merge.apply(this, arguments);
@@ -59,13 +54,18 @@ define(
 			return result;
 		};
 
+		function merge (target) {
+			var sources = Array.from(arguments).slice(1);
+			return sources.reduce(copy, target);
+		}
+
 		function copy (target, source) {
 			var properties = ownNonNullProperties(source);
 			return properties.reduce(assign.bind(source), target);
 		}
 
 		function ownNonNullProperties (source) {
-			return Object.keys(source).filter(defined, source);
+			return Object.keys(source).filter(isDefined, source);
 		}
 
 		function assign (target, name) {
@@ -86,7 +86,7 @@ define(
 			return target;
 		}
 
-		function defined (name) {
+		function isDefined (name) {
 			/* jshint eqnull:true */
 			return this[name] != null;
 		}

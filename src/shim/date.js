@@ -26,15 +26,15 @@ define(
 			"returns": "number"
 		});
 
-		var shims = {};
+		Date.shim(now);
+
+		var shims = {
+			now: now
+		};
 
 		function now () {
 			return new Date().getTime();
 		}
-
-		shims.now = now;
-
-		Date.shim(now);
 
 		return shims;
 	}

@@ -3,13 +3,15 @@ define(
 		"solv/meta",
 		"solv/type",
 		"solv/error/invalid-constructor-context",
+		"solv/class/defaults",
 		"solv/class/super",
 		"solv/class/extend",
 		"solv/class/mixin",
 		"solv/function/overload",
-		"solv/function/abstract"
+		"solv/function/abstract",
+		"solv/object/is-empty"
 	],
-	function (meta, type, InvalidConstructorContext) {
+	function (meta, type, InvalidConstructorContext, defaults) {
 		"use strict";
 
 		meta({
@@ -49,15 +51,28 @@ define(
 
 		function create (options, init) {
 			var hasInit = type.is("function", init),
-				name = getName();
+				name = getName(),
+				argsMeta = options["arguments"],
+				defaultArgs = defaults.args(argsMeta),
+				propertiesArgIndex = getPropertiesArgIndex(argsMeta),
+				hasPropertiesArg = propertiesArgIndex > -1,
+				defaultProperties = defaults.properties(options.properties),
+				hasDefaultProperties = !Object.isEmpty(defaultProperties);
 
 			function Constructor () {
-				
 				if (notAnInstance(this)) {
 					
 					throw new InvalidConstructorContext({
 						className: name
 					});
+				}
+				
+				if (hasDefaultProperties) {
+					Object.merge.deep(this, defaultProperties);
+				}
+				
+				if (hasPropertiesArg) {
+					Object.merge.deep(this, arguments[propertiesArgIndex] || {});
 				}
 				
 				if (hasInit) {
@@ -73,13 +88,17 @@ define(
 				Constructor.extend(options["extends"]);
 			}
 
+			if (options.mixins) {
+				Constructor.mixin(options.mixins);
+			}
+			
+			if (defaultArgs.length && hasInit) {
+				init = init.defaultArgs.apply(init, defaultArgs);
+			}
+
 			if (hasInit) {
 				init = init.injectSuper(getSuperInit(Constructor));
 				Constructor.init = init;
-			}
-
-			if (options.mixins) {
-				Constructor.mixin(options.mixins);
 			}
 
 			function getName () {
@@ -105,6 +124,42 @@ define(
 				// useful for inspecting constructor names, safe to remove
 				Constructor = Constructor.toString().replace("Constructor", name);
 				eval("Constructor = "+ Constructor +";");
+			}
+			
+			function getOptionsArgIndex (argsMeta) {
+				var index = -1;
+				
+				if (type.is("array", argsMeta)) {
+					index = argsMeta.reduce(findOptionsArgMeta, index);
+				}
+				
+				return index;
+			}
+			
+			function findOptionsArgMeta (index, arg, i, argsMeta) {
+				if (index === -1 && "options" === arg.name && "object" === arg.type) {
+					index = i;
+				}
+				
+				return index;
+			}
+			
+			function getPropertiesArgIndex (argsMeta) {
+				var index = -1;
+				
+				if (type.is("array", argsMeta)) {
+					index = argsMeta.reduce(findPropertiesArgMeta, index);
+				}
+				
+				return index;
+			}
+			
+			function findPropertiesArgMeta (index, arg, i, argsMeta) {
+				if (index === -1 && "properties" === arg.name && "object" === arg.type) {
+					index = i;
+				}
+				
+				return index;
 			}
 
 			return Constructor;

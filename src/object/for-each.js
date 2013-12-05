@@ -4,7 +4,7 @@ define(
 		"../class/shim",
 		"../shim/array"
 	],
-	function () {
+	function (meta) {
 		"use strict";
 		
 		meta({
@@ -27,7 +27,7 @@ define(
 			}]
 		});
 		
-		Object.staticShim(forEach);
+		Object.shimStatic(forEach);
 		
 		function forEach (object, callback, context) {
 			var keys = Object.keys(object);
