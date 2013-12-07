@@ -3,15 +3,16 @@ define(
 		"solv/meta",
 		"solv/type",
 		"solv/error/invalid-constructor-context",
-		"solv/class/defaults",
+		"solv/class/get-defaults",
 		"solv/class/super",
 		"solv/class/extend",
 		"solv/class/mixin",
 		"solv/function/overload",
 		"solv/function/abstract",
-		"solv/object/is-empty"
+		"solv/object/is-empty",
+		"solv/function/get-name"
 	],
-	function (meta, type, InvalidConstructorContext, defaults) {
+	function (meta, type, InvalidConstructorContext, getDefaults) {
 		"use strict";
 
 		meta({
@@ -21,8 +22,8 @@ define(
 		});
 
 		meta({
-			"type": "function",
 			"name": "createClass",
+			"type": "function",
 			"description": "Creates a new class",
 			"arguments": [{
 				"name": "options",
@@ -42,40 +43,36 @@ define(
 		});
 
 		var createClass = new Function.Abstract("createClass")
-			.overload("function?", createNoOptions)
-			.overload("object,function?", create);
+				.overload("function?", createNoOptions)
+				.overload("object,function?", create);
 
 		function createNoOptions (init) {
 			return create({}, init);
 		}
 
 		function create (options, init) {
-			var hasInit = type.is("function", init),
-				name = getName(),
-				argsMeta = options["arguments"],
-				defaultArgs = defaults.args(argsMeta),
-				propertiesArgIndex = getPropertiesArgIndex(argsMeta),
-				hasPropertiesArg = propertiesArgIndex > -1,
-				defaultProperties = defaults.properties(options.properties),
-				hasDefaultProperties = !Object.isEmpty(defaultProperties);
+			var name = getName(),
+				defaultArgs = getDefaults(options["arguments"]),
+				propertiesArgIndex = getPropertiesArgIndex(),
+				defaultProperties = getDefaults(options.properties);
 
 			function Constructor () {
+				
 				if (notAnInstance(this)) {
-					
 					throw new InvalidConstructorContext({
 						className: name
 					});
 				}
 				
-				if (hasDefaultProperties) {
+				if (hasDefaultProperties()) {
 					Object.merge.deep(this, defaultProperties);
 				}
 				
-				if (hasPropertiesArg) {
+				if (hasPropertiesArg()) {
 					Object.merge.deep(this, arguments[propertiesArgIndex] || {});
 				}
 				
-				if (hasInit) {
+				if (hasInit()) {
 					init.apply(this, arguments);
 				}
 			}
@@ -92,11 +89,11 @@ define(
 				Constructor.mixin(options.mixins);
 			}
 			
-			if (defaultArgs.length && hasInit) {
+			if (hasDefaultArgs()) {
 				init = init.defaultArgs.apply(init, defaultArgs);
 			}
 
-			if (hasInit) {
+			if (hasInit()) {
 				init = init.injectSuper(getSuperInit(Constructor));
 				Constructor.init = init;
 			}
@@ -107,15 +104,38 @@ define(
 				if (options.name) {
 					name = options.name;
 				
-				} else if (hasInit && init.name) {
-					name = init.name;
+				} else if (hasInit()) {
+					name = init.getName();
 				}
 				
 				return name;
 			}
+			
+			function getPropertiesArgIndex () {
+				var argsMeta = options["arguments"],
+					index = -1;
+				
+				if (type.is("array", argsMeta)) {
+					index = argsMeta.reduce(toPropertiesArgIndex, index);
+				}
+				
+				return index;
+			}
 
 			function notAnInstance(instance) {
 				return (instance instanceof Constructor) === false;
+			}
+			
+			function hasDefaultProperties () {
+				return defaultProperties && !Object.isEmpty(defaultProperties);
+			}
+			
+			function hasPropertiesArg () {
+				return propertiesArgIndex > -1;
+			}
+			
+			function hasInit () {
+				return type.is("function", init);
 			}
 
 			function injectClassName () {
@@ -126,43 +146,20 @@ define(
 				eval("Constructor = "+ Constructor +";");
 			}
 			
-			function getOptionsArgIndex (argsMeta) {
-				var index = -1;
-				
-				if (type.is("array", argsMeta)) {
-					index = argsMeta.reduce(findOptionsArgMeta, index);
-				}
-				
-				return index;
-			}
-			
-			function findOptionsArgMeta (index, arg, i, argsMeta) {
-				if (index === -1 && "options" === arg.name && "object" === arg.type) {
-					index = i;
-				}
-				
-				return index;
-			}
-			
-			function getPropertiesArgIndex (argsMeta) {
-				var index = -1;
-				
-				if (type.is("array", argsMeta)) {
-					index = argsMeta.reduce(findPropertiesArgMeta, index);
-				}
-				
-				return index;
-			}
-			
-			function findPropertiesArgMeta (index, arg, i, argsMeta) {
-				if (index === -1 && "properties" === arg.name && "object" === arg.type) {
-					index = i;
-				}
-				
-				return index;
+			function hasDefaultArgs () {
+				return hasInit() && defaultArgs && defaultArgs.length;
 			}
 
 			return Constructor;
+		}
+			
+		function toPropertiesArgIndex (index, arg, i, argsMeta) {
+			
+			if (index === -1 && "properties" === arg.name && "object" === arg.type) {
+				index = i;
+			}
+			
+			return index;
 		}
 
 		function getSuperInit (Constructor) {
