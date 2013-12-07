@@ -147,15 +147,24 @@ define(
 		}
 
 		function argumentMetaToSignatureComponent (arg) {
-			var type = arg.type || "any";
-			if (isOneOrMore(arg)) {
-				type += oneOrMore;
-			} else if (isNoneOrMore(arg)) {
-				type += noneOrMore;
-			} else if (isOneOrNone(arg)) {
-				type += oneOrNone;
+			var component = arg.type || "any";
+
+			if (type.is.not("undefined", arg["default"])) {
+				arg.required = false;
+				component += "|null|undefined";
 			}
-			return type;
+
+			if (isOneOrMore(arg)) {
+				component += oneOrMore;
+
+			} else if (isNoneOrMore(arg)) {
+				component += noneOrMore;
+
+			} else if (isOneOrNone(arg)) {
+				component += oneOrNone;
+			}
+
+			return component;
 		}
 
 		function stripWhitespace (signature) {

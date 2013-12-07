@@ -117,22 +117,32 @@ define(
 			var options = {
 				name: name
 			};
+			
 			return methodWithOptions.call(this, options, implementation);
 		}
 
 		function methodWithOptions (options, implementation) {
 			var Constructor = this,
 				method = new MethodMaker(Constructor, options, implementation);
+
+			if (method.hasDefaultArgs()) {
+				method.injectDefaultArgs();
+			}
+
 			if (method.needsSignature()) {
 				method.setSignature();
 			}
+
 			if (method.hasReturnSignature()) {
 				method.injectReturnTypeValidation();
 			}
+
 			if (method.isNonShimInstanceMethod()) {
 				method.injectSuperHelpers();
 			}
+
 			method.attachMethod();
+
 			return this;
 		}
 	}
