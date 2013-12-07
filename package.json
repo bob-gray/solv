@@ -4,6 +4,17 @@
   "author": "Bob Gray <gray.bob98@gmail.com>",
   "license": "MIT",
   "description": "Enterprise JavaScript Toolset",
+  "keywords": [
+  	"object-oriented",
+  	"class",
+  	"extend",
+  	"mixin",
+  	"method",
+  	"event",
+  	"overload",
+  	"meta",
+  	"API"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/bob-gray/solv.git"
