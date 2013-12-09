@@ -27,8 +27,7 @@ define(
 		
 		Function.shim(injectSuper);
 
-		var temp = {},
-			emptyContext = this;
+		var emptyContext = this;
 
 		function injectSuper (superMethod) {
 			var method = this;
@@ -36,21 +35,22 @@ define(
 				superMethod = new SuperMethodAbstract();
 			}
 			return function () {
-				setup.call(this, superMethod);
-				execute.call(this, method, arguments);
-				cleanup.call(this);
+				var temp = {};
+				setup.call(this, temp, superMethod);
+				execute.call(this, temp, method, arguments);
+				cleanup.call(this, temp);
 				return temp.result;
 			};
 		}
 
-		function setup (superMethod) {
+		function setup (temp, superMethod) {
 			if (this !== emptyContext) {
-				prep.call(this);
+				prep.call(this, temp);
 				inject.call(this, superMethod);
 			}
 		}
 
-		function prep () {
+		function prep (temp) {
 			temp.superCall = this.superCall;
 			temp.superApply = this.superApply;
 		}
@@ -60,11 +60,11 @@ define(
 			this.superApply = superApply(superMethod);
 		}
 
-		function execute (method, args) {
+		function execute (temp, method, args) {
 			temp.result = method.apply(this, args);
 		}
 
-		function cleanup () {
+		function cleanup (temp) {
 			if (this !== emptyContext) {
 				this.superCall = temp.superCall;
 				this.superApply = temp.superApply;
