@@ -7,7 +7,7 @@ module.exports = function (grunt) {
 				"tests/spec/**/*.js"
 			],
 			tasks: [
-				"jshint",
+				//"lint",
 				"karma:watch:run"
 			]
 		},
@@ -32,8 +32,9 @@ module.exports = function (grunt) {
 				//maxstatements: 5,
 				maxcomplexity: 5,
 				globals: {
+					define: true, // amdefine
 					require: false,
-					define: false
+					module: false
 				}
 			},
 			src: [
@@ -96,10 +97,10 @@ module.exports = function (grunt) {
 			},
 			coverage: {
 				browsers: [
-					"Chrome",
-					"Firefox",
-					"IE",
-					"Safari",
+					//"Chrome",
+					//"Firefox",
+					//"IE",
+					//"Safari",
 					"PhantomJS"
                 ],
 				preprocessors: {
@@ -115,6 +116,9 @@ module.exports = function (grunt) {
 					type: "html",
 					dir: "tests/coverage/"
 				},
+				hostname: process.env.IP,
+				port: process.env.PORT,
+				runnerPort: 0,
 				singleRun: true
 			}
 		},
@@ -131,8 +135,12 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-dependo");
 
 	grunt.registerTask("default", [
-		"jshint",
+		"lint",
 		"test"
+	]);
+	
+	grunt.registerTask("lint", [
+		"jshint"
 	]);
 	
 	grunt.registerTask("test", [
