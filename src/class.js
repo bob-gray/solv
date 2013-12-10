@@ -1,21 +1,25 @@
-define(
-	[
-		"solv/meta",
-		"solv/class/create",
-		"solv/class/extend",
-		"solv/class/method",
-		"solv/class/mixin",
-		"solv/class/super"
-	],
-	function (meta, createClass) {
-		"use strict";
+if (typeof define !== "function") {
+	var define = require("amdefine")(module);
+}
 
-		meta({
-			"type": "module",
-			"export": "createClass",
-			"description": "System for creating classes"
-		});
+define(function (require) {
+	"use strict";
+	
+	require("./class/extend");
+	require("./class/method");
+	require("./class/mixin");
+	require("./class/shim");
+	require("./class/singleton");
+	require("./class/super");
 
-		return createClass;
-	}
-);
+	var meta = require("solv/meta"),
+		createClass = require("solv/class/create");
+
+	meta({
+		"type": "module",
+		"exports": "createClass",
+		"description": "System for creating classes"
+	});
+
+	return createClass;
+});

@@ -1,48 +1,44 @@
-define(
-	[
-		"solv/meta",
-		"solv/shim/object",
-		"solv/class/shim"
-	],
-	function (meta) {
-		"use strict";
+if (typeof define !== "function") {
+	var define = require("amdefine")(module);
+}
 
-		meta({
-			"type": "module",
-			"exports": "extend",
-			"description": "Allows one class to easily inherit from another"
-		});
+define(function (require) {
+	"use strict";
 
-		meta({
-			"name": "Function",
-			"type": "class",
-			"global": true
-		});
+	require("../shim/object");
+	require("./shim");
 
-		meta({
-			"name": "extend",
-			"static": true,
-			"description": "To be called as a method of a class constructor. Wires up a class to inherit from a super class. Assigns Super as a static property of child class.",
-			"arguments": [{
-				"name": "Super",
-				"type": "function",
-				"description": "Super class constructor"
-			}],
-			"returns": {
-				"type": "function",
-				"description": "Child's constructor (the method's owner). This allows chaining."
-			}
-		});
+	var meta = require("solv/meta");
 
-		Function.shim(extend);
+	meta({
+		"name": "Function",
+		"type": "class",
+		"global": true
+	});
 
-		function extend (Super) {
-			this.prototype = Object.create(Super.prototype);
-			this.prototype.constructor = this;
-			this.Super = Super;
-			return this;
+	meta({
+		"name": "extend",
+		"static": true,
+		"description": "Allows one class to easily inherit from another. To be called as a method of a class constructor. Wires up a class to inherit from a super class. Assigns Super as a static property of child class.",
+		"arguments": [{
+			"name": "Super",
+			"type": "function",
+			"description": "Super class constructor"
+		}],
+		"returns": {
+			"type": "function",
+			"description": "Child's constructor (the method's owner). This allows chaining."
 		}
+	});
 
-		return extend;
+	Function.shim(extend);
+
+	function extend (Super) {
+		this.prototype = Object.create(Super.prototype);
+		this.prototype.constructor = this;
+		this.Super = Super;
+		return this;
 	}
-);
+
+	return extend;
+});
