@@ -1,43 +1,45 @@
-define(
-	[
-		"solv/meta",
-		"solv/class/method",
-		"solv/shim/array"
-	],
-	function (meta) {
-		"use strict";
-		
+if (typeof define !== "function") {
+	var define = require("amdefine")(module);
+}
+
+define(function (require) {
+	"use strict";
+
+	require("../class/method");
+	require("../shim/array");
+
+	var meta = require("../meta");
+
+	meta({
+		"name": "Array",
+		"type": "class",
+		"global": true
+	});
+	
+	Array.method(
 		meta({
-			"name": "Array",
-			"type": "class",
-			"global": true
-		});
+			"name": "remove",
+			"shim": true,
+			"descriptions": "Removes the first occurrence of an item from an array",
+			"arguments": [{
+				"name": "item",
+				"type": "any"
+			}]
+		}),
+		remove
+	);
+	
+	function remove (item) {
+		var index = this.indexOf(item);
 		
-		Array.method(
-			meta({
-				"name": "remove",
-				"descriptions": "Removes the first occurrence of an item from an array",
-				"shim": true,
-				"arguments": [{
-					"name": "item",
-					"type": "any"
-				}]
-			}),
-			remove
-		);
-		
-		function remove (item) {
-			var index = this.indexOf(item);
-			
-			if (isFound(index)) {
-				this.splice(index, 1);
-			}
+		if (isFound(index)) {
+			this.splice(index, 1);
 		}
-		
-		function isFound (index) {
-			return index > -1;
-		}
-		
-		return remove;
 	}
-);
+	
+	function isFound (index) {
+		return index > -1;
+	}
+	
+	return remove;
+});

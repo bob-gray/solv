@@ -12,14 +12,13 @@ define(function (require) {
 	require("./class/singleton");
 	require("./class/super");
 
-	var meta = require("solv/meta"),
-		createClass = require("solv/class/create");
+	var meta = require("./meta");
 
 	meta({
 		"type": "module",
-		"exports": "createClass",
-		"description": "System for creating classes"
+		"exports": "class/create",
+		"description": "System for creating classes with easy inheritance, mixins, method overloading, default properties, default arguments, return type checking and more. This modules a only a convenience module. Think of it as loading class/*"
 	});
 
-	return createClass;
+	return require("./class/create");
 });
