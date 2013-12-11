@@ -11,6 +11,7 @@ define(function (require) {
 	require("../function/overload");
 	require("../function/abstract");
 	require("../function/get-name");
+	require("../function/default-args");
 	require("../object/is-empty");
 	
 	var meta = require("../meta"),
