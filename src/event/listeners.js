@@ -2,7 +2,7 @@ if (typeof define !== "function") {
 	var define = require("amdefine")(module);
 }
 
-define(function (meta, createClass, Listener) {
+define(function (require) {
 	"use strict";
 
 	require("../shim/array");
@@ -10,7 +10,7 @@ define(function (meta, createClass, Listener) {
 
 	var meta = require("../meta"),
 		createClass = require("../class"),
-		Listener = require("./listner");
+		Listener = require("./listener");
 
 	meta.define("../abstract/base", require("../abstract/base"));
 

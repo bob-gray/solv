@@ -16,7 +16,7 @@ define(function (require) {
 		InvalidEventArguments = require("../error/invalid-event-arguments"),
 		signatures = require("../function/signatures");
 
-	meta.define("../abstract/base", require("../abstact/base"));
+	meta.define("../abstract/base", require("../abstract/base"));
 
 	var EventEngine = createClass(
 		meta({
