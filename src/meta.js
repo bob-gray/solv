@@ -1,23 +1,23 @@
+if (typeof define !== "function") {
+	var define = require("amdefine")(module);
+}
+
 define(function () {
 	"use strict";
 
 	meta({
-		"type": "module",
-		"description": "Runtime shim for meta()",
-		"export": "function"
-	});
-
-	meta({
-		"type": "function",
 		"name": "meta",
+		"type": "function",
+		"description": "Runtime meta implementation. meta-json compatible.",
 		"arguments": [{
 			"name": "data",
 			"type": "object",
-			"description": "Must be written as valid JSON. This allows meta to be extracted and parsed by documentation systems."
+			"description": "Must be written as valid JSON. This allows meta data to easily be used during static analysis."
 		}],
 		"returns": {
+			"name": "data",
 			"type": "object",
-			"description": "data (object passed in)"
+			"description": "The JSON literal object argument with the properties mixins and extends having been transformed"
 		}
 	});
 
@@ -26,12 +26,15 @@ define(function () {
 	function meta (data) {
 		var ext = data["extends"],
 			mixins = data.mixins;
+
 		if (ext) {
 			data["extends"] = get(ext);
 		}
+
 		if (mixins) {
 			data.mixins = get(mixins);
 		}
+
 		return data;
 	}
 
@@ -39,13 +42,20 @@ define(function () {
 		local[key] = value;
 	};
 
+	meta.undefine = function (key) {
+		delete local[key];
+	};
+
 	function get (key) {
 		var value;
+
 		if (isArray(key)) {
 			value = getFromKeyArray(key);
+
 		} else {
 			value = getFromKey(key);
 		}
+
 		return value;
 	}
 
@@ -59,23 +69,29 @@ define(function () {
 
 	function getFromKey (key) {
 		var value = getLocal(key);
+
 		if (isUndefined(value) && isIdentifier(key)) {
 			value = getGlobal(key);
 		}
+
 		if (isUndefined(value)) {
 			value = getModule(key);
 		}
+
 		if (isUndefined(value)) {
 			throw "Unable to get the value of "+ key;
 		}
+
 		return value;
 	}
 
 	function mapKeys (array, callback) {
 		var mapped = [];
+
 		arrayLoop(array, function (key) {
 			mapped.push(callback(key));
 		});
+
 		return mapped;
 	}
 
@@ -108,6 +124,7 @@ define(function () {
 	function arrayLoop (array, callback) {
 		var i = 0,
 			length = array.length;
+
 		for (; i < length; i += 1) {
 			callback(array[i]);
 		}
@@ -116,6 +133,7 @@ define(function () {
 	function globalEval (key) {
 		/* jshint evil:true */
 		var getter = new Function("return "+ key +";");
+
 		return getter();
 	}
 
