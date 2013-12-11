@@ -99,8 +99,12 @@ define(function (require) {
 
 		if (hasInit()) {
 			init = init.injectSuper(getSuperInit(Constructor));
-			Constructor.init = init;
+			
+		} else {
+			init = null;
 		}
+
+		Constructor.init = init;
 
 		function getName () {
 			var name;
@@ -169,8 +173,12 @@ define(function (require) {
 		
 		while (Super) {
 
-			if (Super.init) {
+			if (type.is("function", Super.init)) {
 				init = Super.init;
+				break;
+			
+			} else if (type.is.not("null", Super.init)) {
+				init = Super;
 				break;
 			}
 
