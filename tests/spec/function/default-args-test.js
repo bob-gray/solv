@@ -16,7 +16,7 @@ define(["solv/function/default-args"], function () {
 			expect(fn).toHaveBeenCalledWith(1, 2, "three");
 		});
 		
-		if("fills in null arguments with defaults", function () {
+		it("fills in null arguments with defaults", function () {
 			var withDefaults = fn.defaultArgs(true, false);
 			withDefaults(null, true);
 			withDefaults(false, null);
