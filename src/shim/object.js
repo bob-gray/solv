@@ -1,84 +1,87 @@
-define(
-	[
-		"solv/meta",
-		"solv/type",
-		"solv/class/shim"
-	],
-	function (meta, type) {
-		"use strict";
+if (typeof define !== "function") {
+	var define = require("amdefine")(module);
+}
 
-		meta({
-			"description": "Augments Object class constructor"
-		});
+define(function (require) {
+	"use strict";
 
-		meta({
-			"name": "Object",
-			"type": "class",
-			"global": true
-		});
+	require("../class/shim");
 
-		meta({
-			"name": "keys",
-			"static": true,
-			"shim": true,
-			"description": "Returns an array of an object's own enumerable properties",
-			"arguments": [{
-				"name": "object",
-				"type": "object"
-			}],
-			"returns": "array"
-		});
+	var meta = require("../meta"),
+		type = require("../type");
 
-		meta({
-			"name": "create",
-			"static": true,
-			"shim": true,
-			"description": "Create a new object with proto set as object's prototype",
-			"arguments": [{
-				"name": "proto",
-				"type": "object"
-			}],
-			"returns": "object"
-		});
+	meta({
+		"name": "Object",
+		"type": "class",
+		"global": true
+	});
 
-		var shims = {};
+	meta({
+		"name": "keys",
+		"static": true,
+		"shim": true,
+		"description": "Returns an array of an object's own enumerable properties",
+		"arguments": [{
+			"name": "object",
+			"type": "object"
+		}],
+		"returns": "array"
+	});
 
-		shims.keys = function(object) {
-			throwIfNonObject(object);
-			return getKeys(object);
-		};
+	meta({
+		"name": "create",
+		"static": true,
+		"shim": true,
+		"description": "Create a new object with proto set as object's prototype",
+		"arguments": [{
+			"name": "proto",
+			"type": "object"
+		}],
+		"returns": "object"
+	});
 
-		shims.create = function (proto) {
-			Surrogate.prototype = proto;
-			return new Surrogate();
-		};
+	var shims = {};
 
-		function Surrogate () {}
+	shims.keys = function(object) {
+		throwIfNonObject(object);
 
-		function getKeys (object) {
-			var keys = [],
-				key;
-			for (key in object) {
-				if (object.hasOwnProperty(key)) {
-					keys.push(key);
-				}
-			}
-			return keys;
-		}
+		return getKeys(object);
+	};
 
-		function throwIfNonObject (object) {
-			if (isNonObject(object)) {
-				throw new TypeError("Object.keys called on non-object");
+	shims.create = function (proto) {
+		Surrogate.prototype = proto;
+
+		return new Surrogate();
+	};
+
+	function Surrogate () {}
+
+	function getKeys (object) {
+		var keys = [],
+			key;
+
+		for (key in object) {
+
+			if (object.hasOwnProperty(key)) {
+				keys.push(key);
 			}
 		}
 
-		function isNonObject (value) {
-			return type.is.not("object", value) && type.is.not("function", value);
-		}
-
-		Object.shimStatic("keys", shims.keys);
-		Object.shimStatic("create", shims.create);
-
-		return shims;
+		return keys;
 	}
-);
+
+	function throwIfNonObject (object) {
+		if (isNonObject(object)) {
+			throw new TypeError("Object.keys called on non-object");
+		}
+	}
+
+	function isNonObject (value) {
+		return type.is.not("object", value) && type.is.not("function", value);
+	}
+
+	Object.shimStatic("keys", shims.keys);
+	Object.shimStatic("create", shims.create);
+
+	return shims;
+});

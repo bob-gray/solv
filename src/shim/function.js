@@ -1,63 +1,63 @@
-define(
-	[
-		"solv/meta",
-		"solv/array/from",
-		"solv/class/extend",
-		"solv/class/shim"
-	],
-	function (meta) {
-		"use strict";
+if (typeof define !== "function") {
+	var define = require("amdefine")(module);
+}
 
-		meta({
-			"type": "module",
-			"description": "Augments Function prototype"
-		});
+define(function (require) {
+	"use strict";
 
-		meta({
-			"type": "class",
-			"name": "Function",
-			"global": true
-		});
+	require("../array/from");
+	require("../class/extend");
+	require("../class/shim");
 
-		meta({
-			"type": "method",
-			"name": "bind",
-			"description": "Creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.",
-			"arguments": [{
-				"name": "context",
-				"type": "object",
-				"description": "The value to be passed as the this parameter to the target function when the bound function is called. The value is ignored if the bound function is constructed using the new operator."
-			}, {
-				"name": "argN",
-				"type": "any",
-				"description": "Arguments to prepend to arguments provided to the bound function when invoking the target function.",
-				"required": false,
-				"repeating": true
-			}],
-			"returns": "function"
-		});
+	var meta = require("../meta");
 
-		var functionShims = {};
+	meta({
+		"name": "Function",
+		"type": "class",
+		"global": true
+	});
 
-		functionShims.bind = function (context) {
-			var fn = this,
-				args = Array.from(arguments).slice(1);
+	meta({
+		"type": "method",
+		"name": "bind",
+		"description": "Creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.",
+		"arguments": [{
+			"name": "context",
+			"type": "object",
+			"description": "The value to be passed as the this parameter to the target function when the bound function is called. The value is ignored if the bound function is constructed using the new operator."
+		}, {
+			"name": "argN",
+			"type": "any",
+			"required": false,
+			"repeating": true,
+			"description": "Arguments to prepend to arguments provided to the bound function when invoking the target function."
+		}],
+		"returns": "function"
+	});
 
-			function bound () {
-				var newArgs = Array.from(arguments),
-					combinedArgs = args.concat(newArgs);
-				if (this instanceof bound) {
-					context = this;
-				}
-				return fn.apply(context, combinedArgs);
+	var functionShims = {};
+
+	functionShims.bind = function (context) {
+		var fn = this,
+			args = Array.from(arguments).slice(1);
+
+		function bound () {
+			var newArgs = Array.from(arguments),
+				combinedArgs = args.concat(newArgs);
+
+			if (this instanceof bound) {
+				context = this;
 			}
 
-			bound.extend(fn);
-			return bound;
-		};
+			return fn.apply(context, combinedArgs);
+		}
 
-		Function.shim("bind", functionShims.bind);
+		bound.extend(fn);
 
-		return functionShims;
-	}
-);
+		return bound;
+	};
+
+	Function.shim("bind", functionShims.bind);
+
+	return functionShims;
+});

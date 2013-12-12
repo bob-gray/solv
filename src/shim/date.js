@@ -1,41 +1,38 @@
-define(
-	[
-		"solv/meta",
-		"solv/class/shim"
-	],
-	function (meta) {
-		"use strict";
+if (typeof define !== "function") {
+	var define = require("amdefine")(module);
+}
 
-		meta({
-			"type": "module",
-			"description": "Augments Date prototype"
-		});
+define(function (require) {
+	"use strict";
 
-		meta({
-			"name": "Date",
-			"type": "class",
-			"global": true
-		});
+	require("../class/shim");
 
-		meta({
-			"name": "now",
-			"description": "returns the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC",
-			"static": true,
-			"shim": true,
-			"arguments": [],
-			"returns": "number"
-		});
+	var meta = require("../meta");
 
-		Date.shim(now);
+	meta({
+		"name": "Date",
+		"type": "class",
+		"global": true
+	});
 
-		var shims = {
-			now: now
-		};
+	meta({
+		"name": "now",
+		"static": true,
+		"shim": true,
+		"description": "returns the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC",
+		"arguments": [],
+		"returns": "number"
+	});
 
-		function now () {
-			return new Date().getTime();
-		}
+	Date.shim(now);
 
-		return shims;
+	var shims = {
+		now: now
+	};
+
+	function now () {
+		return new Date().getTime();
 	}
-);
+
+	return shims;
+});

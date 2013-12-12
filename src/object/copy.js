@@ -1,19 +1,24 @@
-define(
-	[
-		"../meta",
-		"../class/shim"
-	],
-	function (meta) {
-		"use strict";
-		
-		Object.staticShim(copy);
-		
-		function copy (object) {
-			return Object.merge({}, object);
-		}
-		
-		copy.deep = function (object) {
-			return Object.merge.deep({}, object);
-		};
-	}	
-);
+if (typeof define !== "function") {
+	var define = require("amdefine")(module);
+}
+
+define(function (require) {
+	"use strict";
+
+	require("../class/shim");
+	require("./merge");
+
+	var meta = require("../meta");
+
+	Object.staticShim(copy);
+	
+	function copy (object) {
+		return Object.merge({}, object);
+	}
+	
+	copy.deep = function (object) {
+		return Object.merge.deep({}, object);
+	};
+
+	return copy;
+});

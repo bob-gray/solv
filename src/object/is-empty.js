@@ -1,45 +1,47 @@
-define(
-	[
-		"solv/meta",
-		"solv/shim/object",
-		"solv/class/shim"
-	],
-	function (meta) {
-		"use strict";
+if (typeof define !== "function") {
+	var define = require("amdefine")(module);
+}
 
-		meta({
-			"name": "Object",
-			"type": "class",
-			"global": true
-		});
+define(function (require) {
+	"use strict";
 
-		meta({
-			"name": "isEmpty",
-			"static": true,
-			"shim": true,
-			"description": "Check to see if a object has no own properties",
-			"arguments": [{
-				"name": "object",
-				"type": "object"
-			}],
-			"returns": "boolean"
-		});
+	require("../shim/object");
+	require("../class/shim");
 
-		Object.shimStatic(isEmpty);
+	var meta = require("../meta");
 
-		function isEmpty (object) {
-			var ownProperties = [];
-			
-			if (Object.getOwnPropertyNames) {
-				ownProperties = Object.getOwnPropertyNames(object);
-			
-			} else {
-				ownProperties = Object.keys(object);
-			}
-			
-			return 0 === ownProperties.length;
+	meta({
+		"name": "Object",
+		"type": "class",
+		"global": true
+	});
+
+	meta({
+		"name": "isEmpty",
+		"static": true,
+		"shim": true,
+		"description": "Check to see if a object has no own properties",
+		"arguments": [{
+			"name": "object",
+			"type": "object"
+		}],
+		"returns": "boolean"
+	});
+
+	Object.shimStatic(isEmpty);
+
+	function isEmpty (object) {
+		var ownProperties = [];
+		
+		if (Object.getOwnPropertyNames) {
+			ownProperties = Object.getOwnPropertyNames(object);
+		
+		} else {
+			ownProperties = Object.keys(object);
 		}
-
-		return isEmpty;
+		
+		return 0 === ownProperties.length;
 	}
-);
+
+	return isEmpty;
+});
