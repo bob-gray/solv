@@ -21,8 +21,8 @@ define(function (require) {
 		"arguments": [{
 			"name": "name",
 			"type": "string",
-			"description": "If name is not passed it will be retrieved with implementation.getName()",
-			"required": false
+			"required": false,
+			"description": "If name is not passed it will be retrieved with implementation.getName()"
 		}, {
 			"name": "implementation",
 			"type": "function"
@@ -39,8 +39,8 @@ define(function (require) {
 		"arguments": [{
 			"name": "name",
 			"type": "string",
-			"description": "If name is not passed it will be retrieved with implementation.getName()",
-			"required": false
+			"required": false,
+			"description": "If name is not passed it will be retrieved with implementation.getName()"
 		}, {
 			"name": "implementation",
 			"type": "function"
@@ -56,11 +56,13 @@ define(function (require) {
 	
 	function shim (name, implementation) {
 		attachIfUndefined(this.prototype, name, implementation);
+
 		return this;
 	}
 	
 	function shimStatic (name, implementation) {
 		attachIfUndefined(this, name, implementation);
+
 		return this;
 	}
 	

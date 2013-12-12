@@ -1,45 +1,48 @@
-define(
-	[
-		"solv/meta",
-		"solv/array/from"
-	],
-	function (meta) {
-		"use strict";
-		
-		meta({
-			"name": "Function",
-			"type": "class",
-			"global": true
-		});
-		
-		meta({
-			"name": "constrict",
-			"description": "Higher-order function that returns a proxy which slices arguments passed to original function",
-			"arguments": [{
-				"name": "begin",
-				"type": "number",
-				"required": false
-			}, {
-				"name": "end",
-				"type": "number",
-				"required": false
-			}],
-			"returns": "function"
-		});
+if (typeof define !== "function") {
+	var define = require("amdefine")(module);
+}
 
-		if (!Function.prototype.constrict) {
-			Function.prototype.constrict = constrict;
-		}
+define(function (require) {
+	"use strict";
+
+	require("../array/from");
+	require("../class/shim");
+
+	var meta = require("../meta");
+
+	meta({
+		"name": "Function",
+		"type": "class",
+		"global": true
+	});
+	
+	meta({
+		"name": "constrict",
+		"shim": true,
+		"description": "Higher-order function that returns a proxy which slices arguments passed to original function",
+		"arguments": [{
+			"name": "begin",
+			"type": "number",
+			"required": false
+		}, {
+			"name": "end",
+			"type": "number",
+			"required": false
+		}],
+		"returns": "function"
+	});
+
+	Function.shim(constrict);
+	
+	function constrict (begin, end) {
+		var fn = this;
 		
-		function constrict (begin, end) {
-			var fn = this;
-			
-			return function () {
-				var constricted = Array.from(arguments).slice(begin, end);
-				return fn.apply(this, constricted);
-			};
-		}
-		
-		return constrict;
+		return function () {
+			var constricted = Array.from(arguments).slice(begin, end);
+
+			return fn.apply(this, constricted);
+		};
 	}
-);
+	
+	return constrict;
+});
