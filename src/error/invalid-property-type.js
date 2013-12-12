@@ -1,70 +1,71 @@
-define(
-	[
-		"solv/meta"
-	],
-	function (meta) {
-		"use strict";
+if (typeof define !== "function") {
+	var define = require("amdefine")(module);
+}
 
-		meta({
-			"name": "InvalidPropertyType",
-			"type": "class",
-			"extends": "Error",
-			"arguments": [{
-				"name": "errorDetails",
-				"type": "object",
-				"required": false
-			}]
-		});
+define(function (require) {
+	"use strict";
 
-		meta({
+	var meta = require("../meta");
+
+	meta({
+		"name": "InvalidPropertyType",
+		"type": "class",
+		"extends": "Error",
+		"arguments": [{
 			"name": "errorDetails",
 			"type": "object",
-			"properties": [{
-				"name": "name",
-				"type": "string"
-			}, {
-				"name": "expected",
-				"type": "string"
-			}, {
-				"name": "actual",
-				"type": "string"
-			}]
-		});
+			"required": false
+		}]
+	});
 
-		function InvalidPropertyType (errorDetails) {
-			this.setDetails(errorDetails || {});
-			this.renderMessage();
-			this._super.constructor.call(this, this.message);
-		}
+	meta({
+		"name": "errorDetails",
+		"type": "object",
+		"properties": [{
+			"name": "name",
+			"type": "string"
+		}, {
+			"name": "expected",
+			"type": "string"
+		}, {
+			"name": "actual",
+			"type": "string"
+		}]
+	});
 
-		extendError(InvalidPropertyType);
-
-		InvalidPropertyType.prototype.setDetails = function (errorDetails) {
-			this.name = errorDetails.name || "";
-			this.expected = errorDetails.expected;
-			this.actual = errorDetails.actual;
-		};
-
-		InvalidPropertyType.prototype.renderMessage = function  () {
-			var error = this,
-				messageTemplate = "Property '{{name}}' should be {{expected}} "+
-						"but was set to {{actual}}",
-				placeholders = /\{\{([^}]+)\}\}/g;
-			this.message = messageTemplate.replace(placeholders, function (withCurlies, placeholder) {
-				return error[placeholder];
-			});
-		};
-
-		function extendError (Child) {
-			var Surrogate = function () {},
-				proto;
-			Surrogate.prototype = Error.prototype;
-			proto = new Surrogate();
-			proto._super = Error.prototype;
-			proto.constructor = Child;
-			Child.prototype = proto;
-		}
-
-		return InvalidPropertyType;
+	function InvalidPropertyType (errorDetails) {
+		this.setDetails(errorDetails || {});
+		this.renderMessage();
+		this._super.constructor.call(this, this.message);
 	}
-);
+
+	extendError(InvalidPropertyType);
+
+	InvalidPropertyType.prototype.setDetails = function (errorDetails) {
+		this.name = errorDetails.name || "";
+		this.expected = errorDetails.expected;
+		this.actual = errorDetails.actual;
+	};
+
+	InvalidPropertyType.prototype.renderMessage = function  () {
+		var error = this,
+			messageTemplate = "Property '{{name}}' should be {{expected}} "+
+					"but was set to {{actual}}",
+			placeholders = /\{\{([^}]+)\}\}/g;
+		this.message = messageTemplate.replace(placeholders, function (withCurlies, placeholder) {
+			return error[placeholder];
+		});
+	};
+
+	function extendError (Child) {
+		var Surrogate = function () {},
+			proto;
+		Surrogate.prototype = Error.prototype;
+		proto = new Surrogate();
+		proto._super = Error.prototype;
+		proto.constructor = Child;
+		Child.prototype = proto;
+	}
+
+	return InvalidPropertyType;
+});
