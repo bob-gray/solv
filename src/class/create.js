@@ -61,12 +61,7 @@ define(function (require) {
 			defaultProperties = getDefaults(options.properties);
 
 		function Constructor () {
-			
-			if (notAnInstance(this)) {
-				throw new InvalidConstructorContext({
-					className: name
-				});
-			}
+			validateContext(this);
 			
 			if (hasDefaultProperties()) {
 				Object.merge.deep(this, defaultProperties);
@@ -97,14 +92,7 @@ define(function (require) {
 			init = init.defaultArgs.apply(init, defaultArgs);
 		}
 
-		if (hasInit()) {
-			init = init.injectSuper(getSuperInit(Constructor));
-			
-		} else {
-			init = null;
-		}
-
-		Constructor.init = init;
+		setInit();
 
 		function getName () {
 			var name;
@@ -132,8 +120,12 @@ define(function (require) {
 			return index;
 		}
 
-		function notAnInstance(instance) {
-			return (instance instanceof Constructor) === false;
+		function validateContext (context) {
+			if (notAnInstance(context)) {
+				throw new InvalidConstructorContext({
+					className: name
+				});
+			}
 		}
 		
 		function hasDefaultProperties () {
@@ -149,7 +141,7 @@ define(function (require) {
 		}
 
 		function injectClassName () {
-			/* jshint evil:true */
+			/* jshint evil:true, -W021 */
 			
 			// useful for inspecting constructor names, safe to remove
 			Constructor = Constructor.toString().replace("Constructor", name);
@@ -158,6 +150,21 @@ define(function (require) {
 		
 		function hasDefaultArgs () {
 			return hasInit() && defaultArgs && defaultArgs.length;
+		}
+
+		function notAnInstance(instance) {
+			return (instance instanceof Constructor) === false;
+		}
+
+		function setInit () {
+			if (hasInit()) {
+				init = init.injectSuper(getSuperInit(Constructor));
+				
+			} else {
+				init = null;
+			}
+
+			Constructor.init = init;
 		}
 
 		return Constructor;
