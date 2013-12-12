@@ -164,17 +164,7 @@ define(function (require) {
 			component += "|null|undefined";
 		}
 
-		if (isOneOrMore(arg)) {
-			component += oneOrMore;
-
-		} else if (isNoneOrMore(arg)) {
-			component += noneOrMore;
-
-		} else if (isOneOrNone(arg)) {
-			component += oneOrNone;
-		}
-
-		return component;
+		return component + getOccurenceSuffix(arg);
 	}
 
 	function stripWhitespace (signature) {
@@ -207,6 +197,22 @@ define(function (require) {
 		}
 
 		return types;
+	}
+
+	function getOccurenceSuffix (arg) {
+		var suffix = "";
+		
+		if (isOneOrMore(arg)) {
+			suffix = oneOrMore;
+
+		} else if (isNoneOrMore(arg)) {
+			suffix = noneOrMore;
+
+		} else if (isOneOrNone(arg)) {
+			suffix = oneOrNone;
+		}
+		
+		return suffix;
 	}
 
 	function isOneOrMore (arg) {
