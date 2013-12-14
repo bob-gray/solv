@@ -262,8 +262,8 @@ define(function (require) {
 		if (!tester.test(eventArgsSignature)) {
 			throw new InvalidEventArguments({
 				eventName: eventName,
-				actualArgumentsSignature: eventArgsSignature,
-				expectedArgumentsSignature: triggerSignature
+				expected: triggerSignature,
+				actual: eventArgsSignature
 			});
 		}
 	}

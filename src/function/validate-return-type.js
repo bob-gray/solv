@@ -98,8 +98,8 @@ define(function (require) {
 			} else {
 				throw new InvalidReturnType({
 					functionName: options.functionName,
-					actualReturnType: returnType,
-					expectedReturnType: options.signature
+					expected: options.signature,
+					actual: returnType
 				});
 			}
 		}

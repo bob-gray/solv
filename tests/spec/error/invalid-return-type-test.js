@@ -17,8 +17,8 @@ define(["solv/error/invalid-return-type"], function (InvalidReturnType) {
 		it("generates a meaningful message", function () {
 			var error = new InvalidReturnType({
 				functionName: "awesome",
-				expectedReturnType: "string",
-				actualReturnType: "object"
+				expected: "string",
+				actual: "object"
 			});
 			expect(error.message.indexOf("awesome")).toBeGreaterThan(-1);
 			expect(error.message.indexOf("string")).toBeGreaterThan(-1);
