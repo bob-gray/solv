@@ -6,7 +6,6 @@ define(function (require) {
 	"use strict";
 
 	require("../class/extend");
-	require("../class/super");
 	require("../shim/function");
 
 	var meta = require("../meta"),
@@ -25,19 +24,19 @@ define(function (require) {
 					"type": "string",
 					"description": "Name of the new error class/type"
 				},
-				"details": {
-					"type": "object",
-					"description": "Default detail values"
-				},
 				"message": {
 					"type": "string",
 					"description": "Placeholders wrapped in double curly brackets are replaced with details: {{placehoder}}"
+				},
+				"details": {
+					"type": "object",
+					"description": "Default detail values"
 				}
 			}
 		}, {
 			"name": "init",
 			"type": "function",
-			"require": "false",
+			"required": "false",
 			"description": "Called before message is rendered and super Error is called"
 		}],
 		"returns": {
@@ -61,10 +60,6 @@ define(function (require) {
 		}
 
 		ErrorType.extend(Error);
-
-		if (type.is("function", init)) {
-			init = init.injectSuper(ErrorType.Super);
-		}
 		
 		ErrorType.prototype.renderMessage = renderMessage;
 		
