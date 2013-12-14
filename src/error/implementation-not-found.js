@@ -5,86 +5,67 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	var meta = require("../meta");
+	var meta = require("../meta"),
+		createErrorType = require("./create");
 
 	meta({
 		"name": "ImplementationNotFound",
-		"type": "class",
 		"extends": "Error",
 		"arguments": [{
-			"name": "errorDetails",
+			"name": "details",
 			"type": "object",
-			"required": false
+			"required": false,
+			"properties": {
+				"functionName": {
+					"type": "string",
+					"default": "unknown"
+				},
+				"signature": {
+					"type": "string",
+					"default": "unknown"
+				},
+				"nonMatchingSignatures": {
+					"type": "array",
+					"default": "unknown"
+				}
+			}
 		}]
 	});
 
-	meta({
-		"type": "object",
-		"name": "errorDetails",
-		"properties": {
-			functionName: {
-				"type": "string",
-				"default": "unknown"
-			},
-			"signature": {
-				"type": "string",
-				"default": "unknown"
-			},
-			"nonMatchingSignatures": {
-				"type": "array",
-				"default": "unknown"
-			}
-		}
-	});
-
-	function ImplementationNotFound (errorDetails) {
-		this.setDetails(errorDetails || {});
-		this.joinNonMatchingSignatures();
-		this.renderMessage();
-		this._super.constructor.call(this, this.message);
-	}
-
-	extendError(ImplementationNotFound);
-
-	ImplementationNotFound.prototype.setDetails = function  (errorDetails) {
-		this.functionName = errorDetails.functionName || "unknown";
-		this.nonMatchingSignatures = errorDetails.nonMatchingSignatures || [];
-		if ("" === errorDetails.signature) {
-			this.signature = "[no arguments]";
-		} else if (!errorDetails.signature) {
-			this.signature = "unknown";
-		} else {
-			this.signature =  errorDetails.signature;
-		}
-	};
-
-	ImplementationNotFound.prototype.joinNonMatchingSignatures = function  () {
-		if (this.nonMatchingSignatures.length) {
-			this.nonMatchingSignatures = "("+ this.nonMatchingSignatures.join("), (") +")";
-		} else {
-			this.nonMatchingSignatures = "unknown";
-		}
-	};
-
-	ImplementationNotFound.prototype.renderMessage = function  () {
-		var error = this,
-			messageTemplate = "Function {{functionName}} was called with the signature ({{signature}}). "+
+	var ImplementationNotFound = createErrorType({
+		name: "ImplementationNotFound",
+		message: "Function {{functionName}} was called with the signature ({{signature}}). "+
 				"A matching implementation does not exist. Existing implementation signatures: {{nonMatchingSignatures}}",
-			placeholders = /\{\{([^}]+)\}\}/g;
-		this.message = messageTemplate.replace(placeholders, function (withCurlies, placeholder) {
-			return error[placeholder];
-		});
-	};
+		details: {
+			functionName: "unknown",
+			nonMatchingSignatures: [],
+			signature: "unknown"
+		}
+	}, init);
 
-	function extendError (Child) {
-		var Surrogate = function () {},
-			proto;
-		Surrogate.prototype = Error.prototype;
-		proto = new Surrogate();
-		proto._super = Error.prototype;
-		proto.constructor = Child;
-		Child.prototype = proto;
+	function init () {
+		this.joinNonMatchingSignatures();
+		this.setSignature();
 	}
+	
+	ImplementationNotFound.prototype.joinNonMatchingSignatures = function () {
+		var signatures = this.details.nonMatchingSignatures;
+		
+		if (signatures.length) {
+			signatures = "("+ signatures.join("), (") +")";
+
+		} else {
+			signatures = "unknown";
+		}
+		
+		this.details.nonMatchingSignatures = signatures;
+	};
+	
+	ImplementationNotFound.prototype.setSignature = function () {
+		if ("" === this.details.signature) {
+			this.details.signature = "[no arguments]";
+		}
+	};
 
 	return ImplementationNotFound;
 });

@@ -5,68 +5,34 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	var meta = require("../meta");
+	var meta = require("../meta"),
+		createErrorType = require("./create");
 
 	meta({
-		"type": "class",
 		"name": "InvalidReturnType",
 		"extends": "Error",
 		"arguments": [{
-			"name": "errorDetails",
+			"name": "details",
 			"type": "object",
-			"required": false
+			"required": false,
+			"properties": {
+				"functionName": "string",
+				"expected": "string",
+				"actual": "string"
+			}
 		}]
 	});
 
-	meta({
-		"type": "object",
-		"name": "errorDetails",
-		"properties": [{
-			"name": "functionName",
-			"type": "string",
-			"default": ""
-		}, {
-			"name": "actualReturnType",
-			"type": "string"
-		}, {
-			"name": "expectedReturnType",
-			"type": "string"
-		}]
+	var InvalidReturnType = createErrorType({
+		name: "InvalidReturnType",
+		message: "Function {{functionName}} returned a {{actual}}; "+
+				"return type expected to be {{expected}} instead",
+		details: {
+			functionName: "unknown",
+			expected: "unknown",
+			actual: "unknown"
+		}
 	});
-
-	function InvalidReturnType (errorDetails) {
-		this.setDetails(errorDetails || {});
-		this.renderMessage();
-		this._super.constructor.call(this, this.message);
-	}
-
-	extendError(InvalidReturnType);
-
-	InvalidReturnType.prototype.setDetails = function  (errorDetails) {
-		this.functionName = errorDetails.functionName || "";
-		this.actualReturnType = errorDetails.actualReturnType;
-		this.expectedReturnType = errorDetails.expectedReturnType;
-	};
-
-	InvalidReturnType.prototype.renderMessage = function  () {
-		var error = this,
-			messageTemplate = "Function {{functionName}} returned a {{actualReturnType}}; "+
-				"return type expected to be {{expectedReturnType}}",
-			placeholders = /\{\{([^}]+)\}\}/g;
-		this.message = messageTemplate.replace(placeholders, function (withCurlies, placeholder) {
-			return error[placeholder];
-		});
-	};
-
-	function extendError (Child) {
-		var Surrogate = function () {},
-			proto;
-		Surrogate.prototype = Error.prototype;
-		proto = new Surrogate();
-		proto._super = Error.prototype;
-		proto.constructor = Child;
-		Child.prototype = proto;
-	}
 
 	return InvalidReturnType;
 });
