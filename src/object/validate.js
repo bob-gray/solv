@@ -35,7 +35,7 @@ define(function (require) {
 		}]
 	});
 
-	Object.staticShim(validate);
+	Object.shimStatic(validate);
 	
 	function validate (object, properties) {
 		Object.forEach(properties, testProperty, object);

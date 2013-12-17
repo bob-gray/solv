@@ -10,7 +10,7 @@ define(function (require) {
 
 	var meta = require("../meta");
 
-	Object.staticShim(copy);
+	Object.shimStatic(copy);
 	
 	function copy (object) {
 		return Object.merge({}, object);
