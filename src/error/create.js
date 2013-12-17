@@ -56,7 +56,7 @@ define(function (require) {
 			}
 			
 			this.renderMessage(options.message);
-			this.constructor.Super.call(this.message);
+			this.constructor.Super.call(this, this.message);
 		}
 
 		ErrorType.extend(Error);
