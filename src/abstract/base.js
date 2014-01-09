@@ -32,7 +32,7 @@ define(function (require) {
 				"type": "any",
 				"required": false,
 				"repeating": true,
-				"description": "All additional arguments are forwarded to fn as preceeding arguments"
+				"description": "All additional arguments are forwarded to fn as preceding arguments"
 			}],
 			"returns": {
 				"name": "result",
@@ -56,7 +56,7 @@ define(function (require) {
 				"type": "any",
 				"required": false,
 				"repeating": true,
-				"description": "All additional arguments are forwarded to fn as preceeding arguments"
+				"description": "All additional arguments are forwarded to fn as preceding arguments"
 			}],
 			"returns": {
 				"type": "function",
@@ -79,7 +79,7 @@ define(function (require) {
 				"type": "any",
 				"required": false,
 				"repeating": true,
-				"description": "All additional arguments are forwarded to the method as preceeding arguments"
+				"description": "All additional arguments are forwarded to the method as preceding arguments"
 			}],
 			"returns": {
 				"type": "function",
@@ -102,7 +102,7 @@ define(function (require) {
 				"type": "any",
 				"required": false,
 				"repeating": true,
-				"description": "All additional arguments are forwarded to the method as preceeding arguments"
+				"description": "All additional arguments are forwarded to the method as preceding arguments"
 			}]
 		}),
 		delay
@@ -125,7 +125,7 @@ define(function (require) {
 				"type": "any",
 				"required": false,
 				"repeating": true,
-				"description": "All additional arguments are forwarded to the method as preceeding arguments"
+				"description": "All additional arguments are forwarded to the method as preceding arguments"
 			}]
 		}),
 		delayBy
