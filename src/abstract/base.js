@@ -32,7 +32,7 @@ define(function (require) {
 				"type": "any",
 				"required": false,
 				"repeating": true,
-				"description": "All additional arguments are forwarded to fn"
+				"description": "All additional arguments are forwarded to fn as preceeding arguments"
 			}],
 			"returns": {
 				"name": "result",
@@ -50,7 +50,7 @@ define(function (require) {
 			"arguments": [{
 				"name": "fn",
 				"type": "function",
-				"description": "Useful for private functions. Invoked as method of the instance"
+				"description": "Useful for invoking private function objects as methods of the instance"
 			}, {
 				"name": "nArgs",
 				"type": "any",
@@ -73,7 +73,7 @@ define(function (require) {
 			"arguments": [{
 				"name": "method",
 				"type": "string",
-				"description": "The name of the method to bind."
+				"description": "The name of the method to bind"
 			}, {
 				"name": "nArgs",
 				"type": "any",
@@ -87,6 +87,48 @@ define(function (require) {
 			}
 		}),
 		proxyMethod
+	);
+
+	Base.method(
+		meta({
+			"name": "delay",
+			"description": "Invokes a method asynchronously",
+			"arguments": [{
+				"name": "method",
+				"type": "string|function",
+				"description": "The name of the method to bind or a function object to be bound"
+			}, {
+				"name": "nArgs",
+				"type": "any",
+				"required": false,
+				"repeating": true,
+				"description": "All additional arguments are forwarded to the method as preceeding arguments"
+			}]
+		}),
+		delay
+	);
+
+	Base.method(
+		meta({
+			"name": "delay",
+			"description": "Invokes a method asynchronously after a given delay",
+			"arguments": [{
+				"name": "wait",
+				"type": "number",
+				"description": "Milliseconds to wait before invoking method"
+			}, {
+				"name": "method",
+				"type": "string|function",
+				"description": "The name of the method to bind or a function object to be bound."
+			}, {
+				"name": "nArgs",
+				"type": "any",
+				"required": false,
+				"repeating": true,
+				"description": "All additional arguments are forwarded to the method as preceeding arguments"
+			}]
+		}),
+		delayBy
 	);
 
 	function invokeFunction (fn) {
@@ -112,6 +154,18 @@ define(function (require) {
 		args.splice(0, 1, this);
 		
 		return fn.bind.apply(fn, args);
+	}
+
+	function delay (method) {
+		setTimeout(this.proxy.apply(this, arguments), 0);
+	}
+
+	function delayBy (wait, method) {
+		var args = Array.from(arguments);
+
+		args.shift();
+
+		setTimeout(this.proxy.apply(this, args), wait);
 	}
 
 	return Base;
