@@ -7,8 +7,7 @@ define(function (require) {
 
 	require("../class/shim");
 
-	var meta = require("../meta"),
-		type = require("../type");
+	var meta = require("../meta");
 
 	meta({
 		"name": "Object",
@@ -77,7 +76,8 @@ define(function (require) {
 	}
 
 	function isNonObject (value) {
-		return type.is.not("object", value) && type.is.not("function", value);
+		var type = typeof value;
+		return value === null || (type !== "object" && type !== "function");
 	}
 
 	Object.shimStatic("keys", shims.keys);
