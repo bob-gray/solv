@@ -55,10 +55,13 @@ define(function (require) {
 	}
 
 	function create (options, init) {
-		var name = getName(),
-			defaultArgs = getDefaults(options["arguments"]),
-			propertiesArgIndex = getPropertiesArgIndex(),
-			defaultProperties = getDefaults(options.properties);
+		var name,
+			defaultArgs,
+			defaultProperties,
+			propertiesArgIndex;
+
+		processOptions();
+		setInit();
 
 		function Constructor () {
 			validateContext(this);
@@ -76,23 +79,34 @@ define(function (require) {
 			}
 		}
 
-		if (name) {
-			injectClassName();
-		}
+		function processOptions () {
+			name = getName();
+			propertiesArgIndex = getPropertiesArgIndex();
 
-		if (options["extends"]) {
-			Constructor.extend(options["extends"]);
+			if (name) {
+				injectClassName();
+			}
+	
+			if (options["extends"]) {
+				Constructor.extend(options["extends"]);
+			}
+	
+			if (options.mixins) {
+				Constructor.mixin(options.mixins);
+			}
+	
+			if (options["arguments"]) {
+				defaultArgs = getDefaults(options["arguments"]);
+			}
+	
+			if (options.properties) {
+				defaultProperties = getDefaults(options.properties);
+			}
+			
+			if (hasDefaultArgs()) {
+				init = init.defaultArgs.apply(init, defaultArgs);
+			}
 		}
-
-		if (options.mixins) {
-			Constructor.mixin(options.mixins);
-		}
-		
-		if (hasDefaultArgs()) {
-			init = init.defaultArgs.apply(init, defaultArgs);
-		}
-
-		setInit();
 
 		function getName () {
 			var name;

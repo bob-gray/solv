@@ -5,38 +5,56 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
+	require("../function/abstract");
 	require("../object/for-each");
+	require("../shim/array");
+	require("../function/overload");
 
 	var meta = require("../meta"),
 		type = require("../type");
 
 	meta({
 		"name": "getDefaults",
-		"description": "Pulls out default values from arguments meta data or properties meta data",
+		"description": "Pulls out default values from properties meta data",
 		"arguments": [{
 			"name": "items",
-			"type": "object|array",
+			"type": "object",
 			"description": "Members should be objects with a option default property"
 		}],
 		"returns": {
-			"type": "object|array",
-			"description": "An object or array suitable for merging with a target to fulfill defaults"
+			"type": "object",
+			"description": "An object suitable for merging with a target to fulfill defaults"
 		}
 	});
+
+	meta({
+		"name": "getDefaults",
+		"description": "Pulls out default values from arguments meta data",
+		"arguments": [{
+			"name": "items",
+			"type": "array",
+			"description": "Members should be objects with a option default property"
+		}],
+		"returns": {
+			"type": "array",
+			"description": "An array suitable for merging with a target to fulfill defaults"
+		}
+	});
+
+	var getDefaults = Function.Abstract("getDefaults");
 	
-	function getDefaults (items) {
-		var defaults;
+	function getDefaultsObject (items) {
+		var defaults = {};
 		
-		if (type.is("object", items)) {
-			defaults = {};
+		Object.forEach(items, populate, defaults);
 		
-		} else if (type.is("array", items)) {
-			defaults = [];
-		}
+		return defaults;
+	}
+	
+	function getDefaultsArray (items) {
+		var defaults = [];
 		
-		if (defaults) {
-			Object.forEach(items, populate, defaults);
-		}
+		items.forEach(populate, defaults);
 		
 		return defaults;
 	}
@@ -49,5 +67,7 @@ define(function (require) {
 		}
 	}
 	
-	return getDefaults;
+	return getDefaults
+			.overload("object", getDefaultsObject)
+			.overload("array", getDefaultsArray);
 });

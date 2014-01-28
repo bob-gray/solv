@@ -69,7 +69,9 @@ define(function (require) {
 	};
 
 	MethodMaker.prototype.setDefaultArgs = function () {
-		this.defaultArgs = getDefaults(this["arguments"]);
+		if (this["arguments"]) {
+			this.defaultArgs = getDefaults(this["arguments"]);
+		}
 	};
 
 	MethodMaker.prototype.setReturnSignature = function () {

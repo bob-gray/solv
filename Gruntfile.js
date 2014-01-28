@@ -34,7 +34,8 @@ module.exports = function (grunt) {
 				globals: {
 					define: true, // amdefine
 					require: false,
-					module: false
+					module: false,
+					setTimeout: false
 				}
 			},
 			src: [
