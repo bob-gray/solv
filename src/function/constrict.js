@@ -8,7 +8,8 @@ define(function (require) {
 	require("../array/from");
 	require("../class/shim");
 
-	var meta = require("../meta");
+	var meta = require("../meta"),
+		type = require("../type");
 
 	meta({
 		"name": "Function",
@@ -35,10 +36,17 @@ define(function (require) {
 	Function.shim(constrict);
 	
 	function constrict (begin, end) {
-		var fn = this;
+		var fn = this,
+			noEnd = type.is("undefined", end);
 		
 		return function () {
-			var constricted = Array.from(arguments).slice(begin, end);
+			var constricted;
+			
+			if (noEnd) {
+				end = arguments.length;
+			}
+			
+			constricted = Array.from(arguments).slice(begin, end);
 
 			return fn.apply(this, constricted);
 		};

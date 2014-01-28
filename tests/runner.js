@@ -20,6 +20,7 @@ require(
 		"spec/event/listener-test",
 		"spec/event/listeners-test",
 		"spec/function/abstract-test",
+		"spec/function/constrict-test",
 		"spec/function/default-args-test",
 		"spec/function/get-name-test",
 		"spec/function/invocation-test",
