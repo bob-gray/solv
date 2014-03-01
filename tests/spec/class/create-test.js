@@ -174,7 +174,7 @@ define(["solv/class"], function (createClass) {
 			expect(new Person().hometown).toBe("unknown");
 		});
 		
-		it("can have default options values overridden by constructor argument", function () {
+		it("can have default argument values", function () {
 			var personInit = jasmine.createSpy("personInit"),
 				Person = createClass({
 					name: "Person",
@@ -192,6 +192,30 @@ define(["solv/class"], function (createClass) {
 			useClass(Person);
 			expect(personInit).toHaveBeenCalledWith({
 				name: "John Doe",
+				hometown: "unknown"
+			});
+		});
+		
+		it("can have default arguments overridden", function () {
+			var personInit = jasmine.createSpy("personInit"),
+				Person = createClass({
+					name: "Person",
+					"arguments": [{
+						name: "options",
+						type: "object",
+						"default": {
+							name: "John Doe",
+							hometown: "unknown"
+						}
+					}]
+				}, personInit),
+				person = new Person({
+					name: "Bob Gray"
+				});
+			
+			useClass(Person);
+			expect(personInit).toHaveBeenCalledWith({
+				name: "Bob Gray",
 				hometown: "unknown"
 			});
 		});
