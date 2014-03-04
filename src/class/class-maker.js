@@ -5,6 +5,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
+	require("./method");
 	require("./super");
 	require("./extend");
 	require("./mixin");
@@ -17,119 +18,190 @@ define(function (require) {
 		getDefaults = require("./get-defaults"),
 		InvalidConstructorContext = require("../error/invalid-constructor-context");
 
-	function ClassMaker (Constructor, options, init) {
-		this.Constructor = Constructor;
+	function ClassMaker (options, init) {
 		this.setInit(init);
 		this.setName(options.name);
-		this.argsMeta = options["arguments"] || [];
-		this.propsMeta = options.properties || [];
-		this.superClass = options["extends"];
-		this.mixins = options.mixins;
+		this.setSuperClass(options["extends"]);
+		this.setMixins(options.mixins);
+		this.setMeta(options);
+		this.setDefaultProperties();
 		this.setDefaultArgs();
 		this.setPropsArgIndex();
-		this.setDefaultProperties();
 	}
 
-	ClassMaker.prototype.setInit = function (init) {
-		if (type.is("function", init)) {
+	ClassMaker.method("setInit", function (init) {
+		if (isFunction(init)) {
 			this.init = init;
 
 		} else {
 			this.init = null;
 		}
-	};
+	});
 
-	ClassMaker.prototype.setName = function (name) {
+	ClassMaker.method("setName", function (name) {
 		if (name) {
 			this.name = name;
 
 		} else if (this.hasInit()) {
 			this.name = this.init.getName();
 		}
-	};
+	});
 
-	ClassMaker.prototype.setDefaultArgs = function () {
-		this.defaultArgs = getDefaults(this.argsMeta);
-	};
+	ClassMaker.method("setSuperClass", function (Super) {
+		this.superClass = Super;
+	});
 
-	ClassMaker.prototype.setPropsArgIndex = function () {
-		this.propsArgIndex = this.argsMeta.reduce(findPropertiesArgIndex, -1);
-	};
+	ClassMaker.method("setMixins", function (mixins) {
+		this.mixins = mixins;
+	});
 
-	ClassMaker.prototype.hasName = function () {
-		return type.is("string", this.name);
-	};
+	ClassMaker.method("setMeta", function (options) {
+		var meta = {
+			props: options.properties,
+			args: options["arguments"]
+		};
 
-	ClassMaker.prototype.hasInit = function () {
-		return null !== this.init;
-	};
+		if (notObject(meta.props)) {
+			meta.props = {};
+		}
 
-	ClassMaker.prototype.hasDefaultArgs = function () {
-		return this.hasInit() && arrayNotEmpty(this.defaultArgs);
-	};
+		if (notArray(meta.args)) {
+			meta.args = [];
+		}
 
-	ClassMaker.prototype.hasSuperClass = function () {
-		return type.is("function", this.superClass);
-	};
+		this.meta = meta;
+	});
 
-	ClassMaker.prototype.extendSuperClass = function () {
-		this.Constructor.extend(this.superClass);
-	};
+	ClassMaker.method("setDefaultProperties", function () {
+		this.defaultProps = getDefaults(this.meta.props);
+	});
 
-	ClassMaker.prototype.setSuperInit = function () {
-		this.superInit = getSuperInit(this.Constructor);
-		this.init = this.init.injectSuper(this.superInit);
-	};
+	ClassMaker.method("setDefaultArgs", function () {
+		this.defaultArgs = getDefaults(this.meta.args);
+	});
 
-	ClassMaker.prototype.hasMixins = function () {
-		return type.is.not("undefined", this.mixins);
-	};
+	ClassMaker.method("setPropsArgIndex", function () {
+		this.propsArgIndex = this.meta.args.reduce(findPropertiesArgIndex, -1);
+	});
 
-	ClassMaker.prototype.addMixins = function () {
-		this.Constructor.mixin(this.mixins);
-	};
-	
-	ClassMaker.prototype.hasPropertiesArg = function () {
-		return isFound(this.propsArgIndex);
-	};
+	ClassMaker.method("setConstructor", function (Constructor) {
+		this.Constructor = Constructor;
+		Constructor.init = this.init;
+		this.extendSuperClass();
+		this.setSuperInit();
+		this.injectMixins();
+		this.injectDefaultArgs();
+	});
 
-	ClassMaker.prototype.setDefaultProperties = function () {
-		this.defaultProps = getDefaults(this.propsMeta);
-	};
-
-	ClassMaker.prototype.hasDefaultProperties = function () {
-		return objectNotEmpty(this.defaultProps);
-	};
-
-	ClassMaker.prototype.injectDefaultProperties = function (instance) {
-		Object.merge.deep(instance, this.defaultProps);
-	};
-
-	ClassMaker.prototype.injectPropertiesFromArgs = function (instance, args) {
-		var properties = this.getPropertiesFromArgs(args);
-
-		Object.merge.deep(instance, properties);
-	};
-
-	ClassMaker.prototype.injectDefaultArgs = function () {
-		this.init = this.init.defaultArgs.apply(this.init, this.defaultArgs);
-	};
-
-	ClassMaker.prototype.validateContext = function (context) {
+	ClassMaker.method("validateContext", function (context) {
 		if (this.notAnInstance(context)) {
 			throw new InvalidConstructorContext({
 				className: this.name
 			});
 		}
-	};
+	});
 
-	ClassMaker.prototype.getPropertiesFromArgs = function (args) {
-		return args[this.propsArgIndex] || {};
-	};
+	ClassMaker.method("injectDefaultProperties", function (instance) {
+		if (this.hasDefaultProperties()) {
+			Object.merge.deep(instance, this.defaultProps);
+		}
+	});
 
-	ClassMaker.prototype.notAnInstance = function (instance) {
+	ClassMaker.method("injectPropertiesFromArgs", function (instance, args) {
+		var properties;
+
+		if (this.hasPropertiesArg()) {
+			properties = this.getPropertiesFromArgs(args);
+			Object.merge.deep(instance, properties);	
+		}
+	});
+
+	ClassMaker.method("hasInit", function () {
+		return notNull(this.init);
+	});
+
+	ClassMaker.method("extendSuperClass", function () {
+		if (this.hasSuperClass()) {
+			this.Constructor.extend(this.superClass);
+		}
+	});
+
+	ClassMaker.method("setSuperInit", function () {
+		if (this.hasInit()) {
+			this.superInit = getSuperInit(this.Constructor);
+			this.init = this.init.injectSuper(this.superInit);
+		}
+	});
+
+	ClassMaker.method("injectMixins", function () {
+		if (this.hasMixins()) {
+			this.Constructor.mixin(this.mixins);
+		}
+	});
+
+	ClassMaker.method("injectDefaultArgs", function () {
+		if (this.hasDefaultArgs()) {
+			this.init = this.init.defaultArgs.apply(this.init, this.defaultArgs);
+		}
+	});
+
+	ClassMaker.method("getPropertiesFromArgs", function (args) {
+		var properties = args[this.propsArgIndex];
+
+		if (notObject(properties)) {
+			properties = {};
+		}
+
+		return  properties;
+	});
+
+	ClassMaker.method("hasName", function () {
+		return type.is("string", this.name);
+	});
+
+	ClassMaker.method("hasDefaultArgs", function () {
+		return this.hasInit() && notEmptyArray(this.defaultArgs);
+	});
+
+	ClassMaker.method("hasSuperClass", function () {
+		return type.is("function", this.superClass);
+	});
+
+	ClassMaker.method("hasMixins", function () {
+		return type.is.not("undefined", this.mixins);
+	});
+	
+	ClassMaker.method("hasPropertiesArg", function () {
+		return isFound(this.propsArgIndex);
+	});
+
+	ClassMaker.method("hasDefaultProperties", function () {
+		return notEmptyObject(this.defaultProps);
+	});
+
+	ClassMaker.method("notAnInstance", function (instance) {
 		return (instance instanceof this.Constructor) === false;
-	};
+	});
+
+	function notObject (value) {
+		return type.is.not("object", value);
+	}
+
+	function notArray (value) {
+		return type.is.not("array", value);
+	}
+
+	function notNull (value) {
+		return type.is.not("null", value);
+	}
+
+	function isNull (value) {
+		return type.is("null", value);
+	}
+
+	function isFunction (value) {
+		return type.is("function", value);
+	}
 
 	function findPropertiesArgIndex (result, arg, index) {
 		if (notFound(result) && isPropertiesArg(arg)) {
@@ -146,7 +218,7 @@ define(function (require) {
 		return -1 !== result;
 	}
 
-	function objectNotEmpty (object) {
+	function notEmptyObject (object) {
 		var empty;
 		
 		if (!object) {
@@ -158,7 +230,7 @@ define(function (require) {
 		return !empty;
 	}
 
-	function arrayNotEmpty (array) {
+	function notEmptyArray (array) {
 		return array.length > 0;
 	}
 
@@ -171,16 +243,23 @@ define(function (require) {
 			superInit = Super;
 		
 		while (Super) {
-			if (type.is("function", Super.init)) {
+			if (isFunction(Super.init)) {
 				superInit = Super.init;
 				break;
 			
-			} else if (type.is.not("null", Super.init)) {
+			} else if (isNull(Super.init)) {
+				// Super class has no init implementation
+				// continue up inheritance chain
+				Super = Super.Super;
+
+			} else {
+				// init is not a function or null
+				// Super not created with ClassMaker
+				// assume Super is traditional constructor 
 				superInit = Super;
 				break;
-			}
 
-			Super = Super.Super;
+			}
 		}
 		
 		return superInit;
