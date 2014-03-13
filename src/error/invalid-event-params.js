@@ -9,7 +9,7 @@ define(function (require) {
 		createErrorType = require("./create");
 
 	meta({
-		"name": "InvalidEventArguments",
+		"name": "InvalidEventParams",
 		"extends": "Error",
 		"arguments": [{
 			"name": "details",
@@ -23,8 +23,8 @@ define(function (require) {
 		}]
 	});
 
-	var InvalidEventArguments = createErrorType({
-		name: "InvalidEventArguments",
+	var InvalidEventParams = createErrorType({
+		name: "InvalidEventParams",
 		message: "{{eventName}} event should be triggered with ({{expected}}) "+
 				"but was triggered with ({{actual}}) instead",
 		details: {
@@ -34,5 +34,5 @@ define(function (require) {
 		}
 	});
 
-	return InvalidEventArguments;
+	return InvalidEventParams;
 });

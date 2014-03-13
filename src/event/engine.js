@@ -13,7 +13,7 @@ define(function (require) {
 		Callbacks = require("./callbacks"),
 		Listeners = require("./listeners"),
 		Id = require("../util/id"),
-		InvalidEventArguments = require("../error/invalid-event-arguments"),
+		InvalidEventParams = require("../error/invalid-event-params"),
 		signatures = require("../function/signatures");
 
 	meta.define("../abstract/base", require("../abstract/base"));
@@ -260,7 +260,7 @@ define(function (require) {
 			eventArgsSignature = signatures.getInvocationSignature(eventArgs);
 		
 		if (!tester.test(eventArgsSignature)) {
-			throw new InvalidEventArguments({
+			throw new InvalidEventParams({
 				eventName: eventName,
 				expected: triggerSignature,
 				actual: eventArgsSignature
