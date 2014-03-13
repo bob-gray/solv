@@ -9,6 +9,7 @@ define(function (require) {
 	require("../object/is-empty");
 
 	var meta = require("../meta"),
+		type = require("../type"),
 		createClass = require("../class"),
 		Callbacks = require("./callbacks"),
 		Listeners = require("./listeners"),
@@ -149,7 +150,12 @@ define(function (require) {
 				"description": "thisArg within handlers"
 			}, {
 				"name": "options",
-				"type": "object"
+				"type": "object",
+				"properties": {
+					"name": "string",
+					"when": "string",
+					"params": "array"
+				}
 			}, {
 				"name": "nArgs",
 				"type": "any",
@@ -245,25 +251,37 @@ define(function (require) {
 	}
 	
 	function triggerWithOptions (target, options) {
-		var eventArgs = Array.from(arguments).slice(2);
+		var eventParams = Array.from(arguments).slice(2),
+			triggerArgs = [
+				target,
+				options.name
+			];
 			
-		if (options["arguments"]) {
-			validateEventArgs(eventArgs, options["arguments"], options.eventName);
+		if (options.params) {
+			validateEventParams(eventParams, options.params, options.name);
 		}
-		
-		this.invoke(trigger, target, options.eventName);
+
+		triggerArgs = triggerArgs.concat(eventParams);
+		this.trigger.apply(this, triggerArgs);
 	}
 	
-	function validateEventArgs (eventArgs, optionsArgs, eventName) {
-		var triggerSignature = signatures.getSignatureFromMeta(optionsArgs),
-			tester = signatures.compileImplementationSignature(triggerSignature),
-			eventArgsSignature = signatures.getInvocationSignature(eventArgs);
-		
-		if (!tester.test(eventArgsSignature)) {
+	function validateEventParams (eventParams, paramsMeta, eventName) {
+		var eventSignature = signatures.getSignatureFromMeta(paramsMeta),
+			tester = signatures.compileImplementationSignature(eventSignature),
+			paramsSignature;
+
+		if (isArray(paramsMeta)) {
+			paramsSignature = signatures.getInvocationSignature(eventParams);
+
+		} else if (isObject(paramsMeta)) {
+			paramsSignature = signatures.getObjectSignature(eventParams[0]);
+		}
+
+		if (!tester.test(paramsSignature)) {
 			throw new InvalidEventParams({
 				eventName: eventName,
-				expected: triggerSignature,
-				actual: eventArgsSignature
+				expected: eventSignature,
+				actual: paramsSignature
 			});
 		}
 	}
@@ -327,6 +345,14 @@ define(function (require) {
 		if (!target[this.expando]) {
 			target[this.expando] = id.getNext();
 		}
+	}
+
+	function isArray (value) {
+		return type.is("array", value);
+	}
+
+	function isObject (value) {
+		return type.is("object", value);
 	}
 	
 	return EventEngine;

@@ -126,9 +126,44 @@ define(function (require) {
 		return argumentTypes.join(",");
 	};
 
-	signatures.getSignatureFromMeta = function (argumentsMeta) {
-		return argumentsMeta.map(argumentMetaToSignatureComponent).join(",");
+	signatures.getObjectSignature = function (object) {
+		var keys = Object.keys(object).sort(),
+			propertyTypes = keys.map(getPropertyTypes, object);
+
+		return propertyTypes.join(",");
 	};
+
+	signatures.getSignatureFromMeta = function (meta) {
+		var signature;
+
+		if (isArray(meta)) {
+			signature = meta.map(metaItemToSignatureComponent).join(",");
+
+		} else if (isObject(meta)) {
+			signature = metaObjectToSignature(meta);
+		}
+
+		return signature;
+	};
+
+	function metaObjectToSignature (meta) {
+		var keys = Object.keys(meta).sort();
+		
+		return keys.map(metaObjectItemToSignatureComponent, meta).join(",");
+	}
+
+	function metaObjectItemToSignatureComponent (name) {
+		var meta = this,
+			item = meta[name];
+
+		if (notObject(item)) {
+			item = {
+				type: item
+			};
+		}
+
+		return name +":"+ metaItemToSignatureComponent(item);
+	}
 
 	function createImplementationSignatureSrc (signature) {
 		signature = stripWhitespace(signature);
@@ -152,19 +187,38 @@ define(function (require) {
 		return lineBegin + signature + lineEnd;
 	}
 
+	function getPropertyTypes (key) {
+		var object = this,
+			propertyType = getArgumentType(object[key]);
+
+		return key +":"+ propertyType;
+	}
+
 	function getArgumentType (argument) {
 		return type.of(argument);
 	}
 
-	function argumentMetaToSignatureComponent (arg) {
-		var component = arg.type || "any";
+	function isArray (value) {
+		return type.is("array", value);
+	}
 
-		if (type.is.not("undefined", arg["default"])) {
-			arg.required = false;
+	function isObject (value) {
+		return type.is("object", value);
+	}
+
+	function notObject (value) {
+		return type.is.not("object", value);
+	}
+
+	function metaItemToSignatureComponent (item) {
+		var component = item.type || "any";
+
+		if (isDefined(item["default"])) {
+			item.required = false;
 			component += "|null|undefined";
 		}
 
-		return component + getOccurenceSuffix(arg);
+		return component + getOccurenceSuffix(item);
 	}
 
 	function stripWhitespace (signature) {
@@ -197,6 +251,10 @@ define(function (require) {
 		}
 
 		return types;
+	}
+
+	function isDefined (value) {
+		return type.is.not("undefined", value);
 	}
 
 	function getOccurenceSuffix (arg) {

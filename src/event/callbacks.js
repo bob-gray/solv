@@ -19,7 +19,7 @@ define(function (require) {
 		meta({
 			"name": "Callbacks",
 			"extends": "../abstract/base",
-			"description": "A queue of callback functions",
+			"description": "A queue of callback functions"
 		}),
 		init
 	);
