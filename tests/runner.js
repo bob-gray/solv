@@ -17,6 +17,7 @@ require(
 		"spec/error/implementation-not-found-test",
 		"spec/error/invalid-return-type-test",
 		"spec/event/callbacks-test",
+		"spec/event/engine-test",
 		"spec/event/listener-test",
 		"spec/event/listeners-test",
 		"spec/function/abstract-test",

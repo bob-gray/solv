@@ -123,5 +123,60 @@ define(["solv/event/engine"], function (EventEngine) {
 			event.trigger(target2, "changed", true, [], false);
 			expect(handler2).toHaveBeenCalledWith(true, [], false);
 		});
+		
+		it(".trigger method can be call with options object", function () {
+			var options = {
+					name: "load",
+					when: "data is finished loading"
+				},
+				status = "LOADED",
+				msg = "data has been loaded";
+
+			event.addListener(target1, "load", handler1);
+			event.trigger(target1, options, status, msg);
+
+			expect(handler1).toHaveBeenCalledWith(status, msg);
+		});
+		
+		it(".trigger method can be call with param object for validating params", function () {
+			var options = {
+					name: "load",
+					params: {
+						status: {
+							type: "string",
+							required: false
+						},
+						msg: "string"
+					}
+				},
+				params = {
+					status: "LOADED",
+					msg: "data has been loaded"
+				};
+
+			event.addListener(target1, "load", handler1);
+			event.trigger(target1, options, params);
+
+			expect(handler1).toHaveBeenCalledWith(params);
+		});
+		
+		it(".trigger method can be call with param array for validating params", function () {
+			var options = {
+					name: "load",
+					params: [{
+						name: "status",
+						type: "string",
+						required: false
+					}, {
+						name: "msg",
+						type: "string"
+					}]
+				};
+
+			event.addListener(target1, "load", handler1);
+			event.trigger(target1, options, "LOADED", "data has been loaded");
+
+			expect(handler1).toHaveBeenCalledWith("LOADED", "data has been loaded");
+		});
 	});
 });
