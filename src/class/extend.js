@@ -8,7 +8,7 @@ define(function (require) {
 	require("../shim/object");
 	require("./shim");
 
-	var meta = require("solv/meta");
+	var meta = require("../meta");
 
 	meta({
 		"name": "Function",

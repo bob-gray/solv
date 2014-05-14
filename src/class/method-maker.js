@@ -5,12 +5,12 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("solv/class/super");
-	require("solv/function/overload");
-	require("solv/function/abstract");
-	require("solv/function/get-name");
-	require("solv/function/validate-return-type");
-	require("solv/object/merge");
+	require("./super");
+	require("../function/overload");
+	require("../function/abstract");
+	require("../function/get-name");
+	require("../function/validate-return-type");
+	require("../object/merge");
 
 	var meta = require("../meta"),
 		type = require("../type"),
