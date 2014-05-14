@@ -55,7 +55,7 @@ define(function (require) {
 	var changeEvent = meta({
 		"name": "change",
 		"when": "A property is set to a new value",
-		"arguments": [{
+		"params": [{
 			"name": "property",
 			"type": "string"
 		}, {
@@ -70,7 +70,7 @@ define(function (require) {
 	var propertyChangeEvent = meta({
 		"name": "<property>-change",
 		"when": "A property is set to a new value",
-		"arguments": [{
+		"params": [{
 			"name": "property",
 			"type": "string"
 		}, {
