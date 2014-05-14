@@ -17,7 +17,7 @@ define(function (require) {
 	meta({
 		"type": "module",
 		"exports": "class/create",
-		"description": "System for creating classes with easy inheritance, mixins, method overloading, default properties, default arguments, return type checking and more. This modules a only a convenience module. Think of it as loading class/*"
+		"description": "Class building with easy inheritance, mixins, method overloading, default properties, default arguments, return type checking and more. This module is only a convenience module for loading all class submodules. Think of it as loading class/*. Returns createClass function returned from class/create module."
 	});
 
 	return require("./class/create");
