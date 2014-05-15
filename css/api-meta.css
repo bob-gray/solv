@@ -2,6 +2,10 @@ body {
 	padding: 4em 0 20em 0;
 	overflow-y: scroll;
 }
+.created-by {
+	position: relative;
+	bottom: -10em;
+}
 dl.panel-body {
 	margin-bottom: 0;
 }
