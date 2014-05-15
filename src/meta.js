@@ -8,7 +8,7 @@ define(function (require) {
 	meta({
 		"name": "meta",
 		"type": "function",
-		"description": "Runtime meta implementation. meta-json compatible.",
+		"description": "A meta-json compatible runtime meta implementation.",
 		"arguments": [{
 			"name": "data",
 			"type": "object",
