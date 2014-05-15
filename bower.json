@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "homepage": "https://github.com/bob-gray/solv",
   "author": "Bob Gray <gray.bob98@gmail.com>",
-  "description": "Enterprise JavaScript Toolset",
+  "description": "JavaScript library for building object-oriented APIs",
   "keywords": [
     "class",
     "method",
