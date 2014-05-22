@@ -1,19 +1,21 @@
 {
   "name": "solv",
   "version": "0.2.3",
+  "homepage": "http://bob-gray.github.io/solv/",
   "author": "Bob Gray <gray.bob98@gmail.com>",
   "license": "MIT",
   "description": "JavaScript library for building object-oriented APIs",
   "keywords": [
   	"object-oriented",
-  	"class",
-  	"extend",
+    "inheritance",
   	"mixin",
   	"method",
-  	"event",
-  	"overload",
+  	"event-driven",
+  	"method overloading",
   	"meta",
-  	"API"
+  	"API",
+    "AMD",
+    "type checking"
   ],
   "repository": {
     "type": "git",
