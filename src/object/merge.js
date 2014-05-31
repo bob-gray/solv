@@ -9,9 +9,11 @@ define(function (require) {
 	require("../shim/array");
 	require("../array/from");
 	require("../class/shim");
+	require("../function/curry");
 
 	var meta = require("../meta"),
-		type = require("../type");
+		type = require("../type"),
+		utils = require("./utils");
 
 	meta({
 		"name": "Object",
@@ -71,29 +73,21 @@ define(function (require) {
 	};
 
 	function merge (target) {
-		var sources = Array.from(arguments).slice(1);
+		var sources = Array.from(arguments).slice(1),
+			copy = utils.copy.curry(assign);
 
 		return sources.reduce(copy, target);
 	}
 
-	function copy (target, source) {
-		var properties = ownNonNullProperties(source);
-
-		return properties.reduce(assign.bind(source), target);
-	}
-
-	function ownNonNullProperties (source) {
-		return Object.keys(source).filter(isDefined, source);
-	}
-
 	function assign (target, name) {
 		var value = this[name],
-			targetValue = target[name];
+			targetValue = target[name],
+			valueType = type.of(value);
 		
-		if (deep && type.is("object", value)) {
+		if (deep && utils.complex.test(valueType)) {
 			
-			if (type.is.not("object", targetValue)) {
-				targetValue = {};
+			if (type.is("array", value) || type.is.not("object", targetValue)) {
+				targetValue = utils.getEmpty(valueType);
 			}
 			
 			value = merge(targetValue, value);
@@ -102,11 +96,6 @@ define(function (require) {
 		target[name] = value;
 
 		return target;
-	}
-
-	function isDefined (name) {
-		/* jshint eqnull:true */
-		return this[name] != null;
 	}
 
 	return merge;

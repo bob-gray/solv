@@ -62,6 +62,34 @@ define(function (require) {
 		"returns": "function"
 	});
 
+	meta({
+		"name": "Function Implementation Signature",
+		"type": "specification",
+		"Purpose": "Defining the expected calling signature of a function",
+		"Overview":	"Implementation signatures are special comma delimited lists of signature components that describe the argument types expected by a function. Components are composed of one or more pipe delimited types. Signatures can be optionally prefixed with an exclamation point. Components may be suffixed with a meta character indicating quantity. White space is ignored. The number of components won't necessarily equal the number of a matching arguments because arguments can be specified as optional and/or repeating.",
+		"Types": "string, number, boolean, array, object, date, regexp, function, undefined, null or any",
+		"Meta Characters": [{
+			"Character": "!",
+			"Description": "Creates a negating signature. !string can be read 'not string'"
+		}, {
+			"Character": "|",
+			"Description": "Or operator. number|boolean can be read 'number or boolean'"
+		}, {
+			"Character": "?",
+			"Description": "Zero or one of the preceding component. Makes a component optional"
+		}, {
+			"Character": "+",
+			"Description": "One or more of the preceding component. Makes a component repeating"
+		}, {
+			"Character": "*",
+			"Description": "Zero or more of the preceding component. Make a component optional and repeating"
+		}],
+		"Examples": {
+			"boolean?, string|number, function": "Matches (boolean, number, function) and (boolean, string, function) and (string, function) and (number, function). It does not match (boolean, function) or (boolean, number).",
+			"string, object, any, !null|undefined*": "Matches (string, object, object) and (string, object, number, number) and (string, object, null). It does not match (string, object, object, null)."
+		}
+	});
+
 	var invocation = Invocation.singleton(),
 		overload;
 
@@ -82,7 +110,7 @@ define(function (require) {
 	}
 
 	function overloadByLengthSignature (length, thisImplementation) {
-		var implementationSignature = list("any", thisImplementation.length);
+		var implementationSignature = list("any", length);
 
 		return createRouter({
 			signature: implementationSignature,
