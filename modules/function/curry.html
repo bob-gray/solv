@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>solv/function/get-name API Documentation</title>
+		<title>solv/function/curry API Documentation</title>
 
 		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
 		<link href="../../css/api-meta.css" rel="stylesheet" />
@@ -61,13 +61,21 @@
 
 		<div class="container">	
 			<div class="row">
-				<div class="col-md-9"><h1 class="api-module">function/get-name <small class="api-type">module</small></h1>
+				<div class="col-md-9"><h1 class="api-module">function/curry <small class="api-type">module</small></h1>
 
 <p class="api-description"></p>
 
 
 	<h3 class="api-section api-requires">requires</h3>
 	<ul class="list-inline api-requires">
+		
+			<li>
+				<a href="../../modules/array/from.html" class="">array/from</a>
+			</li>
+		
+			<li>
+				<a href="../../modules/class/shim.html" class="">class/shim</a>
+			</li>
 		
 			<li>
 				<a href="../../modules/meta.html" class="">meta</a>
@@ -106,16 +114,16 @@
 				<ul class="list-unstyled api-items">
 					
 						<li>
-							<a class="api-anchor" id="method:getName"></a>
+							<a class="api-anchor" id="method:curry"></a>
 							<code class="api-code api-method">
-								<strong>.getName(</strong><strong>)</strong>
+								<strong>.curry(</strong><strong class="api-arg">nArgs</strong><small class="api-arg-type">:any*</small><strong>)</strong>
 								
 									<small class="api-arg-type">returns</small>
-									<strong></strong><small class="api-arg-type">string|undefined</small>
+									<strong></strong><small class="api-arg-type">function</small>
 								
 							</code>
 							<p class="api-description">
-								Gets the name of a named function
+								Higher-order function that returns a proxy that is partially applied (has prefilled arguments)
 								
 							</p>
 							<p>
@@ -334,7 +342,7 @@
 			
 		</li>
 	
-		<li class="">
+		<li class="current active">
 			<a href="../../modules/function/curry.html">curry</a>
 			
 		</li>
@@ -344,7 +352,7 @@
 			
 		</li>
 	
-		<li class="current active">
+		<li class="">
 			<a href="../../modules/function/get-name.html">get-name</a>
 			
 		</li>

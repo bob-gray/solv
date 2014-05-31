@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>solv/function/get-name API Documentation</title>
+		<title>solv/object/clone API Documentation</title>
 
 		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
 		<link href="../../css/api-meta.css" rel="stylesheet" />
@@ -61,7 +61,7 @@
 
 		<div class="container">	
 			<div class="row">
-				<div class="col-md-9"><h1 class="api-module">function/get-name <small class="api-type">module</small></h1>
+				<div class="col-md-9"><h1 class="api-module">object/clone <small class="api-type">module</small></h1>
 
 <p class="api-description"></p>
 
@@ -70,7 +70,27 @@
 	<ul class="list-inline api-requires">
 		
 			<li>
+				<a href="../../modules/class/shim.html" class="">class/shim</a>
+			</li>
+		
+			<li>
 				<a href="../../modules/meta.html" class="">meta</a>
+			</li>
+		
+			<li>
+				<a  class="private">object/utils</a>
+			</li>
+		
+			<li>
+				<a href="../../modules/shim/array.html" class="">shim/array</a>
+			</li>
+		
+			<li>
+				<a href="../../modules/shim/object.html" class="">shim/object</a>
+			</li>
+		
+			<li>
+				<a href="../../modules/type.html" class="">type</a>
 			</li>
 		
 	</ul>
@@ -79,8 +99,8 @@
 <ul class="list-unstyled api-module-contents">
 	
 		<li>
-			<a class="api-anchor" id="class:Function"></a>
-			<code id="Function-class" class="api-code api-class"><strong>Function(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
+			<a class="api-anchor" id="class:Object"></a>
+			<code id="Object-class" class="api-code api-class"><strong>Object(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
 			<p class="api-description">
 				
 			</p>
@@ -97,25 +117,21 @@
 			
 
 			
-
-			
-				<h3 class="api-section api-method">methods</h3>
-
-				
+				<h3 class="api-section api-method">static methods</h3>
 
 				<ul class="list-unstyled api-items">
 					
 						<li>
-							<a class="api-anchor" id="method:getName"></a>
+							<a class="api-anchor" id="method:clone"></a>
 							<code class="api-code api-method">
-								<strong>.getName(</strong><strong>)</strong>
+								<strong>Object.clone(</strong><strong class="api-arg">source</strong><small class="api-arg-type">:object|array</small><strong>)</strong>
 								
 									<small class="api-arg-type">returns</small>
-									<strong></strong><small class="api-arg-type">string|undefined</small>
+									<strong></strong><small class="api-arg-type">object|array</small>
 								
 							</code>
 							<p class="api-description">
-								Gets the name of a named function
+								Creates a deep copy of all own properties that are types object, array, number, string, boolean, null, undefined. Circular references are supported.
 								
 							</p>
 							<p>
@@ -129,6 +145,8 @@
 						</li>
 					
 				</ul>
+			
+
 			
 
 			
@@ -320,7 +338,7 @@
 			
 		</li>
 	
-		<li class="active">
+		<li class="">
 			<a >function</a>
 			
 				<ul class="nav api-module-links">
@@ -344,7 +362,7 @@
 			
 		</li>
 	
-		<li class="current active">
+		<li class="">
 			<a href="../../modules/function/get-name.html">get-name</a>
 			
 		</li>
@@ -367,11 +385,11 @@
 			
 		</li>
 	
-		<li class="">
+		<li class="active">
 			<a >object</a>
 			
 				<ul class="nav api-module-links">
-		<li class="">
+		<li class="current active">
 			<a href="../../modules/object/clone.html">clone</a>
 			
 		</li>

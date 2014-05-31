@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>solv/Solv API Documentation</title>
+		<title>solv/ API Documentation</title>
 
 		<link href="./css/bootstrap.min.css" rel="stylesheet" />
 		<link href="./css/api-meta.css" rel="stylesheet" />
@@ -25,12 +25,12 @@
 		<nav class="navbar navbar-fixed-top navbar-default api-project" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+					<!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
-					</button>
+					</button>-->
 					<a class="navbar-brand" href="./index.html">solv</a>
 					<p class="navbar-text">API Documentation</p>
 				</div>
@@ -52,7 +52,7 @@
 		<!--<header class="api-project">
 			<div class="container">
 				
-					<small class="pull-right api-version">version 0.0.2</small>
+					<small class="pull-right api-version">version 0.2.3</small>
 				
 
 				<h2>solv <small>API Documentation</small></h2>
@@ -61,7 +61,7 @@
 
 		<div class="container">	
 			<div class="row">
-				<div class="col-md-9"><h1 class="api-module">Solv <small class="api-type">Library</small></h1>
+				<div class="col-md-9"><h1 class="api-module"> <small class="api-type"></small></h1>
 
 <p class="api-description"></p>
 
@@ -71,7 +71,82 @@
 	
 
 	
-</ul>			</div>
+
+	
+</ul><h1>Solv</h1>
+
+<h2>Object-Oriented Modular JavaScript Library</h2>
+
+<p>Solv is a collection of <a href="http://en.wikipedia.org/wiki/Asynchronous_module_definition">AMD</a>
+JavaScript modules built for object-oriented application development. Solv is
+very API focused. Solv reduces boilerplate code by handling lots of the plumbing
+involved in building class APIs (methods, events and properties). Solv is for
+the browser and for <a href="http://nodejs.org/">Node.js</a>. It contains tools for:</p>
+
+<ul><li>Creating class hierarchies</li><li>Class mixins</li><li>Method overloading</li><li>Declaring default arguments and properties</li><li>Type checking arguments and return values</li><li>Custom events</li><li>and more... </li></ul>
+
+<h2>Install</h2>
+
+<p>The two easiest ways to install solv are <a href="https://npmjs.org">npm</a> and
+<a href="http://bower.io">bower</a>. Solv can also be installed by downloading or cloning
+from github. Solv is a modular library and doesn&#39;t offer a concatenated file
+for distribution. Once Solv is installed each of it&#39;s modules can be
+pulled in when and where needed.</p>
+
+<ul><li>Run <code>npm install solv</code> to install into a node project</li><li>Run <code>bower install solv</code> to install into a browser project</li></ul>
+
+<h2>Design Goals</h2>
+
+<p>Solv strives to be as simple and robust in its implementation as possible.
+Code quality is important. Clean, obvious code is more valuable than clever,
+obfuscated code accompanied by verbose comments. Comments are only present in
+Solv when all attempts to refactor for clarity have failed. Developer
+productivity is valued over premature optimization. A pleasing API is important
+to make using Solv easy and fun.</p>
+
+<h2>Prototypes</h2>
+
+<p>Solv augments native prototypes to provide the best possible API. There are
+risks when altering native prototypes. Native prototypes are global and
+collision with other code or future native APIs is possible. On the other hand
+the clarity of many operations is greatly enhanced in the context of
+object-oriented programming with member functions. This making augmenting
+native prototypes very attractive. </p>
+
+<h2>Tests</h2>
+
+<p>Solv has a fairly extensive test suite that is continuing to grow. To run tests
+<a href="http://nodejs.org">Node.js</a> and <a href="https://npmjs.org">npm</a> must be installed and
+a couple sets of commands need to be run.</p>
+
+<h3>Run from Command Line</h3>
+
+<ol><li>Run <code>npm install -g grunt-cli</code> to install grunt command line interface</li><li>Run <code>npm install</code> to install test dependencies</li></ol>
+
+<p>When the above steps are complete, run <code>grunt test</code> to execute tests in
+PhantomJS.</p>
+
+<p><em>See Gruntfile for more test options including running tests and linting on
+file change.</em></p>
+
+<h3>Run in Browser</h3>
+
+<ol><li>Run <code>npm install -g bower</code> to install bower </li><li>Run <code>bower install</code> to install test dependencies</li></ol>
+
+<p>When the above steps are completed open <code>tests/index.html</code> in the browser of your choice.</p>
+
+<h2>Meta</h2>
+
+<p>Solv is being developed in conjunction with
+<a href="https://github.com/bob-gray/meta-json">meta-json</a> and
+<a href="https://github.com/bob-gray/api-meta">api-meta</a>, projects advocating the use
+of meta data declared as JSON. This meta data can then drive runtime behavior and be
+parsed statically for documentation generation. Solv includes a <code>meta</code> runtime
+implementation that is meta-json compliant and many of the methods contained
+in Solv accept options object comforming to api-meta. Building application with Solv and
+declaring options with <code>meta</code> means documenations is tied directly to
+implementation. meta-json and api-meta are still works in progress as is Solv.
+Stay tuned.</p>			</div>
 			<div class="col-md-3"><h4 class="api-modules">modules</h4>
 
 <ul class="nav api-module-links">
@@ -104,6 +179,11 @@
 				<ul class="nav api-module-links">
 		<li class="">
 			<a href="./modules/array/add.html">add</a>
+			
+		</li>
+	
+		<li class="">
+			<a href="./modules/array/contains.html">contains</a>
 			
 		</li>
 	
@@ -166,6 +246,18 @@
 	
 		<li class="">
 			<a href="./modules/class/super.html">super</a>
+			
+		</li>
+	</ul>
+			
+		</li>
+	
+		<li class="">
+			<a >date</a>
+			
+				<ul class="nav api-module-links">
+		<li class="">
+			<a href="./modules/date/format.html">format</a>
 			
 		</li>
 	</ul>
@@ -251,6 +343,11 @@
 		</li>
 	
 		<li class="">
+			<a href="./modules/function/curry.html">curry</a>
+			
+		</li>
+	
+		<li class="">
 			<a href="./modules/function/default-args.html">default-args</a>
 			
 		</li>
@@ -262,11 +359,6 @@
 	
 		<li class="">
 			<a href="./modules/function/overload.html">overload</a>
-			
-		</li>
-	
-		<li class="">
-			<a href="./modules/function/signatures.html">signatures</a>
 			
 		</li>
 	
@@ -287,6 +379,16 @@
 			<a >object</a>
 			
 				<ul class="nav api-module-links">
+		<li class="">
+			<a href="./modules/object/clone.html">clone</a>
+			
+		</li>
+	
+		<li class="">
+			<a href="./modules/object/copy.html">copy</a>
+			
+		</li>
+	
 		<li class="">
 			<a href="./modules/object/for-each.html">for-each</a>
 			

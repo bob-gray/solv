@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>solv/function/signatures API Documentation</title>
+		<title>solv/object/copy API Documentation</title>
 
 		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
 		<link href="../../css/api-meta.css" rel="stylesheet" />
@@ -25,12 +25,12 @@
 		<nav class="navbar navbar-fixed-top navbar-default api-project" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+					<!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
-					</button>
+					</button>-->
 					<a class="navbar-brand" href="../../index.html">solv</a>
 					<p class="navbar-text">API Documentation</p>
 				</div>
@@ -52,7 +52,7 @@
 		<!--<header class="api-project">
 			<div class="container">
 				
-					<small class="pull-right api-version">version 0.0.2</small>
+					<small class="pull-right api-version">version 0.2.3</small>
 				
 
 				<h2>solv <small>API Documentation</small></h2>
@@ -61,16 +61,16 @@
 
 		<div class="container">	
 			<div class="row">
-				<div class="col-md-9"><h1 class="api-module">function/signatures <small class="api-type">module</small></h1>
+				<div class="col-md-9"><h1 class="api-module">object/copy <small class="api-type">module</small></h1>
 
-<p class="api-description">Function invocation signatures, implementation signatures and return signatures</p>
+<p class="api-description"></p>
 
 
 	<h3 class="api-section api-requires">requires</h3>
 	<ul class="list-inline api-requires">
 		
 			<li>
-				<a href="../../modules/array/from.html" class="">array/from</a>
+				<a href="../../modules/class/shim.html" class="">class/shim</a>
 			</li>
 		
 			<li>
@@ -78,11 +78,7 @@
 			</li>
 		
 			<li>
-				<a href="../../modules/shim/array.html" class="">shim/array</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/type.html" class="">type</a>
+				<a href="../../modules/object/merge.html" class="">object/merge</a>
 			</li>
 		
 	</ul>
@@ -90,163 +86,63 @@
 
 <ul class="list-unstyled api-module-contents">
 	
+		<li>
+			<a class="api-anchor" id="class:Object"></a>
+			<code id="Object-class" class="api-code api-class"><strong>Object(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
+			<p class="api-description">
+				
+			</p>
+			<p>
+				
+				
+				
+					<span class="label label-default">global</span>
+				
+			</p>
+
+			
+
+			
+
+			
+				<h3 class="api-section api-method">static methods</h3>
+
+				<ul class="list-unstyled api-items">
+					
+						<li>
+							<a class="api-anchor" id="method:copy"></a>
+							<code class="api-code api-method">
+								<strong>Object.copy(</strong><strong class="api-arg">source</strong><small class="api-arg-type">:object</small><strong>)</strong>
+								
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">object</small>
+								
+							</code>
+							<p class="api-description">
+								Creates a shallow copy of own properties that are not null or undefined
+								
+							</p>
+							<p>
+								
+								
+								
+									<span class="label label-success">shim</span>
+								
+							</p>
+							
+						</li>
+					
+				</ul>
+			
+
+			
+
+			
+		</li>
+	
 
 	
-		<li>
-			<h3 class="api-section api-function">functions</h3>
-			
-			<ul class="list-unstyled">
-				
-					<li>
-						<a class="api-anchor" id="function:compileImplementationSignature"></a>
-						<code class="api-code api-function">
-							<strong>compileImplementationSignature(</strong><strong class="api-arg">signature</strong><small class="api-arg-type">:string</small><strong>)</strong>
-							
-								<small class="api-arg-type">returns</small>
-								<strong></strong><small class="api-arg-type">regexp</small>
-							
-						</code>
-						<p class="api-description">
-							Transform a function signature into regular expression capable of testing invocation signatures for a match
-							
-						</p>
-						<p>
-							
-							
-							
-						</p>
-						
-							<div class="panel panel-default">
-								<dl class="panel-body">
-									
-										
-											<dt>
-												<code class="api-term"><span class="api-method">signature</span>
-													
-												</code>
-											</dt>
-											<dd class="api-description">A comma delimited list of argument types and optional meta characters</dd>
-										
-									
-								</dl>
-							</div>
-						
-					</li>
-				
-					<li>
-						<a class="api-anchor" id="function:compileReturnSignature"></a>
-						<code class="api-code api-function">
-							<strong>compileReturnSignature(</strong><strong class="api-arg">signature</strong><small class="api-arg-type">:string</small><strong>)</strong>
-							
-								<small class="api-arg-type">returns</small>
-								<strong></strong><small class="api-arg-type">regexp</small>
-							
-						</code>
-						<p class="api-description">
-							Transform a function return signature into regular expression capable of testing a function&#x27;s return value type.
-							
-						</p>
-						<p>
-							
-							
-							
-						</p>
-						
-							<div class="panel panel-default">
-								<dl class="panel-body">
-									
-										
-											<dt>
-												<code class="api-term"><span class="api-method">signature</span>
-													
-												</code>
-											</dt>
-											<dd class="api-description">A pipe delimited list of possible return types. Can be prefixed with ! to negate types</dd>
-										
-									
-								</dl>
-							</div>
-						
-					</li>
-				
-					<li>
-						<a class="api-anchor" id="function:getInvocationSignature"></a>
-						<code class="api-code api-function">
-							<strong>getInvocationSignature(</strong><strong class="api-arg">args</strong><small class="api-arg-type">:arguments|array</small><strong>)</strong>
-							
-								<small class="api-arg-type">returns</small>
-								<strong></strong><small class="api-arg-type">string</small>
-							
-						</code>
-						<p class="api-description">
-							Gets a list of the types of arguments used to invoke a function
-							
-								Returns Comma delimited list of types
-							
-						</p>
-						<p>
-							
-							
-							
-						</p>
-						
-							<div class="panel panel-default">
-								<dl class="panel-body">
-									
-										
-											<dt>
-												<code class="api-term"><span class="api-method">args</span>
-													
-												</code>
-											</dt>
-											<dd class="api-description">An arguments object from within a function</dd>
-										
-									
-								</dl>
-							</div>
-						
-					</li>
-				
-					<li>
-						<a class="api-anchor" id="function:getSignatureFromMeta"></a>
-						<code class="api-code api-function">
-							<strong>getSignatureFromMeta(</strong><strong class="api-arg">argumentsMeta</strong><small class="api-arg-type">:array</small><strong>)</strong>
-							
-								<small class="api-arg-type">returns</small>
-								<strong></strong><small class="api-arg-type">string</small>
-							
-						</code>
-						<p class="api-description">
-							Translates an array of argument meta data into a signature string
-							
-								Returns A function implementation signature
-							
-						</p>
-						<p>
-							
-							
-							
-						</p>
-						
-							<div class="panel panel-default">
-								<dl class="panel-body">
-									
-										
-											<dt>
-												<code class="api-term"><span class="api-method">argumentsMeta</span>
-													
-												</code>
-											</dt>
-											<dd class="api-description">Describe the arguments accepted by a function</dd>
-										
-									
-								</dl>
-							</div>
-						
-					</li>
-				
-			</ul>
-		</li>
+
 	
 </ul>			</div>
 			<div class="col-md-3"><h4 class="api-modules">modules</h4>
@@ -281,6 +177,11 @@
 				<ul class="nav api-module-links">
 		<li class="">
 			<a href="../../modules/array/add.html">add</a>
+			
+		</li>
+	
+		<li class="">
+			<a href="../../modules/array/contains.html">contains</a>
 			
 		</li>
 	
@@ -343,6 +244,18 @@
 	
 		<li class="">
 			<a href="../../modules/class/super.html">super</a>
+			
+		</li>
+	</ul>
+			
+		</li>
+	
+		<li class="">
+			<a >date</a>
+			
+				<ul class="nav api-module-links">
+		<li class="">
+			<a href="../../modules/date/format.html">format</a>
 			
 		</li>
 	</ul>
@@ -413,7 +326,7 @@
 			
 		</li>
 	
-		<li class="active">
+		<li class="">
 			<a >function</a>
 			
 				<ul class="nav api-module-links">
@@ -424,6 +337,11 @@
 	
 		<li class="">
 			<a href="../../modules/function/constrict.html">constrict</a>
+			
+		</li>
+	
+		<li class="">
+			<a href="../../modules/function/curry.html">curry</a>
 			
 		</li>
 	
@@ -442,11 +360,6 @@
 			
 		</li>
 	
-		<li class="current active">
-			<a href="../../modules/function/signatures.html">signatures</a>
-			
-		</li>
-	
 		<li class="">
 			<a href="../../modules/function/validate-return-type.html">validate-return-type</a>
 			
@@ -460,10 +373,20 @@
 			
 		</li>
 	
-		<li class="">
+		<li class="active">
 			<a >object</a>
 			
 				<ul class="nav api-module-links">
+		<li class="">
+			<a href="../../modules/object/clone.html">clone</a>
+			
+		</li>
+	
+		<li class="current active">
+			<a href="../../modules/object/copy.html">copy</a>
+			
+		</li>
+	
 		<li class="">
 			<a href="../../modules/object/for-each.html">for-each</a>
 			
