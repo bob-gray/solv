@@ -19,6 +19,19 @@ the browser and for [Node.js](http://nodejs.org/). It contains tools for:
   - and more... 
 
 
+Install
+-------
+
+The two easiest ways to install solv are [npm](https://npmjs.org) and
+[bower](http://bower.io). Solv can also be installed by downloading or cloning
+from github. Solv is a modular library and doesn't offer a concatenated file
+for distribution. Once Solv is installed each of it's modules can be
+pulled in when and where needed.
+
+  - Run `npm install solv` to install into a node project
+  - Run `bower install solv` to install into a browser project
+
+
 Design Goals
 ------------
 
@@ -37,7 +50,8 @@ Solv augments native prototypes to provide the best possible API. There are
 risks when altering native prototypes. Native prototypes are global and
 collision with other code or future native APIs is possible. On the other hand
 the clarity of many operations is greatly enhanced in the context of
-object-oriented programming making augmenting native prototypes very attractive. 
+object-oriented programming with member functions. This making augmenting
+native prototypes very attractive. 
 
 
 Tests
