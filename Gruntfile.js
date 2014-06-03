@@ -123,17 +123,18 @@ module.exports = function (grunt) {
 				singleRun: true
 			}
 		},
-		dependo: {
-			targetPath: "src",
-			outputPath: "docs/deps",
-			format: "amd"
+		"api-meta": {
+			docs: {
+				src: ["./src"],
+				dest: "./"
+			}
 		}
 	});
 
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-karma");
-	grunt.loadNpmTasks("grunt-dependo");
+	grunt.loadNpmTasks("grunt-api-meta");
 
 	grunt.registerTask("default", [
 		"lint",
