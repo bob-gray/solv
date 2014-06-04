@@ -1,6 +1,8 @@
 Solv
 ====
 
+[API Documentation](http://bob-gray.github.io/solv/)
+
 Object-Oriented Modular JavaScript Library
 ------------------------------------------
 
