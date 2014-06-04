@@ -23,8 +23,8 @@ define(["solv/date/format"], function () {
 		});
 
 		it("replaces all supported mask parts", function () {
-			expect(birthDate.format("d dd ddd dddd m mm mmm mmmm yy yyyy H HH h hh M MM s ss T TT t tt z zz L l r Z"))
-				.toBe("18 18 Fri Friday 4 04 Apr April 80 1980 8 08 8 08 14 14 23 23 A AM a am Central Central Daylight Time 234 234 th CDT");
+			expect(birthDate.format("d dd ddd dddd m mm mmm mmmm yy yyyy H HH h hh M MM s ss T TT t tt L l r"))
+				.toBe("18 18 Fri Friday 4 04 Apr April 80 1980 8 08 8 08 14 14 23 23 A AM a am 234 234 th");
 		});
 
 		it("doesn't replace character escaped with single quotes", function () {
@@ -44,7 +44,7 @@ define(["solv/date/format"], function () {
 			expect(birthDate.format("full_date")).toBe("Friday, April 18, 1980");
 			expect(birthDate.format("short_time")).toBe("8:14a");
 			expect(birthDate.format("medium_time")).toBe("8:14:23 AM");
-			expect(birthDate.format("long_time")).toBe("8:14:23 AM CDT");
+			expect(birthDate.format("long_time")).toBe("08:14:23.234");
 			expect(birthDate.format("iso_date")).toBe("1980-04-18");
 			expect(birthDate.format("iso_time")).toBe("08:14:23");
 			expect(birthDate.format("iso_datetime")).toBe("1980-04-18T08:14:23");

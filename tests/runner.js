@@ -15,6 +15,7 @@ require(
 		"spec/class/method-test",
 		"spec/class/singleton-test",
 		"spec/date/format-test",
+		"spec/date/move-test",
 		"spec/error/implementation-not-found-test",
 		"spec/error/invalid-return-type-test",
 		"spec/event/callbacks-test",
