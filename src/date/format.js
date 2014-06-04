@@ -13,7 +13,71 @@ define(function (require) {
 		"type": "class",
 		"global": true
 	});
-	
+
+	meta({
+		"name": "format",
+		"arguments": [{
+			"name": "mask",
+			"type": "string",
+			"description": "Can be a custom mask or a stock mask. See Date Mask."
+		}, {
+			"name": "utc",
+			"type": "boolean",
+			"required": false,
+			"default": false,
+			"description": "Whether to format the date using universal time. If false date is formatted using local time."
+		}],
+		"returns": "string"
+	});
+
+	meta({
+		"name": "Date Mask",
+		"type": "Specification",
+		"description": "A date mask is a string containing placeholders that represent parts of a date. Any characters that isn't a placeholder will remain. All characters can be escaped by them within single or double quotes.",
+		"Placeholders": {
+			"d": "Day of the month",
+			"dd": "Day of the month (padded)",
+			"ddd": "Weekday name (abbreviated)",
+			"dddd": "Weekday name",
+			"m": "Month number",
+			"mm": "Month number (padded)",
+			"mmm": "Month name (abbreviated)",
+			"mmmm": "Month name",
+			"yy": "Year (2 digits)",
+			"yyyy": "Year",
+			"h": "Hour",
+			"hh": "Hour (padded)",
+			"H": "Hour (24 hour)",
+			"HH": "Hour (padded 24 hour)",
+			"M": "Minute",
+			"MM": "Minute (padded)",
+			"s": "Second",
+			"ss": "Second (padded)",
+			"l": "Millisecond",
+			"L": "Millisecond (padded)",
+			"t": "a or p",
+			"tt": "am or pm",
+			"T": "A or P",
+			"TT": "AM or PM",
+			"z": "Time zone (first name)",
+			"zz": "Time zone",
+			"Z": "Time zone (abbreviated)",
+			"r": "Day of month ordinal indicator (st, nd, rd, th)"
+		},
+		"Stock Masks": {
+			"short_date": "m/d/yy",
+			"medium_date": "mmm d, yyyy",
+			"long_date": "mmmm d, yyyy",
+			"full_date": "dddd, mmmm d, yyyy",
+			"short_time": "h:MMt",
+			"medium_time": "h:MM:ss TT",
+			"long_time": "h:MM:ss TT Z",
+			"iso_date": "yyyy-mm-dd",
+			"iso_time": "HH:MM:ss",
+			"iso_datetime": "yyyy-mm-dd\"T\"HH:MM:ss"
+		}
+	});
+
 	var DateProto = Date.prototype,
 		noon = 12,
 		midnight = 12,
@@ -77,7 +141,7 @@ define(function (require) {
 			},
 
 			"dddd": function (date) {
-				var weekdayNumber = getters.getDay.call(date)
+				var weekdayNumber = getters.getDay.call(date);
 
 				return weekdays[weekdayNumber];
 			},
