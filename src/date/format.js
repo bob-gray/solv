@@ -90,7 +90,7 @@ define(function (require) {
 			full_date: "dddd, mmmm d, yyyy",
 			short_time: "h:MMt",
 			medium_time: "h:MM:ss TT",
-			long_time: "h:MM:ss TT Z",
+			long_time: "HH:MM:ss.L",
 			iso_date: "yyyy-mm-dd",
 			iso_time: "HH:MM:ss",
 			iso_datetime: "yyyy-mm-dd\"T\"HH:MM:ss"
@@ -117,12 +117,7 @@ define(function (require) {
 
 		},
 		getters = gettersLocal,
-		matchers = {
-			maskParts: /("|')(.*?)\1|d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTtz])\3?|[LlrZ]/g,
-			timeZone: /[^(]+(?=\))/,
-			acronym: /\b\w/g,
-			firstWord: /\w+\b/
-		},
+		maskParts = /("|')(.*?)\1|d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTtz])\3?|[LlrZ]/g,
 		replacers = {
 			"d": function (date) {
 				return getters.getDate.call(date);
@@ -266,24 +261,6 @@ define(function (require) {
 				return period.toUpperCase();
 			},
 
-			"z": function (date) {
-				var timeZone = this.zz(date),
-					shortName = timeZone.match(matchers.firstWord)[0];
-
-				return shortName;
-			},
-
-			"zz": function (date) {
-				return getTimeZone(date);
-			},
-
-			"Z": function (date) {
-				var timeZone = this.zz(date),
-					firstLetters = timeZone.match(matchers.acronym);
-
-				return firstLetters.join("");
-			},
-
 			"r": function (date) {
 				var dayOfMonth = getters.getDate.call(date),
 					suffixes = ["th", "st", "nd", "rd"],
@@ -321,13 +298,6 @@ define(function (require) {
 		return getters.getHours.call(date) < noon;
 	}
 
-	function getTimeZone (date){
-		var time = date.toTimeString(),
-			timeZone = time.match(matchers.timeZone)[0];
-
-		return timeZone;
-	}
-
 	function format (mask, UTC) {
 		var date = this;
 
@@ -341,7 +311,7 @@ define(function (require) {
 
 		setGetters(UTC);
 
-		return mask.replace(matchers.maskParts, function (part, quote, escaped) {
+		return mask.replace(maskParts, function (part, quote, escaped) {
 			var replacement = "";
 
 			if (quote) {
