@@ -1,6 +1,8 @@
 Solv
 ====
 
+[![Build Status](https://travis-ci.org/bob-gray/solv.svg?branch=master)](https://travis-ci.org/bob-gray/solv) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+
 [API Documentation](http://bob-gray.github.io/solv/)
 
 Object-Oriented Modular JavaScript Library
