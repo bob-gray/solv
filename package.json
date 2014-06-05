@@ -21,6 +21,9 @@
     "type": "git",
     "url": "https://github.com/bob-gray/solv.git"
   },
+  "scripts": {
+    "test": "grunt"
+  },
   "dependencies": {
     "amdefine": ">=0.1.0"
   },
