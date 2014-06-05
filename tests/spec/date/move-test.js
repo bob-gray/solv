@@ -23,7 +23,7 @@ define(["solv/date/move"], function () {
 		});
 
 		it("moves a date in place", function () {
-			birthDate.move("y", 2);
+			birthDate.move(2, "y");
 			expect(birthDate.getFullYear()).toBe(1982);
 		});
 	});
