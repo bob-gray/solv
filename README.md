@@ -1,7 +1,10 @@
 Solv
 ====
 
-[![Build Status](https://travis-ci.org/bob-gray/solv.svg?branch=master)](https://travis-ci.org/bob-gray/solv) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+[![Build Status](https://travis-ci.org/bob-gray/solv.svg?branch=master)](https://travis-ci.org/bob-gray/solv)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+[![Dependency Status](https://david-dm.org/bob-gray/solv.svg)](https://david-dm.org/bob-gray/solv)
+[![devDependency Status](https://david-dm.org/bob-gray/solv/dev-status.svg)](https://david-dm.org/bob-gray/solv#info=devDependencies)
 
 [API Documentation](http://bob-gray.github.io/solv/)
 
