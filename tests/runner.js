@@ -14,6 +14,7 @@ require(
 		"spec/class/create-test",
 		"spec/class/method-test",
 		"spec/class/singleton-test",
+		"spec/date/compare-test",
 		"spec/date/format-test",
 		"spec/date/move-test",
 		"spec/error/implementation-not-found-test",
