@@ -12,72 +12,72 @@ define(function (require) {
 		daysInWeek = 7,
 		monthsInQuarter = 3,
 		movers = {
-			"d": function (date, count) {
+			"d": function (date, amount) {
 				var day = date.getDate(),
-					newDay = day + count;
+					newDay = day + amount;
 
 				date.setDate(newDay);
 			},
 
-			"w": function (date, count) {
-				this.d(date, count * daysInWeek);
+			"w": function (date, amount) {
+				this.d(date, amount * daysInWeek);
 			},
 
-			"m": function (date, count) {
+			"m": function (date, amount) {
 				var month = date.getMonth(),
-					newMonth = month + count;
+					newMonth = month + amount;
 
 				date.setMonth(newMonth);
 			},
 
-			"q": function (date, count) {
-				this.m(date, count * monthsInQuarter);
+			"q": function (date, amount) {
+				this.m(date, amount * monthsInQuarter);
 			},
 
-			"y": function (date, count) {
+			"y": function (date, amount) {
 				var year = date.getFullYear(),
-					newYear = year + count;
+					newYear = year + amount;
 
 				date.setFullYear(newYear);
 			},
 
-			"h": function (date, count) {
+			"h": function (date, amount) {
 				var hour = date.getHours(),
-					newHour = hour + count;
+					newHour = hour + amount;
 
 				date.setHours(newHour);
 			},
 
-			"M": function (date, count) {
+			"M": function (date, amount) {
 				var minute = date.getMinutes(),
-					newMinute = minute + count;
+					newMinute = minute + amount;
 
 				date.setMinutes(newMinute);
 			},
 
-			"s": function (date, count) {
+			"s": function (date, amount) {
 				var second = date.getSeconds(),
-					newSecond = second + count;
+					newSecond = second + amount;
 
 				date.setSeconds(newSecond);
 			},
 
-			"l": function (date, count) {
-				var millisecond = date._getMilliseconds(),
-					newMillisecond = millisecond + count;
+			"l": function (date, amount) {
+				var millisecond = date.getMilliseconds(),
+					newMillisecond = millisecond + amount;
 
 				date.setMilliseconds(newMillisecond);
 			}
 		};
 
-	function move (count, part) {
+	function move (amount, part) {
 		var date = this;
 
 		if (type.is.not("date", date)) {
 			date = new Date(date);
 		}
 
-		movers[part](date, count);
+		movers[part](date, amount);
 	}
 
 	DateProto.move = move;	
