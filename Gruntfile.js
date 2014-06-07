@@ -43,7 +43,20 @@ module.exports = function (grunt) {
 			phantom: {
 				browsers: [
 					"PhantomJS"
-				]
+				],
+				preprocessors: {
+					"src/**/*js": [
+						"coverage"
+					]
+				},
+				reporters: [
+					"progress",
+					"coverage"
+				],
+				coverageReporter: {
+					type: "lcov",
+					dir: "coverage"
+				}
 			},
 			coverage: {
 				preprocessors: {
@@ -61,6 +74,14 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		coveralls: {
+			options: {
+				debug: true,
+				coverage_dir: "coverage",
+				dryRun: true,
+				recursive: true
+			}
+		},
 		"api-meta": {
 			docs: {
 				src: ["./src"],
@@ -72,11 +93,18 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-karma");
+	grunt.loadNpmTasks("grunt-karma-coveralls");
 	grunt.loadNpmTasks("grunt-api-meta");
 
 	grunt.registerTask("default", [
 		"lint",
 		"test"
+	]);
+
+	grunt.registerTask("build", [
+		"lint",
+		"test",
+		"coveralls"
 	]);
 	
 	grunt.registerTask("lint", [
