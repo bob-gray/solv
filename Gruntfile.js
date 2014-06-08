@@ -113,9 +113,9 @@ function configureTasks (grunt) {
 				browsers: [
 					"sauce_chrome",
 					//"sauce_firefox",
+					//"sauce_ie_8",
 					"sauce_safari",
-					"sauce_ie_11",
-					//"sauce_ie_8"
+					"sauce_ie_11"
 				],
 				captureTimeout: 120000
 			}
