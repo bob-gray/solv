@@ -80,8 +80,6 @@ module.exports = function (grunt) {
 				],
 				browsers: [
 					"sl_chrome",
-					"sl_firefox",
-					"sl_ios_safari",
 					"sl_ie_11"
 				],
 				captureTimeout: 120000
