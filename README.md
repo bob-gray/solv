@@ -1,6 +1,18 @@
 Solv
 ====
 
+[![Build Status](https://travis-ci.org/bob-gray/solv.svg?branch=master)](https://travis-ci.org/bob-gray/solv)
+[![Coverage Status](https://img.shields.io/coveralls/bob-gray/solv.svg)](https://coveralls.io/r/bob-gray/solv)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+
+[![NPM version](https://badge.fury.io/js/solv.svg)](http://badge.fury.io/js/solv)
+[![Dependency Status](https://david-dm.org/bob-gray/solv.svg)](https://david-dm.org/bob-gray/solv)
+[![devDependency Status](https://david-dm.org/bob-gray/solv/dev-status.svg)](https://david-dm.org/bob-gray/solv#info=devDependencies)
+
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/solv.svg)](https://saucelabs.com/u/solv)
+
+[API Documentation](http://bob-gray.github.io/solv/)
+
 Object-Oriented Modular JavaScript Library
 ------------------------------------------
 

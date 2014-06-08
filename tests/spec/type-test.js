@@ -1,25 +1,13 @@
 define(["solv/type"], function (type) {
 	"use strict";
 
-	var subjects = {
-		"array": [],
-		"boolean": true,
-		"date": new Date(),
-		"function": function () {},
-		"object": {},
-		"string": "",
-		"regexp": /re/,
-		"null": null,
-		"number": 1,
-		"undefined": undefined
-	};
-
 	describe("type.of", function () {
-		forEach(subjects, testOfFunction);
+		forEachType(testOfFunction);
 	});
 
-	forEach(subjects, testIsFunction);
-	forEach(subjects, testIsNotFunction);
+	forEachType(testIsFunction);
+
+	forEachType(testIsNotFunction);
 
 	function testOfFunction (name, value) {
 		it("gets the type of "+ name, function () {
@@ -29,13 +17,13 @@ define(["solv/type"], function (type) {
 
 	function testIsFunction (isName) {
 		describe("type.is "+ isName, function () {
-			forEach(subjects, curry(testIs, isName));
+			forEachType(curry(testIs, isName));
 		});
 	}
 
 	function testIsNotFunction (isNotName) {
 		describe("type.is.not "+ isNotName, function () {
-			forEach(subjects, curry(testIsNot, isNotName));
+			forEachType(curry(testIsNot, isNotName));
 		});
 	}
 
@@ -99,10 +87,25 @@ define(["solv/type"], function (type) {
 		return valueName + resultText + isName;
 	}
 
-	function forEach (object, callback) {
-		for (var name in subjects) {
-			if (subjects.hasOwnProperty(name)) {
-				var value = object[name];
+	function forEachType (callback) {
+		var fixtures = {
+				"array": [],
+				"boolean": true,
+				"date": new Date(),
+				"function": function () {},
+				"object": {},
+				"string": "",
+				"regexp": /re/,
+				"null": null,
+				"number": 1,
+				"undefined": undefined
+			},
+			name,
+			value;
+
+		for (name in fixtures) {
+			if (fixtures.hasOwnProperty(name)) {
+				value = fixtures[name];
 				callback(name, value);
 			}
 		}

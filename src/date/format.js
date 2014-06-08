@@ -1,3 +1,4 @@
+/* istanbul ignore if */
 if (typeof define !== "function") {
 	var define = require("amdefine")(module);
 }
@@ -13,8 +14,75 @@ define(function (require) {
 		"type": "class",
 		"global": true
 	});
-	
-	var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+
+	meta({
+		"name": "format",
+		"arguments": [{
+			"name": "mask",
+			"type": "string",
+			"description": "Can be a custom mask or a stock mask. See Date Mask."
+		}, {
+			"name": "utc",
+			"type": "boolean",
+			"required": false,
+			"default": false,
+			"description": "Whether to format the date using universal time. If false date is formatted using local time."
+		}],
+		"returns": "string"
+	});
+
+	meta({
+		"name": "Date Mask",
+		"type": "Specification",
+		"description": "A date mask is a string containing placeholders that represent parts of a date. Any characters that isn't a placeholder will remain. All characters can be escaped by them within single or double quotes.",
+		"Placeholders": {
+			"d": "Day of the month",
+			"dd": "Day of the month (padded)",
+			"ddd": "Weekday name (abbreviated)",
+			"dddd": "Weekday name",
+			"m": "Month number",
+			"mm": "Month number (padded)",
+			"mmm": "Month name (abbreviated)",
+			"mmmm": "Month name",
+			"yy": "Year (2 digits)",
+			"yyyy": "Year",
+			"h": "Hour",
+			"hh": "Hour (padded)",
+			"H": "Hour (24 hour)",
+			"HH": "Hour (padded 24 hour)",
+			"M": "Minute",
+			"MM": "Minute (padded)",
+			"s": "Second",
+			"ss": "Second (padded)",
+			"l": "Millisecond",
+			"L": "Millisecond (padded)",
+			"t": "a or p",
+			"tt": "am or pm",
+			"T": "A or P",
+			"TT": "AM or PM",
+			"z": "Time zone (first name)",
+			"zz": "Time zone",
+			"Z": "Time zone (abbreviated)",
+			"r": "Day of month ordinal indicator (st, nd, rd, th)"
+		},
+		"Stock Masks": {
+			"short_date": "m/d/yy",
+			"medium_date": "mmm d, yyyy",
+			"long_date": "mmmm d, yyyy",
+			"full_date": "dddd, mmmm d, yyyy",
+			"short_time": "h:MMt",
+			"medium_time": "h:MM:ss TT",
+			"long_time": "h:MM:ss TT Z",
+			"iso_date": "yyyy-mm-dd",
+			"iso_time": "HH:MM:ss",
+			"iso_datetime": "yyyy-mm-dd\"T\"HH:MM:ss"
+		}
+	});
+
+	var DateProto = Date.prototype,
+		noon = 12,
+		midnight = 12,
+		weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
 		months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 		stockMasks = {
 			short_date: "m/d/yy",
@@ -23,12 +91,11 @@ define(function (require) {
 			full_date: "dddd, mmmm d, yyyy",
 			short_time: "h:MMt",
 			medium_time: "h:MM:ss TT",
-			long_time: "h:MM:ss TT Z",
+			long_time: "HH:MM:ss.L",
 			iso_date: "yyyy-mm-dd",
 			iso_time: "HH:MM:ss",
 			iso_datetime: "yyyy-mm-dd\"T\"HH:MM:ss"
 		},
-		DateProto = Date.prototype,
 		gettersLocal = {
 			getDate: DateProto.getDate,
 			getDay: DateProto.getDay,
@@ -51,122 +118,152 @@ define(function (require) {
 
 		},
 		getters = gettersLocal,
-		matchers = {
-			maskParts: /("|')(.*?)\1|d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTtz])\3?|[LlrZ]/g,
-			timeZone: /[^(]+(?=\))/,
-			acronym: /\b\w/g
-		},
+		maskParts = /("|')(.*?)\1|d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTtz])\3?|[LlrZ]/g,
 		replacers = {
-			"d": function () {
-				return getters.getDate.call(this);
+			"d": function (date) {
+				return getters.getDate.call(date);
 			},
 
-			"dd": function () {
-				return pad(getters.getDate.call(this));
+			"dd": function (date) {
+				var day = this.d(date);
+
+				return padZeros(2, day);
 			},
 
-			"ddd": function () {
-				return weekdays[getters.getDay.call(this)].slice(0, 3);
+			"ddd": function (date) {
+				var weekday = this.dddd(date);
+
+				return weekday.slice(0, 3);
 			},
 
-			"dddd": function () {
-				return weekdays[getters.getDay.call(this)];
+			"dddd": function (date) {
+				var weekdayNumber = getters.getDay.call(date);
+
+				return weekdays[weekdayNumber];
 			},
 
-			"m": function () {
-				return getters.getMonth.call(this) + 1;
+			"m": function (date) {
+				return getters.getMonth.call(date) + 1;
 			},
 
-			"mm": function () {
-				return pad(getters.getMonth.call(this) + 1);
+			"mm": function (date) {
+				var month = this.m(date);
+
+				return padZeros(2, month);
 			},
 
-			"mmm": function () {
-				return months[getters.getMonth.call(this)].slice(0, 3);
+			"mmm": function (date) {
+				var monthName = this.mmmm(date);
+
+				return monthName.slice(0, 3);
 			},
 
-			"mmmm": function () {
-				return months[getters.getMonth.call(this)];
+			"mmmm": function (date) {
+				var monthNumber = getters.getMonth.call(date),
+					monthName = months[monthNumber];
+
+				return monthName;
 			},
 
-			"yy": function () {
-				return getters.getFullYear.call(this).toString().slice(2);
+			"yy": function (date) {
+				var year = this.yyyy(date).toString();
+
+				return year.slice(2);
 			},
 
-			"yyyy": function () {
-				return getters.getFullYear.call(this);
+			"yyyy": function (date) {
+				return getters.getFullYear.call(date);
 			},
 
-			"h": function () {
-				return getters.getHours.call(this) % 12 || 12;
+			"h": function (date) {
+				var hour = this.H(date);
+
+				if (hour % midnight === 0) {
+					hour = midnight;
+				}
+
+				return hour;
 			},
 
-			"hh": function () {
-				return pad(getters.getHours.call(this) % 12 || 12);
+			"hh": function (date) {
+				var hour = this.h(date);
+
+				return padZeros(2, hour);
 			},
 
-			"H": function () {
-				return getters.getHours.call(this);
+			"H": function (date) {
+				return getters.getHours.call(date);
 			},
 
-			"HH": function () {
-				return pad(getters.getHours.call(this));
+			"HH": function (date) {
+				var hour = this.H(date);
+
+				return padZeros(2, hour);
 			},
 
-			"M": function () {
-				return getters.getMinutes.call(this);
+			"M": function (date) {
+				return getters.getMinutes.call(date);
 			},
 
-			"MM": function () {
-				return pad(getters.getMinutes.call(this));
+			"MM": function (date) {
+				var minute = this.M(date);
+
+				return padZeros(2, minute);
 			},
 
-			"s": function () {
-				return getters.getSeconds.call(this);
+			"s": function (date) {
+				return getters.getSeconds.call(date);
 			},
 
-			"ss": function () {
-				return pad(getters.getSeconds.call(this));
+			"ss": function (date) {
+				var second = this.s(date);
+
+				return padZeros(2, second);
 			},
 
-			"l": function () {
-				return getters.getMilliseconds.call(this);
+			"l": function (date) {
+				return getters.getMilliseconds.call(date);
 			},
 
-			"L": function () {
-				return pad(getters.getMilliseconds.call(this), 3);
+			"L": function (date) {
+				var millisecond = this.l(date);
+
+				return padZeros(3, millisecond);
 			},
 
-			"t": function () {
-				return isAM(this) ? "a" : "p";
+			"t": function (date) {
+				var period;
+
+				if (isAM(date)) {
+					period = "a";
+
+				} else {
+					period = "p";
+				}
+
+				return period;
 			},
 
-			"tt": function () {
-				return isAM(this) ? "am" : "pm";
+			"tt": function (date) {
+				var period = this.t(date) + "m";
+
+				return period;
 			},
 
-			"T": function () {
-				return isAM(this) ? "A" : "P";
+			"T": function (date) {
+				var period = this.t(date);
+
+				return period.toUpperCase();
 			},
 
-			"TT": function () {
-				return isAM(this) ? "AM" : "PM";
+			"TT": function (date) {
+				var period = this.tt(date);
+
+				return period.toUpperCase();
 			},
 
-			"z": function () {
-				return getTimeZone(this).split(" ")[0];
-			},
-
-			"zz": function () {
-				return getTimeZone(this);
-			},
-
-			"Z": function () {
-				return getTimeZone(this).match(matchers.acronym).join("");
-			},
-
-			"r": function () {
-				var dayOfMonth = getters.getDate.call(this),
+			"r": function (date) {
+				var dayOfMonth = getters.getDate.call(date),
 					suffixes = ["th", "st", "nd", "rd"],
 					index = dayOfMonth % 10;
 
@@ -188,10 +285,10 @@ define(function (require) {
 		}
 	}
 
-	function pad (number, count) {
+	function padZeros (places, number) {
 		var string = number.toString();
 
-		while (string.length < count) {
+		while (string.length < places) {
 			string = "0"+ string;
 		}
 
@@ -199,11 +296,7 @@ define(function (require) {
 	}
 
 	function isAM (date) {
-		return getters.getHours.call(date) < 12;
-	}
-
-	function getTimeZone (date){
-		return date.toTimeString().match(matchers.timeZone)[0];
+		return getters.getHours.call(date) < noon;
 	}
 
 	function format (mask, UTC) {
@@ -219,14 +312,14 @@ define(function (require) {
 
 		setGetters(UTC);
 
-		return mask.replace(matchers.maskParts, function (part, quote, escaped) {
+		return mask.replace(maskParts, function (part, quote, escaped) {
 			var replacement = "";
 
 			if (quote) {
 				replacement = escaped || quote;
 
 			} else {
-				replacement = replacers[part].call(date);
+				replacement = replacers[part](date);
 			}
 
 			return replacement;

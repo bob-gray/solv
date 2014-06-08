@@ -1,19 +1,22 @@
 {
   "name": "solv",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "homepage": "http://bob-gray.github.io/solv/",
-  "author": "Bob Gray <gray.bob98@gmail.com>",
+  "author": {
+    "name": "Bob Gray",
+    "email": "gray.bob98@gmail.com"
+  },
   "license": "MIT",
   "description": "JavaScript library for building object-oriented APIs",
   "keywords": [
-  	"object-oriented",
+    "object-oriented",
     "inheritance",
-  	"mixin",
-  	"method",
-  	"event-driven",
-  	"method overloading",
-  	"meta",
-  	"API",
+    "mixin",
+    "method",
+    "event-driven",
+    "method overloading",
+    "meta",
+    "API",
     "AMD",
     "type checking"
   ],
@@ -21,20 +24,29 @@
     "type": "git",
     "url": "https://github.com/bob-gray/solv.git"
   },
+  "scripts": {
+    "test": "grunt"
+  },
   "dependencies": {
     "amdefine": ">=0.1.0"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "api-meta": "~0.0.1",
-    "karma": "~0.10.0",
-    "grunt-contrib-jshint": "~0.6.4",
-    "grunt-karma": "~0.6.2",
-    "grunt-contrib-requirejs": "~0.4.1",
-    "karma-ie-launcher": "~0.1.1",
-    "karma-safari-launcher": "~0.1.1",
-    "karma-coverage": "~0.1.0",
-    "grunt-dependo": "~0.1.0",
-    "grunt-contrib-watch": "~0.5.3"
+    "grunt": "~0.4.5",
+    "grunt-api-meta": "~0.0.1",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-karma-coveralls": "^2.5.1",
+    "grunt-karma": "~0.8.3",
+    "karma": "~0.12.16",
+    "karma-coverage": "~0.2.4",
+    "karma-jasmine": "^0.1.5",
+    "karma-requirejs": "^0.2.2",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-ie-launcher": "^0.1.5",
+    "karma-safari-launcher": "^0.1.1",
+    "karma-sauce-launcher": "^0.2.8",
+    "requirejs": "^2.1.14"
   }
 }
