@@ -2,7 +2,7 @@ define(["solv/event/engine"], function (EventEngine) {
 	"use strict";
 	
 	describe("EventEngine", function () {
-		var event,
+		var eventEngine,
 			target1,
 			target2,
 			handler1,
@@ -10,7 +10,7 @@ define(["solv/event/engine"], function (EventEngine) {
 			handler3;
 	
 		beforeEach(function () {
-			event = new EventEngine();
+			eventEngine = new EventEngine();
 			target1 = {};
 			target2 = {};
 			handler1 = jasmine.createSpy("handler1");
@@ -19,48 +19,48 @@ define(["solv/event/engine"], function (EventEngine) {
 		});
 
 		it(".addListener method adds a listener to a target", function () {
-			event.addListener(target1, "idle", handler1);
-			event.trigger(target1, "idle");
+			eventEngine.addListener(target1, "idle", handler1);
+			eventEngine.trigger(target1, "idle");
 			
 			expect(handler1).toHaveBeenCalled();
 		});
 
 		it(".addListenerOnce method adds a listener to a target "+
 				"that only executes once", function () {
-			event.addListenerOnce(target1, "idle", handler1);
+			eventEngine.addListenerOnce(target1, "idle", handler1);
 			
-			event.trigger(target1, "idle");
-			event.trigger(target1, "idle");
-			event.trigger(target1, "idle");
+			eventEngine.trigger(target1, "idle");
+			eventEngine.trigger(target1, "idle");
+			eventEngine.trigger(target1, "idle");
 			
 			expect(handler1.calls.length).toBe(1);
 		});
 
 		it(".remove method removes listeners added with .addListenerOnce", function () {
-			var listener = event.addListenerOnce(target1, "idle", handler1);
+			var listener = eventEngine.addListenerOnce(target1, "idle", handler1);
 			
-			event.removeListener(target1, listener);
+			eventEngine.removeListener(target1, listener);
 			
-			event.trigger(target1, "idle");
-			event.trigger(target1, "idle");
+			eventEngine.trigger(target1, "idle");
+			eventEngine.trigger(target1, "idle");
 			
 			expect(handler1).not.toHaveBeenCalled();
 		});
 
 		it(".removeListener method removes a listener from a target", function () {
-			var listener1 = event.addListener(target1, "idle", handler1),
-				listener2 = event.addListener(target2, "changed", handler2),
-				listener3 = event.addListener(target1, "changed", handler3);
+			var listener1 = eventEngine.addListener(target1, "idle", handler1),
+				listener2 = eventEngine.addListener(target2, "changed", handler2),
+				listener3 = eventEngine.addListener(target1, "changed", handler3);
 			
-			event.removeListener(target1, listener1);
-			event.removeListener(target1, {});
-			event.removeListener(target2, listener2);
-			event.removeListener(target2, listener2);
-			event.removeListener({}, listener2);
+			eventEngine.removeListener(target1, listener1);
+			eventEngine.removeListener(target1, {});
+			eventEngine.removeListener(target2, listener2);
+			eventEngine.removeListener(target2, listener2);
+			eventEngine.removeListener({}, listener2);
 
-			event.trigger(target1, "idle");
-			event.trigger(target1, "changed");
-			event.trigger(target2, "changed");
+			eventEngine.trigger(target1, "idle");
+			eventEngine.trigger(target1, "changed");
+			eventEngine.trigger(target2, "changed");
 			
 			expect(handler1).not.toHaveBeenCalled();
 			expect(handler2).not.toHaveBeenCalled();
@@ -69,17 +69,17 @@ define(["solv/event/engine"], function (EventEngine) {
 
 		it(".removeListeners method removes a listener from a target "+
 				"that only executes once", function () {
-			event.addListener(target1, "idle", handler1);
-			event.addListener(target1, "idle", handler2);
-			event.addListener(target1, "idle", handler3);
+			eventEngine.addListener(target1, "idle", handler1);
+			eventEngine.addListener(target1, "idle", handler2);
+			eventEngine.addListener(target1, "idle", handler3);
 			
-			event.removeListeners(target1, "idle");
-			event.removeListeners(target1, "idle");
-			event.removeListeners(target1, "foo");
-			event.removeListeners({}, "foo");
+			eventEngine.removeListeners(target1, "idle");
+			eventEngine.removeListeners(target1, "idle");
+			eventEngine.removeListeners(target1, "foo");
+			eventEngine.removeListeners({}, "foo");
 			
-			event.trigger(target1, "idle");
-			event.trigger(target1, "idle");
+			eventEngine.trigger(target1, "idle");
+			eventEngine.trigger(target1, "idle");
 			
 			expect(handler1).not.toHaveBeenCalled();
 			expect(handler2).not.toHaveBeenCalled();
@@ -88,21 +88,21 @@ define(["solv/event/engine"], function (EventEngine) {
 
 		it(".removeAllListeners method removes a listener from a target "+
 				"that only executes once", function () {
-			event.addListener(target1, "idle", handler1);
-			event.addListener(target2, "idle", handler2);
-			event.addListener(target1, "changed", handler2);
-			event.addListener(target1, "explode", handler3);
+			eventEngine.addListener(target1, "idle", handler1);
+			eventEngine.addListener(target2, "idle", handler2);
+			eventEngine.addListener(target1, "changed", handler2);
+			eventEngine.addListener(target1, "explode", handler3);
 			
-			event.removeAllListeners(target1);
-			event.removeAllListeners(target2);
-			event.removeAllListeners(target2);
-			event.removeAllListeners({});
+			eventEngine.removeAllListeners(target1);
+			eventEngine.removeAllListeners(target2);
+			eventEngine.removeAllListeners(target2);
+			eventEngine.removeAllListeners({});
 			
-			event.trigger(target1, "idle");
-			event.trigger(target2, "idle");
-			event.trigger(target1, "changed");
-			event.trigger(target1, "changed");
-			event.trigger(target1, "explode");
+			eventEngine.trigger(target1, "idle");
+			eventEngine.trigger(target2, "idle");
+			eventEngine.trigger(target1, "changed");
+			eventEngine.trigger(target1, "changed");
+			eventEngine.trigger(target1, "explode");
 			
 			expect(handler1).not.toHaveBeenCalled();
 			expect(handler2).not.toHaveBeenCalled();
@@ -111,16 +111,16 @@ define(["solv/event/engine"], function (EventEngine) {
 		
 		it(".trigger method fires handlers with a target as context "+
 				"and passing additional arguments", function () {
-			event.addListener(target1, "idle", handler1);
-			event.trigger(target1, "idle", 1, "two", false);
+			eventEngine.addListener(target1, "idle", handler1);
+			eventEngine.trigger(target1, "idle", 1, "two", false);
 			expect(handler1).toHaveBeenCalledWith(1, "two", false);
 			
 			handler2 = handler2.andCallFake(function () {
 				expect(this).toBe(target2);
 			});
 			
-			event.addListener(target2, "changed", handler2);
-			event.trigger(target2, "changed", true, [], false);
+			eventEngine.addListener(target2, "changed", handler2);
+			eventEngine.trigger(target2, "changed", true, [], false);
 			expect(handler2).toHaveBeenCalledWith(true, [], false);
 		});
 		
@@ -132,8 +132,8 @@ define(["solv/event/engine"], function (EventEngine) {
 				status = "LOADED",
 				msg = "data has been loaded";
 
-			event.addListener(target1, "load", handler1);
-			event.trigger(target1, options, status, msg);
+			eventEngine.addListener(target1, "load", handler1);
+			eventEngine.trigger(target1, options, status, msg);
 
 			expect(handler1).toHaveBeenCalledWith(status, msg);
 		});
@@ -154,8 +154,8 @@ define(["solv/event/engine"], function (EventEngine) {
 					msg: "data has been loaded"
 				};
 
-			event.addListener(target1, "load", handler1);
-			event.trigger(target1, options, params);
+			eventEngine.addListener(target1, "load", handler1);
+			eventEngine.trigger(target1, options, params);
 
 			expect(handler1).toHaveBeenCalledWith(params);
 		});
@@ -173,8 +173,8 @@ define(["solv/event/engine"], function (EventEngine) {
 					}]
 				};
 
-			event.addListener(target1, "load", handler1);
-			event.trigger(target1, options, "LOADED", "data has been loaded");
+			eventEngine.addListener(target1, "load", handler1);
+			eventEngine.trigger(target1, options, "LOADED", "data has been loaded");
 
 			expect(handler1).toHaveBeenCalledWith("LOADED", "data has been loaded");
 		});
