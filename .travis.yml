@@ -1,11 +1,16 @@
 language: node_js
 
 node_js:
-  - "0.11"
-  - "0.10"
+- '0.11'
+- '0.10'
 
 before_script:
-  - npm install -g grunt-cli
+- npm install -g grunt-cli
 
 after_script:
-  - grunt coveralls
+- grunt coveralls
+
+env:
+  global:
+  - secure: JJPl78Wi53DLeMTliI8xxsaqWu5bOUPsn1f6ZsWeB+7IKtlaB8Z3dQ6Bt1Px4zy8k+AhVehc3fEQIrS+BoQyr93FhG+rBQdKF+64NQImh8xvaw53v4gstCbBXFhtYhGs7Q0QaGZDxSbKMxmPf8daLWUXzG6i64zmEcNeL1XdiM4=
+  - secure: iZw3KVWYh1xGgM5VCwBN8FFDaHU40yWSctdPd0iOG3oZ4l+a/3pQjkr9+3E4WCklUHYgGUhpnyPmsbJrq2gQqTX5o1+vF/UYl5OprH87FQyclizhWhb13M8kJtatRaeYHOTIwnMNYSR1Auz7/kRfi3V/Udljul10yJ5S/+ktIUA=
