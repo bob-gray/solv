@@ -115,7 +115,7 @@ function configureTasks (grunt) {
 					//"sauce_firefox",
 					"sauce_safari",
 					"sauce_ie_11",
-					"sauce_ie_8"
+					//"sauce_ie_8"
 				],
 				captureTimeout: 120000
 			}
