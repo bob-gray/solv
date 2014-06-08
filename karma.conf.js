@@ -22,7 +22,7 @@ module.exports = function (config) {
 			"Firefox",
 			"Safari",
 			"IE"
-        ],
+		],
 		singleRun: true,
 		sauceLabs: {
 			testName: "Solv",
