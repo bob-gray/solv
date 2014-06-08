@@ -52,7 +52,7 @@
 		<!--<header class="api-project">
 			<div class="container">
 				
-					<small class="pull-right api-version">version 0.2.3</small>
+					<small class="pull-right api-version">version 0.3.0</small>
 				
 
 				<h2>solv <small>API Documentation</small></h2>
@@ -248,7 +248,7 @@
 						
 							<h4>Types</h4><p>string, number, boolean, array, object, date, regexp, function, undefined, null or any</p>
 						
-							<h4>Meta Characters</h4><table><tr><th>Character</th><th>Description</th></tr><tr><td>!</td><td>Creates a negating signature. !string can be read 'not string'</td></tr><tr><td>|</td><td>Or operator. number|boolean can be read 'number or boolean'</td></tr><tr><td>?</td><td>Zero or one of the preceding component. Makes a component optional</td></tr><tr><td>+</td><td>One or more of the preceding component. Makes a component repeating</td></tr><tr><td>*</td><td>Zero or more of the preceding component. Make a component optional and repeating</td></tr></table>
+							<h4>Meta Characters</h4><table><tr><td>!</td><td>Creates a negating signature. !string can be read 'not string'</td></tr><tr><td>|</td><td>Or operator. number|boolean can be read 'number or boolean'</td></tr><tr><td>?</td><td>Zero or one of the preceding component. Makes a component optional</td></tr><tr><td>+</td><td>One or more of the preceding component. Makes a component repeating</td></tr><tr><td>*</td><td>Zero or more of the preceding component. Make a component optional and repeating</td></tr></table>
 						
 							<h4>Examples</h4><table><tr><td>boolean?, string|number, function</td><td>Matches (boolean, number, function) and (boolean, string, function) and (string, function) and (number, function). It does not match (boolean, function) or (boolean, number).</td></tr><tr><td>string, object, any, !null|undefined*</td><td>Matches (string, object, object) and (string, object, number, number) and (string, object, null). It does not match (string, object, object, null).</td></tr></table>
 						

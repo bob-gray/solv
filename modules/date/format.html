@@ -52,7 +52,7 @@
 		<!--<header class="api-project">
 			<div class="container">
 				
-					<small class="pull-right api-version">version 0.2.3</small>
+					<small class="pull-right api-version">version 0.3.0</small>
 				
 
 				<h2>solv <small>API Documentation</small></h2>
@@ -103,6 +103,61 @@
 			
 
 			
+				<h3 class="api-section api-method">methods</h3>
+
+				
+
+				<ul class="list-unstyled api-items">
+					
+						<li>
+							<a class="api-anchor" id="method:format"></a>
+							<code class="api-code api-method">
+								<strong>.format(</strong><strong class="api-arg">mask</strong><small class="api-arg-type">:string</small><strong class="api-arg">, utc</strong><small class="api-arg-type">:boolean|null|undefined?</small><strong>)</strong>
+								
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">string</small>
+								
+							</code>
+							<p class="api-description">
+								
+								
+							</p>
+							<p>
+								
+								
+								
+							</p>
+							
+								<div class="panel panel-default">
+									<dl class="panel-body">
+										
+											
+												<dt>
+													<code class="api-term"><span class="api-method">mask</span>
+														
+													</code>
+												</dt>
+												<dd class="api-description">Can be a custom mask or a stock mask. See Date Mask.</dd>
+											
+										
+											
+												<dt>
+													<code class="api-term"><span class="api-method">utc</span>
+														
+															<small class="api-arg-type">defaults to </small>
+														
+													</code>
+												</dt>
+												<dd class="api-description">Whether to format the date using universal time. If false date is formatted using local time.</dd>
+											
+										
+									</dl>
+								</div>
+							
+						</li>
+					
+				</ul>
+			
 
 			
 		</li>
@@ -110,6 +165,27 @@
 
 	
 
+	
+		<li>
+			<ul class="list-unstyled">
+				
+					<li>
+						<h3 class="api-section api-function">Date Mask</h3>
+						
+							
+						
+							
+						
+							<h4>description</h4><p>A date mask is a string containing placeholders that represent parts of a date. Any characters that isn't a placeholder will remain. All characters can be escaped by them within single or double quotes.</p>
+						
+							<h4>Placeholders</h4><table><tr><td>d</td><td>Day of the month</td></tr><tr><td>dd</td><td>Day of the month (padded)</td></tr><tr><td>ddd</td><td>Weekday name (abbreviated)</td></tr><tr><td>dddd</td><td>Weekday name</td></tr><tr><td>m</td><td>Month number</td></tr><tr><td>mm</td><td>Month number (padded)</td></tr><tr><td>mmm</td><td>Month name (abbreviated)</td></tr><tr><td>mmmm</td><td>Month name</td></tr><tr><td>yy</td><td>Year (2 digits)</td></tr><tr><td>yyyy</td><td>Year</td></tr><tr><td>h</td><td>Hour</td></tr><tr><td>hh</td><td>Hour (padded)</td></tr><tr><td>H</td><td>Hour (24 hour)</td></tr><tr><td>HH</td><td>Hour (padded 24 hour)</td></tr><tr><td>M</td><td>Minute</td></tr><tr><td>MM</td><td>Minute (padded)</td></tr><tr><td>s</td><td>Second</td></tr><tr><td>ss</td><td>Second (padded)</td></tr><tr><td>l</td><td>Millisecond</td></tr><tr><td>L</td><td>Millisecond (padded)</td></tr><tr><td>t</td><td>a or p</td></tr><tr><td>tt</td><td>am or pm</td></tr><tr><td>T</td><td>A or P</td></tr><tr><td>TT</td><td>AM or PM</td></tr><tr><td>z</td><td>Time zone (first name)</td></tr><tr><td>zz</td><td>Time zone</td></tr><tr><td>Z</td><td>Time zone (abbreviated)</td></tr><tr><td>r</td><td>Day of month ordinal indicator (st, nd, rd, th)</td></tr></table>
+						
+							<h4>Stock Masks</h4><table><tr><td>short_date</td><td>m/d/yy</td></tr><tr><td>medium_date</td><td>mmm d, yyyy</td></tr><tr><td>long_date</td><td>mmmm d, yyyy</td></tr><tr><td>full_date</td><td>dddd, mmmm d, yyyy</td></tr><tr><td>short_time</td><td>h:MMt</td></tr><tr><td>medium_time</td><td>h:MM:ss TT</td></tr><tr><td>long_time</td><td>h:MM:ss TT Z</td></tr><tr><td>iso_date</td><td>yyyy-mm-dd</td></tr><tr><td>iso_time</td><td>HH:MM:ss</td></tr><tr><td>iso_datetime</td><td>yyyy-mm-dd"T"HH:MM:ss</td></tr></table>
+						
+					</li>
+				
+			</ul>
+		</li>
 	
 </ul>			</div>
 			<div class="col-md-3"><h4 class="api-modules">modules</h4>
