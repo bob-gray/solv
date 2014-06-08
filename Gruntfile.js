@@ -36,6 +36,7 @@ module.exports = function (grunt) {
 			options: {
 				configFile: "karma.conf.js"
 			},
+			local: {},
 			watch: {
 				singleRun: false,
 				background: true

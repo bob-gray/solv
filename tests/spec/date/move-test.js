@@ -29,7 +29,7 @@ define(["solv/date/move", "solv/date/compare"], function () {
 		forEachDatePart(function (part) {
 			it ("supports date part "+ part, function () {
 				var amount = plusOrMinus100(),
-					birthDate2 = new Date(birthDate);
+					birthDate2 = new Date(+birthDate);
 
 				birthDate2.move(amount, part);
 				expect(birthDate.compare(birthDate2, part)).toBe(amount);
