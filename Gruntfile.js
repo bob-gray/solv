@@ -72,6 +72,19 @@ module.exports = function (grunt) {
 					type: "html",
 					dir: "coverage"
 				}
+			},
+			sauce: {
+				reporters: [
+					"progress",
+					"saucelabs"
+				],
+				browsers: [
+					"sl_chrome",
+					"sl_firefox",
+					"sl_ios_safari",
+					"sl_ie_11"
+				],
+				captureTimeout: 120000
 			}
 		},
 		coveralls: {
@@ -97,13 +110,8 @@ module.exports = function (grunt) {
 
 	grunt.registerTask("default", [
 		"lint",
-		"test"
-	]);
-
-	grunt.registerTask("build", [
-		"lint",
 		"test",
-		"coveralls"
+		"karma:sauce"
 	]);
 	
 	grunt.registerTask("lint", [
