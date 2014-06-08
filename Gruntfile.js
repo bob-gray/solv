@@ -1,6 +1,37 @@
 "use strict";
 
 module.exports = function (grunt) {
+	registerTasks(grunt);
+	configureTasks(grunt);
+	loadTasks(grunt);
+};
+
+function registerTasks (grunt) {
+	grunt.registerTask("default", [
+		"lint",
+		"test",
+		"karma:sauce"
+	]);
+	
+	grunt.registerTask("lint", [
+		"jshint"
+	]);
+	
+	grunt.registerTask("test", [
+		"karma:phantom"
+	]);
+	
+	grunt.registerTask("coverage", [
+		"karma:coverage"
+	]);
+	
+	grunt.registerTask("start-watch", [
+		"karma:watch:start",
+		"watch"
+	]);
+}
+
+function configureTasks (grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
 		watch: {
@@ -100,33 +131,18 @@ module.exports = function (grunt) {
 			}
 		}
 	});
+}
 
-	grunt.loadNpmTasks("grunt-contrib-watch");
-	grunt.loadNpmTasks("grunt-contrib-jshint");
-	grunt.loadNpmTasks("grunt-karma");
-	grunt.loadNpmTasks("grunt-karma-coveralls");
-	grunt.loadNpmTasks("grunt-api-meta");
+function loadTasks (grunt) {
+	var devDepends = grunt.config("pkg.devDependencies");
 
-	grunt.registerTask("default", [
-		"lint",
-		"test",
-		"karma:sauce"
-	]);
-	
-	grunt.registerTask("lint", [
-		"jshint"
-	]);
-	
-	grunt.registerTask("test", [
-		"karma:phantom"
-	]);
-	
-	grunt.registerTask("coverage", [
-		"karma:coverage"
-	]);
-	
-	grunt.registerTask("start-watch", [
-		"karma:watch:start",
-		"watch"
-	]);
-};
+	Object.keys(devDepends).forEach(function loadIfGruntPlugin (name) {
+		if (hasGruntPrefix(name)) {
+			grunt.loadNpmTasks(name);
+		}
+	});
+}
+
+function hasGruntPrefix (name) {
+	return name.indexOf("grunt-") === 0;
+}
