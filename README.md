@@ -9,6 +9,8 @@ Solv
 [![Dependency Status](https://david-dm.org/bob-gray/solv.svg)](https://david-dm.org/bob-gray/solv)
 [![devDependency Status](https://david-dm.org/bob-gray/solv/dev-status.svg)](https://david-dm.org/bob-gray/solv#info=devDependencies)
 
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/solv.svg)](https://saucelabs.com/u/solv)
+
 [API Documentation](http://bob-gray.github.io/solv/)
 
 Object-Oriented Modular JavaScript Library
