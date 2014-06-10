@@ -15,7 +15,7 @@ module.exports = function (config) {
 			pattern: "tests/sauce-jasmine.js",
 			included: true
 		}, {
-			pattern: "tests/karma-runner.js",
+			pattern: "tests/runners/karma.js",
 			included: true
 		}],
 		frameworks: [
