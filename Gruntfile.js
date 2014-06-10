@@ -82,7 +82,7 @@ function configureTasks (grunt) {
 					]
 				},
 				reporters: [
-					"progress",
+					"dots",
 					"coverage"
 				],
 				coverageReporter: {
@@ -107,15 +107,15 @@ function configureTasks (grunt) {
 			},
 			sauce: {
 				reporters: [
-					"progress",
+					"dots",
 					"saucelabs"
 				],
 				browsers: [
 					"sauce_chrome",
 					//"sauce_firefox",
 					//"sauce_ie_8",
-					"sauce_safari",
-					"sauce_ie_11"
+					//"sauce_safari",
+					//"sauce_ie_11"
 				],
 				captureTimeout: 120000
 			}
