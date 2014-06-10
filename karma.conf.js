@@ -9,6 +9,12 @@ module.exports = function (config) {
 			pattern: "tests/spec/**/*-test.js",
 			included: false
 		}, {
+			pattern: "tests/jasmine-jsreporter.js",
+			included: true
+		}, {
+			pattern: "tests/sauce-jasmine.js",
+			included: true
+		}, {
 			pattern: "tests/karma-runner.js",
 			included: true
 		}],
@@ -32,7 +38,8 @@ module.exports = function (config) {
 			sauce_chrome: {
 				base: "SauceLabs",
 				browserName: "chrome",
-				platform: "Windows 7"
+				platform: "Windows 7",
+				framework: "jasmine"
 			},
 			sauce_firefox: {
 				base: "SauceLabs",
