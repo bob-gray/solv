@@ -9,8 +9,43 @@ define(function (require) {
 	var meta = require("../meta"),
 		type = require("../type");
 
-	var DateProto = Date.prototype,
-		daysInWeek = 7,
+	meta({
+		"name": "Date",
+		"type": "class",
+		"global": true
+	});
+
+	meta({
+		"name": "move",
+		"description": "Alters a date, moving it by amount",
+		"arguments": [{
+			"name": "amount",
+			"type": "number",
+			"description": "Amount to move the date by. A positive or negative integer."
+		}, {
+			"name": "part",
+			"type": "string",
+			"description": "The part of the date to move. See Date Part."
+		}]
+	});
+
+	meta({
+		"name": "Date Part",
+		"type": "Specification",
+		"d": "day",
+		"m": "month",
+		"y": "year",
+		"q": "quarter",
+		"w": "week",
+		"h": "hour",
+		"M": "minute",
+		"s": "second",
+		"l": "millisecond"
+	});
+
+	Date.prototype.move = move;
+
+	var daysInWeek = 7,
 		monthsInQuarter = 3,
 		movers = {
 			"d": function (date, amount) {
@@ -81,5 +116,5 @@ define(function (require) {
 		movers[part](date, amount);
 	}
 
-	DateProto.move = move;	
+	return move;
 });
