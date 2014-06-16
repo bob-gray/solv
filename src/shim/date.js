@@ -25,14 +25,14 @@ define(function (require) {
 		"returns": "number"
 	});
 
-	Date.shim(now);
+	Date.shimStatic(now);
 
 	var shims = {
 		now: now
 	};
 
 	function now () {
-		return +(new Date());
+		return new Date().getTime();
 	}
 
 	return shims;
