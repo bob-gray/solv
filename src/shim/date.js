@@ -25,7 +25,7 @@ define(function (require) {
 		"returns": "number"
 	});
 
-	Date.shim(now);
+	Date.shimStatic(now);
 
 	var shims = {
 		now: now

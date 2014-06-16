@@ -9,9 +9,47 @@ define(function (require) {
 	var meta = require("../meta"),
 		type = require("../type");
 
-	var DateProto = Date.prototype,
-		millisecondsInMinute = 60000,
-		secondsInMinute = 60,
+	meta({
+		"name": "Date",
+		"type": "class",
+		"global": true
+	});
+
+	meta({
+		"name": "compare",
+		"arguments": [{
+			"name": "other",
+			"type": "date",
+			"description": "Date to compare to."
+		}, {
+			"name": "part",
+			"type": "string",
+			"description": "The part of the date to compare. See Date Part."
+		}],
+		"returns": {
+			"type": "number",
+			"description": "Positive or negative integer value of the difference between the dates."
+		}
+	});
+
+	meta({
+		"name": "Date Part",
+		"type": "Specification",
+		"d": "day",
+		"m": "month",
+		"y": "year",
+		"q": "quarter",
+		"w": "week",
+		"h": "hour",
+		"M": "minute",
+		"s": "second",
+		"l": "millisecond"
+	});
+
+	Date.prototype.compare = compare;
+
+	var secondsInMinute = 60,
+		millisecondsInMinute = secondsInMinute * 1000,
 		minutesInHour = 60,
 		hoursInDay = 24,
 		millisecondsInDay = millisecondsInMinute * minutesInHour * hoursInDay,
@@ -80,5 +118,5 @@ define(function (require) {
 		return comparers[part](date1, date2, part);
 	}
 
-	DateProto.compare = compare;	
+	return compare;	
 });

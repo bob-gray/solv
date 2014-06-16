@@ -29,6 +29,11 @@ function registerTasks (grunt) {
 		"karma:watch:start",
 		"watch"
 	]);
+
+	grunt.registerTask("sauce", [
+		"connect",
+		"saucelabs-jasmine"
+	]);
 }
 
 function configureTasks (grunt) {
@@ -44,6 +49,57 @@ function configureTasks (grunt) {
 					"lint",
 					"karma:watch:run"
 				]
+			}
+		},
+		connect: {
+			server: {
+				options: {
+					base: "",
+					port: 9999
+				}
+			}
+		},
+		"saucelabs-jasmine": {
+			all: {
+				options: {
+					urls: [
+						"http://127.0.0.1:9999/tests/index.html"
+					],
+					testname: "solv",
+					tags: [
+						"master"
+					],
+					tunnelTimeout: 5,
+					build: process.env.TRAVIS_JOB_ID,
+					concurrency: 3,
+					browsers: [{
+						browserName: "firefox",
+						version: "19",
+						platform: "XP"
+					}, {
+						browserName: "chrome",
+						platform: "XP"
+					}, {
+						browserName: "chrome",
+						platform: "linux"
+					}, {
+						browserName: "internet explorer",
+						version: "11",
+						platform: "WIN8"
+					}, {
+						browserName: "internet explorer",
+						version: "10",
+						platform: "WIN7"
+					}, {
+						browserName: "internet explorer",
+						version: "9",
+						platform: "VISTA"
+					}, {
+						browserName: "internet explorer",
+						version: "8",
+						platform: "XP"
+					}]
+				}
 			}
 		},
 		jshint: {
@@ -82,7 +138,7 @@ function configureTasks (grunt) {
 					]
 				},
 				reporters: [
-					"progress",
+					"dots",
 					"coverage"
 				],
 				coverageReporter: {
@@ -107,15 +163,15 @@ function configureTasks (grunt) {
 			},
 			sauce: {
 				reporters: [
-					"progress",
+					"dots",
 					"saucelabs"
 				],
 				browsers: [
 					"sauce_chrome",
 					"sauce_firefox",
+					"sauce_ie_8",
 					"sauce_safari",
-					"sauce_ie_11",
-					"sauce_ie_8"
+					"sauce_ie_11"
 				],
 				captureTimeout: 120000
 			}

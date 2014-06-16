@@ -26,6 +26,8 @@
 		"beforeEach": false,
 		"afterEach": false,
 		"it": false,
+		"runs": false,
+		"waitsFor": false,
 		"expect": false,
 		"__karma__": false
 	}

@@ -9,7 +9,7 @@ module.exports = function (config) {
 			pattern: "tests/spec/**/*-test.js",
 			included: false
 		}, {
-			pattern: "tests/karma-runner.js",
+			pattern: "tests/runners/karma.js",
 			included: true
 		}],
 		frameworks: [
@@ -37,7 +37,7 @@ module.exports = function (config) {
 			sauce_firefox: {
 				base: "SauceLabs",
 				browserName: "firefox",
-				platform: "Linux"
+				platform: "Windows 7"
 			},
 			sauce_safari: {
 				base: "SauceLabs",
