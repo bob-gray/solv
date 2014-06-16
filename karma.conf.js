@@ -9,12 +9,6 @@ module.exports = function (config) {
 			pattern: "tests/spec/**/*-test.js",
 			included: false
 		}, {
-			pattern: "tests/lib/jasmine-jsreporter.js",
-			included: true
-		}, {
-			pattern: "tests/lib/sauce-jasmine.js",
-			included: true
-		}, {
 			pattern: "tests/runners/karma.js",
 			included: true
 		}],
