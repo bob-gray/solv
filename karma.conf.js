@@ -32,13 +32,12 @@ module.exports = function (config) {
 			sauce_chrome: {
 				base: "SauceLabs",
 				browserName: "chrome",
-				platform: "Windows 7",
-				framework: "jasmine"
+				platform: "Windows 7"
 			},
 			sauce_firefox: {
 				base: "SauceLabs",
 				browserName: "firefox",
-				platform: "Linux"
+				platform: "Windows Vista"
 			},
 			sauce_safari: {
 				base: "SauceLabs",
