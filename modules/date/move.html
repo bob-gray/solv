@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>solv/event/engine API Documentation</title>
+		<title>solv/date/move API Documentation</title>
 
 		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
 		<link href="../../css/api-meta.css" rel="stylesheet" />
@@ -61,7 +61,7 @@
 
 		<div class="container">	
 			<div class="row">
-				<div class="col-md-9"><h1 class="api-module">event/engine <small class="api-type">module</small></h1>
+				<div class="col-md-9"><h1 class="api-module">date/move <small class="api-type">module</small></h1>
 
 <p class="api-description"></p>
 
@@ -70,47 +70,11 @@
 	<ul class="list-inline api-requires">
 		
 			<li>
-				<a href="../../modules/abstract/base.html" class="">abstract/base</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/class.html" class="">class</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/error/invalid-event-params.html" class="">error/invalid-event-params</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/event/callbacks.html" class="">event/callbacks</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/event/listeners.html" class="">event/listeners</a>
-			</li>
-		
-			<li>
-				<a  class="private">function/signatures</a>
-			</li>
-		
-			<li>
 				<a href="../../modules/meta.html" class="">meta</a>
 			</li>
 		
 			<li>
-				<a href="../../modules/object/is-empty.html" class="">object/is-empty</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/shim/date.html" class="">shim/date</a>
-			</li>
-		
-			<li>
 				<a href="../../modules/type.html" class="">type</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/util/id.html" class="">util/id</a>
 			</li>
 		
 	</ul>
@@ -119,32 +83,19 @@
 <ul class="list-unstyled api-module-contents">
 	
 		<li>
-			<a class="api-anchor" id="class:EventEngine"></a>
-			<code id="EventEngine-class" class="api-code api-class"><strong>EventEngine(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
+			<a class="api-anchor" id="class:Date"></a>
+			<code id="Date-class" class="api-code api-class"><strong>Date(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
 			<p class="api-description">
-				Custom event system
+				
 			</p>
 			<p>
 				
 				
 				
+					<span class="label label-default">global</span>
+				
 			</p>
 
-			
-				<div class="panel panel-default">
-					<dl class="panel-body">
-						
-							<dt><code class="api-term"><span class="api-class">extends</span></code></dt>
-							<dd class="api-description">
-								
-									../abstract/base
-								
-							</dd>
-						
-						
-						
-					</dl>
-				</div>
 			
 
 			
@@ -159,130 +110,13 @@
 				<ul class="list-unstyled api-items">
 					
 						<li>
-							<a class="api-anchor" id="method:addListener"></a>
+							<a class="api-anchor" id="method:move"></a>
 							<code class="api-code api-method">
-								<strong>.addListener(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong class="api-arg">, eventName</strong><small class="api-arg-type">:string</small><strong class="api-arg">, handler</strong><small class="api-arg-type">:function</small><strong>)</strong>
-								
-									<small class="api-arg-type">returns</small>
-									<strong></strong><small class="api-arg-type">object</small>
+								<strong>.move(</strong><strong class="api-arg">amount</strong><small class="api-arg-type">:number</small><strong class="api-arg">, part</strong><small class="api-arg-type">:string</small><strong>)</strong>
 								
 							</code>
 							<p class="api-description">
-								Adds a listener to an object
-								
-									Returns Event listener key; can be used to remove listener
-								
-							</p>
-							<p>
-								
-								
-								
-							</p>
-							
-						</li>
-					
-						<li>
-							<a class="api-anchor" id="method:addListenerOnce"></a>
-							<code class="api-code api-method">
-								<strong>.addListenerOnce(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong class="api-arg">, eventName</strong><small class="api-arg-type">:string</small><strong class="api-arg">, handler</strong><small class="api-arg-type">:function</small><strong>)</strong>
-								
-									<small class="api-arg-type">returns</small>
-									<strong></strong><small class="api-arg-type">object</small>
-								
-							</code>
-							<p class="api-description">
-								Adds a listener to an object which will be removed after the first trigger
-								
-									Returns Event listener key; can be used to remove listener
-								
-							</p>
-							<p>
-								
-								
-								
-							</p>
-							
-						</li>
-					
-						<li>
-							<a class="api-anchor" id="method:removeAllListeners"></a>
-							<code class="api-code api-method">
-								<strong>.removeAllListeners(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong>)</strong>
-								
-							</code>
-							<p class="api-description">
-								Removes all listeners from an object
-								
-							</p>
-							<p>
-								
-								
-								
-							</p>
-							
-						</li>
-					
-						<li>
-							<a class="api-anchor" id="method:removeListener"></a>
-							<code class="api-code api-method">
-								<strong>.removeListener(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong class="api-arg">, listenerKey</strong><small class="api-arg-type">:object</small><strong>)</strong>
-								
-							</code>
-							<p class="api-description">
-								Removes a listener from an object
-								
-							</p>
-							<p>
-								
-								
-								
-							</p>
-							
-								<div class="panel panel-default">
-									<dl class="panel-body">
-										
-											
-										
-											
-												<dt>
-													<code class="api-term"><span class="api-method">listenerKey</span>
-														
-													</code>
-												</dt>
-												<dd class="api-description">Returned from addListener or addListenerOnce</dd>
-											
-										
-									</dl>
-								</div>
-							
-						</li>
-					
-						<li>
-							<a class="api-anchor" id="method:removeListeners"></a>
-							<code class="api-code api-method">
-								<strong>.removeListeners(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong class="api-arg">, eventName</strong><small class="api-arg-type">:string</small><strong>)</strong>
-								
-							</code>
-							<p class="api-description">
-								Removes all listeners of an event name from an object
-								
-							</p>
-							<p>
-								
-								
-								
-							</p>
-							
-						</li>
-					
-						<li>
-							<a class="api-anchor" id="method:trigger"></a>
-							<code class="api-code api-method">
-								<strong>.trigger(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong class="api-arg">, eventName</strong><small class="api-arg-type">:string</small><strong class="api-arg">, nArgs</strong><small class="api-arg-type">:any*</small><strong>)</strong>
-								
-							</code>
-							<p class="api-description">
-								Executes all handler functions listening for the event on an object 
+								Alters a date, moving it by amount
 								
 							</p>
 							<p>
@@ -296,66 +130,20 @@
 										
 											
 												<dt>
-													<code class="api-term"><span class="api-method">target</span>
+													<code class="api-term"><span class="api-method">amount</span>
 														
 													</code>
 												</dt>
-												<dd class="api-description">thisArg within handlers</dd>
-											
-										
+												<dd class="api-description">Amount to move the date by. A positive or negative integer.</dd>
 											
 										
 											
 												<dt>
-													<code class="api-term"><span class="api-method">nArgs</span>
+													<code class="api-term"><span class="api-method">part</span>
 														
 													</code>
 												</dt>
-												<dd class="api-description">Arguments to pass to handler functions</dd>
-											
-										
-									</dl>
-								</div>
-							
-						</li>
-					
-						<li>
-							<a class="api-anchor" id="method:trigger"></a>
-							<code class="api-code api-method">
-								<strong>.trigger(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong class="api-arg">, options</strong><small class="api-arg-type">:object</small><strong class="api-arg">, nArgs</strong><small class="api-arg-type">:any*</small><strong>)</strong>
-								
-							</code>
-							<p class="api-description">
-								Executes all handler functions listening for the event on an object 
-								
-							</p>
-							<p>
-								
-								
-								
-							</p>
-							
-								<div class="panel panel-default">
-									<dl class="panel-body">
-										
-											
-												<dt>
-													<code class="api-term"><span class="api-method">target</span>
-														
-													</code>
-												</dt>
-												<dd class="api-description">thisArg within handlers</dd>
-											
-										
-											
-										
-											
-												<dt>
-													<code class="api-term"><span class="api-method">nArgs</span>
-														
-													</code>
-												</dt>
-												<dd class="api-description">Arguments to pass to handler functions</dd>
+												<dd class="api-description">The part of the date to move. See Date Part.</dd>
 											
 										
 									</dl>
@@ -372,6 +160,39 @@
 
 	
 
+	
+		<li>
+			<ul class="list-unstyled">
+				
+					<li>
+						<h3 class="api-section api-function">Date Part</h3>
+						
+							
+						
+							
+						
+							<h4>d</h4><p>day</p>
+						
+							<h4>m</h4><p>month</p>
+						
+							<h4>y</h4><p>year</p>
+						
+							<h4>q</h4><p>quarter</p>
+						
+							<h4>w</h4><p>week</p>
+						
+							<h4>h</h4><p>hour</p>
+						
+							<h4>M</h4><p>minute</p>
+						
+							<h4>s</h4><p>second</p>
+						
+							<h4>l</h4><p>millisecond</p>
+						
+					</li>
+				
+			</ul>
+		</li>
 	
 </ul>			</div>
 			<div class="col-md-3"><h4 class="api-modules">modules</h4>
@@ -479,7 +300,7 @@
 			
 		</li>
 	
-		<li class="">
+		<li class="active">
 			<a >date</a>
 			
 				<ul class="nav api-module-links">
@@ -493,7 +314,7 @@
 			
 		</li>
 	
-		<li class="">
+		<li class="current active">
 			<a href="../../modules/date/move.html">move</a>
 			
 		</li>
@@ -538,7 +359,7 @@
 			
 		</li>
 	
-		<li class="active">
+		<li class="">
 			<a href="../../modules/event.html">event</a>
 			
 				<ul class="nav api-module-links">
@@ -547,7 +368,7 @@
 			
 		</li>
 	
-		<li class="current active">
+		<li class="">
 			<a href="../../modules/event/engine.html">engine</a>
 			
 		</li>
