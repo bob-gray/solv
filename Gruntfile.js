@@ -9,7 +9,8 @@ module.exports = function (grunt) {
 function registerTasks (grunt) {
 	grunt.registerTask("default", [
 		"lint",
-		"test"
+		"test",
+		"karma:sauce"
 	]);
 	
 	grunt.registerTask("lint", [
