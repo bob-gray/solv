@@ -37,7 +37,7 @@ module.exports = function (config) {
 			sauce_firefox: {
 				base: "SauceLabs",
 				browserName: "firefox",
-				platform: "Windows Vista"
+				platform: "Windows 7"
 			},
 			sauce_safari: {
 				base: "SauceLabs",
