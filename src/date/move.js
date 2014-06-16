@@ -7,7 +7,8 @@ define(function (require) {
 	"use strict";
 
 	var meta = require("../meta"),
-		type = require("../type");
+		type = require("../type"),
+		util = require("./util");
 
 	meta({
 		"name": "Date",
@@ -45,9 +46,7 @@ define(function (require) {
 
 	Date.prototype.move = move;
 
-	var daysInWeek = 7,
-		monthsInQuarter = 3,
-		movers = {
+	var movers = {
 			"d": function (date, amount) {
 				var day = date.getDate(),
 					newDay = day + amount;
@@ -56,7 +55,7 @@ define(function (require) {
 			},
 
 			"w": function (date, amount) {
-				this.d(date, amount * daysInWeek);
+				this.d(date, amount * util.DAYS_IN_WEEK);
 			},
 
 			"m": function (date, amount) {
@@ -67,7 +66,7 @@ define(function (require) {
 			},
 
 			"q": function (date, amount) {
-				this.m(date, amount * monthsInQuarter);
+				this.m(date, amount * util.MONTHS_IN_QUARTER);
 			},
 
 			"y": function (date, amount) {

@@ -80,8 +80,8 @@ define(function (require) {
 	});
 
 	var DateProto = Date.prototype,
-		noon = 12,
-		midnight = 12,
+		NOON = 12,
+		MIDNIGHT = 12,
 		weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
 		months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 		stockMasks = {
@@ -178,8 +178,8 @@ define(function (require) {
 			"h": function (date) {
 				var hour = this.H(date);
 
-				if (hour % midnight === 0) {
-					hour = midnight;
+				if (hour % MIDNIGHT === 0) {
+					hour = MIDNIGHT;
 				}
 
 				return hour;
@@ -296,7 +296,7 @@ define(function (require) {
 	}
 
 	function isAM (date) {
-		return getters.getHours.call(date) < noon;
+		return getters.getHours.call(date) < NOON;
 	}
 
 	function format (mask, UTC) {

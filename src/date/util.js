@@ -73,6 +73,35 @@ define(function (require) {
 	return {
 		hoursFromStandard: hoursFromStandard,
 		isLeapYear: isLeapYear,
-		isDayLightSavings: isDayLightSavings
+		isDayLightSavings: isDayLightSavings,
+
+		JANUARY: 0,
+		FEBRUARY: 1,
+		MARCH: 2,
+		APRIL: 3,
+		MAY: 4,
+		JUNE: 5,
+		JULY: 6,
+		AUGUST: 7,
+		SEPTEMBER: 8,
+		OCTOBER: 9,
+		NOVEMBER: 10,
+		DECEMBER: 11,
+
+		SUNDAY: 0,
+		MONDAY: 1,
+		TUESDAY: 2,
+		WEDNESDAY: 3,
+		THURSDAY: 4,
+		FRIDAY: 5,
+		SATURDAY: 6,
+
+		MILLISECONDS_IN_SECOND: 1000,
+		SECONDS_IN_MINUTE: 60,
+		MINUTES_IN_HOUR: 60,
+		HOURS_IN_DAY: 24,
+		DAYS_IN_WEEK: 7,
+		MONTHS_IN_QUARTER: 3,
+		MONTHS_IN_YEAR: 12
 	};
 });

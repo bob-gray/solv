@@ -7,7 +7,8 @@ define(function (require) {
 	"use strict";
 
 	var meta = require("../meta"),
-		type = require("../type");
+		type = require("../type"),
+		util = require("./util");
 
 	meta({
 		"name": "Date",
@@ -48,11 +49,8 @@ define(function (require) {
 
 	Date.prototype.compare = compare;
 
-	var secondsInMinute = 60,
-		millisecondsInMinute = secondsInMinute * 1000,
-		minutesInHour = 60,
-		hoursInDay = 24,
-		millisecondsInDay = millisecondsInMinute * minutesInHour * hoursInDay,
+	var MILLISECONDS_IN_MINUTE = util.SECONDS_IN_MINUTE * util.MILLISECONDS_IN_SECOND,
+		MILLISECONDS_IN_DAY = MILLISECONDS_IN_MINUTE * util.MINUTES_IN_HOUR * util.HOURS_IN_DAY,
 		comparers = {
 			"l": function (date1, date2) {
 				return date2 - date1;
@@ -62,41 +60,41 @@ define(function (require) {
 				var minutesDiff = this.M(date1, date2),
 					secondsDiff = date2.getSeconds() - date1.getSeconds();
 
-				return minutesDiff * secondsInMinute + secondsDiff;
+				return minutesDiff * util.SECONDS_IN_MINUTE + secondsDiff;
 			},
 
 			"M": function (date1, date2) {
 				var hoursDiff = this.h(date1, date2),
 					minutesDiff = date2.getMinutes() - date1.getMinutes();
 
-				return hoursDiff * minutesInHour + minutesDiff;
+				return hoursDiff * util.MINUTES_IN_HOUR + minutesDiff;
 			},
 
 			"h": function (date1, date2) {
 				var daysDiff = this.d(date1, date2),
 					hoursDiff = date2.getHours() - date1.getHours();
 
-				return daysDiff * hoursInDay + hoursDiff;
+				return daysDiff * util.HOURS_IN_DAY + hoursDiff;
 			},
 
 			"d": function (date1, date2) {
-				var offset = (date2.getTimezoneOffset() - date1.getTimezoneOffset()) * millisecondsInMinute,
+				var offset = (date2.getTimezoneOffset() - date1.getTimezoneOffset()) * MILLISECONDS_IN_MINUTE,
 					day1 = new Date(date1).setHours(0, 0, 0, 0),
 					day2 = new Date(date2).setHours(0, 0, 0, 0);
 
-				return Math.floor((day2 - day1 + offset) / millisecondsInDay);
+				return Math.floor((day2 - day1 + offset) / MILLISECONDS_IN_DAY);
 			},
 
 			"w": function (date1, date2) {
-				return Math.floor(this.d(date1, date2) / 7);
+				return Math.floor(this.d(date1, date2) / util.DAYS_IN_WEEK);
 			},
 
 			"m": function (date1, date2) {
-				return this.y(date1, date2) * 12 + date2.getMonth() - date1.getMonth();
+				return this.y(date1, date2) * util.MONTHS_IN_YEAR + date2.getMonth() - date1.getMonth();
 			},
 
 			"q": function (date1, date2) {
-				return Math.floor(this.m(date1, date2) / 3);
+				return Math.floor(this.m(date1, date2) / util.MONTHS_IN_QUARTER);
 			},
 
 			"y": function (date1, date2) {
