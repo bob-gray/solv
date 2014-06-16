@@ -32,7 +32,7 @@ define(function (require) {
 	};
 
 	function now () {
-		return new Date().getTime();
+		return +(new Date());
 	}
 
 	return shims;
