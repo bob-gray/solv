@@ -1,6 +1,7 @@
 require.config({
 	paths: {
-		solv: "../src"
+		solv: "../../src",
+		spec: "../spec"
 	}
 });
 
@@ -42,13 +43,18 @@ require(
 		"use strict";
 
 		var jasmineEnv = jasmine.getEnv(),
-			htmlReporter = new jasmine.HtmlReporter();
+			htmlReporter = new jasmine.HtmlReporter(),
+			jsReporter = new jasmine.JSReporter();
 
 		jasmineEnv.updateInterval = 1000;
+
 		jasmineEnv.addReporter(htmlReporter);
+		jasmineEnv.addReporter(jsReporter);
+
 		jasmineEnv.specFilter = function(spec) {
 			return htmlReporter.specFilter(spec);
 		};
+
 		jasmineEnv.execute();
 	}
 );
