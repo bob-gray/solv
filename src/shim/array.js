@@ -174,20 +174,13 @@ define(function (require) {
 	};
 
 	shims.indexOf = function (element, start) {
-		var len = this.length,
+		var length = this.length,
 			found = -1,
-			i;
+			i = normalizeStart(start, length);		
 
-		if (!start) {
-			start = 0;
+		for (; i < length; i += 1) {
 
-		} else if (start < 0) {
-			start = Math.max(len + start, 0);
-		}
-
-		for (i = start; i < len; i += 1) {
-
-			if (i in this && element === this[i]) {
+			if (isFound(this, i, element)) {
 				found = i;
 				break;
 			}
@@ -196,9 +189,24 @@ define(function (require) {
 		return found;
 	};
 
-	/* jshint -W072 */ //Array extras map, filter, every, some native APIs have 4 parameters
+	function normalizeStart (start, length) {
+		if (!start) {
+			start = 0;
+
+		} else if (start < 0) {
+			start = Math.max(length + start, 0);
+		}
+
+		return start;
+	}
+
+	function isFound (array, index, element) {
+		return index in array && element === array[index];
+	}
+
 	shims.map = function (callback, context) {
 
+		/* jshint -W072 */ //native APIs have 4 parameters
 		return this.reduce(function (mapped, element, index, array) {
 			mapped[index] = callback.call(context, element, index, array);
 
@@ -208,6 +216,7 @@ define(function (require) {
 
 	shims.filter = function (callback, context) {
 
+		/* jshint -W072 */ //native APIs have 4 parameters
 		return this.reduce(function (filtered, element, index, array) {
 
 			if (callback.call(context, element, index, array)) {
@@ -220,6 +229,7 @@ define(function (require) {
 
 	shims.every = function (callback, context) {
 
+		/* jshint -W072 */ //native APIs have 4 parameters
 		return this.reduce(function (result, element, index, array) {
 
 			if (result) {
@@ -232,6 +242,7 @@ define(function (require) {
 
 	shims.some = function (callback, context) {
 
+		/* jshint -W072 */ //native APIs have 4 parameters
 		return this.reduce(function (result, element, index, array) {
 
 			if (!result) {
@@ -241,8 +252,6 @@ define(function (require) {
 			return result;
 		}, false);
 	};
-
-	/* jshint +W072 */
 
 	Array.shim("forEach", shims.forEach);
 	
