@@ -10,6 +10,26 @@ define(function (require) {
 	require("../shim/array");
 	require("../shim/function");
 
+	var empties = {
+		object: function () {
+			return {};
+		},
+		array: function () {
+			return [];
+		}
+	};
+
+	function getEmpty (type) {
+		var getter = empties[type],
+			empty;
+
+		if (getter) {
+			empty = getter();
+		}
+
+		return empty;
+	}
+
 	function copy (assign, target, source) {
 		var properties = ownNonNullProperties(source);
 
@@ -23,19 +43,6 @@ define(function (require) {
 	function isDefined (name) {
 		/* jshint eqnull:true */
 		return this[name] != null;
-	}
-
-	function getEmpty (type) {
-		var empty;
-
-		if ("object" === type) {
-			empty = {};
-
-		} else if ("array" === type) {
-			empty = [];
-		}
-
-		return empty;
 	}
 
 	return {

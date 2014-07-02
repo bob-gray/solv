@@ -194,10 +194,15 @@ define(function (require) {
 			start = 0;
 
 		} else if (start < 0) {
-			start = Math.max(length + start, 0);
+			start += length;
+			start = atLeastZero(start);
 		}
 
 		return start;
+	}
+
+	function atLeastZero (number) {
+		return Math.max(number, 0);
 	}
 
 	function isFound (array, index, element) {

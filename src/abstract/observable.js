@@ -83,15 +83,19 @@ define(function (require) {
 		}]
 	});
 	
-	function set (property, value) {
+	function set (property, newValue) {
 		var oldValue = this[property];
 		
-		if (value !== oldValue) {
-			this[property] = value;
-			propertyChangeEvent.name = property +"-change";
-			this.trigger(propertyChangeEvent, property, oldValue, value);
-			this.trigger(changeEvent, property, oldValue, value);
+		if (newValue !== oldValue) {
+			this[property] = newValue;
+			this.invoke(triggerChange, property, oldValue, newValue);
 		}
+	}
+
+	function triggerChange (property, oldValue, newValue) {
+		propertyChangeEvent.name = property +"-change";
+		this.trigger(propertyChangeEvent, property, oldValue, newValue);
+		this.trigger(changeEvent, property, oldValue, newValue);
 	}
 	
 	function get (property) {
