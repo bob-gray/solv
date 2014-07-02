@@ -6,6 +6,8 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
+	require("../function/overload");
+
 	var meta = require("../meta");
 
 	meta({
