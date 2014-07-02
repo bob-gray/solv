@@ -122,7 +122,7 @@ function configureTasks (grunt) {
 		complexity: {
 			options: {
 				breakOnErrors: true,
-				errorsOnly: false,
+				errorsOnly: true,
 				cyclomatic: 5,
 				halstead: 10,
 				maintainability: 80,
