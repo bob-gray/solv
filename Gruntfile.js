@@ -119,6 +119,28 @@ function configureTasks (grunt) {
 				]
 			}
 		},
+		complexity: {
+			options: {
+				breakOnErrors: true,
+				errorsOnly: false,
+				cyclomatic: 5,
+				halstead: 10,
+				maintainability: 80,
+				hideComplexFunctions: false
+			},
+			lib: {
+				src: [
+					"src/**/*.js"
+				]
+			},
+			tests: {
+				src: [
+					"tests/runner.js",
+					"tests/karma/runner.js",
+					"tests/spec/**/*.js"
+				]
+			}
+		},
 		karma: {
 			options: {
 				configFile: "karma.conf.js"
