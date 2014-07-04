@@ -119,7 +119,8 @@ function configureTasks (grunt) {
 					]
 				},
 				reporters: [
-					"dots"
+					"dots",
+					"coverage"
 				],
 				coverageReporter: {
 					type: "lcov",

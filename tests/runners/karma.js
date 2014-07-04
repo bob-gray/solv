@@ -9,7 +9,8 @@
 		baseUrl: "/base",
 		paths: {
 			"solv": "src"
-		}
+		},
+		waitSeconds: 0
 	});
 
 	require(testModules, __karma__.start);
