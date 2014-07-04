@@ -6,15 +6,11 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../class/shim");
-
-	var meta = require("../meta");
-
-	meta({
+	/*meta({
 		"name": "Array",
 		"type": "class",
 		"global": true
-	});
+	})
 
 	meta({
 		"name": "forEach",
@@ -30,7 +26,7 @@ define(function (require) {
 			"description": "Object to use as this when executing callback.",
 			"required": false
 		}]
-	});
+	})
 
 	meta({
 		"name": "indexOf",
@@ -46,7 +42,7 @@ define(function (require) {
 			"description": "The index to start the search"
 		}],
 		"returns": "number"
-	});
+	})
 
 	meta({
 		"name": "map",
@@ -62,7 +58,7 @@ define(function (require) {
 			"description": "Object to use as this when executing callback."
 		}],
 		"returns": "array"
-	});
+	})
 
 	meta({
 		"name": "filter",
@@ -78,7 +74,7 @@ define(function (require) {
 			"description": "Object to use as this when executing callback."
 		}],
 		"returns": "array"
-	});
+	})
 
 	meta({
 		"name": "reduce",
@@ -94,7 +90,7 @@ define(function (require) {
 			"description": "Value to be use as the first argument to the first call of the callback."
 		}],
 		"returns": "array"
-	});
+	})
 
 	meta({
 		"name": "every",
@@ -114,7 +110,7 @@ define(function (require) {
 			"type": "boolean",
 			"description": "True if callback returns a truthy value for each item"
 		}
-	});
+	})
 
 	meta({
 		"name": "some",
@@ -134,7 +130,9 @@ define(function (require) {
 			"type": "boolean",
 			"description": "True if callback returns a truthy value for any item"
 		}
-	});
+	})*/
+
+	require("../class/shim");
 
 	var methods = [
 			"forEach",
@@ -176,11 +174,11 @@ define(function (require) {
 	shims.indexOf = function (element, start) {
 		var length = this.length,
 			found = -1,
-			i = normalizeStart(start, length);		
+			i = normalizeStart(start || 0, length);		
 
 		for (; i < length; i += 1) {
 
-			if (isFound(this, i, element)) {
+			if (this[i] === element) {
 				found = i;
 				break;
 			}
@@ -190,12 +188,8 @@ define(function (require) {
 	};
 
 	function normalizeStart (start, length) {
-		if (!start) {
-			start = 0;
-
-		} else if (start < 0) {
-			start += length;
-			start = atLeastZero(start);
+		if (start < 0) {
+			start = atLeastZero(start + length);
 		}
 
 		return start;
@@ -203,10 +197,6 @@ define(function (require) {
 
 	function atLeastZero (number) {
 		return Math.max(number, 0);
-	}
-
-	function isFound (array, index, element) {
-		return index in array && element === array[index];
 	}
 
 	shims.map = function (callback, context) {

@@ -6,14 +6,11 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	var meta = require("../meta"),
-		MethodMaker = require("./method-maker");
-
-	meta({
+	/*meta({
 		"name": "Function",
 		"type": "class",
 		"global": true
-	});
+	})
 
 	meta({
 		"name": "method",
@@ -29,7 +26,7 @@ define(function (require) {
 			"type": "function",
 			"description": "The constructor (the method's owner). This allows chaining."
 		}
-	});
+	})
 
 	meta({
 		"name": "method",
@@ -41,7 +38,7 @@ define(function (require) {
 			"type": "function"
 		}],
 		"returns": "function"
-	});
+	})
 
 	meta({
 		"name": "options",
@@ -79,7 +76,7 @@ define(function (require) {
 			"type": "string|object",
 			"description": "Type of return value"
 		}]
-	});
+	})
 
 	meta({
 		"name": "arguments",
@@ -99,7 +96,7 @@ define(function (require) {
 			"type": "boolean",
 			"default": false
 		}]
-	});
+	})
 
 	meta({
 		"name": "returns",
@@ -108,9 +105,10 @@ define(function (require) {
 			"name": "type",
 			"type": "string"
 		}]
-	});
+	})*/
 
-	var method = new Function.Abstract("method")
+	var MethodMaker = require("./method-maker")
+		method = new Function.Abstract("method")
 			.overload("string, function", methodWithName)
 			.overload("object, function?", methodWithOptions);
 	

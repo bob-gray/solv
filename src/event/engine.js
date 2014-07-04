@@ -269,14 +269,7 @@ define(function (require) {
 	function validateEventParams (eventParams, paramsMeta, eventName) {
 		var eventSignature = signatures.getSignatureFromMeta(paramsMeta),
 			tester = signatures.compileImplementationSignature(eventSignature),
-			paramsSignature;
-
-		if (isArray(paramsMeta)) {
-			paramsSignature = signatures.getInvocationSignature(eventParams);
-
-		} else if (isObject(paramsMeta)) {
-			paramsSignature = signatures.getObjectSignature(eventParams[0]);
-		}
+			paramsSignature = getParamsSignature(eventParams, paramsMeta);
 
 		if (!tester.test(paramsSignature)) {
 			throw new InvalidEventParams({
@@ -285,6 +278,19 @@ define(function (require) {
 				actual: paramsSignature
 			});
 		}
+	}
+
+	function getParamsSignature (eventParams, paramsMeta) {
+		var paramsSignature;
+
+		if (isArray(paramsMeta)) {
+			paramsSignature = signatures.getInvocationSignature(eventParams);
+
+		} else if (isObject(paramsMeta)) {
+			paramsSignature = signatures.getObjectSignature(eventParams[0]);
+		}
+
+		return paramsSignature;
 	}
 	
 	function getId (target) {
