@@ -23,6 +23,9 @@ module.exports = function (config) {
 			"Safari",
 			"IE"
 		],
+		reporters: [
+			"dots"
+		],
 		singleRun: true,
 		sauceLabs: {
 			testName: "Solv",
@@ -37,7 +40,7 @@ module.exports = function (config) {
 			sauce_firefox: {
 				base: "SauceLabs",
 				browserName: "firefox",
-				platform: "Windows 7"
+				platform: "Linus"
 			},
 			sauce_safari: {
 				base: "SauceLabs",
@@ -48,6 +51,12 @@ module.exports = function (config) {
 				base: "SauceLabs",
 				browserName: "internet explorer",
 				platform: "Windows 8.1",
+				version: "11"
+			},
+			sauce_ie_10: {
+				base: "SauceLabs",
+				browserName: "internet explorer",
+				platform: "Windows 7",
 				version: "11"
 			},
 			sauce_ie_8: {
