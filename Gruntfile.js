@@ -9,6 +9,7 @@ module.exports = function (grunt) {
 function registerTasks (grunt) {
 	grunt.registerTask("default", [
 		"lint",
+		"complexity",
 		"test"
 	]);
 	
