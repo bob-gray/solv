@@ -9,11 +9,10 @@ define(function (require) {
 	require("../class/extend");
 	require("../shim/function");
 
-	var meta = require("../meta"),
-		type = require("../type"),
+	var type = require("../type"),
 		placeholders = /\{\{([^}]+)\}\}/g;
 
-	meta({
+	/*meta({
 		"name": "createErrorType",
 		"type": "function",
 		"descrition": "Creates a new sub class of Error",
@@ -44,7 +43,7 @@ define(function (require) {
 			"type": "function",
 			"description": "Constructor function for a new error class/type (sub class of Error)"
 		}
-	});
+	})*/
 
 	function createErrorType (options, init) {
 		

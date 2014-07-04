@@ -6,10 +6,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	var meta = require("../meta"),
-		createErrorType = require("./create");
-
-	meta({
+	/*meta({
 		"name": "InvalidPropertyType",
 		"extends": "Error",
 		"arguments": [{
@@ -22,18 +19,18 @@ define(function (require) {
 				"actual": "string"
 			}
 		}]
-	});
+	})*/
 
-	var InvalidPropertyType = createErrorType({
-		name: "InvalidPropertyType",
-		message: "Property {{name}} should be {{expected}} "+
-				"but was set to {{actual}} instead",
-		details: {
-			name: "unknown",
-			expected: "unknown",
-			actual: "unknown"
-		}
-	});
+	var createErrorType = require("./create"),
+		InvalidPropertyType = createErrorType({
+			name: "InvalidPropertyType",
+			message: "Property {{name}} should be {{expected}} but was set to {{actual}} instead",
+			details: {
+				name: "unknown",
+				expected: "unknown",
+				actual: "unknown"
+			}
+		});
 
 	return InvalidPropertyType;
 });

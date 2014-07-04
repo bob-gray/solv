@@ -6,10 +6,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	var meta = require("../meta"),
-		createErrorType = require("./create");
-
-	meta({
+	/*meta({
 		"name": "InvalidConstructorContext",
 		"extends": "Error",
 		"arguments": [{
@@ -20,17 +17,18 @@ define(function (require) {
 				"className": "string"
 			}
 		}]
-	});
+	})*/
 
-	var InvalidConstructorContext = createErrorType({
-		name: "InvalidConstructorContext",
-		message: "{{className}} constructor was called with an invalid context "+
-				"(this) caused by a missing new operator or from applying a "+
-				"context that isn't an instance of this class",
-		details: {
-			className: ""	
-		}
-	});
+	var createErrorType = require("./create"),
+		InvalidConstructorContext = createErrorType({
+			name: "InvalidConstructorContext",
+			message: "{{className}} constructor was called with an invalid context "+
+					"(this) caused by a missing new operator or from applying a "+
+					"context that isn't an instance of this class",
+			details: {
+				className: ""	
+			}
+		});
 
 	return InvalidConstructorContext;
 });

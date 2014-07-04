@@ -6,10 +6,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	var meta = require("../meta"),
-		createErrorType = require("./create");
-
-	meta({
+	/*meta({
 		"name": "InvalidEventParams",
 		"extends": "Error",
 		"arguments": [{
@@ -22,18 +19,19 @@ define(function (require) {
 				"actual": "string"
 			}
 		}]
-	});
+	})*/
 
-	var InvalidEventParams = createErrorType({
-		name: "InvalidEventParams",
-		message: "{{eventName}} event should be triggered with ({{expected}}) "+
-				"but was triggered with ({{actual}}) instead",
-		details: {
-			eventName: "unknown",
-			expected: "unknown",
-			actual: "unknown"
-		}
-	});
+	var createErrorType = require("./create"),
+		InvalidEventParams = createErrorType({
+			name: "InvalidEventParams",
+			message: "{{eventName}} event should be triggered with ({{expected}}) "+
+					"but was triggered with ({{actual}}) instead",
+			details: {
+				eventName: "unknown",
+				expected: "unknown",
+				actual: "unknown"
+			}
+		});
 
 	return InvalidEventParams;
 });

@@ -6,10 +6,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	var meta = require("../meta"),
-		createErrorType = require("./create");
-
-	meta({
+	/*meta({
 		"name": "ImplementationNotFound",
 		"extends": "Error",
 		"arguments": [{
@@ -31,18 +28,19 @@ define(function (require) {
 				}
 			}
 		}]
-	});
+	})*/
 
-	var ImplementationNotFound = createErrorType({
-		name: "ImplementationNotFound",
-		message: "Function {{functionName}} was called with the signature ({{signature}}). "+
-				"A matching implementation does not exist. Existing implementation signatures: {{nonMatchingSignatures}}",
-		details: {
-			functionName: "unknown",
-			nonMatchingSignatures: [],
-			signature: "unknown"
-		}
-	}, init);
+	var createErrorType = require("./create"),
+		ImplementationNotFound = createErrorType({
+			name: "ImplementationNotFound",
+			message: "Function {{functionName}} was called with the signature ({{signature}}). "+
+					"A matching implementation does not exist. Existing implementation signatures: {{nonMatchingSignatures}}",
+			details: {
+				functionName: "unknown",
+				nonMatchingSignatures: [],
+				signature: "unknown"
+			}
+		}, init);
 
 	function init () {
 		this.joinNonMatchingSignatures();
