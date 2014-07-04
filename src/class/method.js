@@ -107,7 +107,7 @@ define(function (require) {
 		}]
 	})*/
 
-	var MethodMaker = require("./method-maker")
+	var MethodMaker = require("./method-maker"),
 		method = new Function.Abstract("method")
 			.overload("string, function", methodWithName)
 			.overload("object, function?", methodWithOptions);
