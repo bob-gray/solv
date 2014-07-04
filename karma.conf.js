@@ -40,30 +40,30 @@ module.exports = function (config) {
 			sauce_firefox: {
 				base: "SauceLabs",
 				browserName: "firefox",
-				platform: "Linus"
+				platform: "Linux"
 			},
 			sauce_safari: {
 				base: "SauceLabs",
 				browserName: "safari",
 				platform: "OS X 10.6"
 			},
-			sauce_ie_11: {
-				base: "SauceLabs",
-				browserName: "internet explorer",
-				platform: "Windows 8.1",
-				version: "11"
-			},
-			sauce_ie_10: {
-				base: "SauceLabs",
-				browserName: "internet explorer",
-				platform: "Windows 7",
-				version: "11"
-			},
 			sauce_ie_8: {
 				base: "SauceLabs",
 				browserName: "internet explorer",
 				platform: "Windows XP",
 				version: "8"
+			},
+			sauce_ie_10: {
+				base: "SauceLabs",
+				browserName: "internet explorer",
+				platform: "Windows 7",
+				version: "10"
+			},
+			sauce_ie_11: {
+				base: "SauceLabs",
+				browserName: "internet explorer",
+				platform: "Windows 8.1",
+				version: "11"
 			}
 		}
 	});
