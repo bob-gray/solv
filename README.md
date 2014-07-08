@@ -2,10 +2,11 @@ Solv
 ====
 
 [![Build Status](https://travis-ci.org/bob-gray/solv.svg?branch=master)](https://travis-ci.org/bob-gray/solv)
+[![Code Climate](https://codeclimate.com/github/bob-gray/solv.png)](https://codeclimate.com/github/bob-gray/solv)
 [![Sauce Test Status](https://saucelabs.com/buildstatus/solv)](https://saucelabs.com/u/solv)
 [![Coverage Status](https://img.shields.io/coveralls/bob-gray/solv.svg)](https://coveralls.io/r/bob-gray/solv)
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 [![NPM version](https://badge.fury.io/js/solv.svg)](http://badge.fury.io/js/solv)
 [![Dependency Status](https://david-dm.org/bob-gray/solv.svg)](https://david-dm.org/bob-gray/solv)
 [![devDependency Status](https://david-dm.org/bob-gray/solv/dev-status.svg)](https://david-dm.org/bob-gray/solv#info=devDependencies)
@@ -43,8 +44,11 @@ pulled in when and where needed.
   - Run `bower install solv` to install into a browser project
 
 
-Environments
-------------
+Supported Browsers
+------------------
+
+The browsers and platforms represented below are those that are tested as part
+of solv's build.
 
 [![Selenium Test Status](https://saucelabs.com/browser-matrix/solv.svg)](https://saucelabs.com/u/solv)
 
