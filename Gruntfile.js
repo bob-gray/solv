@@ -123,7 +123,7 @@ function configureTasks (grunt) {
 					"coverage"
 				],
 				coverageReporter: {
-					type: "lcov",
+					type: "lcovonly",
 					dir: "coverage"
 				}
 			},
