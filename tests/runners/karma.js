@@ -1,7 +1,7 @@
 (function loadTestSuiteModules () {
 	"use strict";
 
-	var karmaFiles = keys(__karma__.files),
+	var karmaFiles = getKeys(__karma__.files),
 		testModulePattern = /-test\.js$/,
 		testModules = filter(karmaFiles, isTestModule);
 
@@ -15,7 +15,7 @@
 
 	require(testModules, __karma__.start);
 
-	function keys (object) {
+	function getKeys (object) {
 		if (Object.keys) {
 			return Object.keys(object);
 		}
