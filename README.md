@@ -86,7 +86,7 @@ a couple sets of commands need to be run.
   
 1. Run `npm install -g grunt-cli` to install grunt command line interface
 2. Run `npm install` to install test dependencies
-3. Run `grunt test` to execute tests in PhantomJS
+3. Run `grunt test` to execute test
 
 *See Gruntfile for more test and analysis options.*
 
