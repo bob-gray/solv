@@ -9,10 +9,11 @@ define(function (require) {
 	require("../shim/function");
 	require("../array/from");
 
-	var meta = require("../meta"),
+	var Base,
+		meta = require("../meta"),
 		createClass = require("../class");
-	
-	var Base = createClass(
+
+	Base = createClass(
 		meta({
 			"name": "Base",
 			"type": "class",
@@ -134,26 +135,26 @@ define(function (require) {
 
 	function invokeFunction (fn) {
 		var args = Array.from(arguments);
-		
+
 		args.shift();
-		
+
 		return fn.apply(this, args);
 	}
 
 	function proxyFunction (fn) {
 		var args = Array.from(arguments);
-		
+
 		args.splice(0, 1, this);
-		
+
 		return fn.bind.apply(fn, args);
 	}
 
 	function proxyMethod (method) {
 		var args = Array.from(arguments),
 			fn = this[method];
-		
+
 		args.splice(0, 1, this);
-		
+
 		return fn.bind.apply(fn, args);
 	}
 

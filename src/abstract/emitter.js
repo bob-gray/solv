@@ -7,12 +7,13 @@ define(function (require) {
 	"use strict";
 
 	require("../array/from");
-	
-	var meta = require("../meta"),
+
+	var Emitter,
+		meta = require("../meta"),
 		createClass = require("../class"),
 		event = require("../event");
 	
-	var Emitter = createClass(
+	Emitter = createClass(
 		meta({
 			"name": "Emitter",
 			"type": "class",
@@ -61,7 +62,7 @@ define(function (require) {
 	Emitter.method(
 		meta({
 			"name": "off",
-			"description": "Removes a listener from an object",
+			"description": "Removes a listener",
 			"arguments": [{
 				"name": "listenerKey",
 				"type": "object",
@@ -74,7 +75,7 @@ define(function (require) {
 	Emitter.method(
 		meta({
 			"name": "off",
-			"description": "Removes all listeners of an event name from an object",
+			"description": "Removes all listeners of an event name",
 			"arguments": [{
 				"name": "eventName",
 				"type": "string"
@@ -86,7 +87,7 @@ define(function (require) {
 	Emitter.method(
 		meta({
 			"name": "off",
-			"description": "Removes all listeners from an object",
+			"description": "Removes all listeners",
 			"arguments": []
 		}),
 		allOff
@@ -116,7 +117,12 @@ define(function (require) {
 			"description": "Executes all handler functions listening for an event",
 			"arguments": [{
 				"name": "options",
-				"type": "object"
+				"type": "object",
+				"properties": {
+					"name": "string",
+					"when": "string",
+					"params": "array"
+				}
 			}, {
 				"name": "nArgs",
 				"type": "any",
@@ -131,23 +137,23 @@ define(function (require) {
 	function on (eventName, handler) {
 		return event.addListener(this, eventName, handler);
 	}
-	
+
 	function once (eventName, handler) {
 		return event.addListenerOnce(this, eventName, handler);
 	}
-	
+
 	function offByListener (listenerKey) {
 		event.removeListener(this, listenerKey);
 	}
-	
+
 	function offByEventName (eventName) {
 		event.removeListener(this, eventName);
 	}
-	
+
 	function allOff () {
 		event.removeAllListeners(this);
 	}
-	
+
 	function trigger () {
 		var args = Array.from(arguments);
 		

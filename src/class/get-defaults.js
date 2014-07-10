@@ -35,7 +35,10 @@ define(function (require) {
 	function populate (item, key) {
 		var defaultValue = item["default"];
 		
-		if (type.is.not("undefined", defaultValue)) {
+		if (type.is.not("object", item)) {
+			this[key] = item;
+	
+		} else if (type.is.not("undefined", defaultValue)) {
 			this[key] = defaultValue;
 		}
 	}

@@ -6,26 +6,106 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../function/overload");
+	var DateUtil,
+		meta = require("../meta"),
+		createClass = require("../class");
 
-	var meta = require("../meta");
+	DateUtil = createClass(
+		meta({
+			"name": "DateUtil",
+			"type": "class",
+			"description": "Singleton instance is exported and not class constructor",
+			"properties": {
+				"JANUARY": 0,
+				"FEBRUARY": 1,
+				"MARCH": 2,
+				"APRIL": 3,
+				"MAY": 4,
+				"JUNE": 5,
+				"JULY": 6,
+				"AUGUST": 7,
+				"SEPTEMBER": 8,
+				"OCTOBER": 9,
+				"NOVEMBER": 10,
+				"DECEMBER": 11,
 
-	meta({
-		"name": "hoursFromStandard",
-		"description": "Calculates the number of hours deviation from standard time. 0 if date is in standard time. A positive integer if in daylight savings time.",
-		"arguments": [{
-			"name": "date",
-			"type": "date|string|number",
-			"description": "A date object or a primitive value that represents a date that can be parsed."
-		}],
-		"returns": "number"
-	});
+				"SUNDAY": 0,
+				"MONDAY": 1,
+				"TUESDAY": 2,
+				"WEDNESDAY": 3,
+				"THURSDAY": 4,
+				"FRIDAY": 5,
+				"SATURDAY": 6,
 
-	var hoursFromStandard = hoursFromStandardWithDate.overload("!date", function (dateLike) {
-		return hoursFromStandardWithDate(new Date(dateLike));
-	});
+				"MILLISECONDS_IN_SECOND": 1000,
+				"SECONDS_IN_MINUTE": 60,
+				"MINUTES_IN_HOUR": 60,
+				"HOURS_IN_DAY": 24,
+				"DAYS_IN_WEEK": 7,
+				"MONTHS_IN_QUARTER": 3,
+				"MONTHS_IN_YEAR": 12,
 
-	function hoursFromStandardWithDate (date) {
+				"NOON": 12,
+				"MIDNIGHT": 12,
+
+				"WEEKDAYS": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+				"MONTHS": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+			}
+		})
+	);
+
+	DateUtil.method(
+		meta({
+			"name": "hoursFromStandard",
+			"description": "Calculates the number of hours deviation from standard time. 0 if date is in standard time. A positive integer if in daylight savings time.",
+			"arguments": [{
+				"name": "date",
+				"type": "date|string|number",
+				"description": "A date object or a primitive value that represents a date that can be parsed."
+			}],
+			"returns": "number"
+		}),
+		hoursFromStandard
+	);
+
+	DateUtil.method(
+		meta({
+			"name": "isLeapYear",
+			"description": "Tests if year is leap year",
+			"arguments": [{
+				"name": "year",
+				"type": "number",
+				"description": "A full year integer (ie... 1998)"
+			}],
+			"returns": "boolean"
+		}),
+		isLeapYear
+	);
+
+	DateUtil.method(
+		meta({
+			"name": "isDayLightSavings",
+			"description": "Tests if date is within daylight savings time",
+			"arguments": [{
+				"name": "date",
+				"type": "date|string|number",
+				"description": "A date object or a primitive value that represents a date that can be parsed."
+			}],
+			"returns": "boolean"
+		}),
+		isDayLightSavings
+	);
+
+	DateUtil.method({
+			name: "hoursFromStandard",
+			signature: "!date"
+		},
+		function (dateLike) {
+			return hoursFromStandard(new Date(dateLike));
+		}
+	);
+
+	function hoursFromStandard (date) {
 		var january = 0,
 			july = 6,
 			minutesInHour = 60,
@@ -35,20 +115,8 @@ define(function (require) {
 			julyOffset = new Date(year, july, 1).getTimezoneOffset(),
 			standardOffset = Math.max(januaryOffset, julyOffset);
 
-
 		return (standardOffset - offset) / minutesInHour;
 	}
-
-	meta({
-		"name": "isLeapYear",
-		"description": "Tests if year is leap year",
-		"arguments": [{
-			"name": "year",
-			"type": "number",
-			"description": "A full year integer (ie... 1998)"
-		}],
-		"returns": "boolean"
-	});
 
 	function isLeapYear (year) {
 		var february = 1,
@@ -57,53 +125,9 @@ define(function (require) {
 		return new Date(year, february, leapDay).getDate() === leapDay;
 	}
 
-	meta({
-		"name": "isDayLightSavings",
-		"description": "Tests if date is within daylight savings time",
-		"arguments": [{
-			"name": "date",
-			"type": "date|string|number",
-			"description": "A date object or a primitive value that represents a date that can be parsed."
-		}],
-		"returns": "boolean"
-	});
-
 	function isDayLightSavings (date) {
 		return hoursFromStandard(date) > 0;
 	}
 
-	return {
-		hoursFromStandard: hoursFromStandard,
-		isLeapYear: isLeapYear,
-		isDayLightSavings: isDayLightSavings,
-
-		JANUARY: 0,
-		FEBRUARY: 1,
-		MARCH: 2,
-		APRIL: 3,
-		MAY: 4,
-		JUNE: 5,
-		JULY: 6,
-		AUGUST: 7,
-		SEPTEMBER: 8,
-		OCTOBER: 9,
-		NOVEMBER: 10,
-		DECEMBER: 11,
-
-		SUNDAY: 0,
-		MONDAY: 1,
-		TUESDAY: 2,
-		WEDNESDAY: 3,
-		THURSDAY: 4,
-		FRIDAY: 5,
-		SATURDAY: 6,
-
-		MILLISECONDS_IN_SECOND: 1000,
-		SECONDS_IN_MINUTE: 60,
-		MINUTES_IN_HOUR: 60,
-		HOURS_IN_DAY: 24,
-		DAYS_IN_WEEK: 7,
-		MONTHS_IN_QUARTER: 3,
-		MONTHS_IN_YEAR: 12
-	};
+	return DateUtil.singleton();
 });

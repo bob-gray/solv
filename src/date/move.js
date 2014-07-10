@@ -6,9 +6,12 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
+	require("../class/method");
+
 	var meta = require("../meta"),
 		type = require("../type"),
-		util = require("./util");
+		util = require("./util"),
+		movers;
 
 	meta({
 		"name": "Date",
@@ -16,19 +19,22 @@ define(function (require) {
 		"global": true
 	});
 
-	meta({
-		"name": "move",
-		"description": "Alters a date, moving it by amount",
-		"arguments": [{
-			"name": "amount",
-			"type": "number",
-			"description": "Amount to move the date by. A positive or negative integer."
-		}, {
-			"name": "part",
-			"type": "string",
-			"description": "The part of the date to move. See Date Part."
-		}]
-	});
+	Date.method(
+		meta({
+			"name": "move",
+			"description": "Alters a date, moving it by amount",
+			"arguments": [{
+				"name": "amount",
+				"type": "number",
+				"description": "Amount to move the date by. A positive or negative integer."
+			}, {
+				"name": "part",
+				"type": "string",
+				"description": "The part of the date to move. See Date Part."
+			}]
+		}),
+		move
+	);
 
 	meta({
 		"name": "Date Part",
@@ -44,67 +50,6 @@ define(function (require) {
 		"l": "millisecond"
 	});
 
-	Date.prototype.move = move;
-
-	var movers = {
-			"d": function (date, amount) {
-				var day = date.getDate(),
-					newDay = day + amount;
-
-				date.setDate(newDay);
-			},
-
-			"w": function (date, amount) {
-				this.d(date, amount * util.DAYS_IN_WEEK);
-			},
-
-			"m": function (date, amount) {
-				var month = date.getMonth(),
-					newMonth = month + amount;
-
-				date.setMonth(newMonth);
-			},
-
-			"q": function (date, amount) {
-				this.m(date, amount * util.MONTHS_IN_QUARTER);
-			},
-
-			"y": function (date, amount) {
-				var year = date.getFullYear(),
-					newYear = year + amount;
-
-				date.setFullYear(newYear);
-			},
-
-			"h": function (date, amount) {
-				var hour = date.getHours(),
-					newHour = hour + amount;
-
-				date.setHours(newHour);
-			},
-
-			"M": function (date, amount) {
-				var minute = date.getMinutes(),
-					newMinute = minute + amount;
-
-				date.setMinutes(newMinute);
-			},
-
-			"s": function (date, amount) {
-				var second = date.getSeconds(),
-					newSecond = second + amount;
-
-				date.setSeconds(newSecond);
-			},
-
-			"l": function (date, amount) {
-				var millisecond = date.getMilliseconds(),
-					newMillisecond = millisecond + amount;
-
-				date.setMilliseconds(newMillisecond);
-			}
-		};
-
 	function move (amount, part) {
 		var date = this;
 
@@ -115,5 +60,62 @@ define(function (require) {
 		movers[part](date, amount);
 	}
 
-	return move;
+	movers = {
+		"d": function (date, amount) {
+			var day = date.getDate(),
+				newDay = day + amount;
+
+			date.setDate(newDay);
+		},
+
+		"w": function (date, amount) {
+			this.d(date, amount * util.DAYS_IN_WEEK);
+		},
+
+		"m": function (date, amount) {
+			var month = date.getMonth(),
+				newMonth = month + amount;
+
+			date.setMonth(newMonth);
+		},
+
+		"q": function (date, amount) {
+			this.m(date, amount * util.MONTHS_IN_QUARTER);
+		},
+
+		"y": function (date, amount) {
+			var year = date.getFullYear(),
+				newYear = year + amount;
+
+			date.setFullYear(newYear);
+		},
+
+		"h": function (date, amount) {
+			var hour = date.getHours(),
+				newHour = hour + amount;
+
+			date.setHours(newHour);
+		},
+
+		"M": function (date, amount) {
+			var minute = date.getMinutes(),
+				newMinute = minute + amount;
+
+			date.setMinutes(newMinute);
+		},
+
+		"s": function (date, amount) {
+			var second = date.getSeconds(),
+				newSecond = second + amount;
+
+			date.setSeconds(newSecond);
+		},
+
+		"l": function (date, amount) {
+			var millisecond = date.getMilliseconds(),
+				newMillisecond = millisecond + amount;
+
+			date.setMilliseconds(newMillisecond);
+		}
+	};
 });
