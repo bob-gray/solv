@@ -52,7 +52,7 @@
 		<!--<header class="api-project">
 			<div class="container">
 				
-					<small class="pull-right api-version">version 0.4.0</small>
+					<small class="pull-right api-version">version 0.5.0</small>
 				
 
 				<h2>solv <small>API Documentation</small></h2>
@@ -76,14 +76,14 @@
 </ul><h1>Solv</h1>
 
 <p><a href="https://travis-ci.org/bob-gray/solv"><img alt="Build Status" src="https://travis-ci.org/bob-gray/solv.svg?branch=master"/></a>
+<a href="https://codeclimate.com/github/bob-gray/solv"><img alt="Code Climate" src="https://codeclimate.com/github/bob-gray/solv.png"/></a>
+<a href="https://saucelabs.com/u/solv"><img alt="Sauce Test Status" src="https://saucelabs.com/buildstatus/solv"/></a>
 <a href="https://coveralls.io/r/bob-gray/solv"><img alt="Coverage Status" src="https://img.shields.io/coveralls/bob-gray/solv.svg"/></a>
 <a href="http://gruntjs.com/"><img alt="Built with Grunt" src="https://cdn.gruntjs.com/builtwith.png"/></a></p>
 
 <p><a href="http://badge.fury.io/js/solv"><img alt="NPM version" src="https://badge.fury.io/js/solv.svg"/></a>
 <a href="https://david-dm.org/bob-gray/solv"><img alt="Dependency Status" src="https://david-dm.org/bob-gray/solv.svg"/></a>
 <a href="https://david-dm.org/bob-gray/solv#info=devDependencies"><img alt="devDependency Status" src="https://david-dm.org/bob-gray/solv/dev-status.svg"/></a></p>
-
-<p><a href="https://saucelabs.com/u/solv"><img alt="Selenium Test Status" src="https://saucelabs.com/browser-matrix/solv.svg"/></a></p>
 
 <p><a href="http://bob-gray.github.io/solv/">API Documentation</a></p>
 
@@ -105,25 +105,31 @@ from github. Solv is a modular library and doesn&#39;t offer a concatenated file
 for distribution. Once Solv is installed each of it&#39;s modules can be
 pulled in when and where needed.</p>
 
-<ul><li>Run <code>npm install solv</code> to install into a node project</li><li>Run <code>bower install solv</code> to install into a browser project</li></ul>
+<ul><li>To install into a node project - run <code>npm install solv</code></li><li>To install into a browser project - run <code>bower install solv</code></li><li>To get a copy of the source - run <code>git clone https://github.com/bob-gray/solv.git</code></li></ul>
+
+<h2>Supported Browsers</h2>
+
+<p>The browsers and platforms represented below are those that are tested as part
+of Solv&#39;s build.</p>
+
+<p><a href="https://saucelabs.com/u/solv"><img alt="Selenium Test Status" src="https://saucelabs.com/browser-matrix/solv.svg"/></a></p>
 
 <h2>Design Goals</h2>
 
 <p>Solv strives to be as simple and robust in its implementation as possible.
-Code quality is important. Clean, obvious code is more valuable than clever,
+Code quality is important. Clean, obvious code is valued over clever,
 obfuscated code accompanied by verbose comments. Comments are only present in
 Solv when all attempts to refactor for clarity have failed. Developer
-productivity is valued over premature optimization. A pleasing API is important
-to make using Solv easy and fun.</p>
+productivity is valued over premature optimization. Solv&#39;s API is designed
+to be easy and fun to use.</p>
 
 <h2>Prototypes</h2>
 
 <p>Solv augments native prototypes to provide the best possible API. There are
 risks when altering native prototypes. Native prototypes are global and
-collision with other code or future native APIs is possible. On the other hand
-the clarity of many operations is greatly enhanced in the context of
-object-oriented programming with member functions. This making augmenting
-native prototypes very attractive. </p>
+collision with other code or future native APIs is possible. On the other hand,
+member functions enhance the clarity of many operations. This makes augmenting
+native prototypes very attractive.</p>
 
 <h2>Tests</h2>
 
@@ -131,21 +137,15 @@ native prototypes very attractive. </p>
 <a href="http://nodejs.org">Node.js</a> and <a href="https://npmjs.org">npm</a> must be installed and
 a couple sets of commands need to be run.</p>
 
-<h3>Run from Command Line</h3>
+<h3>Test from Command Line</h3>
 
-<ol><li>Run <code>npm install -g grunt-cli</code> to install grunt command line interface</li><li>Run <code>npm install</code> to install test dependencies</li></ol>
+<ol><li>Run <code>npm install -g grunt-cli</code> to install grunt command line interface</li><li>Run <code>npm install</code> to install test dependencies</li><li>Run <code>grunt test</code> to execute test</li></ol>
 
-<p>When the above steps are complete, run <code>grunt test</code> to execute tests in
-PhantomJS.</p>
+<p><em>See Gruntfile for more test and analysis options.</em></p>
 
-<p><em>See Gruntfile for more test options including running tests and linting on
-file change.</em></p>
+<h3>Test in Browser</h3>
 
-<h3>Run in Browser</h3>
-
-<ol><li>Run <code>npm install -g bower</code> to install bower </li><li>Run <code>bower install</code> to install test dependencies</li></ol>
-
-<p>When the above steps are completed open <code>tests/index.html</code> in the browser of your choice.</p>
+<ol><li>Run <code>npm install -g bower</code> to install bower </li><li>Run <code>bower install</code> to install test dependencies</li><li>Open <code>tests/index.html</code> in the browser of your choice</li></ol>
 
 <h2>Meta</h2>
 
@@ -155,10 +155,10 @@ file change.</em></p>
 of meta data declared as JSON. This meta data can then drive runtime behavior and be
 parsed statically for documentation generation. Solv includes a <code>meta</code> runtime
 implementation that is meta-json compliant and many of the methods contained
-in Solv accept options object comforming to api-meta. Building application with Solv and
+in Solv accept options objects comforming to api-meta. Building application with Solv and
 declaring options with <code>meta</code> means documenations is tied directly to
 implementation. meta-json and api-meta are still works in progress as is Solv.
-Stay tuned.</p>			</div>
+Stay tuned...</p>			</div>
 			<div class="col-md-3"><h4 class="api-modules">modules</h4>
 
 <ul class="nav api-module-links">
@@ -280,6 +280,11 @@ Stay tuned.</p>			</div>
 	
 		<li class="">
 			<a href="./modules/date/move.html">move</a>
+			
+		</li>
+	
+		<li class="">
+			<a href="./modules/date/util.html">util</a>
 			
 		</li>
 	</ul>

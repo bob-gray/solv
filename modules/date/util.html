@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>solv/object/clone API Documentation</title>
+		<title>solv/date/util API Documentation</title>
 
 		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
 		<link href="../../css/api-meta.css" rel="stylesheet" />
@@ -61,7 +61,7 @@
 
 		<div class="container">	
 			<div class="row">
-				<div class="col-md-9"><h1 class="api-module">object/clone <small class="api-type">module</small></h1>
+				<div class="col-md-9"><h1 class="api-module">date/util <small class="api-type">module</small></h1>
 
 <p class="api-description"></p>
 
@@ -70,27 +70,11 @@
 	<ul class="list-inline api-requires">
 		
 			<li>
-				<a href="../../modules/class/shim.html" class="">class/shim</a>
+				<a href="../../modules/class.html" class="">class</a>
 			</li>
 		
 			<li>
 				<a href="../../modules/meta.html" class="">meta</a>
-			</li>
-		
-			<li>
-				<a  class="private">object/utils</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/shim/array.html" class="">shim/array</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/shim/object.html" class="">shim/object</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/type.html" class="">type</a>
 			</li>
 		
 	</ul>
@@ -99,17 +83,15 @@
 <ul class="list-unstyled api-module-contents">
 	
 		<li>
-			<a class="api-anchor" id="class:Object"></a>
-			<code id="Object-class" class="api-code api-class"><strong>Object(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
+			<a class="api-anchor" id="class:DateUtil"></a>
+			<code id="DateUtil-class" class="api-code api-class"><strong>DateUtil(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
 			<p class="api-description">
-				
+				Singleton instance is exported and not class constructor
 			</p>
 			<p>
 				
 				
 				
-					<span class="label label-default">global</span>
-				
 			</p>
 
 			
@@ -117,36 +99,123 @@
 			
 
 			
-				<h3 class="api-section api-method">static methods</h3>
+
+			
+				<h3 class="api-section api-method">methods</h3>
+
+				
 
 				<ul class="list-unstyled api-items">
 					
 						<li>
-							<a class="api-anchor" id="method:clone"></a>
+							<a class="api-anchor" id="method:hoursFromStandard"></a>
 							<code class="api-code api-method">
-								<strong>Object.clone(</strong><strong class="api-arg">source</strong><small class="api-arg-type">:object|array</small><strong>)</strong>
+								<strong>.hoursFromStandard(</strong><strong class="api-arg">date</strong><small class="api-arg-type">:date|string|number</small><strong>)</strong>
 								
 									<small class="api-arg-type">returns</small>
-									<strong></strong><small class="api-arg-type">object|array</small>
+									<strong></strong><small class="api-arg-type">number</small>
 								
 							</code>
 							<p class="api-description">
-								Creates a deep copy of all own properties that are types object, array, number, string, boolean, null, undefined. Circular references are supported.
+								Calculates the number of hours deviation from standard time. 0 if date is in standard time. A positive integer if in daylight savings time.
 								
 							</p>
 							<p>
 								
 								
 								
-									<span class="label label-success">shim</span>
+							</p>
+							
+								<div class="panel panel-default">
+									<dl class="panel-body">
+										
+											
+												<dt>
+													<code class="api-term"><span class="api-method">date</span>
+														
+													</code>
+												</dt>
+												<dd class="api-description">A date object or a primitive value that represents a date that can be parsed.</dd>
+											
+										
+									</dl>
+								</div>
+							
+						</li>
+					
+						<li>
+							<a class="api-anchor" id="method:isDaylightSavings"></a>
+							<code class="api-code api-method">
+								<strong>.isDaylightSavings(</strong><strong class="api-arg">date</strong><small class="api-arg-type">:date|string|number</small><strong>)</strong>
+								
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">boolean</small>
+								
+							</code>
+							<p class="api-description">
+								Tests if date is within daylight savings time
 								
 							</p>
+							<p>
+								
+								
+								
+							</p>
+							
+								<div class="panel panel-default">
+									<dl class="panel-body">
+										
+											
+												<dt>
+													<code class="api-term"><span class="api-method">date</span>
+														
+													</code>
+												</dt>
+												<dd class="api-description">A date object or a primitive value that represents a date that can be parsed.</dd>
+											
+										
+									</dl>
+								</div>
+							
+						</li>
+					
+						<li>
+							<a class="api-anchor" id="method:isLeapYear"></a>
+							<code class="api-code api-method">
+								<strong>.isLeapYear(</strong><strong class="api-arg">year</strong><small class="api-arg-type">:number</small><strong>)</strong>
+								
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">boolean</small>
+								
+							</code>
+							<p class="api-description">
+								Tests if year is leap year
+								
+							</p>
+							<p>
+								
+								
+								
+							</p>
+							
+								<div class="panel panel-default">
+									<dl class="panel-body">
+										
+											
+												<dt>
+													<code class="api-term"><span class="api-method">year</span>
+														
+													</code>
+												</dt>
+												<dd class="api-description">A full year integer (ie... 1998)</dd>
+											
+										
+									</dl>
+								</div>
 							
 						</li>
 					
 				</ul>
-			
-
 			
 
 			
@@ -262,7 +331,7 @@
 			
 		</li>
 	
-		<li class="">
+		<li class="active">
 			<a >date</a>
 			
 				<ul class="nav api-module-links">
@@ -281,7 +350,7 @@
 			
 		</li>
 	
-		<li class="">
+		<li class="current active">
 			<a href="../../modules/date/util.html">util</a>
 			
 		</li>
@@ -400,11 +469,11 @@
 			
 		</li>
 	
-		<li class="active">
+		<li class="">
 			<a >object</a>
 			
 				<ul class="nav api-module-links">
-		<li class="current active">
+		<li class="">
 			<a href="../../modules/object/clone.html">clone</a>
 			
 		</li>
