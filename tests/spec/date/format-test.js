@@ -90,10 +90,9 @@ define(["solv/date/format"], function () {
 		it("supports UTC", function () {
 			var UTC = true,
 				birthDate = new Date("4/18/1980"),
-				offset = birthDate.getTimezoneOffset() / 60,
-				h = String(Math.floor(birthDate.getHours() + offset));
+				offset = birthDate.getTimezoneOffset() / 60;
 
-			expect(birthDate.format("h", UTC)).toBe(h);
+			expect(birthDate.format("H", UTC) - birthDate.format("H")).toBe(offset);
 		});
 
 		it("handles am and pm", function () {
