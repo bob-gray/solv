@@ -113,12 +113,7 @@ define(function (require) {
 	});
 
 	function format (mask, UTC) {
-		var date = this,
-			stockMasks = masks["Stock Masks"];
-
-		if (type.is.not("date", date)) {
-			date = new Date(date);
-		}
+		var stockMasks = masks["Stock Masks"];
 
 		if (mask in stockMasks) {
 			mask = stockMasks[mask];
@@ -126,7 +121,7 @@ define(function (require) {
 
 		setGetters(UTC);
 
-		return mask.replace(maskParts, replace.bind(date));
+		return mask.replace(maskParts, replace.bind(this));
 	}
 
 	function replace (part, quote, escaped) {

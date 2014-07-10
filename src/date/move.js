@@ -51,13 +51,7 @@ define(function (require) {
 	});
 
 	function move (amount, part) {
-		var date = this;
-
-		if (type.is.not("date", date)) {
-			date = new Date(date);
-		}
-
-		movers[part](date, amount);
+		movers[part](this, amount);
 	}
 
 	movers = {

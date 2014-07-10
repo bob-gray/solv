@@ -23,7 +23,7 @@ define(function (require) {
 			"name": "compare",
 			"arguments": [{
 				"name": "other",
-				"type": "date",
+				"type": "date|string|number",
 				"description": "Date to compare to."
 			}, {
 				"name": "part",
@@ -37,6 +37,9 @@ define(function (require) {
 		}),
 		compare
 	);
+
+	// overload
+	Date.method({name:"compare", signature:"!date,string"}, compareDateLike);
 
 	meta({
 		"name": "Date Part",
@@ -57,17 +60,11 @@ define(function (require) {
 		comparers;
 
 	function compare (date2, part) {
-		var date1 = this;
+		return comparers[part](this, date2, part);
+	}
 
-		if (type.is.not("date", date1)) {
-			date1 = new Date(date1);
-		}
-
-		if (type.is.not("date", date2)) {
-			date2 = new Date(date2);
-		}
-
-		return comparers[part](date1, date2, part);
+	function compareDateLike (dateLike, part) {
+		return this.compare(new Date(dateLike), part);
 	}
 
 	comparers = {
@@ -119,7 +116,5 @@ define(function (require) {
 		"y": function (date1, date2) {
 			return date2.getFullYear() - date1.getFullYear();
 		}
-	};
-
-	return compare;	
+	};	
 });
