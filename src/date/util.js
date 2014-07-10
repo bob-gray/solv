@@ -68,6 +68,9 @@ define(function (require) {
 		hoursFromStandard
 	);
 
+	// overload
+	DateUtil.method({name:"hoursFromStandard", signature:"!date"}, hoursFromStandardDateLike);
+
 	DateUtil.method(
 		meta({
 			"name": "isLeapYear",
@@ -84,7 +87,7 @@ define(function (require) {
 
 	DateUtil.method(
 		meta({
-			"name": "isDayLightSavings",
+			"name": "isDaylightSavings",
 			"description": "Tests if date is within daylight savings time",
 			"arguments": [{
 				"name": "date",
@@ -93,16 +96,7 @@ define(function (require) {
 			}],
 			"returns": "boolean"
 		}),
-		isDayLightSavings
-	);
-
-	DateUtil.method({
-			name: "hoursFromStandard",
-			signature: "!date"
-		},
-		function (dateLike) {
-			return hoursFromStandard(new Date(dateLike));
-		}
+		isDaylightSavings
 	);
 
 	function hoursFromStandard (date) {
@@ -118,6 +112,10 @@ define(function (require) {
 		return (standardOffset - offset) / minutesInHour;
 	}
 
+	function hoursFromStandardDateLike (dateLike) {
+		return hoursFromStandard(new Date(dateLike));
+	}
+
 	function isLeapYear (year) {
 		var february = 1,
 			leapDay = 29;
@@ -125,8 +123,10 @@ define(function (require) {
 		return new Date(year, february, leapDay).getDate() === leapDay;
 	}
 
-	function isDayLightSavings (date) {
-		return hoursFromStandard(date) > 0;
+	function isDaylightSavings (date) {
+		// could call this.hoursFromStandard but calling from prototype
+		// makes isDaylightSavings safe to be removed from context
+		return DateUtil.prototype.hoursFromStandard(date) > 0;
 	}
 
 	return DateUtil.singleton();
