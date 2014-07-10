@@ -9,8 +9,8 @@ module.exports = function (grunt) {
 function registerTasks (grunt) {
 	grunt.registerTask("default", [
 		"lint",
-		"test",
-		"karma:sauce"
+		"complexity",
+		"test"
 	]);
 	
 	grunt.registerTask("lint", [
@@ -18,7 +18,7 @@ function registerTasks (grunt) {
 	]);
 	
 	grunt.registerTask("test", [
-		"karma:phantom"
+		"karma:local"
 	]);
 	
 	grunt.registerTask("coverage", [
@@ -30,9 +30,11 @@ function registerTasks (grunt) {
 		"watch"
 	]);
 
-	grunt.registerTask("sauce", [
-		"connect",
-		"saucelabs-jasmine"
+	grunt.registerTask("build", [
+		"lint",
+		"complexity",
+		"karma:phantom",
+		"karma:sauce"
 	]);
 }
 
@@ -59,52 +61,31 @@ function configureTasks (grunt) {
 				}
 			}
 		},
-		"saucelabs-jasmine": {
-			all: {
-				options: {
-					urls: [
-						"http://127.0.0.1:9999/tests/index.html"
-					],
-					testname: "solv",
-					tags: [
-						"master"
-					],
-					tunnelTimeout: 5,
-					build: process.env.TRAVIS_JOB_ID,
-					concurrency: 3,
-					browsers: [{
-						browserName: "firefox",
-						version: "19",
-						platform: "XP"
-					}, {
-						browserName: "chrome",
-						platform: "XP"
-					}, {
-						browserName: "chrome",
-						platform: "linux"
-					}, {
-						browserName: "internet explorer",
-						version: "11",
-						platform: "WIN8"
-					}, {
-						browserName: "internet explorer",
-						version: "10",
-						platform: "WIN7"
-					}, {
-						browserName: "internet explorer",
-						version: "9",
-						platform: "VISTA"
-					}, {
-						browserName: "internet explorer",
-						version: "8",
-						platform: "XP"
-					}]
-				}
-			}
-		},
 		jshint: {
 			options: {
 				jshintrc: ".jshintrc"
+			},
+			lib: {
+				src: [
+					"src/**/*.js"
+				]
+			},
+			tests: {
+				src: [
+					"tests/runner.js",
+					"tests/karma/runner.js",
+					"tests/spec/**/*.js"
+				]
+			}
+		},
+		complexity: {
+			options: {
+				breakOnErrors: true,
+				errorsOnly: false,
+				cyclomatic: 5,
+				halstead: 10,
+				maintainability: 95,
+				hideComplexFunctions: true
 			},
 			lib: {
 				src: [
@@ -142,7 +123,7 @@ function configureTasks (grunt) {
 					"coverage"
 				],
 				coverageReporter: {
-					type: "lcov",
+					type: "lcovonly",
 					dir: "coverage"
 				}
 			},
@@ -153,7 +134,7 @@ function configureTasks (grunt) {
 					]
 				},
 				reporters: [
-					"progress",
+					"dots",
 					"coverage"
 				],
 				coverageReporter: {
@@ -169,8 +150,9 @@ function configureTasks (grunt) {
 				browsers: [
 					"sauce_chrome",
 					"sauce_firefox",
-					"sauce_ie_8",
 					"sauce_safari",
+					"sauce_ie_8",
+					"sauce_ie_10",
 					"sauce_ie_11"
 				],
 				captureTimeout: 120000
@@ -178,7 +160,6 @@ function configureTasks (grunt) {
 		},
 		coveralls: {
 			options: {
-				debug: true,
 				coverage_dir: "coverage",
 				recursive: true
 			}

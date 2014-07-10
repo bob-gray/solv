@@ -6,15 +6,11 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../class/shim");
-
-	var meta = require("../meta");
-
-	meta({
+	/*meta({
 		"name": "Array",
 		"type": "class",
 		"global": true
-	});
+	})
 
 	meta({
 		"name": "forEach",
@@ -30,7 +26,7 @@ define(function (require) {
 			"description": "Object to use as this when executing callback.",
 			"required": false
 		}]
-	});
+	})
 
 	meta({
 		"name": "indexOf",
@@ -46,7 +42,7 @@ define(function (require) {
 			"description": "The index to start the search"
 		}],
 		"returns": "number"
-	});
+	})
 
 	meta({
 		"name": "map",
@@ -62,7 +58,7 @@ define(function (require) {
 			"description": "Object to use as this when executing callback."
 		}],
 		"returns": "array"
-	});
+	})
 
 	meta({
 		"name": "filter",
@@ -78,7 +74,7 @@ define(function (require) {
 			"description": "Object to use as this when executing callback."
 		}],
 		"returns": "array"
-	});
+	})
 
 	meta({
 		"name": "reduce",
@@ -94,7 +90,7 @@ define(function (require) {
 			"description": "Value to be use as the first argument to the first call of the callback."
 		}],
 		"returns": "array"
-	});
+	})
 
 	meta({
 		"name": "every",
@@ -114,7 +110,7 @@ define(function (require) {
 			"type": "boolean",
 			"description": "True if callback returns a truthy value for each item"
 		}
-	});
+	})
 
 	meta({
 		"name": "some",
@@ -134,7 +130,9 @@ define(function (require) {
 			"type": "boolean",
 			"description": "True if callback returns a truthy value for any item"
 		}
-	});
+	})*/
+
+	require("../class/shim");
 
 	var methods = [
 			"forEach",
@@ -174,20 +172,13 @@ define(function (require) {
 	};
 
 	shims.indexOf = function (element, start) {
-		var len = this.length,
+		var length = this.length,
 			found = -1,
-			i;
+			i = normalizeStart(start || 0, length);		
 
-		if (!start) {
-			start = 0;
+		for (; i < length; i += 1) {
 
-		} else if (start < 0) {
-			start = Math.max(len + start, 0);
-		}
-
-		for (i = start; i < len; i += 1) {
-
-			if (i in this && element === this[i]) {
+			if (this[i] === element) {
 				found = i;
 				break;
 			}
@@ -196,9 +187,21 @@ define(function (require) {
 		return found;
 	};
 
-	/* jshint -W072 */ //Array extras map, filter, every, some native APIs have 4 parameters
+	function normalizeStart (start, length) {
+		if (start < 0) {
+			start = atLeastZero(start + length);
+		}
+
+		return start;
+	}
+
+	function atLeastZero (number) {
+		return Math.max(number, 0);
+	}
+
 	shims.map = function (callback, context) {
 
+		/* jshint -W072 */ //native APIs have 4 parameters
 		return this.reduce(function (mapped, element, index, array) {
 			mapped[index] = callback.call(context, element, index, array);
 
@@ -208,6 +211,7 @@ define(function (require) {
 
 	shims.filter = function (callback, context) {
 
+		/* jshint -W072 */ //native APIs have 4 parameters
 		return this.reduce(function (filtered, element, index, array) {
 
 			if (callback.call(context, element, index, array)) {
@@ -220,6 +224,7 @@ define(function (require) {
 
 	shims.every = function (callback, context) {
 
+		/* jshint -W072 */ //native APIs have 4 parameters
 		return this.reduce(function (result, element, index, array) {
 
 			if (result) {
@@ -232,6 +237,7 @@ define(function (require) {
 
 	shims.some = function (callback, context) {
 
+		/* jshint -W072 */ //native APIs have 4 parameters
 		return this.reduce(function (result, element, index, array) {
 
 			if (!result) {
@@ -241,8 +247,6 @@ define(function (require) {
 			return result;
 		}, false);
 	};
-
-	/* jshint +W072 */
 
 	Array.shim("forEach", shims.forEach);
 	

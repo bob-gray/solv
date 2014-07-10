@@ -204,6 +204,10 @@ define(function (require) {
 		return type.is("function", value);
 	}
 
+	function isNotFunction (value) {
+		return type.is.not("function", value);
+	}
+
 	function findPropertiesArgIndex (result, arg, index) {
 		if (notFound(result) && isPropertiesArg(arg)) {
 			result = index;
@@ -241,29 +245,26 @@ define(function (require) {
 
 	function getSuperInit (Constructor) {
 		var Super = Constructor.Super,
-			superInit = Super;
-		
-		while (Super) {
-			if (isFunction(Super.init)) {
-				superInit = Super.init;
-				break;
-			
-			} else if (isNull(Super.init)) {
-				// Super class has no init implementation
-				// continue up inheritance chain
-				Super = Super.Super;
+			superInit;
 
-			} else {
-				// init is not a function or null
-				// Super not created with ClassMaker
-				// assume Super is traditional constructor 
-				superInit = Super;
-				break;
-
-			}
+		if (Super) {
+			superInit = getInit(Super);
 		}
 		
 		return superInit;
+	}
+
+	function getInit (Super) {
+		var init = Super.init;
+
+		if (isNull(init)) {
+			init = getSuperInit(Super);
+
+		} else if (isNotFunction(init)) {
+			init = Super;
+		}
+
+		return init;
 	}
 
 	return ClassMaker;

@@ -37,17 +37,79 @@ define(["solv/date/format"], function () {
 				.toBe("1980-04-18T08:14:23");
 		});
 
-		it("supports stock masks", function () {
+		it("double quotes are escaped by repeating twice", function () {
+			expect(birthDate.format("yyyy-mm-dd\"\""))
+				.toBe("1980-04-18\"");
+		});
+
+		it("single quotes are escaped by repeating twice", function () {
+			expect(birthDate.format("yyyy-mm-dd''"))
+				.toBe("1980-04-18'");
+		});
+
+		it("supports stock masks \"short_date\"", function () {
 			expect(birthDate.format("short_date")).toBe("4/18/80");
+		});
+
+		it("supports stock masks \"medium_date\"", function () {
 			expect(birthDate.format("medium_date")).toBe("Apr 18, 1980");
+		});
+
+		it("supports stock masks \"long_date\"", function () {
 			expect(birthDate.format("long_date")).toBe("April 18, 1980");
+		});
+
+		it("supports stock masks \"full_date\"", function () {
 			expect(birthDate.format("full_date")).toBe("Friday, April 18, 1980");
+		});
+
+		it("supports stock masks \"short_time\"", function () {
 			expect(birthDate.format("short_time")).toBe("8:14a");
+		});
+
+		it("supports stock masks \"medium_time\"", function () {
 			expect(birthDate.format("medium_time")).toBe("8:14:23 AM");
+		});
+
+		it("supports stock masks \"long_time\"", function () {
 			expect(birthDate.format("long_time")).toBe("08:14:23.234");
+		});
+
+		it("supports stock masks \"iso_date\"", function () {
 			expect(birthDate.format("iso_date")).toBe("1980-04-18");
+		});
+
+		it("supports stock masks \"iso_time\"", function () {
 			expect(birthDate.format("iso_time")).toBe("08:14:23");
+		});
+
+		it("supports stock masks \"iso_datetime\"", function () {
 			expect(birthDate.format("iso_datetime")).toBe("1980-04-18T08:14:23");
+		});
+
+		it("supports UTC", function () {
+			var UTC = true,
+				birthDate = new Date("4/18/1980"),
+				offset = birthDate.getTimezoneOffset() / 60;
+
+			expect(birthDate.format("H", UTC) - birthDate.format("H")).toBe(offset);
+		});
+
+		it("handles am and pm", function () {
+			expect(new Date(1980, 3, 18, 0, 0, 0, 0).format("tt")).toBe("am");
+			expect(new Date(1980, 3, 18, 12, 0, 0, 0).format("tt")).toBe("pm");
+		});
+
+		it("handles edge case midnight", function () {
+			expect(new Date("4/18/1980").format("h")).toBe("12");
+			expect(new Date("4/18/1980").format("H")).toBe("0");
+		});
+
+		it("handles edge cases 10th-13th", function () {
+			expect(new Date("4/10/1980").format("r")).toBe("th");
+			expect(new Date("4/11/1980").format("r")).toBe("th");
+			expect(new Date("4/12/1980").format("r")).toBe("th");
+			expect(new Date("4/13/1980").format("r")).toBe("th");
 		});
 	});
 });

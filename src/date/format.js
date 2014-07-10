@@ -6,8 +6,12 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
+	require("../class/method");
+	require("../shim/function");
+
 	var meta = require("../meta"),
-		type = require("../type");
+		type = require("../type"),
+		util = require("./util");
 
 	meta({
 		"name": "Date",
@@ -15,23 +19,52 @@ define(function (require) {
 		"global": true
 	});
 
-	meta({
-		"name": "format",
-		"arguments": [{
-			"name": "mask",
-			"type": "string",
-			"description": "Can be a custom mask or a stock mask. See Date Mask."
-		}, {
-			"name": "utc",
-			"type": "boolean",
-			"required": false,
-			"default": false,
-			"description": "Whether to format the date using universal time. If false date is formatted using local time."
-		}],
-		"returns": "string"
-	});
+	Date.method(
+		meta({
+			"name": "format",
+			"arguments": [{
+				"name": "mask",
+				"type": "string",
+				"description": "Can be a custom mask or a stock mask. See Date Mask."
+			}, {
+				"name": "utc",
+				"type": "boolean",
+				"required": false,
+				"default": false,
+				"description": "Whether to format the date using universal time. If false date is formatted using local time."
+			}],
+			"returns": "string"
+		}),
+		format
+	);
 
-	meta({
+	var replacers,
+		masks,
+		maskParts = /("|')(.*?)\1|d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTtz])\3?|[LlrZ]/g,
+		dateMethods = Date.prototype,
+		gettersLocal = {
+			getDate: dateMethods.getDate,
+			getDay: dateMethods.getDay,
+			getMonth: dateMethods.getMonth,
+			getFullYear: dateMethods.getFullYear,
+			getMilliseconds: dateMethods.getMilliseconds,
+			getSeconds: dateMethods.getSeconds,
+			getMinutes: dateMethods.getMinutes,
+			getHours: dateMethods.getHours
+		},
+		gettersUTC = {
+			getDate: dateMethods.getUTCDate,
+			getDay: dateMethods.getUTCDay,
+			getMonth: dateMethods.getUTCMonth,
+			getFullYear: dateMethods.getUTCFullYear,
+			getMilliseconds: dateMethods.getUTCMilliseconds,
+			getSeconds: dateMethods.getUTCSeconds,
+			getMinutes: dateMethods.getUTCMinutes,
+			getHours: dateMethods.getUTCHours
+		},
+		getters = gettersLocal;
+
+	masks = meta({
 		"name": "Date Mask",
 		"type": "Specification",
 		"description": "A date mask is a string containing placeholders that represent parts of a date. Any characters that isn't a placeholder will remain. All characters can be escaped by them within single or double quotes.",
@@ -72,208 +105,37 @@ define(function (require) {
 			"full_date": "dddd, mmmm d, yyyy",
 			"short_time": "h:MMt",
 			"medium_time": "h:MM:ss TT",
-			"long_time": "h:MM:ss TT Z",
+			"long_time": "HH:MM:ss.L",
 			"iso_date": "yyyy-mm-dd",
 			"iso_time": "HH:MM:ss",
 			"iso_datetime": "yyyy-mm-dd\"T\"HH:MM:ss"
 		}
 	});
 
-	var DateProto = Date.prototype,
-		noon = 12,
-		midnight = 12,
-		weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-		months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-		stockMasks = {
-			short_date: "m/d/yy",
-			medium_date: "mmm d, yyyy",
-			long_date: "mmmm d, yyyy",
-			full_date: "dddd, mmmm d, yyyy",
-			short_time: "h:MMt",
-			medium_time: "h:MM:ss TT",
-			long_time: "HH:MM:ss.L",
-			iso_date: "yyyy-mm-dd",
-			iso_time: "HH:MM:ss",
-			iso_datetime: "yyyy-mm-dd\"T\"HH:MM:ss"
-		},
-		gettersLocal = {
-			getDate: DateProto.getDate,
-			getDay: DateProto.getDay,
-			getMonth: DateProto.getMonth,
-			getFullYear: DateProto.getFullYear,
-			getMilliseconds: DateProto.getMilliseconds,
-			getSeconds: DateProto.getSeconds,
-			getMinutes: DateProto.getMinutes,
-			getHours: DateProto.getHours
-		},
-		gettersUTC = {
-			getDate: DateProto.getUTCDate,
-			getDay: DateProto.getUTCDay,
-			getMonth: DateProto.getUTCMonth,
-			getFullYear: DateProto.getUTCFullYear,
-			getMilliseconds: DateProto.getUTCMilliseconds,
-			getSeconds: DateProto.getUTCSeconds,
-			getMinutes: DateProto.getUTCMinutes,
-			getHours: DateProto.getUTCHours
+	function format (mask, UTC) {
+		var stockMasks = masks["Stock Masks"];
 
-		},
-		getters = gettersLocal,
-		maskParts = /("|')(.*?)\1|d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTtz])\3?|[LlrZ]/g,
-		replacers = {
-			"d": function (date) {
-				return getters.getDate.call(date);
-			},
+		if (mask in stockMasks) {
+			mask = stockMasks[mask];
+		}
 
-			"dd": function (date) {
-				var day = this.d(date);
+		setGetters(UTC);
 
-				return padZeros(2, day);
-			},
+		return mask.replace(maskParts, replace.bind(this));
+	}
 
-			"ddd": function (date) {
-				var weekday = this.dddd(date);
+	function replace (part, quote, escaped) {
+		var replacement = "";
 
-				return weekday.slice(0, 3);
-			},
+		if (quote) {
+			replacement = escaped || quote;
 
-			"dddd": function (date) {
-				var weekdayNumber = getters.getDay.call(date);
+		} else {
+			replacement = replacers[part](this);
+		}
 
-				return weekdays[weekdayNumber];
-			},
-
-			"m": function (date) {
-				return getters.getMonth.call(date) + 1;
-			},
-
-			"mm": function (date) {
-				var month = this.m(date);
-
-				return padZeros(2, month);
-			},
-
-			"mmm": function (date) {
-				var monthName = this.mmmm(date);
-
-				return monthName.slice(0, 3);
-			},
-
-			"mmmm": function (date) {
-				var monthNumber = getters.getMonth.call(date),
-					monthName = months[monthNumber];
-
-				return monthName;
-			},
-
-			"yy": function (date) {
-				var year = this.yyyy(date).toString();
-
-				return year.slice(2);
-			},
-
-			"yyyy": function (date) {
-				return getters.getFullYear.call(date);
-			},
-
-			"h": function (date) {
-				var hour = this.H(date);
-
-				if (hour % midnight === 0) {
-					hour = midnight;
-				}
-
-				return hour;
-			},
-
-			"hh": function (date) {
-				var hour = this.h(date);
-
-				return padZeros(2, hour);
-			},
-
-			"H": function (date) {
-				return getters.getHours.call(date);
-			},
-
-			"HH": function (date) {
-				var hour = this.H(date);
-
-				return padZeros(2, hour);
-			},
-
-			"M": function (date) {
-				return getters.getMinutes.call(date);
-			},
-
-			"MM": function (date) {
-				var minute = this.M(date);
-
-				return padZeros(2, minute);
-			},
-
-			"s": function (date) {
-				return getters.getSeconds.call(date);
-			},
-
-			"ss": function (date) {
-				var second = this.s(date);
-
-				return padZeros(2, second);
-			},
-
-			"l": function (date) {
-				return getters.getMilliseconds.call(date);
-			},
-
-			"L": function (date) {
-				var millisecond = this.l(date);
-
-				return padZeros(3, millisecond);
-			},
-
-			"t": function (date) {
-				var period;
-
-				if (isAM(date)) {
-					period = "a";
-
-				} else {
-					period = "p";
-				}
-
-				return period;
-			},
-
-			"tt": function (date) {
-				var period = this.t(date) + "m";
-
-				return period;
-			},
-
-			"T": function (date) {
-				var period = this.t(date);
-
-				return period.toUpperCase();
-			},
-
-			"TT": function (date) {
-				var period = this.tt(date);
-
-				return period.toUpperCase();
-			},
-
-			"r": function (date) {
-				var dayOfMonth = getters.getDate.call(date),
-					suffixes = ["th", "st", "nd", "rd"],
-					index = dayOfMonth % 10;
-
-				if (index > 3 || (dayOfMonth > 10 && dayOfMonth < 14)) {
-					index = 0;
-				}
-
-				return suffixes[index];
-			}
-		};
+		return replacement;
+	}
 
 	function setGetters (UTC) {
 
@@ -296,35 +158,162 @@ define(function (require) {
 	}
 
 	function isAM (date) {
-		return getters.getHours.call(date) < noon;
+		return getters.getHours.call(date) < util.NOON;
 	}
 
-	function format (mask, UTC) {
-		var date = this;
+	replacers = {
+		"d": function (date) {
+			return getters.getDate.call(date);
+		},
 
-		if (type.is.not("date", date)) {
-			date = new Date(date);
-		}
+		"dd": function (date) {
+			var day = this.d(date);
 
-		if (stockMasks[mask]) {
-			mask = stockMasks[mask];
-		}
+			return padZeros(2, day);
+		},
 
-		setGetters(UTC);
+		"ddd": function (date) {
+			var weekday = this.dddd(date);
 
-		return mask.replace(maskParts, function (part, quote, escaped) {
-			var replacement = "";
+			return weekday.slice(0, 3);
+		},
 
-			if (quote) {
-				replacement = escaped || quote;
+		"dddd": function (date) {
+			var weekdayNumber = getters.getDay.call(date);
 
-			} else {
-				replacement = replacers[part](date);
+			return util.WEEKDAYS[weekdayNumber];
+		},
+
+		"m": function (date) {
+			return getters.getMonth.call(date) + 1;
+		},
+
+		"mm": function (date) {
+			var month = this.m(date);
+
+			return padZeros(2, month);
+		},
+
+		"mmm": function (date) {
+			var monthName = this.mmmm(date);
+
+			return monthName.slice(0, 3);
+		},
+
+		"mmmm": function (date) {
+			var monthNumber = getters.getMonth.call(date),
+				monthName = util.MONTHS[monthNumber];
+
+			return monthName;
+		},
+
+		"yy": function (date) {
+			var year = this.yyyy(date).toString();
+
+			return year.slice(2);
+		},
+
+		"yyyy": function (date) {
+			return getters.getFullYear.call(date);
+		},
+
+		"h": function (date) {
+			var hour = this.H(date);
+
+			if (hour % util.MIDNIGHT === 0) {
+				hour = util.MIDNIGHT;
 			}
 
-			return replacement;
-		});
-	}
+			return hour;
+		},
 
-	DateProto.format = format;
+		"hh": function (date) {
+			var hour = this.h(date);
+
+			return padZeros(2, hour);
+		},
+
+		"H": function (date) {
+			return getters.getHours.call(date);
+		},
+
+		"HH": function (date) {
+			var hour = this.H(date);
+
+			return padZeros(2, hour);
+		},
+
+		"M": function (date) {
+			return getters.getMinutes.call(date);
+		},
+
+		"MM": function (date) {
+			var minute = this.M(date);
+
+			return padZeros(2, minute);
+		},
+
+		"s": function (date) {
+			return getters.getSeconds.call(date);
+		},
+
+		"ss": function (date) {
+			var second = this.s(date);
+
+			return padZeros(2, second);
+		},
+
+		"l": function (date) {
+			return getters.getMilliseconds.call(date);
+		},
+
+		"L": function (date) {
+			var millisecond = this.l(date);
+
+			return padZeros(3, millisecond);
+		},
+
+		"t": function (date) {
+			var period;
+
+			if (isAM(date)) {
+				period = "a";
+
+			} else {
+				period = "p";
+			}
+
+			return period;
+		},
+
+		"tt": function (date) {
+			var period = this.t(date) + "m";
+
+			return period;
+		},
+
+		"T": function (date) {
+			var period = this.t(date);
+
+			return period.toUpperCase();
+		},
+
+		"TT": function (date) {
+			var period = this.tt(date);
+
+			return period.toUpperCase();
+		},
+
+		"r": function (date) {
+			var dayOfMonth = getters.getDate.call(date),
+				suffixes = ["th", "st", "nd", "rd"],
+				index = dayOfMonth % 10;
+
+			if (index > 3 || (dayOfMonth > 10 && dayOfMonth < 14)) {
+				index = 0;
+			}
+
+			return suffixes[index];
+		}
+	};
 });

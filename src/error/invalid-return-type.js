@@ -6,10 +6,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	var meta = require("../meta"),
-		createErrorType = require("./create");
-
-	meta({
+	/*meta({
 		"name": "InvalidReturnType",
 		"extends": "Error",
 		"arguments": [{
@@ -22,18 +19,19 @@ define(function (require) {
 				"actual": "string"
 			}
 		}]
-	});
+	})*/
 
-	var InvalidReturnType = createErrorType({
-		name: "InvalidReturnType",
-		message: "Function {{functionName}} returned a {{actual}}; "+
-				"return type expected to be {{expected}} instead",
-		details: {
-			functionName: "unknown",
-			expected: "unknown",
-			actual: "unknown"
-		}
-	});
+	var createErrorType = require("./create"),
+		InvalidReturnType = createErrorType({
+			name: "InvalidReturnType",
+			message: "Function {{functionName}} returned a {{actual}}; "+
+					"return type expected to be {{expected}} instead",
+			details: {
+				functionName: "unknown",
+				expected: "unknown",
+				actual: "unknown"
+			}
+		});
 
 	return InvalidReturnType;
 });

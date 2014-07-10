@@ -6,13 +6,16 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 	
-	var meta = require("../meta"),
+	var Observable,
+		changeEvent,
+		propertyChangeEvent,
+		meta = require("../meta"),
 		createClass = require("../class/create");
 
 	meta.define("./base", require("./base"));
 	meta.define("./emitter", require("./emitter"));
 
-	var Observable = createClass(
+	Observable = createClass(
 		meta({
 			"name": "Observable",
 			"description": "General observable base class",
@@ -53,7 +56,7 @@ define(function (require) {
 		get
 	);
 	
-	var changeEvent = meta({
+	changeEvent = meta({
 		"name": "change",
 		"when": "A property is set to a new value",
 		"params": [{
@@ -68,7 +71,7 @@ define(function (require) {
 		}]
 	});
 	
-	var propertyChangeEvent = meta({
+	propertyChangeEvent = meta({
 		"name": "<property>-change",
 		"when": "A property is set to a new value",
 		"params": [{
@@ -83,15 +86,19 @@ define(function (require) {
 		}]
 	});
 	
-	function set (property, value) {
+	function set (property, newValue) {
 		var oldValue = this[property];
 		
-		if (value !== oldValue) {
-			this[property] = value;
-			propertyChangeEvent.name = property +"-change";
-			this.trigger(propertyChangeEvent, property, oldValue, value);
-			this.trigger(changeEvent, property, oldValue, value);
+		if (newValue !== oldValue) {
+			this[property] = newValue;
+			this.invoke(triggerChange, property, oldValue, newValue);
 		}
+	}
+
+	function triggerChange (property, oldValue, newValue) {
+		propertyChangeEvent.name = property +"-change";
+		this.trigger(propertyChangeEvent, property, oldValue, newValue);
+		this.trigger(changeEvent, property, oldValue, newValue);
 	}
 	
 	function get (property) {

@@ -1,16 +1,21 @@
 language: node_js
 
 node_js:
-- '0.11'
 - '0.10'
 
 before_script:
 - npm install -g grunt-cli
+- npm install -g codeclimate-test-reporter
+
+script:
+- grunt build
 
 after_script:
+- codeclimate < coverage/**/lcov.info
 - grunt coveralls
 
 env:
   global:
   - secure: CBOXQWpncCJ3c+60x2zx+k7diYMmskf8WYwjn7TtT3Y4afuiHhZycRt+YOeNetmYFSsjZe4e7iyFHXTOmUgtc6HRe9vNbvMSd05VoO8gCkTqbLYenKkhUkvkMhtO5F6dlqR3wUxhk4fp+Q1/6l273NWeSrh84K7ikZ6pB5i38KE=
   - secure: EeGAWpZaEHbkKB4pq8zJnhQqOG6ZzsGkTbo0DtrCT8bmNTlidOgR0VQzuihM24y84Rs6YNbgaWA5lhJHET2JsevBV6/JBpkgj5rSWrb2rhHlgQFp0gndzV/khv0TWGRIsWqCrahNwzql3w+JNvCMvG2S3AHlRDdhQ4z0IdvVfq4=
+  - secure: QvDdk8XlfpZveWDb6WgP1/o/YYDJjH8bf3p26dANP3ctQ60d1K5YjFeuc35N6ao2bpmysNuG051AqKO5PoR8NOm/1IxELMP5OYOTTHhX3izcitBwB2wdEo+gpyIu3R+p//Otj304W5hgoHLd2lcTVRddkpGWnovZ6ORm7/Lxr1g=

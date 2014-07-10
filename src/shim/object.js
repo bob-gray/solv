@@ -32,7 +32,7 @@ define(function (require) {
 		"name": "create",
 		"static": true,
 		"shim": true,
-		"description": "Create a new object with proto set as object's prototype",
+		"description": "Create a new object with given prototype",
 		"arguments": [{
 			"name": "proto",
 			"type": "object"

@@ -178,5 +178,24 @@ define(["solv/event/engine"], function (EventEngine) {
 
 			expect(handler1).toHaveBeenCalledWith("LOADED", "data has been loaded");
 		});
+		
+		it(".trigger method throws error when triggering event with invalid params", function () {
+			var options = {
+					name: "load",
+					params: [{
+						name: "status",
+						type: "string"
+					}, {
+						name: "msg",
+						type: "string"
+					}]
+				};
+
+			function badTrigger () {
+				eventEngine.trigger(target1, options, "LOADED");
+			}
+
+			expect(badTrigger).toThrow();
+		});
 	});
 });
