@@ -33,7 +33,7 @@ define(function (require) {
 		}
 	});
 	
-	Function.shim(singleton);
+	Function.shim("singleton", singleton);
 	
 	function singleton () {
 		var args,

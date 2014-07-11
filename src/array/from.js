@@ -10,11 +10,11 @@ define(function (require) {
 
 	var meta = require("../meta");
 
-	meta({
+	/*meta({
 		"name": "Array",
 		"type": "class",
 		"global": true
-	});
+	});*/
 
 	meta({
 		"name": "from",
@@ -29,7 +29,7 @@ define(function (require) {
 		"returns": "array"
 	});
 
-	Array.shimStatic(from);
+	Array.shimStatic("from", from);
 	
 	function from (arrayLike) {
 		return this.prototype.slice.call(arrayLike);

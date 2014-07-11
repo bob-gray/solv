@@ -32,7 +32,7 @@ define(function (require) {
 		}
 	});
 
-	Function.shim(extend);
+	Function.shim("extend", extend);
 
 	function extend (Super) {
 		this.prototype = Object.create(Super.prototype);

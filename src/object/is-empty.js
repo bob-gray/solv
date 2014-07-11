@@ -29,7 +29,7 @@ define(function (require) {
 		"returns": "boolean"
 	});
 
-	Object.shimStatic(isEmpty);
+	Object.shimStatic("isEmpty", isEmpty);
 
 	function isEmpty (object) {
 		var ownProperties = [];

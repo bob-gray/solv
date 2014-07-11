@@ -61,7 +61,7 @@ define(function (require) {
 		}
 	});
 
-	Object.shimStatic(merge);
+	Object.shimStatic("merge", merge);
 	
 	var deep = false;
 

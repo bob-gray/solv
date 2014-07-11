@@ -7,32 +7,26 @@ define(function (require) {
 	"use strict";
 
 	require("../class/method");
-	require("../shim/array");
+	require("./hours-from-standard");
 
 	var meta = require("../meta");
 
 	/*meta({
-		"name": "Array",
+		"name": "Date",
 		"type": "class",
 		"global": true
 	});*/
-	
-	Array.method(
+
+	Date.method(
 		meta({
-			"name": "contains",
-			"description": "Tests for the presence of an item in an array",
-			"arguments": [{
-				"name": "item",
-				"type": "any"
-			}],
+			"name": "isDaylightSavings",
+			"description": "Tests if date is within daylight savings time",
 			"returns": "boolean"
 		}),
-		contains
+		isDaylightSavings
 	);
-	
-	function contains (item) {
-		return this.indexOf(item) > -1;
+
+	function isDaylightSavings () {
+		return this.hoursFromStandard() > 0;
 	}
-	
-	return contains;
 });

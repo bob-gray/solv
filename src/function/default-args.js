@@ -30,7 +30,7 @@ define(function (require) {
 		"returns": "any"
 	});
 	
-	Function.shim(defaultArgs);
+	Function.shim("defaultArgs", defaultArgs);
 	
 	function defaultArgs () {
 		var fn = this,

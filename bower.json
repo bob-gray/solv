@@ -1,14 +1,21 @@
 {
   "name": "solv",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "homepage": "https://github.com/bob-gray/solv",
   "author": "Bob Gray <gray.bob98@gmail.com>",
-  "description": "JavaScript library for building object-oriented APIs",
+  "description": "Library for building object-oriented APIs",
   "keywords": [
     "class",
+    "object-oriented",
+    "inheritance",
+    "mixin",
     "method",
-    "overload",
-    "amd"
+    "event-driven",
+    "method overloading",
+    "meta",
+    "API",
+    "AMD",
+    "type checking"
   ],
   "license": "MIT",
   "ignore": [
@@ -17,6 +24,7 @@
     "bower_components",
     "tests",
     "Gruntfile.js",
+    "karma.conf.js",
     "package.json"
   ],
   "devDependencies": {

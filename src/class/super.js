@@ -29,7 +29,7 @@ define(function (require) {
 		"return": "function"
 	});
 	
-	Function.shim(injectSuper);
+	Function.shim("injectSuper", injectSuper);
 
 	var emptyContext = this;
 
