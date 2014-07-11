@@ -11,6 +11,7 @@ define(function (require) {
 	require("../function/abstract");
 	require("../function/get-name");
 	require("../function/validate-return-type");
+	require("../function/default-args");
 	require("../object/merge");
 
 	var meta = require("../meta"),
