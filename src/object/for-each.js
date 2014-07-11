@@ -36,7 +36,7 @@ define(function (require) {
 		}]
 	});
 	
-	Object.shimStatic(forEach);
+	Object.shimStatic("forEach", forEach);
 	
 	function forEach (object, callback, context) {
 		var keys = Object.keys(object);

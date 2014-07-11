@@ -29,7 +29,7 @@ define(function (require) {
 		"returns": "object"
 	});
 
-	Object.shimStatic(copy);
+	Object.shimStatic("copy", copy);
 	
 	function copy (object) {
 		return Object.merge({}, object);

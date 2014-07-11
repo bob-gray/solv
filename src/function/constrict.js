@@ -34,7 +34,7 @@ define(function (require) {
 		"returns": "function"
 	});
 
-	Function.shim(constrict);
+	Function.shim("constrict", constrict);
 	
 	function constrict (begin, end) {
 		var fn = this,

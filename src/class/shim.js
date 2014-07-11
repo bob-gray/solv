@@ -6,11 +6,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../function/get-name");
-
-	var meta = require("../meta");
-	
-	meta({
+	/*meta({
 		"name": "Function",
 		"type": "class",
 		"global": true
@@ -22,7 +18,6 @@ define(function (require) {
 		"arguments": [{
 			"name": "name",
 			"type": "string",
-			"required": false,
 			"description": "If name is not passed it will be retrieved with implementation.getName()"
 		}, {
 			"name": "implementation",
@@ -40,7 +35,6 @@ define(function (require) {
 		"arguments": [{
 			"name": "name",
 			"type": "string",
-			"required": false,
 			"description": "If name is not passed it will be retrieved with implementation.getName()"
 		}, {
 			"name": "implementation",
@@ -50,10 +44,10 @@ define(function (require) {
 			"type": "function",
 			"description": "Class constructor shim was called from. This allows chaining."
 		}
-	});
+	});*/
 	
-	shim.call(Function, shim);
-	Function.shim(shimStatic);
+	shim.call(Function, "shim", shim);
+	Function.shim("shimStatic", shimStatic);
 	
 	function shim (name, implementation) {
 		attachIfUndefined(this.prototype, name, implementation);
@@ -68,11 +62,6 @@ define(function (require) {
 	}
 	
 	function attachIfUndefined (target, name, implementation) {
-		if (!arguments[2]) {
-			implementation = arguments[1];
-			name = implementation.getName();
-		}
-	
 		if (!target[name]) {
 			target[name] = implementation;
 		}

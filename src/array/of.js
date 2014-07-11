@@ -31,7 +31,7 @@ define(function (require) {
 		"returns": "array"
 	});
 	
-	Array.shimStatic(of);
+	Array.shimStatic("of", of);
 	
 	function of () {
 		return this.from(arguments);

@@ -35,7 +35,7 @@ define(function (require) {
 		}
 	});
 	
-	Function.shimStatic(Abstract);
+	Function.shimStatic("Abstract", Abstract);
 
 	function Abstract (functionName) {
 

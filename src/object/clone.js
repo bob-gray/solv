@@ -34,7 +34,7 @@ define(function (require) {
 		"returns": "object|array"
 	});
 
-	Object.shimStatic(clone);
+	Object.shimStatic("clone", clone);
 
 	function clone (source) {
 		setup();

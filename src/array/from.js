@@ -29,7 +29,7 @@ define(function (require) {
 		"returns": "array"
 	});
 
-	Array.shimStatic(from);
+	Array.shimStatic("from", from);
 	
 	function from (arrayLike) {
 		return this.prototype.slice.call(arrayLike);

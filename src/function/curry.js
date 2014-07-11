@@ -30,7 +30,7 @@ define(function (require) {
 		"returns": "function"
 	});
 
-	Function.shim(curry);
+	Function.shim("curry", curry);
 	
 	function curry () {
 		var fn = this,
