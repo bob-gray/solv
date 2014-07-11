@@ -1,14 +1,15 @@
 {
   "name": "solv",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "homepage": "http://bob-gray.github.io/solv/",
   "author": {
     "name": "Bob Gray",
     "email": "gray.bob98@gmail.com"
   },
   "license": "MIT",
-  "description": "JavaScript library for building object-oriented APIs",
+  "description": "Library for building object-oriented APIs",
   "keywords": [
+    "class",
     "object-oriented",
     "inheritance",
     "mixin",
