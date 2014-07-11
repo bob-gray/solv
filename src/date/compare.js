@@ -9,7 +9,6 @@ define(function (require) {
 	require("../class/method");
 
 	var meta = require("../meta"),
-		type = require("../type"),
 		util = require("./util");
 
 	meta({
