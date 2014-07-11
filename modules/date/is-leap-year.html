@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>solv/abstract/observable API Documentation</title>
+		<title>solv/date/is-leap-year API Documentation</title>
 
 		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
 		<link href="../../css/api-meta.css" rel="stylesheet" />
@@ -61,7 +61,7 @@
 
 		<div class="container">	
 			<div class="row">
-				<div class="col-md-9"><h1 class="api-module">abstract/observable <small class="api-type">module</small></h1>
+				<div class="col-md-9"><h1 class="api-module">date/is-leap-year <small class="api-type">module</small></h1>
 
 <p class="api-description"></p>
 
@@ -70,15 +70,7 @@
 	<ul class="list-inline api-requires">
 		
 			<li>
-				<a href="../../modules/abstract/base.html" class="">abstract/base</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/abstract/emitter.html" class="">abstract/emitter</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/class/create.html" class="">class/create</a>
+				<a href="../../modules/class/method.html" class="">class/method</a>
 			</li>
 		
 			<li>
@@ -91,83 +83,39 @@
 <ul class="list-unstyled api-module-contents">
 	
 		<li>
-			<a class="api-anchor" id="class:Observable"></a>
-			<code id="Observable-class" class="api-code api-class"><strong>Observable(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
+			<a class="api-anchor" id="class:Date"></a>
+			<code id="Date-class" class="api-code api-class"><strong>Date(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
 			<p class="api-description">
-				General observable base class
+				
 			</p>
 			<p>
 				
 				
 				
+					<span class="label label-default">global</span>
+				
 			</p>
 
 			
-				<div class="panel panel-default">
-					<dl class="panel-body">
-						
-						
-							<dt><code class="api-term"><span class="api-class">mixins</span></code></dt>
-							<dd class="api-description">
-								<ul class="list-inline">
-									
-										<li>
-											
-												./base
-											
-										</li>
-									
-										<li>
-											
-												./emitter
-											
-										</li>
-									
-								</ul>
-							</dd>
-						
-						
-					</dl>
-				</div>
-			
 
 			
 
 			
-
-			
-				<h3 class="api-section api-method">methods</h3>
-
-				
+				<h3 class="api-section api-method">static methods</h3>
 
 				<ul class="list-unstyled api-items">
 					
 						<li>
-							<a class="api-anchor" id="method:get"></a>
+							<a class="api-anchor" id="method:isLeapYear"></a>
 							<code class="api-code api-method">
-								<strong>.get(</strong><strong class="api-arg">property</strong><small class="api-arg-type">:string</small><strong>)</strong>
+								<strong>Date.isLeapYear(</strong><strong class="api-arg">year</strong><small class="api-arg-type">:number</small><strong>)</strong>
+								
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">boolean</small>
 								
 							</code>
 							<p class="api-description">
-								Gets the value of a property
-								
-							</p>
-							<p>
-								
-								
-								
-							</p>
-							
-						</li>
-					
-						<li>
-							<a class="api-anchor" id="method:set"></a>
-							<code class="api-code api-method">
-								<strong>.set(</strong><strong class="api-arg">property</strong><small class="api-arg-type">:string</small><strong class="api-arg">, value</strong><small class="api-arg-type">:any</small><strong>)</strong>
-								
-							</code>
-							<p class="api-description">
-								Sets the value of a property
+								Tests if year is leap year
 								
 							</p>
 							<p>
@@ -182,44 +130,7 @@
 			
 
 			
-				<h3 class="api-section api-event">events</h3>
 
-				<ul class="list-unstyled api-items">
-					
-						<li>
-							<a class="api-anchor" id="event:&lt;property&gt;-change"></a>
-							<code class="api-code api-event">
-								<strong>&lt;property&gt;-change (</strong><strong class="api-arg">property</strong><small class="api-arg-type">:string</small><strong class="api-arg">, oldValue</strong><small class="api-arg-type">:any</small><strong class="api-arg">, newValue</strong><small class="api-arg-type">:any</small><strong>)</strong>
-							</code>
-							<p class="api-description">
-								
-								
-									When A property is set to a new value.
-								
-								
-							</p>
-							<p class="api-description">
-								
-							</p>
-						</li>
-					
-						<li>
-							<a class="api-anchor" id="event:change"></a>
-							<code class="api-code api-event">
-								<strong>change (</strong><strong class="api-arg">property</strong><small class="api-arg-type">:string</small><strong class="api-arg">, oldValue</strong><small class="api-arg-type">:any</small><strong class="api-arg">, newValue</strong><small class="api-arg-type">:any</small><strong>)</strong>
-							</code>
-							<p class="api-description">
-								
-								
-									When A property is set to a new value.
-								
-								
-							</p>
-							<p class="api-description">
-								
-							</p>
-						</li>
-					
 			
 		</li>
 	
@@ -232,7 +143,7 @@
 
 <ul class="nav api-module-links">
 	
-		<li class="active">
+		<li class="">
 			<a >abstract</a>
 			
 				<ul class="nav api-module-links">
@@ -246,7 +157,7 @@
 			
 		</li>
 	
-		<li class="current active">
+		<li class="">
 			<a href="../../modules/abstract/observable.html">observable</a>
 			
 		</li>
@@ -333,7 +244,7 @@
 			
 		</li>
 	
-		<li class="">
+		<li class="active">
 			<a >date</a>
 			
 				<ul class="nav api-module-links">
@@ -357,7 +268,7 @@
 			
 		</li>
 	
-		<li class="">
+		<li class="current active">
 			<a href="../../modules/date/is-leap-year.html">is-leap-year</a>
 			
 		</li>
