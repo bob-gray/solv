@@ -10,11 +10,11 @@ define(function (require) {
 
 	var meta = require("../meta");
 
-	meta({
+	/*meta({
 		"name": "Array",
 		"type": "class",
 		"global": true
-	});
+	});*/
 
 	meta({
 		"name": "from",

@@ -11,31 +11,30 @@ define(function (require) {
 
 	var meta = require("../meta");
 
-	meta({
+	/*meta({
 		"name": "Array",
 		"type": "class",
 		"global": true
-	});
+	});*/
 
-	meta({
-		"name": "of",
-		"static": true,
-		"shim": true,
-		"description": "Creates an array of the arguments passed to it",
-		"arguments": [{
-			"name": "item",
-			"type": "any",
-			"required": false,
-			"repeating": true
-		}],
-		"returns": "array"
-	});
-	
-	Array.shimStatic("of", of);
+	Array.method(
+		meta({
+			"name": "of",
+			"static": true,
+			"shim": true,
+			"description": "Creates an array of the arguments passed to it",
+			"arguments": [{
+				"name": "item",
+				"type": "any",
+				"required": false,
+				"repeating": true
+			}],
+			"returns": "array"
+		}),
+		of
+	);
 	
 	function of () {
 		return this.from(arguments);
 	}
-	
-	return of;
 });
