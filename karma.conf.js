@@ -59,7 +59,7 @@ module.exports = function (config) {
 			sauce_ie_9: {
 				base: "SauceLabs",
 				browserName: "internet explorer",
-				platform: "Windows Vista",
+				platform: "Windows 7",
 				version: "9"
 			},
 			sauce_ie_10: {
