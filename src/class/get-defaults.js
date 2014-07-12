@@ -11,8 +11,7 @@ define(function (require) {
 	require("../shim/array");
 	require("../function/overload");
 
-	var meta = require("../meta"),
-		type = require("../type");
+	var type = require("../type");
 
 	var getDefaults = Function.Abstract("getDefaults");
 	

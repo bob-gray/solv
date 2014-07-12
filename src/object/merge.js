@@ -12,15 +12,14 @@ define(function (require) {
 	require("../class/shim");
 	require("../function/curry");
 
-	var meta = require("../meta"),
-		type = require("../type"),
+	var type = require("../type"),
 		utils = require("./utils");
 
-	meta({
+	/*meta({
 		"name": "Object",
 		"type": "class",
 		"global": true
-	});
+	})
 
 	meta({
 		"name": "merge",
@@ -40,7 +39,7 @@ define(function (require) {
 			"type": "object",
 			"description": "target"
 		}
-	});
+	})
 
 	meta({
 		"name": "merge.deep",
@@ -59,7 +58,7 @@ define(function (require) {
 			"type": "object",
 			"description": "target"
 		}
-	});
+	})*/
 
 	Object.shimStatic("merge", merge);
 	

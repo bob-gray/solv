@@ -8,7 +8,7 @@ define(function (require) {
 
 	require("../shim/object");
 	require("../shim/array");
-	require("../class/shim");
+	require("../class/method");
 
 	var meta = require("../meta"),
 		type = require("../type"),
@@ -16,25 +16,26 @@ define(function (require) {
 		originals,
 		copies;
 
-	meta({
+	/*meta({
 		"name": "Object",
 		"type": "class",
 		"global": true
-	});
+	})*/
 
-	meta({
-		"name": "clone",
-		"static": true,
-		"shim": true,
-		"description": "Creates a deep copy of all own properties that are types object, array, number, string, boolean, null, undefined. Circular references are supported.",
-		"arguments": [{
-			"name": "source",
-			"type": "object|array"
-		}],
-		"returns": "object|array"
-	});
-
-	Object.shimStatic("clone", clone);
+	Object.method(
+		meta({
+			"name": "clone",
+			"static": true,
+			"shim": true,
+			"description": "Creates a deep copy of all own properties that are types object, array, number, string, boolean, null, undefined. Circular references are supported.",
+			"arguments": [{
+				"name": "source",
+				"type": "object|array"
+			}],
+			"returns": "object|array"
+		}),
+		clone
+	);
 
 	function clone (source) {
 		setup();
@@ -85,6 +86,4 @@ define(function (require) {
 
 		return targetValue;
 	}
-
-	return clone;
 });
