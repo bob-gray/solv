@@ -48,7 +48,7 @@ define(function (require) {
 			}]
 		}),
 		move
-	);;
+	);
 
 	function move (amount, part) {
 		movers[part](this, amount);
