@@ -10,7 +10,7 @@ define(function (require) {
 		"name": "Function",
 		"type": "class",
 		"global": true
-	});
+	})
 	
 	meta({
 		"name": "shim",
@@ -27,7 +27,7 @@ define(function (require) {
 			"type": "function",
 			"description": "Class constructor shim was called from. This allows chaining."
 		}
-	});
+	})
 	
 	meta({
 		"name": "shimStatic",
@@ -44,7 +44,7 @@ define(function (require) {
 			"type": "function",
 			"description": "Class constructor shim was called from. This allows chaining."
 		}
-	});*/
+	})*/
 	
 	shim.call(Function, "shim", shim);
 	Function.shim("shimStatic", shimStatic);
