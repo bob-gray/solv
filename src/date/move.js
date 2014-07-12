@@ -13,11 +13,25 @@ define(function (require) {
 		util = require("./util"),
 		movers;
 
-	meta({
+	/*meta({
 		"name": "Date",
 		"type": "class",
 		"global": true
-	});
+	})
+
+	meta({
+		"name": "Date Part",
+		"type": "Specification",
+		"d": "day",
+		"m": "month",
+		"y": "year",
+		"q": "quarter",
+		"w": "week",
+		"h": "hour",
+		"M": "minute",
+		"s": "second",
+		"l": "millisecond"
+	})*/
 
 	Date.method(
 		meta({
@@ -34,21 +48,7 @@ define(function (require) {
 			}]
 		}),
 		move
-	);
-
-	meta({
-		"name": "Date Part",
-		"type": "Specification",
-		"d": "day",
-		"m": "month",
-		"y": "year",
-		"q": "quarter",
-		"w": "week",
-		"h": "hour",
-		"M": "minute",
-		"s": "second",
-		"l": "millisecond"
-	});
+	);;
 
 	function move (amount, part) {
 		movers[part](this, amount);
