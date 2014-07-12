@@ -34,8 +34,11 @@ module.exports = function (config) {
 		customLaunchers: {
 			sauce_chrome: {
 				base: "SauceLabs",
-				browserName: "chrome",
-				platform: "Windows 7"
+				browserName: "chrome"
+			},
+			sauce_chrome_linux: {
+				base: "SauceLabs",
+				browserName: "chrome"
 			},
 			sauce_firefox: {
 				base: "SauceLabs",
@@ -52,6 +55,12 @@ module.exports = function (config) {
 				browserName: "internet explorer",
 				platform: "Windows XP",
 				version: "8"
+			},
+			sauce_ie_9: {
+				base: "SauceLabs",
+				browserName: "internet explorer",
+				platform: "Windows Vista",
+				version: "9"
 			},
 			sauce_ie_10: {
 				base: "SauceLabs",
