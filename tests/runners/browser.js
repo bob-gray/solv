@@ -19,6 +19,7 @@ require(
 		"spec/class/create-test",
 		"spec/class/method-test",
 		"spec/class/singleton-test",
+		"spec/color-test",
 		"spec/date/compare-test",
 		"spec/date/format-test",
 		"spec/date/hours-from-standard-test",
