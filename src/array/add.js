@@ -6,22 +6,21 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../class/method");
-	require("../shim/array");
-
-	var meta = require("../meta");
-
 	/*meta({
 		"name": "Array",
 		"type": "class",
 		"global": true
-	});*/
+	})*/
+
+	require("../class/method");
+	require("../shim/array");
+
+	var meta = require("../meta");
 	
 	Array.method(
 		meta({
 			"name": "add",
-			"shim": true,
-			"descriptions": "Push an item onto the array only if it isn't already found in the array",
+			"description": "Pushes an item onto array only if it isn't already found in array",
 			"arguments": [{
 				"name": "item",
 				"type": "any"
@@ -41,6 +40,4 @@ define(function (require) {
 	function isNotFound (index) {
 		return index === -1;
 	}
-	
-	return add;
 });

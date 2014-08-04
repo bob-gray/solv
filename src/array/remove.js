@@ -6,22 +6,21 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../class/method");
-	require("../shim/array");
-
-	var meta = require("../meta");
-
 	/*meta({
 		"name": "Array",
 		"type": "class",
 		"global": true
-	});*/
+	})*/
+
+	require("../class/method");
+	require("../shim/array");
+
+	var meta = require("../meta");
 	
 	Array.method(
 		meta({
 			"name": "remove",
-			"shim": true,
-			"descriptions": "Removes the first occurrence of an item from an array",
+			"description": "Removes the first occurrence of an item from array",
 			"arguments": [{
 				"name": "item",
 				"type": "any"
@@ -41,6 +40,4 @@ define(function (require) {
 	function isFound (index) {
 		return index > -1;
 	}
-	
-	return remove;
 });
