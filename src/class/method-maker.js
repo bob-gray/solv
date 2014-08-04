@@ -6,7 +6,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("./super");
+	require("./inject-super");
 	require("../function/overload");
 	require("../function/abstract");
 	require("../function/get-name");

@@ -11,7 +11,7 @@ define(function (require) {
 	require("./class/mixin");
 	require("./class/shim");
 	require("./class/singleton");
-	require("./class/super");
+	require("./class/inject-super");
 
 	var meta = require("./meta");
 
