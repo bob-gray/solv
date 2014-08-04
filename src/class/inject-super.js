@@ -8,26 +8,27 @@ define(function (require) {
 
 	require("./shim");
 
-	var meta = require("../meta");
-
-	meta({
+	/*meta({
 		"name": "Function",
 		"type": "class",
 		"global": true
-	});
+	})
 
 	meta({
 		"name": "injectSuper",
 		"shim": true,
-		"description": "Higher-order function that creates a proxy function which while the the original being invoked injects instance methods on the context of superCall and superApply",
+		"description": "Creates method proxy that injects access to superMethod",
 		"arguments": [{
 			"name": "superMethod",
 			"type": "function",
-			"description": "Becomes accessible on the context from superCall or superApply while method is executing",
+			"description": "Becomes accessible within method as this.superCall and this.superApply",
 			"required": false
 		}],
-		"return": "function"
-	});
+		"returns": {
+			"name": "proxy",
+			"type": "function"
+		}
+	})*/
 	
 	Function.shim("injectSuper", injectSuper);
 
