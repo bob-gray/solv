@@ -6,8 +6,6 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("./shim");
-
 	/*meta({
 		"name": "Function",
 		"type": "class",
@@ -30,7 +28,7 @@ define(function (require) {
 		}
 	})*/
 	
-	Function.shim("injectSuper", injectSuper);
+	Function.prototype.injectSuper = injectSuper;
 
 	var emptyContext = this;
 

@@ -6,6 +6,17 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
+	/*meta({
+		"type": "module",
+		"description": "For decorating a class with methods. mixin should be called on a class constructor. ie... MyClass.mixin(...)"
+	})
+
+	meta({
+		"name": "Function",
+		"type": "class",
+		"global": true
+	})*/
+
 	require("./method");
 	require("../function/constrict");
 	require("../shim/object");
@@ -14,76 +25,76 @@ define(function (require) {
 	
 	var meta = require("../meta"),
 		type = require("../type");
-	
-	meta({
-		"type": "module",
-		"description": "Augments Function prototype with mixin method for decorating a constructor function's prototype"
-	});
 
-	meta({
-		"name": "Function",
-		"type": "class",
-		"global": true
-	});
+	Function.method(
+		meta({
+			"type": "method",
+			"name": "mixin",
+			"description": "Each item in the array will be mixed in.",
+			"arguments": [{
+				"name": "mixins",
+				"type": "array",
+				"items": "function|object"
+			}],
+			"returns": {
+				"name": "Class",
+				"type": "function",
+				"description": "self to allow for chaining"
+			}
+		}),
+		mixinArray
+	);
 
-	if (!Function.prototype.mixin) {
-		Function.method(
-			meta({
-				"type": "method",
-				"name": "mixin",
-				"description": "Each item in the array will mixed in",
-				"arguments": [{
-					"name": "mixins",
-					"type": "array",
-					"items": "function|object"
-				}],
-				"returns": "function"
-			}),
-			mixinArray
-		);
-	
-		Function.method(
-			meta({
-				"type": "method",
-				"name": "mixin",
-				"description": "Constructor's own instance methods will be appended directly to function's prototype",
-				"arguments": [{
-					"name": "Constructor",
-					"type": "function"
-				}],
-				"returns": "function"
-			}),
-			mixinClass
-		);
-	
-		Function.method(
-			meta({
-				"type": "method",
-				"name": "mixin",
-				"description": "Objects own methods will be appended directly to function's prototype",
-				"arguments": [{
-					"name": "mixins",
-					"type": "object"
-				}],
-				"returns": "function"
-			}),
-			mixin
-		);
-	}
+	Function.method(
+		meta({
+			"type": "method",
+			"name": "mixin",
+			"description": "OtherClass's own instance methods will be appended directly to function's prototype. This doesn't include OtherClass's inherited methods.",
+			"arguments": [{
+				"name": "OtherClass",
+				"type": "function"
+			}],
+			"returns": {
+				"name": "Class",
+				"type": "function",
+				"description": "self to allow for chaining"
+			}
+		}),
+		mixinClass
+	);
+
+	Function.method(
+		meta({
+			"type": "method",
+			"name": "mixin",
+			"description": "Objects own methods will be appended directly to function's prototype",
+			"arguments": [{
+				"name": "mixins",
+				"type": "object"
+			}],
+			"returns": {
+				"name": "Class",
+				"type": "function",
+				"description": "self to allow for chaining"
+			}
+		}),
+		mixin
+	);
 	
 	function mixinArray (mixins) {
 		mixins.forEach(this.mixin.constrict(0, 1), this);
 		return this;
 	}
 	
-	function mixinClass (Constructor) {
-		return this.mixin(Constructor.prototype);
+	function mixinClass (OtherClass) {
+		return this.mixin(OtherClass.prototype);
 	}
 
 	function mixin (mixins) {
 		Object.keys(mixins)
 			.filter(isFunction, mixins)
 			.forEach(attachMethod.bind(this, mixins));
+
 		return this;
 	}
 

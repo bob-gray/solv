@@ -18,14 +18,14 @@ define(function (require) {
 		"arguments": [{
 			"name": "name",
 			"type": "string",
-			"description": "If name is not passed it will be retrieved with implementation.getName()"
+			"description": "Name of method"
 		}, {
 			"name": "implementation",
 			"type": "function"
 		}],
 		"returns": {
 			"type": "function",
-			"description": "Class constructor shim was called from. This allows chaining."
+			"description": "self to allow for chaining"
 		}
 	})
 	
@@ -42,12 +42,12 @@ define(function (require) {
 		}],
 		"returns": {
 			"type": "function",
-			"description": "Class constructor shim was called from. This allows chaining."
+			"description": "self to allow for chaining"
 		}
 	})*/
 	
-	shim.call(Function, "shim", shim);
-	Function.shim("shimStatic", shimStatic);
+	Function.prototype.shim = shim;
+	Function.prototype.shimStatic = shimStatic;
 	
 	function shim (name, implementation) {
 		attachIfUndefined(this.prototype, name, implementation);
@@ -66,6 +66,4 @@ define(function (require) {
 			target[name] = implementation;
 		}
 	}
-	
-	return shim;
 });

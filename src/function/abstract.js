@@ -6,19 +6,11 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../class/shim");
-	require("../class/singleton");
-
-	var meta = require("../meta"),
-		Invocation = require("../function/invocation"),
-		ImplementationNotFound = require("../error/implementation-not-found"),
-		signatures = require("./signatures");
-
-	meta({
+	/*meta({
 		"name": "Function",
 		"type": "class",
 		"global": true
-	});
+	})
 
 	meta({
 		"name": "Abstract",
@@ -33,11 +25,15 @@ define(function (require) {
 			"throws": "ImplementationNotFound",
 			"description": "Should be overridden or overloaded. When called this function throws an error"
 		}
-	});
-	
-	Function.shimStatic("Abstract", Abstract);
+	})*/
 
-	function Abstract (functionName) {
+	require("../class/singleton");
+
+	var Invocation = require("../function/invocation"),
+		ImplementationNotFound = require("../error/implementation-not-found"),
+		signatures = require("./signatures");
+	
+	Function.Abstract = function (functionName) {
 
 		return function () {
 			var invocation = Invocation.singleton(),
@@ -57,5 +53,5 @@ define(function (require) {
 			
 			throw new ImplementationNotFound(errorDetails);
 		};
-	}
+	};
 });

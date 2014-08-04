@@ -6,25 +6,23 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../class/shim");
 	require("../class/singleton");
 
-	var meta = require("../meta"),
-		type = require("../type"),
+	var type = require("../type"),
 		Invocation = require("./invocation"),
 		signatures = require("./signatures");
 
-	meta({
+	/*meta({
 		"type": "module",
 		"exports": "overload",
 		"description": "Allows for function overloading by length and type of arguments"
-	});
+	})
 
 	meta({
 		"name": "Function",
 		"type": "class",
 		"global": true
-	});
+	})
 
 	meta({
 		"name": "overload",
@@ -38,7 +36,7 @@ define(function (require) {
 			"type": "function"
 		}],
 		"returns": "function"
-	});
+	})
 
 	meta({
 		"name": "overload",
@@ -51,7 +49,7 @@ define(function (require) {
 			"type": "function"
 		}],
 		"returns": "function"
-	});
+	})
 
 	meta({
 		"name": "overload",
@@ -61,7 +59,7 @@ define(function (require) {
 			"type": "function"
 		}],
 		"returns": "function"
-	});
+	})
 
 	meta({
 		"name": "Function Implementation Signature",
@@ -80,15 +78,15 @@ define(function (require) {
 			"boolean?, string|number, function": "Matches (boolean, number, function) and (boolean, string, function) and (string, function) and (number, function). It does not match (boolean, function) or (boolean, number).",
 			"string, object, any, !null|undefined*": "Matches (string, object, object) and (string, object, number, number) and (string, object, null). It does not match (string, object, object, null)."
 		}
-	});
+	})*/
 
-	var invocation = Invocation.singleton(),
-		overload;
+	var overload,
+		invocation = Invocation.singleton();
 
 	addOverloadByLengthImplementation();
 	addOverloadBySignatureImplementation();
 
-	Function.shim("overload", overload);
+	Function.prototype.overload = overload;
 
 	function overloadByLength (thisImplementation) {
 		var implementationSignature = list("any", thisImplementation.length);

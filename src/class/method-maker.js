@@ -14,8 +14,7 @@ define(function (require) {
 	require("../function/default-args");
 	require("../object/merge");
 
-	var meta = require("../meta"),
-		type = require("../type"),
+	var type = require("../type"),
 		signatures = require("../function/signatures"),
 		getDefaults = require("./get-defaults");
 
