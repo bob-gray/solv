@@ -9,10 +9,9 @@ define(function (require) {
 	require("../function/overload");
 	require("../function/abstract");
 	
-	var meta = require("../meta"),
-		ClassMaker = require("./class-maker");
+	var ClassMaker = require("./class-maker");
 
-	meta({
+	/*meta({
 		"name": "createClass",
 		"type": "function",
 		"description": "Creates a new class",
@@ -37,7 +36,7 @@ define(function (require) {
 			"type": "function",
 			"description": "Class constructor. Use constructor for other class setup tasks such as creating methods and setting up inheritance. Invoke this constructor with the new operator to create class instances."
 		}
-	});
+	})*/
 	
 	var createClass = new Function.Abstract("createClass")
 			.overload("function?", createWithoutOptions)

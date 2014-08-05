@@ -5,18 +5,12 @@ if (typeof define !== "function") {
 
 define(function (require) {
 	"use strict";
-
-	require("../shim/function");
-	require("../array/from");
-	require("./shim");
 	
-	var meta = require("../meta");
-	
-	meta({
+	/*meta({
 		"name": "Function",
 		"type": "class",
 		"global": true
-	});
+	})
 
 	meta({
 		"name": "singleton",
@@ -26,16 +20,17 @@ define(function (require) {
 			"type": "any",
 			"required": false,
 			"repeating": true,
-			"description": "All arguments are ignored is instance already exists or passed to the constructor to build the singleton instance."
+			"description": "All arguments are ignored if instance already exists. If instance doesn't exist arguments are passed to the constructor to build the singleton instance."
 		}],
-		"return": {
+		"returns": {
 			"description": "Singleton instance"
 		}
-	});
+	})*/
+
+	require("../shim/function");
+	require("../array/from");
 	
-	Function.shim("singleton", singleton);
-	
-	function singleton () {
+	Function.prototype.singleton = function () {
 		var args,
 			ignoredContext = {};
 		
@@ -44,8 +39,7 @@ define(function (require) {
 			args.unshift(ignoredContext);
 			this.instance = new (this.bind.apply(this, args))();
 		}
-		return this.instance;
-	}
 
-	return singleton;
+		return this.instance;
+	};
 });

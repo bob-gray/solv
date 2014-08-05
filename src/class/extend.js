@@ -6,16 +6,11 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../shim/object");
-	require("./shim");
-
-	var meta = require("../meta");
-
-	meta({
+	/*meta({
 		"name": "Function",
 		"type": "class",
 		"global": true
-	});
+	})
 
 	meta({
 		"name": "extend",
@@ -30,16 +25,15 @@ define(function (require) {
 			"type": "function",
 			"description": "Child's constructor (the method's owner). This allows chaining."
 		}
-	});
+	})*/
 
-	Function.shim("extend", extend);
+	require("../shim/object");
 
-	function extend (Super) {
+	Function.prototype.extend = function (Super) {
 		this.prototype = Object.create(Super.prototype);
 		this.prototype.constructor = this;
 		this.Super = Super;
-		return this;
-	}
 
-	return extend;
+		return this;
+	};
 });

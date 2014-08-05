@@ -6,15 +6,15 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("./super");
+	require("./inject-super");
 	require("../function/overload");
 	require("../function/abstract");
 	require("../function/get-name");
 	require("../function/validate-return-type");
+	require("../function/default-args");
 	require("../object/merge");
 
-	var meta = require("../meta"),
-		type = require("../type"),
+	var type = require("../type"),
 		signatures = require("../function/signatures"),
 		getDefaults = require("./get-defaults");
 

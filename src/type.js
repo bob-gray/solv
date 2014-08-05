@@ -6,12 +6,10 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	var meta = require("./meta");
-
-	meta({
+	/*meta({
 		"type": "module",
 		"description": "Native typeof operator fails and returns 'object' for JavaScript types: array, date, regexp and null. Native type names for use with this module include: string, number, boolean, array, object, date, regexp, function, undefined and null."
-	});
+	})
 
 	meta({
 		"name": "of",
@@ -22,7 +20,7 @@ define(function (require) {
 			"type": "any"
 		}],
 		"returns": "string"
-	});
+	})
 
 	meta({
 		"name": "is",
@@ -36,7 +34,7 @@ define(function (require) {
 			"type": "any"
 		}],
 		"returns": "boolean"
-	});
+	})
 
 	meta({
 		"name": "is.not",
@@ -50,7 +48,7 @@ define(function (require) {
 			"type": "any"
 		}],
 		"returns": "boolean"
-	});
+	})
 
 	meta({
 		"name": "custom",
@@ -65,7 +63,7 @@ define(function (require) {
 			"type": "object",
 			"description": "Custom type tester containing .of, .is and .is.not methods."
 		}
-	});
+	})*/
 
 	var toString = Object.prototype.toString,
 		type = {

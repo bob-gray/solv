@@ -6,34 +6,33 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../class/shim");
+	require("../class/method");
 	require("./merge");
 
 	var meta = require("../meta");
 
-	meta({
+	/*meta({
 		"name": "Object",
 		"type": "class",
 		"global": true
-	});
+	})*/
 
-	meta({
-		"name": "copy",
-		"static": true,
-		"shim": true,
-		"description": "Creates a shallow copy of own properties that are not null or undefined",
-		"arguments": [{
-			"name": "source",
-			"type": "object"
-		}],
-		"returns": "object"
-	});
-
-	Object.shimStatic("copy", copy);
+	Object.method(
+		meta({
+			"name": "copy",
+			"static": true,
+			"shim": true,
+			"description": "Creates a shallow copy of own properties that are not null or undefined.",
+			"arguments": [{
+				"name": "source",
+				"type": "object"
+			}],
+			"returns": "object"
+		}),
+		copy
+	);
 	
 	function copy (object) {
 		return Object.merge({}, object);
 	}
-
-	return copy;
 });

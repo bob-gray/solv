@@ -33,8 +33,9 @@ define(function (require) {
 				"type": "function"
 			}],
 			"returns": {
+				"name": "listenerKey",
 				"type": "object",
-				"description": "Event listener key; can be passed to .off to remove listener"
+				"description": "Can be passed to .off to remove listener"
 			}
 		}),
 		on
@@ -52,8 +53,9 @@ define(function (require) {
 				"type": "function"
 			}],
 			"returns": {
+				"name": "listenerKey",
 				"type": "object",
-				"description": "Event listener key; can be passed to .off to remove listener"
+				"description": "Can be passed to .off to remove listener"
 			}
 		}),
 		once
@@ -66,7 +68,7 @@ define(function (require) {
 			"arguments": [{
 				"name": "listenerKey",
 				"type": "object",
-				"description": "Returned from addListener or addListenerOnce"
+				"description": "Returned from .on or .once"
 			}]
 		}),
 		offByListener
@@ -105,7 +107,7 @@ define(function (require) {
 				"type": "any",
 				"required": false,
 				"repeating": true,
-				"description": "Arguments to pass to handler functions"
+				"description": "Additional arguments are passed to handler functions"
 			}]
 		}),
 		trigger
@@ -128,7 +130,7 @@ define(function (require) {
 				"type": "any",
 				"required": false,
 				"repeating": true,
-				"description": "Arguments to pass to handler functions"
+				"description": "Additional arguments are passed to handler functions"
 			}]
 		}),
 		trigger
@@ -147,7 +149,7 @@ define(function (require) {
 	}
 
 	function offByEventName (eventName) {
-		event.removeListener(this, eventName);
+		event.removeListeners(this, eventName);
 	}
 
 	function allOff () {

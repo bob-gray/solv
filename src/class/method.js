@@ -107,12 +107,15 @@ define(function (require) {
 		}]
 	})*/
 
+	require("../function/overload");
+	require("../function/abstract");
+
 	var MethodMaker = require("./method-maker"),
 		method = new Function.Abstract("method")
 			.overload("string, function", methodWithName)
 			.overload("object, function?", methodWithOptions);
 	
-	Function.shim("method", method);
+	Function.prototype.method = method;
 
 	function methodWithName (name, implementation) {
 		var options = {

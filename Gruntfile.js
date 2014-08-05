@@ -1,3 +1,4 @@
+/*jshint node:true*/
 "use strict";
 
 module.exports = function (grunt) {
@@ -74,7 +75,9 @@ function configureTasks (grunt) {
 				src: [
 					"tests/runner.js",
 					"tests/karma/runner.js",
-					"tests/spec/**/*.js"
+					"tests/spec/**/*.js",
+					"Gruntfile.js",
+					"karma.conf.js"
 				]
 			}
 		},
@@ -149,9 +152,12 @@ function configureTasks (grunt) {
 				],
 				browsers: [
 					"sauce_chrome",
+					//"sauce_chrome_linux",
 					"sauce_firefox",
+					//"sauce_firefox_linux",
 					"sauce_safari",
 					"sauce_ie_8",
+					"sauce_ie_9",
 					"sauce_ie_10",
 					"sauce_ie_11"
 				],

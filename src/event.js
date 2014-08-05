@@ -8,13 +8,12 @@ define(function (require) {
 
 	require("./class/singleton");
 
-	var meta = require("./meta"),
-		EventEngine = require("./event/engine");
+	var EventEngine = require("./event/engine");
 
-	meta({
+	/*meta({
 		"type": "module",
 		"description": "Exports a singleton instance of event/engine"
-	});
+	})*/
 
 	return EventEngine.singleton();
 });

@@ -6,29 +6,15 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("./overload");
-	require("../class/shim");
-
-	var meta = require("../meta"),
-		type = require("../type"),
-		InvalidReturnType = require("../error/invalid-return-type"),
-		signatures = require("./signatures");
-
-	meta({
-		"type": "module",
-		"description": "Allows for the return type of a function to be validated"
-	});
-
-	meta({
+	/*meta({
 		"name": "Function",
 		"type": "class",
 		"global": true
-	});
+	})
 
 	meta({
 		"name": "validateReturnType",
-		"shim": true,
-		"description": "Higher-order function that returns a proxy function that throws an error when the original function's return value's type doesn't match the signature",
+		"description": "Creates function proxy that throws an error when the original function's return value's type doesn't match the signature",
 		"arguments": [{
 			"name": "signature",
 			"type": "string"
@@ -37,11 +23,10 @@ define(function (require) {
 			"type": "function",
 			"throws": "InvalidReturnType"
 		}
-	});
+	})
 
 	meta({
 		"name": "validateReturnType",
-		"shim": true,
 		"arguments": [{
 			"name": "options",
 			"type": "object"
@@ -50,7 +35,7 @@ define(function (require) {
 			"type": "function",
 			"throws": "InvalidReturnType"
 		}
-	});
+	})
 
 	meta({
 		"name": "options",
@@ -65,11 +50,16 @@ define(function (require) {
 				"description": "A pipe delimited list of possible return types optionally preceeding by an exclamation point making the signature negating"
 			}
 		}
-	});
+	})*/
 
-	var validate = validateWithSignature.overload("object", validateWithOptions);
+	require("./overload");
 
-	Function.shim("validateReturnType", validate);
+	var type = require("../type"),
+		InvalidReturnType = require("../error/invalid-return-type"),
+		signatures = require("./signatures"),
+		validate = validateWithSignature.overload("object", validateWithOptions);
+
+	Function.prototype.validateReturnType = validate;
 
 	function validateWithSignature (signature) {
 		return validateWithOptions.call(this, {

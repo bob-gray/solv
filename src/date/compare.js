@@ -11,11 +11,25 @@ define(function (require) {
 	var meta = require("../meta"),
 		util = require("./util");
 
-	meta({
+	/*meta({
 		"name": "Date",
 		"type": "class",
 		"global": true
-	});
+	})
+
+	meta({
+		"name": "Date Part",
+		"type": "Specification",
+		"d": "day",
+		"m": "month",
+		"y": "year",
+		"q": "quarter",
+		"w": "week",
+		"h": "hour",
+		"M": "minute",
+		"s": "second",
+		"l": "millisecond"
+	})*/
 
 	Date.method(
 		meta({
@@ -39,20 +53,6 @@ define(function (require) {
 
 	// overload
 	Date.method({name:"compare", signature:"!date,string"}, compareDateLike);
-
-	meta({
-		"name": "Date Part",
-		"type": "Specification",
-		"d": "day",
-		"m": "month",
-		"y": "year",
-		"q": "quarter",
-		"w": "week",
-		"h": "hour",
-		"M": "minute",
-		"s": "second",
-		"l": "millisecond"
-	});
 
 	var MILLISECONDS_IN_MINUTE = util.SECONDS_IN_MINUTE * util.MILLISECONDS_IN_SECOND,
 		MILLISECONDS_IN_DAY = MILLISECONDS_IN_MINUTE * util.MINUTES_IN_HOUR * util.HOURS_IN_DAY,
@@ -94,8 +94,8 @@ define(function (require) {
 
 		"d": function (date1, date2) {
 			var offset = (date2.getTimezoneOffset() - date1.getTimezoneOffset()) * MILLISECONDS_IN_MINUTE,
-				day1 = new Date(date1).setHours(0, 0, 0, 0),
-				day2 = new Date(date2).setHours(0, 0, 0, 0);
+				day1 = new Date(+date1).setHours(0, 0, 0, 0),
+				day2 = new Date(+date2).setHours(0, 0, 0, 0);
 
 			return Math.floor((day2 - day1 + offset) / MILLISECONDS_IN_DAY);
 		},

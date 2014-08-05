@@ -6,16 +6,16 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../class/method");
-	require("../array/from");
-
-	var meta = require("../meta");
-
 	/*meta({
 		"name": "Array",
 		"type": "class",
 		"global": true
 	});*/
+
+	require("../class/method");
+	require("../array/from");
+
+	var meta = require("../meta");
 
 	Array.method(
 		meta({

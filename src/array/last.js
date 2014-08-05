@@ -13,24 +13,20 @@ define(function (require) {
 	})*/
 
 	require("../class/method");
-	require("../shim/array");
 
 	var meta = require("../meta");
 	
 	Array.method(
 		meta({
-			"name": "contains",
-			"description": "Tests for the presence of an item in array",
-			"arguments": [{
-				"name": "item",
-				"type": "any"
-			}],
-			"returns": "boolean"
+			"name": "last",
+			"description": "Gets the last item in array",
+			"arguments": [],
+			"returns": "any"
 		}),
-		contains
+		last
 	);
 	
-	function contains (item) {
-		return this.indexOf(item) > -1;
+	function last () {
+		return this[this.length - 1];
 	}
 });

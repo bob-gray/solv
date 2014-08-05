@@ -37,10 +37,18 @@ module.exports = function (config) {
 				browserName: "chrome",
 				platform: "Windows 7"
 			},
+			sauce_chrome_linux: {
+				base: "SauceLabs",
+				browserName: "chrome"
+			},
 			sauce_firefox: {
 				base: "SauceLabs",
 				browserName: "firefox",
 				platform: "Windows 7"
+			},
+			sauce_firefox_linux: {
+				base: "SauceLabs",
+				browserName: "firefox"
 			},
 			sauce_safari: {
 				base: "SauceLabs",
@@ -52,6 +60,12 @@ module.exports = function (config) {
 				browserName: "internet explorer",
 				platform: "Windows XP",
 				version: "8"
+			},
+			sauce_ie_9: {
+				base: "SauceLabs",
+				browserName: "internet explorer",
+				platform: "Windows 7",
+				version: "9"
 			},
 			sauce_ie_10: {
 				base: "SauceLabs",

@@ -9,13 +9,11 @@ define(function (require) {
 	require("../shim/object");
 	require("../class/shim");
 
-	var meta = require("../meta");
-
-	meta({
+	/*meta({
 		"name": "Object",
 		"type": "class",
 		"global": true
-	});
+	})
 
 	meta({
 		"name": "isEmpty",
@@ -27,7 +25,7 @@ define(function (require) {
 			"type": "object"
 		}],
 		"returns": "boolean"
-	});
+	})*/
 
 	Object.shimStatic("isEmpty", isEmpty);
 
@@ -41,8 +39,6 @@ define(function (require) {
 			ownProperties = Object.keys(object);
 		}
 		
-		return 0 === ownProperties.length;
+		return ownProperties.length === 0;
 	}
-
-	return isEmpty;
 });

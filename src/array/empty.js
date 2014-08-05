@@ -13,24 +13,19 @@ define(function (require) {
 	})*/
 
 	require("../class/method");
-	require("../shim/array");
 
 	var meta = require("../meta");
 	
 	Array.method(
 		meta({
-			"name": "contains",
-			"description": "Tests for the presence of an item in array",
-			"arguments": [{
-				"name": "item",
-				"type": "any"
-			}],
-			"returns": "boolean"
+			"name": "empty",
+			"description": "Empties all items from array",
+			"arguments": []
 		}),
-		contains
+		empty
 	);
 	
-	function contains (item) {
-		return this.indexOf(item) > -1;
+	function empty () {
+		this.length = 0;
 	}
 });

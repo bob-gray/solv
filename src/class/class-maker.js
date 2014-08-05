@@ -7,7 +7,7 @@ define(function (require) {
 	"use strict";
 
 	require("./method");
-	require("./super");
+	require("./inject-super");
 	require("./extend");
 	require("./mixin");
 	require("../function/get-name");

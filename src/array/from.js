@@ -6,15 +6,11 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../class/shim");
-
-	var meta = require("../meta");
-
 	/*meta({
 		"name": "Array",
 		"type": "class",
 		"global": true
-	});*/
+	})
 
 	meta({
 		"name": "from",
@@ -27,13 +23,11 @@ define(function (require) {
 			"description": "Any object with a length property and indexed values; such as arguments"
 		}],
 		"returns": "array"
-	});
+	})*/
 
-	Array.shimStatic("from", from);
-	
-	function from (arrayLike) {
+	require("../class/shim");
+
+	Array.shimStatic("from", function (arrayLike) {
 		return this.prototype.slice.call(arrayLike);
-	}
-	
-	return from;
+	});
 });
