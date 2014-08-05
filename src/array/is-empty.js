@@ -27,6 +27,6 @@ define(function (require) {
 	);
 	
 	function isEmpty () {
-		return this.length > 0;
+		return this.length === 0;
 	}
 });
