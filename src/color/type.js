@@ -20,29 +20,21 @@ define(function (require) {
 		maxColorDecimal = parseInt("ffffff", HEX_RADIX);
 
 	colorType = type.custom({
-		string: function (color) {
-			var type = "unknown";
-
+		string: tester(function (color) {
 			if (hexRegEx.test(color)) {
-				type = "hex";
+				return "hex";
 			}
+		}),
 
-			return type;
-		},
-
-		number: function (color) {
-			var type = "unknown";
-
+		number: tester(function (color) {
 			if (color > 0 && color < maxColorDecimal) {
-				type = "decimal";
+				return "decimal";
 			}
+		}),
 
-			return type;
-		},
-
-		object: function (color) {
+		object: tester(function (color) {
 			var keys = getSortedKeys(color),
-				type = "unknown";
+				type;
 
 			if (keys === rgb) {
 				type = "rgb";
@@ -52,8 +44,14 @@ define(function (require) {
 			}
 
 			return type;
-		}
+		})
 	});
+
+	function tester (fn) {
+		return function (color) {
+			return fn(color) || "unknown";
+		};
+	}
 
 	function getSortedKeys (object) {
 		return Object.keys(object).sort().join("");
