@@ -6,21 +6,22 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
+	/*meta({
+		"name": "Date",
+		"type": "class",
+		"global": true
+	})*/
+
 	require("../class/method");
 
 	var meta = require("../meta"),
 		dateUtil = require("./util");
 
-	/*meta({
-		"name": "Date",
-		"type": "class",
-		"global": true
-	});*/
-
 	Date.method(
 		meta({
 			"name": "hoursFromStandard",
 			"description": "Calculates the number of hours deviation from standard time. 0 if date is in standard time. A positive integer if in daylight savings time.",
+			"arguments": [],
 			"returns": "number"
 		}),
 		hoursFromStandard

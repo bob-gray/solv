@@ -14,7 +14,6 @@ define(function (require) {
 
 	meta({
 		"name": "injectSuper",
-		"shim": true,
 		"description": "Creates method proxy that injects access to superMethod",
 		"arguments": [{
 			"name": "superMethod",
