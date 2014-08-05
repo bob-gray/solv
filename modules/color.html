@@ -4,10 +4,10 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>solv/function/validate-return-type API Documentation</title>
+		<title>solv/color API Documentation</title>
 
-		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
-		<link href="../../css/api-meta.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/api-meta.css" rel="stylesheet" />
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -16,9 +16,9 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<script src="../../js/jquery-1.11.0.min.js"></script>
-		<script src="../../js/bootstrap.min.js"></script>
-		<script src="../../js/api-meta.js"></script>
+		<script src="../js/jquery-1.11.0.min.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/api-meta.js"></script>
 	</head>
 	
 	<body>
@@ -31,7 +31,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>-->
-					<a class="navbar-brand" href="../../index.html">solv</a>
+					<a class="navbar-brand" href="../index.html">solv</a>
 					<p class="navbar-text">API Documentation</p>
 				</div>
 
@@ -61,7 +61,7 @@
 
 		<div class="container">	
 			<div class="row">
-				<div class="col-md-9"><h1 class="api-module">function/validate-return-type <small class="api-type">module</small></h1>
+				<div class="col-md-9"><h1 class="api-module">color <small class="api-type">module</small></h1>
 
 <p class="api-description"></p>
 
@@ -70,19 +70,15 @@
 	<ul class="list-inline api-requires">
 		
 			<li>
-				<a href="../../modules/error/invalid-return-type.html" class="">error/invalid-return-type</a>
+				<a href="../modules/class.html" class="">class</a>
 			</li>
 		
 			<li>
-				<a href="../../modules/function/overload.html" class="">function/overload</a>
+				<a  class="private">color/convert</a>
 			</li>
 		
 			<li>
-				<a  class="private">function/signatures</a>
-			</li>
-		
-			<li>
-				<a href="../../modules/type.html" class="">type</a>
+				<a href="../modules/meta.html" class="">meta</a>
 			</li>
 		
 	</ul>
@@ -91,16 +87,14 @@
 <ul class="list-unstyled api-module-contents">
 	
 		<li>
-			<a class="api-anchor" id="class:Function"></a>
-			<code id="Function-class" class="api-code api-class"><strong>Function(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
+			<a class="api-anchor" id="class:Color"></a>
+			<code id="Color-class" class="api-code api-class"><strong>Color(</strong><small><strong class="api-arg">value</strong><small class="api-arg-type">:string|number|object</small></small><strong>)<small class="api-type"> class</small></strong></code>
 			<p class="api-description">
 				
 			</p>
 			<p>
 				
 				
-				
-					<span class="label label-default">global</span>
 				
 			</p>
 
@@ -118,16 +112,51 @@
 				<ul class="list-unstyled api-items">
 					
 						<li>
-							<a class="api-anchor" id="method:validateReturnType"></a>
+							<a class="api-anchor" id="method:to"></a>
 							<code class="api-code api-method">
-								<strong>.validateReturnType(</strong><strong class="api-arg">signature</strong><small class="api-arg-type">:string</small><strong>)</strong>
+								<strong>.to(</strong><strong class="api-arg">type</strong><small class="api-arg-type">:string</small><strong>)</strong>
 								
 									<small class="api-arg-type">returns</small>
-									<strong></strong><small class="api-arg-type">function</small>
+									<strong></strong><small class="api-arg-type">string|number|object</small>
 								
 							</code>
 							<p class="api-description">
-								Creates function proxy that throws an error when the original function&#x27;s return value&#x27;s type doesn&#x27;t match the signature
+								
+								
+									Returns hex are strings, rgb and hsb are objects and decimal are numbers
+								
+							</p>
+							<p>
+								
+								
+								
+							</p>
+							
+								<div class="panel panel-default">
+									<dl class="panel-body">
+										
+											
+												<dt>
+													<code class="api-term"><span class="api-method">type</span>
+														
+													</code>
+												</dt>
+												<dd class="api-description">hex, rgb, hsb, or decimal</dd>
+											
+										
+									</dl>
+								</div>
+							
+						</li>
+					
+						<li>
+							<a class="api-anchor" id="method:toString"></a>
+							<code class="api-code api-method">
+								<strong>.toString(</strong><strong>)</strong>
+								
+							</code>
+							<p class="api-description">
+								
 								
 							</p>
 							<p>
@@ -139,12 +168,9 @@
 						</li>
 					
 						<li>
-							<a class="api-anchor" id="method:validateReturnType"></a>
+							<a class="api-anchor" id="method:valueOf"></a>
 							<code class="api-code api-method">
-								<strong>.validateReturnType(</strong><strong class="api-arg">options</strong><small class="api-arg-type">:object</small><strong>)</strong>
-								
-									<small class="api-arg-type">returns</small>
-									<strong></strong><small class="api-arg-type">function</small>
+								<strong>.valueOf(</strong><strong>)</strong>
 								
 							</code>
 							<p class="api-description">
@@ -179,17 +205,17 @@
 			
 				<ul class="nav api-module-links">
 		<li class="">
-			<a href="../../modules/abstract/base.html">base</a>
+			<a href="../modules/abstract/base.html">base</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/abstract/emitter.html">emitter</a>
+			<a href="../modules/abstract/emitter.html">emitter</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/abstract/observable.html">observable</a>
+			<a href="../modules/abstract/observable.html">observable</a>
 			
 		</li>
 	</ul>
@@ -197,61 +223,61 @@
 		</li>
 	
 		<li class="">
-			<a href="../../modules/array.html">array</a>
+			<a href="../modules/array.html">array</a>
 			
 				<ul class="nav api-module-links">
 		<li class="">
-			<a href="../../modules/array/add.html">add</a>
+			<a href="../modules/array/add.html">add</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/array/contains.html">contains</a>
+			<a href="../modules/array/contains.html">contains</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/array/copy.html">copy</a>
+			<a href="../modules/array/copy.html">copy</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/array/empty.html">empty</a>
+			<a href="../modules/array/empty.html">empty</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/array/first.html">first</a>
+			<a href="../modules/array/first.html">first</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/array/from.html">from</a>
+			<a href="../modules/array/from.html">from</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/array/insert-at.html">insert-at</a>
+			<a href="../modules/array/insert-at.html">insert-at</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/array/is-empty.html">is-empty</a>
+			<a href="../modules/array/is-empty.html">is-empty</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/array/last.html">last</a>
+			<a href="../modules/array/last.html">last</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/array/of.html">of</a>
+			<a href="../modules/array/of.html">of</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/array/remove.html">remove</a>
+			<a href="../modules/array/remove.html">remove</a>
 			
 		</li>
 	</ul>
@@ -259,53 +285,53 @@
 		</li>
 	
 		<li class="">
-			<a href="../../modules/class.html">class</a>
+			<a href="../modules/class.html">class</a>
 			
 				<ul class="nav api-module-links">
 		<li class="">
-			<a href="../../modules/class/create.html">create</a>
+			<a href="../modules/class/create.html">create</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/class/extend.html">extend</a>
+			<a href="../modules/class/extend.html">extend</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/class/inject-super.html">inject-super</a>
+			<a href="../modules/class/inject-super.html">inject-super</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/class/method.html">method</a>
+			<a href="../modules/class/method.html">method</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/class/mixin.html">mixin</a>
+			<a href="../modules/class/mixin.html">mixin</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/class/shim.html">shim</a>
+			<a href="../modules/class/shim.html">shim</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/class/singleton.html">singleton</a>
+			<a href="../modules/class/singleton.html">singleton</a>
 			
 		</li>
 	</ul>
 			
 		</li>
 	
-		<li class="">
-			<a href="../../modules/color.html">color</a>
+		<li class="current active">
+			<a href="../modules/color.html">color</a>
 			
 				<ul class="nav api-module-links">
 		<li class="">
-			<a href="../../modules/color/type.html">type</a>
+			<a href="../modules/color/type.html">type</a>
 			
 		</li>
 	</ul>
@@ -317,32 +343,32 @@
 			
 				<ul class="nav api-module-links">
 		<li class="">
-			<a href="../../modules/date/compare.html">compare</a>
+			<a href="../modules/date/compare.html">compare</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/date/format.html">format</a>
+			<a href="../modules/date/format.html">format</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/date/hours-from-standard.html">hours-from-standard</a>
+			<a href="../modules/date/hours-from-standard.html">hours-from-standard</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/date/is-daylight-savings.html">is-daylight-savings</a>
+			<a href="../modules/date/is-daylight-savings.html">is-daylight-savings</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/date/is-leap-year.html">is-leap-year</a>
+			<a href="../modules/date/is-leap-year.html">is-leap-year</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/date/move.html">move</a>
+			<a href="../modules/date/move.html">move</a>
 			
 		</li>
 	</ul>
@@ -354,32 +380,32 @@
 			
 				<ul class="nav api-module-links">
 		<li class="">
-			<a href="../../modules/error/create.html">create</a>
+			<a href="../modules/error/create.html">create</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/error/implementation-not-found.html">implementation-not-found</a>
+			<a href="../modules/error/implementation-not-found.html">implementation-not-found</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/error/invalid-constructor-context.html">invalid-constructor-context</a>
+			<a href="../modules/error/invalid-constructor-context.html">invalid-constructor-context</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/error/invalid-event-params.html">invalid-event-params</a>
+			<a href="../modules/error/invalid-event-params.html">invalid-event-params</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/error/invalid-property-type.html">invalid-property-type</a>
+			<a href="../modules/error/invalid-property-type.html">invalid-property-type</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/error/invalid-return-type.html">invalid-return-type</a>
+			<a href="../modules/error/invalid-return-type.html">invalid-return-type</a>
 			
 		</li>
 	</ul>
@@ -387,68 +413,68 @@
 		</li>
 	
 		<li class="">
-			<a href="../../modules/event.html">event</a>
+			<a href="../modules/event.html">event</a>
 			
 				<ul class="nav api-module-links">
 		<li class="">
-			<a href="../../modules/event/callbacks.html">callbacks</a>
+			<a href="../modules/event/callbacks.html">callbacks</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/event/engine.html">engine</a>
+			<a href="../modules/event/engine.html">engine</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/event/listener.html">listener</a>
+			<a href="../modules/event/listener.html">listener</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/event/listeners.html">listeners</a>
+			<a href="../modules/event/listeners.html">listeners</a>
 			
 		</li>
 	</ul>
 			
 		</li>
 	
-		<li class="active">
+		<li class="">
 			<a >function</a>
 			
 				<ul class="nav api-module-links">
 		<li class="">
-			<a href="../../modules/function/abstract.html">abstract</a>
+			<a href="../modules/function/abstract.html">abstract</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/function/constrict.html">constrict</a>
+			<a href="../modules/function/constrict.html">constrict</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/function/curry.html">curry</a>
+			<a href="../modules/function/curry.html">curry</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/function/default-args.html">default-args</a>
+			<a href="../modules/function/default-args.html">default-args</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/function/get-name.html">get-name</a>
+			<a href="../modules/function/get-name.html">get-name</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/function/overload.html">overload</a>
+			<a href="../modules/function/overload.html">overload</a>
 			
 		</li>
 	
-		<li class="current active">
-			<a href="../../modules/function/validate-return-type.html">validate-return-type</a>
+		<li class="">
+			<a href="../modules/function/validate-return-type.html">validate-return-type</a>
 			
 		</li>
 	</ul>
@@ -456,7 +482,7 @@
 		</li>
 	
 		<li class="">
-			<a href="../../modules/meta.html">meta</a>
+			<a href="../modules/meta.html">meta</a>
 			
 		</li>
 	
@@ -465,32 +491,32 @@
 			
 				<ul class="nav api-module-links">
 		<li class="">
-			<a href="../../modules/object/clone.html">clone</a>
+			<a href="../modules/object/clone.html">clone</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/object/copy.html">copy</a>
+			<a href="../modules/object/copy.html">copy</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/object/for-each.html">for-each</a>
+			<a href="../modules/object/for-each.html">for-each</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/object/is-empty.html">is-empty</a>
+			<a href="../modules/object/is-empty.html">is-empty</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/object/merge.html">merge</a>
+			<a href="../modules/object/merge.html">merge</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/object/validate.html">validate</a>
+			<a href="../modules/object/validate.html">validate</a>
 			
 		</li>
 	</ul>
@@ -502,22 +528,22 @@
 			
 				<ul class="nav api-module-links">
 		<li class="">
-			<a href="../../modules/shim/array.html">array</a>
+			<a href="../modules/shim/array.html">array</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/shim/date.html">date</a>
+			<a href="../modules/shim/date.html">date</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/shim/function.html">function</a>
+			<a href="../modules/shim/function.html">function</a>
 			
 		</li>
 	
 		<li class="">
-			<a href="../../modules/shim/object.html">object</a>
+			<a href="../modules/shim/object.html">object</a>
 			
 		</li>
 	</ul>
@@ -525,7 +551,7 @@
 		</li>
 	
 		<li class="">
-			<a href="../../modules/type.html">type</a>
+			<a href="../modules/type.html">type</a>
 			
 		</li>
 	
@@ -534,7 +560,7 @@
 			
 				<ul class="nav api-module-links">
 		<li class="">
-			<a href="../../modules/util/id.html">id</a>
+			<a href="../modules/util/id.html">id</a>
 			
 		</li>
 	</ul>

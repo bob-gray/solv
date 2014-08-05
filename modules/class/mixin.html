@@ -52,7 +52,7 @@
 		<!--<header class="api-project">
 			<div class="container">
 				
-					<small class="pull-right api-version">version 0.6.0</small>
+					<small class="pull-right api-version">version 0.7.0</small>
 				
 
 				<h2>solv <small>API Documentation</small></h2>
@@ -63,7 +63,7 @@
 			<div class="row">
 				<div class="col-md-9"><h1 class="api-module">class/mixin <small class="api-type">module</small></h1>
 
-<p class="api-description">Augments Function prototype with mixin method for decorating a constructor function&#x27;s prototype</p>
+<p class="api-description">For decorating a class with methods. mixin should be called on a class constructor. ie... MyClass.mixin(...)</p>
 
 
 	<h3 class="api-section api-requires">requires</h3>
@@ -135,11 +135,13 @@
 								<strong>.mixin(</strong><strong class="api-arg">mixins</strong><small class="api-arg-type">:array</small><strong>)</strong>
 								
 									<small class="api-arg-type">returns</small>
-									<strong></strong><small class="api-arg-type">function</small>
+									<strong>Class</strong><small class="api-arg-type">:function</small>
 								
 							</code>
 							<p class="api-description">
-								Each item in the array will mixed in
+								Each item in the array will be mixed in.
+								
+									Returns self to allow for chaining
 								
 							</p>
 							<p>
@@ -153,14 +155,16 @@
 						<li>
 							<a class="api-anchor" id="method:mixin"></a>
 							<code class="api-code api-method">
-								<strong>.mixin(</strong><strong class="api-arg">Constructor</strong><small class="api-arg-type">:function</small><strong>)</strong>
+								<strong>.mixin(</strong><strong class="api-arg">OtherClass</strong><small class="api-arg-type">:function</small><strong>)</strong>
 								
 									<small class="api-arg-type">returns</small>
-									<strong></strong><small class="api-arg-type">function</small>
+									<strong>Class</strong><small class="api-arg-type">:function</small>
 								
 							</code>
 							<p class="api-description">
-								Constructor&#x27;s own instance methods will be appended directly to function&#x27;s prototype
+								OtherClass&#x27;s own instance methods will be appended directly to function&#x27;s prototype. This doesn&#x27;t include OtherClass&#x27;s inherited methods.
+								
+									Returns self to allow for chaining
 								
 							</p>
 							<p>
@@ -177,11 +181,13 @@
 								<strong>.mixin(</strong><strong class="api-arg">mixins</strong><small class="api-arg-type">:object</small><strong>)</strong>
 								
 									<small class="api-arg-type">returns</small>
-									<strong></strong><small class="api-arg-type">function</small>
+									<strong>Class</strong><small class="api-arg-type">:function</small>
 								
 							</code>
 							<p class="api-description">
 								Objects own methods will be appended directly to function&#x27;s prototype
+								
+									Returns self to allow for chaining
 								
 							</p>
 							<p>
@@ -230,7 +236,7 @@
 		</li>
 	
 		<li class="">
-			<a >array</a>
+			<a href="../../modules/array.html">array</a>
 			
 				<ul class="nav api-module-links">
 		<li class="">
@@ -249,7 +255,32 @@
 		</li>
 	
 		<li class="">
+			<a href="../../modules/array/empty.html">empty</a>
+			
+		</li>
+	
+		<li class="">
+			<a href="../../modules/array/first.html">first</a>
+			
+		</li>
+	
+		<li class="">
 			<a href="../../modules/array/from.html">from</a>
+			
+		</li>
+	
+		<li class="">
+			<a href="../../modules/array/insert-at.html">insert-at</a>
+			
+		</li>
+	
+		<li class="">
+			<a href="../../modules/array/is-empty.html">is-empty</a>
+			
+		</li>
+	
+		<li class="">
+			<a href="../../modules/array/last.html">last</a>
 			
 		</li>
 	
@@ -281,6 +312,11 @@
 		</li>
 	
 		<li class="">
+			<a href="../../modules/class/inject-super.html">inject-super</a>
+			
+		</li>
+	
+		<li class="">
 			<a href="../../modules/class/method.html">method</a>
 			
 		</li>
@@ -299,9 +335,16 @@
 			<a href="../../modules/class/singleton.html">singleton</a>
 			
 		</li>
+	</ul>
+			
+		</li>
 	
 		<li class="">
-			<a href="../../modules/class/super.html">super</a>
+			<a href="../../modules/color.html">color</a>
+			
+				<ul class="nav api-module-links">
+		<li class="">
+			<a href="../../modules/color/type.html">type</a>
 			
 		</li>
 	</ul>
