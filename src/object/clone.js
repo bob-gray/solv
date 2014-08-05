@@ -6,6 +6,12 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
+	/*meta({
+		"name": "Object",
+		"type": "class",
+		"global": true
+	})*/
+
 	require("../shim/object");
 	require("../shim/array");
 	require("../class/method");
@@ -16,17 +22,10 @@ define(function (require) {
 		originals,
 		copies;
 
-	/*meta({
-		"name": "Object",
-		"type": "class",
-		"global": true
-	})*/
-
 	Object.method(
 		meta({
 			"name": "clone",
 			"static": true,
-			"shim": true,
 			"description": "Creates a deep copy of all own properties that are types object, array, number, string, boolean, null, undefined. Circular references are supported.",
 			"arguments": [{
 				"name": "source",
