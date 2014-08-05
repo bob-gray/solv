@@ -24,7 +24,7 @@ define(function (require) {
 			"arguments": [{
 				"name": "index",
 				"type": "number",
-				"description": "Where to insert items"
+				"description": "Where to insert items. Any number greater than array.length will be set to length. Negative number will insert from the end of array."
 			}, {
 				"name": "item",
 				"type": "any",
