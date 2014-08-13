@@ -37,6 +37,12 @@ function registerTasks (grunt) {
 		"karma:phantom",
 		"karma:sauce"
 	]);
+
+	grunt.registerTask("document", [
+		"clean:docs",
+		"copy:logo",
+		"api_meta"
+	]);
 }
 
 function configureTasks (grunt) {
@@ -174,11 +180,20 @@ function configureTasks (grunt) {
 				recursive: true
 			}
 		},
-		"api-meta": {
+		api_meta: {
 			docs: {
 				src: ["./src"],
 				dest: "./docs/v<%= pkg.versionMajorMinor %>/",
 				usage: "./tests/spec/**/*-test.js"
+			}
+		},
+		clean: {
+			docs: ["<%= api_meta.docs.dest %>"]
+		},
+		copy: {
+			logo: {
+				src: "./logo/solv-500x200.png",
+				dest: "<%= api_meta.docs.dest %>/<%= copy.logo.src %>"
 			}
 		}
 	});
