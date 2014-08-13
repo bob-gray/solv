@@ -6,12 +6,6 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../class/extend");
-	require("../shim/function");
-
-	var type = require("../type"),
-		placeholders = /\{\{([^}]+)\}\}/g;
-
 	/*meta({
 		"name": "createErrorType",
 		"type": "function",
@@ -44,6 +38,12 @@ define(function (require) {
 			"description": "Constructor function for a new error class/type (sub class of Error)"
 		}
 	})*/
+
+	require("../class/extend");
+	require("../shim/function");
+
+	var type = require("../type"),
+		placeholders = /\{\{([^}]+)\}\}/g;
 
 	function createErrorType (options, init) {
 		
