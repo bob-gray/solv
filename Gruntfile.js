@@ -40,8 +40,12 @@ function registerTasks (grunt) {
 }
 
 function configureTasks (grunt) {
+	var pkg = grunt.file.readJSON("package.json");
+
+	pkg.versionMajorMinor = pkg.version.replace(/^(\d+\.\d+).*$/, "$1");
+
 	grunt.initConfig({
-		pkg: grunt.file.readJSON("package.json"),
+		pkg: pkg,
 		watch: {
 			all: {
 				files: [
@@ -173,7 +177,8 @@ function configureTasks (grunt) {
 		"api-meta": {
 			docs: {
 				src: ["./src"],
-				dest: "./"
+				dest: "./docs/v<%= pkg.versionMajorMinor %>/",
+				usage: "./tests/spec/**/*-test.js"
 			}
 		}
 	});
