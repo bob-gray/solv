@@ -5,6 +5,9 @@ if (typeof define !== "function") {
 
 define(function (require) {
 	"use strict";
+
+	require("./base");
+	require("./emitter");
 	
 	var Observable,
 		changeEvent,
@@ -12,8 +15,7 @@ define(function (require) {
 		meta = require("../meta"),
 		createClass = require("../class/create");
 
-	meta.define("./base", require("./base"));
-	meta.define("./emitter", require("./emitter"));
+	meta.setRequire(require);
 
 	Observable = createClass(
 		meta({
@@ -25,9 +27,6 @@ define(function (require) {
 			]
 		})
 	);
-	
-	meta.undefine("./base");
-	meta.undefine("./emitter");
 	
 	Observable.method(
 		meta({

@@ -6,16 +6,18 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
+	require("../abstract/base");
 	require("../shim/array");
 	require("../shim/object");
 
-	var meta = require("../meta"),
+	var Listeners,
+		meta = require("../meta"),
 		createClass = require("../class"),
 		Listener = require("./listener");
 
-	meta.define("../abstract/base", require("../abstract/base"));
+	meta.setRequire(require);
 
-	var Listeners = createClass(
+	Listeners = createClass(
 		meta({
 			"name": "Listeners",
 			"extends": "../abstract/base",
@@ -23,8 +25,6 @@ define(function (require) {
 		}),
 		init
 	);
-
-	meta.undefine("../abstract/base");
 
 	Listeners.method(
 		meta({

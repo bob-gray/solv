@@ -37,11 +37,21 @@ function registerTasks (grunt) {
 		"karma:phantom",
 		"karma:sauce"
 	]);
+
+	grunt.registerTask("document", [
+		"clean:docs",
+		"copy:logo",
+		"api_meta"
+	]);
 }
 
 function configureTasks (grunt) {
+	var pkg = grunt.file.readJSON("package.json");
+
+	pkg.versionMajorMinor = pkg.version.replace(/^(\d+\.\d+).*$/, "$1");
+
 	grunt.initConfig({
-		pkg: grunt.file.readJSON("package.json"),
+		pkg: pkg,
 		watch: {
 			all: {
 				files: [
@@ -170,10 +180,20 @@ function configureTasks (grunt) {
 				recursive: true
 			}
 		},
-		"api-meta": {
+		api_meta: {
 			docs: {
 				src: ["./src"],
-				dest: "./"
+				dest: "./docs/v<%= pkg.versionMajorMinor %>/",
+				usage: "./tests/spec/**/*-test.js"
+			}
+		},
+		clean: {
+			docs: ["<%= api_meta.docs.dest %>"]
+		},
+		copy: {
+			logo: {
+				src: "./logo/solv-500x200.png",
+				dest: "<%= api_meta.docs.dest %>/<%= copy.logo.src %>"
 			}
 		}
 	});

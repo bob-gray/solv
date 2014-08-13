@@ -6,7 +6,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	meta({
+	/*meta({
 		"name": "meta",
 		"type": "function",
 		"description": "A meta-json compatible runtime meta implementation.",
@@ -20,7 +20,18 @@ define(function (require) {
 			"type": "object",
 			"description": "The JSON literal object argument with the properties mixins and extends having been transformed"
 		}
-	});
+	})
+
+	meta({
+		"name": "meta.setRequire",
+		"type": "function",
+		"description": "Allows for injecting require function from a calling modules so relative meta paths can be required.",
+		"arguments": [{
+			"name": "require",
+			"type": "function",
+			"description": "Should sychronously return require modules (modules will probably need to be preloaded)."
+		}]
+	})*/
 
 	var local = {};
 
@@ -38,6 +49,12 @@ define(function (require) {
 
 		return data;
 	}
+
+	meta.setRequire = function (require) {
+		meta.require = require;
+	};
+
+	meta.setRequire(require);
 
 	meta.define = function (key, value) {
 		local[key] = value;
@@ -118,7 +135,7 @@ define(function (require) {
 
 	function getModule (key) {
 		try {
-			return require(key);
+			return meta.require(key);
 		} catch (ignore) {}
 	}
 

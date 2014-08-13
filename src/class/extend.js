@@ -14,7 +14,6 @@ define(function (require) {
 
 	meta({
 		"name": "extend",
-		"static": true,
 		"description": "Allows one class to easily inherit from another. To be called as a method of a class constructor. Wires up a class to inherit from a super class. Assigns Super as a static property of child class.",
 		"arguments": [{
 			"name": "Super",
