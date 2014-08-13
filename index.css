@@ -1,0 +1,14 @@
+body {
+	text-align: center;
+	font-size: large;
+	font-family: monospace;
+}
+header img {
+	margin-left: 25px;
+}
+nav ul {
+	list-style: none;
+}
+nav a {
+	color: green;
+}
