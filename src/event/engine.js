@@ -6,21 +6,24 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
+	require("../abstract/base");
 	require("../shim/date");
 	require("../object/is-empty");
 
-	var meta = require("../meta"),
+	var EventEngine,
+		meta = require("../meta"),
 		type = require("../type"),
 		createClass = require("../class"),
 		Callbacks = require("./callbacks"),
 		Listeners = require("./listeners"),
-		Id = require("../util/id"),
 		InvalidEventParams = require("../error/invalid-event-params"),
-		signatures = require("../function/signatures");
+		signatures = require("../function/signatures"),
+		Id = require("../util/id"),
+		id = new Id();
 
-	meta.define("../abstract/base", require("../abstract/base"));
+	meta.setRequire(require);
 
-	var EventEngine = createClass(
+	EventEngine = createClass(
 		meta({
 			"name": "EventEngine",
 			"type": "class",
@@ -29,8 +32,6 @@ define(function (require) {
 		}),
 		init
 	);
-
-	meta.undefine("../abstract/base");
 
 	EventEngine.method(
 		meta({
@@ -167,8 +168,6 @@ define(function (require) {
 		}),
 		triggerWithOptions
 	);
-	
-	var id = new Id();
 	
 	function init () {
 		this.expando = "events-"+ Date.now();

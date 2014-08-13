@@ -8,15 +8,18 @@ define(function (require) {
 	
 	require("../abstract/base");
 	require("../shim/array");
-	require("../array/remove");
 	require("../array/copy");
+	require("../array/empty");
+	require("../array/is-empty");
+	require("../array/remove");
 
-	var meta = require("../meta"),
+	var Callbacks,
+		meta = require("../meta"),
 		createClass = require("../class");
 
-	meta.define("../abstract/base", require("../abstract/base"));
+	meta.setRequire(require);
 
-	var Callbacks = createClass(
+	Callbacks = createClass(
 		meta({
 			"name": "Callbacks",
 			"extends": "../abstract/base",
@@ -24,8 +27,6 @@ define(function (require) {
 		}),
 		init
 	);
-	
-	meta.undefine("../abstract/base");
 	
 	Callbacks.method(
 		meta({
@@ -80,7 +81,7 @@ define(function (require) {
 	Callbacks.method(
 		meta({
 			"name": "abort",
-			"description": "Stops execution of remaining callbacks in the queue but only during .execute",
+			"description": "Stops execution of remaining callbacks in the queue while queue is executing",
 			"arguments": []
 		}),
 		abort
@@ -107,7 +108,7 @@ define(function (require) {
 	);
 	
 	function init () {
-		this.empty();
+		this.queue = [];
 		this.invoke(reset);
 	}
 	
@@ -120,7 +121,7 @@ define(function (require) {
 	}
 	
 	function empty () {
-		this.queue = [];
+		this.queue.empty();
 	}
 	
 	function execute (context, args) {
@@ -143,11 +144,11 @@ define(function (require) {
 	}
 	
 	function toArray () {
-		return Array.copy(this.queue);
+		return this.queue.copy();
 	}
 	
 	function isEmpty () {
-		return 0 === this.queue.length;
+		return this.queue.isEmpty();
 	}
 	
 	return Callbacks;

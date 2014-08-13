@@ -6,11 +6,13 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	var meta = require("../meta"),
+	var Listener,
+		meta = require("../meta"),
 		createClass = require("../class"),
-		Id = require("../util/id");
+		Id = require("../util/id"),
+		id = new Id();
 
-	var Listener = createClass(
+	Listener = createClass(
 		meta({
 			"name": "Listener",
 			"type": "class",
@@ -42,8 +44,6 @@ define(function (require) {
 		}),
 		getKey
 	);
-	
-	var id = new Id();
 	
 	function init (targetId, eventName, handler) {
 		this.id = id.getNext();
