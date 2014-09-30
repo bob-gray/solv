@@ -18,10 +18,12 @@
     "type checking"
   ],
   "license": "MIT",
+  "main": "src",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "logo",
     "tests",
     "Gruntfile.js",
     "karma.conf.js",
