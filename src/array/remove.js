@@ -20,7 +20,7 @@ define(function (require) {
 	Array.method(
 		meta({
 			"name": "remove",
-			"description": "Removes the first occurrence of an item from array",
+			"description": "Removes the first occurrence of an item",
 			"arguments": [{
 				"name": "item",
 				"type": "any"
