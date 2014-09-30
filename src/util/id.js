@@ -6,13 +6,11 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	var meta = require("../meta");
-
-	meta({
+	/*meta({
 		"name": "Id",
 		"type": "class",
 		"description": "A simple counter"
-	});
+	})
 
 	meta({
 		"name": "getNext",
@@ -22,7 +20,7 @@ define(function (require) {
 			"type": "number",
 			"description": "An integer. Starting at 1. Increments 1 with each call."
 		}
-	});
+	})*/
 
 	function Id () {
 		var next = 0;

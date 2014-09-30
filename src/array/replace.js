@@ -3,7 +3,7 @@ if (typeof define !== "function") {
 	var define = require("amdefine")(module);
 }
 
-define(function (require) {
+define(function(require) {
 	"use strict";
 
 	/*meta({
@@ -14,29 +14,35 @@ define(function (require) {
 
 	require("../class/method");
 	require("../shim/array");
+	require("../array/from");
 
 	var meta = require("../meta");
 	
 	Array.method(
 		meta({
-			"name": "remove",
-			"description": "Removes the first occurrence of an item",
+			"name": "replace",
+			"description": "Replaces the first occurence of an item",
 			"arguments": [{
 				"name": "item",
 				"type": "any"
+			}, {
+				"name": "replacement",
+				"type": "any",
+				"repeating": true
 			}]
 		}),
-		remove
+		replace
 	);
-	
-	function remove (item) {
-		var index = this.indexOf(item);
-		
+
+	function replace (item) {
+		var index = this.indexOf(item),
+			replacements = Array.from(arguments).slice(1);
+
 		if (isFound(index)) {
-			this.splice(index, 1);
+			this.splice.apply(this, [index, 1].concat(replacements));
 		}
 	}
-	
+
 	function isFound (index) {
 		return index > -1;
 	}

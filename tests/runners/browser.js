@@ -21,6 +21,7 @@ require(
 		"spec/array/last-test",
 		"spec/array/of-test",
 		"spec/array/remove-test",
+		"spec/array/replace-test",
 		"spec/class/create-test",
 		"spec/class/method-test",
 		"spec/class/singleton-test",
@@ -54,6 +55,8 @@ require(
 		"spec/shim/date-test",
 		"spec/shim/function-test",
 		"spec/shim/object-test",
+		"spec/util/id-test",
+		"spec/util/bundle-test",
 		"spec/meta-test",
 		"spec/type-test"
 	],

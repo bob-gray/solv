@@ -40,7 +40,6 @@ function registerTasks (grunt) {
 
 	grunt.registerTask("document", [
 		"clean:docs",
-		"copy:logo",
 		"api_meta"
 	]);
 }
@@ -189,12 +188,6 @@ function configureTasks (grunt) {
 		},
 		clean: {
 			docs: ["<%= api_meta.docs.dest %>"]
-		},
-		copy: {
-			logo: {
-				src: "./logo/solv-500x200.png",
-				dest: "<%= api_meta.docs.dest %>/<%= copy.logo.src %>"
-			}
 		}
 	});
 }
