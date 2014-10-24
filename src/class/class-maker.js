@@ -87,9 +87,9 @@ define(function (require) {
 
 	ClassMaker.method("setConstructor", function (Constructor) {
 		this.Constructor = Constructor;
-		Constructor.init = this.init;
 		this.extendSuperClass();
 		this.setSuperInit();
+		Constructor.init = this.init;
 		this.injectMixins();
 		this.injectDefaultArgs();
 	});
@@ -128,9 +128,13 @@ define(function (require) {
 	});
 
 	ClassMaker.method("setSuperInit", function () {
+		this.superInit = getSuperInit(this.Constructor);
+
 		if (this.hasInit()) {
-			this.superInit = getSuperInit(this.Constructor);
 			this.init = this.init.injectSuper(this.superInit);
+
+		} else if (this.superInit) {
+			this.init = this.superInit;
 		}
 	});
 
@@ -169,7 +173,7 @@ define(function (require) {
 	});
 
 	ClassMaker.method("hasMixins", function () {
-		return type.is.not("undefined", this.mixins);
+		return isDefined(this.mixins);
 	});
 	
 	ClassMaker.method("hasPropertiesArg", function () {
@@ -221,6 +225,10 @@ define(function (require) {
 
 	function isFound (result) {
 		return -1 !== result;
+	}
+
+	function isDefined (value) {
+		return type.is.not("undefined", value);
 	}
 
 	function notEmptyObject (object) {
