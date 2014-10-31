@@ -14,6 +14,7 @@ define(function (require) {
 	require("../array/empty");
 	require("../array/add");
 	require("../array/remove");
+	require("../array/replace");
 
 	var meta = require("../meta"),
 		createClass = require("../class/create"),
