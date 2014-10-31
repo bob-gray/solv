@@ -45,6 +45,7 @@ require(
 		"spec/function/invocation-test",
 		"spec/function/overload-test",
 		"spec/function/signatures-test",
+		"spec/function/throttle-test",
 		"spec/function/validate-return-type-test",
 		"spec/object/clone-test",
 		"spec/object/copy-test",

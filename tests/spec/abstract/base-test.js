@@ -233,5 +233,117 @@ define(["solv/abstract/base"], function (Base) {
 				expect(test.calls[0].object).toEqual(base);
 			});
 		});
+
+		it("throttle method return should call function each time buffer is elapsed", function () {
+			var base = new Base(),
+				throttled,
+				i = 0;
+
+			base.test = jasmine.createSpy("test");
+			throttled = base.throttle("test", 50);
+
+			runs(function() {
+				for (; i < 4; i += 1) {
+					setTimeout(loop, i * 30);
+				}
+			});
+
+			function loop () {
+				throttled();
+				i -= 1;
+			}
+
+			waitsFor(function () {
+				return i === 0;
+			}, "throttled function should be called", 300);
+
+			runs(function () {
+				expect(base.test.callCount).toEqual(2);
+			});
+		});
+
+		it("throttle method return should be invoked with instance as context", function () {
+			var base = new Base(),
+				throttled,
+				i = 0;
+
+			base.test = jasmine.createSpy("test");
+			throttled = base.throttle("test", 50);
+
+			runs(function() {
+				for (; i < 4; i += 1) {
+					setTimeout(loop, i * 30);
+				}
+			});
+
+			function loop () {
+				throttled();
+				i -= 1;
+			}
+
+			waitsFor(function () {
+				return i === 0;
+			}, "throttled function should be called", 300);
+
+			runs(function () {
+				expect(base.test.calls[0].object).toEqual(base);
+			});
+		});
+
+		it("throttle method, when passed a function, return should call function each time buffer is elapsed", function () {
+			var base = new Base(),
+				throttled,
+				i = 0,
+				test = jasmine.createSpy("test");
+
+			throttled = base.throttle(test, 50);
+
+			runs(function() {
+				for (; i < 4; i += 1) {
+					setTimeout(loop, i * 30);
+				}
+			});
+
+			function loop () {
+				throttled();
+				i -= 1;
+			}
+
+			waitsFor(function () {
+				return i === 0;
+			}, "throttled function should be called", 300);
+
+			runs(function () {
+				expect(test.callCount).toEqual(2);
+			});
+		});
+
+		it("throttle method, when passed a function, return should be invoked with instance as context", function () {
+			var base = new Base(),
+				throttled,
+				i = 0,
+				test = jasmine.createSpy("test");
+
+			throttled = base.throttle(test, 50);
+
+			runs(function() {
+				for (; i < 4; i += 1) {
+					setTimeout(loop, i * 30);
+				}
+			});
+
+			function loop () {
+				throttled();
+				i -= 1;
+			}
+
+			waitsFor(function () {
+				return i === 0;
+			}, "throttled function should be called", 300);
+
+			runs(function () {
+				expect(test.calls[0].object).toEqual(base);
+			});
+		});
 	});
 });
