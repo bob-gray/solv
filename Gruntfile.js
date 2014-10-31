@@ -96,7 +96,7 @@ function configureTasks (grunt) {
 				errorsOnly: false,
 				cyclomatic: 5,
 				halstead: 10,
-				maintainability: 94,
+				maintainability: 95,
 				hideComplexFunctions: true
 			},
 			lib: {
