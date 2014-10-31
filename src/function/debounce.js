@@ -6,6 +6,8 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
+	require("../class/method");
+
 	var meta = require("../meta");
 
 	/*meta({
@@ -13,7 +15,7 @@ define(function (require) {
 		"type": "class",
 		"global": true
 	});*/
-	
+
 	Function.method(
 		meta({
 			"name": "debounce",
@@ -32,7 +34,7 @@ define(function (require) {
 		}),
 		debounce
 	);
-	
+
 	function debounce (lapse, leading) {
 		var fn = this,
 			due,
