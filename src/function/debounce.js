@@ -19,7 +19,7 @@ define(function (require) {
 	Function.method(
 		meta({
 			"name": "debounce",
-			"description": "Higher-order function that returns a proxy that postpones execution until a lapse of n milliseconds",
+			"description": "Higher-order function that returns a proxy function that postpones execution until a lapse of n milliseconds",
 			"arguments": [{
 				"name": "lapse",
 				"type": "number",

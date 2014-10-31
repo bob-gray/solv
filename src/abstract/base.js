@@ -8,6 +8,7 @@ define(function (require) {
 
 	require("../shim/function");
 	require("../array/from");
+	require("../function/debounce");
 
 	var Base,
 		meta = require("../meta"),
@@ -133,6 +134,51 @@ define(function (require) {
 		delayBy
 	);
 
+	Base.method(
+		meta({
+			"name": "debounce",
+			"description": "Creates a function bound to the instance that postpones execution until a lapse of n milliseconds",
+			"arguments": [{
+				"name": "fn",
+				"type": "function"
+			}, {
+				"name": "lapse",
+				"type": "number",
+				"required": true
+			}, {
+				"name": "leading",
+				"type": "boolean",
+				"description": "If true executes on the leading edge of lapse. Otherwise on the trailing end.",
+				"default": false
+			}],
+			"returns": "function"
+		}),
+		debounceFunction
+	);
+
+	Base.method(
+		meta({
+			"name": "debounce",
+			"description": "Creates a function bound to the instance that postpones execution until a lapse of n milliseconds",
+			"arguments": [{
+				"name": "method",
+				"type": "string",
+				"description": "The name of the method to debounce"
+			}, {
+				"name": "lapse",
+				"type": "number",
+				"required": true
+			}, {
+				"name": "leading",
+				"type": "boolean",
+				"description": "If true executes on the leading edge of lapse. Otherwise on the trailing end.",
+				"default": false
+			}],
+			"returns": "function"
+		}),
+		debounceMethod
+	);
+
 	function invokeFunction (fn) {
 		var args = Array.from(arguments);
 
@@ -168,6 +214,14 @@ define(function (require) {
 		args.shift();
 
 		setTimeout(this.proxy.apply(this, args), wait);
+	}
+
+	function debounceFunction (fn, lapse, leading) {
+		return fn.bind(this).debounce(lapse, leading);
+	}
+
+	function debounceMethod (method, lapse, leading) {
+		return this[method].bind(this).debounce(lapse, leading);
 	}
 
 	return Base;
