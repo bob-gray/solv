@@ -39,6 +39,7 @@ require(
 		"spec/event/listeners-test",
 		"spec/function/abstract-test",
 		"spec/function/constrict-test",
+		"spec/function/debounce-test",
 		"spec/function/default-args-test",
 		"spec/function/get-name-test",
 		"spec/function/invocation-test",
