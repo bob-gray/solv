@@ -8,6 +8,8 @@ define(function (require) {
 
 	require("../shim/function");
 	require("../array/from");
+	require("../function/debounce");
+	require("../function/throttle");
 
 	var Base,
 		meta = require("../meta"),
@@ -133,6 +135,86 @@ define(function (require) {
 		delayBy
 	);
 
+	Base.method(
+		meta({
+			"name": "debounce",
+			"description": "Creates a function bound to the instance that postpones execution until a lapse of n milliseconds",
+			"arguments": [{
+				"name": "fn",
+				"type": "function"
+			}, {
+				"name": "lapse",
+				"type": "number",
+				"required": true
+			}, {
+				"name": "leading",
+				"type": "boolean",
+				"description": "If true executes on the leading edge of lapse. Otherwise on the trailing end.",
+				"default": false
+			}],
+			"returns": "function"
+		}),
+		debounceFunction
+	);
+
+	Base.method(
+		meta({
+			"name": "debounce",
+			"description": "Creates a function bound to the instance that postpones execution until a lapse of n milliseconds",
+			"arguments": [{
+				"name": "method",
+				"type": "string",
+				"description": "The name of the method to debounce"
+			}, {
+				"name": "lapse",
+				"type": "number",
+				"required": true
+			}, {
+				"name": "leading",
+				"type": "boolean",
+				"description": "If true executes on the leading edge of lapse. Otherwise on the trailing end.",
+				"default": false
+			}],
+			"returns": "function"
+		}),
+		debounceMethod
+	);
+
+	Base.method(
+		meta({
+			"name": "throttle",
+			"description": "Creates a function bound to the instance that won't execute the original function more frequently than n milliseconds no matter how often it is executed",
+			"arguments": [{
+				"name": "fn",
+				"type": "function"
+			}, {
+				"name": "buffer",
+				"type": "number",
+				"required": true
+			}],
+			"returns": "function"
+		}),
+		throttleFunction
+	);
+
+	Base.method(
+		meta({
+			"name": "throttle",
+			"description": "Creates a function bound to the instance that won't execute the original function more frequently than n milliseconds no matter how often it is executed",
+			"arguments": [{
+				"name": "method",
+				"type": "string",
+				"description": "The name of the method to debounce"
+			}, {
+				"name": "buffer",
+				"type": "number",
+				"required": true
+			}],
+			"returns": "function"
+		}),
+		throttleMethod
+	);
+
 	function invokeFunction (fn) {
 		var args = Array.from(arguments);
 
@@ -168,6 +250,22 @@ define(function (require) {
 		args.shift();
 
 		setTimeout(this.proxy.apply(this, args), wait);
+	}
+
+	function debounceFunction (fn, lapse, leading) {
+		return fn.bind(this).debounce(lapse, leading);
+	}
+
+	function debounceMethod (method, lapse, leading) {
+		return this[method].bind(this).debounce(lapse, leading);
+	}
+
+	function throttleFunction (fn, buffer) {
+		return fn.bind(this).throttle(buffer);
+	}
+
+	function throttleMethod (method, buffer) {
+		return this[method].bind(this).throttle(buffer);
 	}
 
 	return Base;

@@ -21,6 +21,7 @@
 		"require": false,
 		"module": false,
 		"setTimeout": false,
+		"clearTimeout": false,
 		"jasmine": false,
 		"describe": false,
 		"beforeEach": false,
