@@ -58,6 +58,7 @@ require(
 		"spec/shim/date-test",
 		"spec/shim/function-test",
 		"spec/string/trim-test",
+		"spec/string/interpolate-test",
 		"spec/shim/object-test",
 		"spec/util/id-test",
 		"spec/util/bundle-test",
