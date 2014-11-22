@@ -29,7 +29,8 @@ define(function (require) {
 	
 	Function.prototype.injectSuper = injectSuper;
 
-	var emptyContext = this;
+	var emptyContext = this,
+		primitive = /^string|number|boolean$/;
 
 	function injectSuper (superMethod) {
 		var method = this;
@@ -41,9 +42,14 @@ define(function (require) {
 		return function () {
 			var temp = {};
 
-			setup.call(this, temp, superMethod);
-			execute.call(this, temp, method, arguments);
-			cleanup.call(this, temp);
+			if (isPrimitive(this)) {
+				execute.call(this, temp, method, arguments);
+
+			} else {
+				setup.call(this, temp, superMethod);
+				execute.call(this, temp, method, arguments);
+				cleanup.call(this, temp);	
+			}
 
 			return temp.result;
 		};
@@ -87,5 +93,9 @@ define(function (require) {
 		return function () {
 			throw new Error("No super implementation exists for method");
 		};
+	}
+
+	function isPrimitive (context) {
+		return primitive.test(typeof context);
 	}
 });
