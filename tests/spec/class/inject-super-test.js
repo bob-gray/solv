@@ -10,12 +10,12 @@ define(["solv/class/inject-super"], function () {
 
 			Document.prototype.appendTo = function () {
 				this.content += Array.prototype.slice.call(arguments).join("\n");
-			}
+			};
 
 			Document.prototype.destroy = function () {
 				this.content = "";
 				this.destroyed = true;
-			}
+			};
 
 			function TopSecret () {
 				this.content = "";
