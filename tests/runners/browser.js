@@ -54,6 +54,7 @@ require(
 		"spec/object/is-empty-test",
 		"spec/object/merge-test",
 		"spec/object/validate-test",
+		"spec/regexp/escape-test",
 		"spec/shim/array-test",
 		"spec/shim/date-test",
 		"spec/shim/function-test",
