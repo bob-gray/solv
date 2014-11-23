@@ -4,6 +4,8 @@ body {
 	font-family: monospace;
 }
 header img {
+	width: 300px;
+	height: 450px;
 	margin-left: 25px;
 }
 nav ul {
