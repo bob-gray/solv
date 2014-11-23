@@ -1,6 +1,6 @@
 {
   "name": "solv",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "homepage": "https://github.com/bob-gray/solv",
   "author": "Bob Gray <gray.bob98@gmail.com>",
   "description": "Library for building object-oriented APIs",

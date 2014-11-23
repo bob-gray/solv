@@ -179,6 +179,14 @@ function configureTasks (grunt) {
 				recursive: true
 			}
 		},
+		version: {
+			bump: {
+				src: [
+					"package.json",
+					"bower.json"
+				]
+			}
+		},
 		api_meta: {
 			docs: {
 				src: ["./src"],
