@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>solv/date/format API Documentation</title>
+
+		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../../css/api-meta.css" rel="stylesheet" />
+		<link href="../../css/code.css" rel="stylesheet" />
+		<link href="../../css/prism.css" rel="stylesheet" />
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<script src="../../js/jquery-1.11.0.min.js"></script>
+		<script src="../../js/bootstrap.min.js"></script>
+		<script src="../../js/api-meta.js"></script>
+	</head>
+	
+	<body>
+		<nav class="navbar navbar-fixed-top navbar-default api-project" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>-->
+					<a class="navbar-brand" href="../../index.html">solv</a>
+					<p class="navbar-text">API Documentation</p>
+				</div>
+
+				<!--<div class="collapse navbar-collapse" id="navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Help</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">v0.0.2 <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">v0.0.1</a></li>
+								<li><a href="#">v0.0.0</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>-->
+			</div>
+		</nav>
+		<!--<header class="api-project">
+			<div class="container">
+					<small class="pull-right api-version">version 0.12.0</small>
+
+				<h2>solv <small>API Documentation</small></h2>
+			</div>
+		</header>-->
+
+		<div class="container">	
+			<div class="row">
+				<div class="col-md-9"><h1 class="api-module">date/format <small class="api-type">module</small></h1>
+
+<p class="api-description"></p>
+
+	<h3 class="api-section api-requires">requires</h3>
+	<ul class="list-inline api-requires">
+			<li>
+				<a href="../../modules/class/method.html" class="">class/method</a>
+			</li>
+			<li>
+				<a  class="private">date/util</a>
+			</li>
+			<li>
+				<a href="../../modules/meta.html" class="">meta</a>
+			</li>
+			<li>
+				<a href="../../modules/shim/function.html" class="">shim/function</a>
+			</li>
+			<li>
+				<a href="../../modules/type.html" class="">type</a>
+			</li>
+	</ul>
+
+<ul class="list-unstyled api-module-contents">
+		<li>
+			<a class="api-anchor" id="class:Date"></a>
+			<code id="Date-class" class="api-code api-class"><strong>Date(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
+			<p class="api-description">
+				
+			</p>
+			<p>
+					<span class="label label-default">global</span>
+			</p>
+
+
+
+
+				<h3 class="api-section api-method">methods</h3>
+
+
+				<ul class="list-unstyled api-items">
+						<li>
+							<a class="api-anchor" id="method:format"></a>
+							<code class="api-code api-method">
+								<strong>.format(</strong><strong class="api-arg">mask</strong><small class="api-arg-type">:string</small><strong class="api-arg">, utc</strong><small class="api-arg-type">:boolean|null|undefined?</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">string</small>
+							</code>
+							<p class="api-description">
+								
+							</p>
+							<p>
+							</p>
+								<div class="panel panel-default">
+									<dl class="panel-body">
+												<dt>
+													<code class="api-term"><span class="api-method">mask</span>
+													</code>
+												</dt>
+												<dd class="api-description">Can be a custom mask or a stock mask. See Date Mask.</dd>
+												<dt>
+													<code class="api-term"><span class="api-method">utc</span>
+															<small class="api-arg-type">defaults to false</small>
+													</code>
+												</dt>
+												<dd class="api-description">Whether to format the date using universal time. If false date is formatted using local time.</dd>
+									</dl>
+								</div>
+						</li>
+				</ul>
+
+		</li>
+
+
+		<li>
+			<ul class="list-unstyled">
+					<li>
+						<h3 class="api-section api-function">Date Mask</h3>
+							
+							
+							<h4>description</h4><p>A date mask is a string containing placeholders that represent parts of a date. Any characters that isn't a placeholder will remain. All characters can be escaped by them within single or double quotes.</p>
+							<h4>Placeholders</h4><table><tr><td>d</td><td>Day of the month</td></tr><tr><td>dd</td><td>Day of the month (padded)</td></tr><tr><td>ddd</td><td>Weekday name (abbreviated)</td></tr><tr><td>dddd</td><td>Weekday name</td></tr><tr><td>m</td><td>Month number</td></tr><tr><td>mm</td><td>Month number (padded)</td></tr><tr><td>mmm</td><td>Month name (abbreviated)</td></tr><tr><td>mmmm</td><td>Month name</td></tr><tr><td>yy</td><td>Year (2 digits)</td></tr><tr><td>yyyy</td><td>Year</td></tr><tr><td>h</td><td>Hour</td></tr><tr><td>hh</td><td>Hour (padded)</td></tr><tr><td>H</td><td>Hour (24 hour)</td></tr><tr><td>HH</td><td>Hour (padded 24 hour)</td></tr><tr><td>M</td><td>Minute</td></tr><tr><td>MM</td><td>Minute (padded)</td></tr><tr><td>s</td><td>Second</td></tr><tr><td>ss</td><td>Second (padded)</td></tr><tr><td>l</td><td>Millisecond</td></tr><tr><td>L</td><td>Millisecond (padded)</td></tr><tr><td>t</td><td>a or p</td></tr><tr><td>tt</td><td>am or pm</td></tr><tr><td>T</td><td>A or P</td></tr><tr><td>TT</td><td>AM or PM</td></tr><tr><td>z</td><td>Time zone (first name)</td></tr><tr><td>zz</td><td>Time zone</td></tr><tr><td>Z</td><td>Time zone (abbreviated)</td></tr><tr><td>r</td><td>Day of month ordinal indicator (st, nd, rd, th)</td></tr></table>
+							<h4>Stock Masks</h4><table><tr><td>short_date</td><td>m/d/yy</td></tr><tr><td>medium_date</td><td>mmm d, yyyy</td></tr><tr><td>long_date</td><td>mmmm d, yyyy</td></tr><tr><td>full_date</td><td>dddd, mmmm d, yyyy</td></tr><tr><td>short_time</td><td>h:MMt</td></tr><tr><td>medium_time</td><td>h:MM:ss TT</td></tr><tr><td>long_time</td><td>HH:MM:ss.L</td></tr><tr><td>iso_date</td><td>yyyy-mm-dd</td></tr><tr><td>iso_time</td><td>HH:MM:ss</td></tr><tr><td>iso_datetime</td><td>yyyy-mm-dd"T"HH:MM:ss</td></tr></table>
+					</li>
+			</ul>
+		</li>
+</ul>
+
+<h3 class="api-section api-src">code</h3>
+<pre class="language-javascript line-numbers"><code>/* istanbul ignore if */
+if (typeof define !== &quot;function&quot;) {
+	var define = require(&quot;amdefine&quot;)(module);
+}
+
+define(function (require) {
+	&quot;use strict&quot;;
+
+	require(&quot;../class/method&quot;);
+	require(&quot;../shim/function&quot;);
+
+	var meta = require(&quot;../meta&quot;),
+		type = require(&quot;../type&quot;),
+		util = require(&quot;./util&quot;);
+
+	/*meta({
+		&quot;name&quot;: &quot;Date&quot;,
+		&quot;type&quot;: &quot;class&quot;,
+		&quot;global&quot;: true
+	})*/
+
+	Date.method(
+		meta({
+			&quot;name&quot;: &quot;format&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;mask&quot;,
+				&quot;type&quot;: &quot;string&quot;,
+				&quot;description&quot;: &quot;Can be a custom mask or a stock mask. See Date Mask.&quot;
+			}, {
+				&quot;name&quot;: &quot;utc&quot;,
+				&quot;type&quot;: &quot;boolean&quot;,
+				&quot;required&quot;: false,
+				&quot;default&quot;: false,
+				&quot;description&quot;: &quot;Whether to format the date using universal time. If false date is formatted using local time.&quot;
+			}],
+			&quot;returns&quot;: &quot;string&quot;
+		}),
+		format
+	);
+
+	var replacers,
+		masks,
+		maskParts = /(&quot;|&#x27;)(.*?)\1|d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTtz])\3?|[LlrZ]/g,
+		dateMethods = Date.prototype,
+		gettersLocal = {
+			getDate: dateMethods.getDate,
+			getDay: dateMethods.getDay,
+			getMonth: dateMethods.getMonth,
+			getFullYear: dateMethods.getFullYear,
+			getMilliseconds: dateMethods.getMilliseconds,
+			getSeconds: dateMethods.getSeconds,
+			getMinutes: dateMethods.getMinutes,
+			getHours: dateMethods.getHours
+		},
+		gettersUTC = {
+			getDate: dateMethods.getUTCDate,
+			getDay: dateMethods.getUTCDay,
+			getMonth: dateMethods.getUTCMonth,
+			getFullYear: dateMethods.getUTCFullYear,
+			getMilliseconds: dateMethods.getUTCMilliseconds,
+			getSeconds: dateMethods.getUTCSeconds,
+			getMinutes: dateMethods.getUTCMinutes,
+			getHours: dateMethods.getUTCHours
+		},
+		getters = gettersLocal;
+
+	masks = meta({
+		&quot;name&quot;: &quot;Date Mask&quot;,
+		&quot;type&quot;: &quot;Specification&quot;,
+		&quot;description&quot;: &quot;A date mask is a string containing placeholders that represent parts of a date. Any characters that isn&#x27;t a placeholder will remain. All characters can be escaped by them within single or double quotes.&quot;,
+		&quot;Placeholders&quot;: {
+			&quot;d&quot;: &quot;Day of the month&quot;,
+			&quot;dd&quot;: &quot;Day of the month (padded)&quot;,
+			&quot;ddd&quot;: &quot;Weekday name (abbreviated)&quot;,
+			&quot;dddd&quot;: &quot;Weekday name&quot;,
+			&quot;m&quot;: &quot;Month number&quot;,
+			&quot;mm&quot;: &quot;Month number (padded)&quot;,
+			&quot;mmm&quot;: &quot;Month name (abbreviated)&quot;,
+			&quot;mmmm&quot;: &quot;Month name&quot;,
+			&quot;yy&quot;: &quot;Year (2 digits)&quot;,
+			&quot;yyyy&quot;: &quot;Year&quot;,
+			&quot;h&quot;: &quot;Hour&quot;,
+			&quot;hh&quot;: &quot;Hour (padded)&quot;,
+			&quot;H&quot;: &quot;Hour (24 hour)&quot;,
+			&quot;HH&quot;: &quot;Hour (padded 24 hour)&quot;,
+			&quot;M&quot;: &quot;Minute&quot;,
+			&quot;MM&quot;: &quot;Minute (padded)&quot;,
+			&quot;s&quot;: &quot;Second&quot;,
+			&quot;ss&quot;: &quot;Second (padded)&quot;,
+			&quot;l&quot;: &quot;Millisecond&quot;,
+			&quot;L&quot;: &quot;Millisecond (padded)&quot;,
+			&quot;t&quot;: &quot;a or p&quot;,
+			&quot;tt&quot;: &quot;am or pm&quot;,
+			&quot;T&quot;: &quot;A or P&quot;,
+			&quot;TT&quot;: &quot;AM or PM&quot;,
+			&quot;z&quot;: &quot;Time zone (first name)&quot;,
+			&quot;zz&quot;: &quot;Time zone&quot;,
+			&quot;Z&quot;: &quot;Time zone (abbreviated)&quot;,
+			&quot;r&quot;: &quot;Day of month ordinal indicator (st, nd, rd, th)&quot;
+		},
+		&quot;Stock Masks&quot;: {
+			&quot;short_date&quot;: &quot;m/d/yy&quot;,
+			&quot;medium_date&quot;: &quot;mmm d, yyyy&quot;,
+			&quot;long_date&quot;: &quot;mmmm d, yyyy&quot;,
+			&quot;full_date&quot;: &quot;dddd, mmmm d, yyyy&quot;,
+			&quot;short_time&quot;: &quot;h:MMt&quot;,
+			&quot;medium_time&quot;: &quot;h:MM:ss TT&quot;,
+			&quot;long_time&quot;: &quot;HH:MM:ss.L&quot;,
+			&quot;iso_date&quot;: &quot;yyyy-mm-dd&quot;,
+			&quot;iso_time&quot;: &quot;HH:MM:ss&quot;,
+			&quot;iso_datetime&quot;: &quot;yyyy-mm-dd\&quot;T\&quot;HH:MM:ss&quot;
+		}
+	});
+
+	function format (mask, UTC) {
+		var stockMasks = masks[&quot;Stock Masks&quot;];
+
+		if (mask in stockMasks) {
+			mask = stockMasks[mask];
+		}
+
+		setGetters(UTC);
+
+		return mask.replace(maskParts, replace.bind(this));
+	}
+
+	function replace (part, quote, escaped) {
+		var replacement = &quot;&quot;;
+
+		if (quote) {
+			replacement = escaped || quote;
+
+		} else {
+			replacement = replacers[part](this);
+		}
+
+		return replacement;
+	}
+
+	function setGetters (UTC) {
+
+		if (UTC) {
+			getters = gettersUTC;
+
+		} else {
+			getters = gettersLocal;
+		}
+	}
+
+	function padZeros (places, number) {
+		var string = number.toString();
+
+		while (string.length &lt; places) {
+			string = &quot;0&quot;+ string;
+		}
+
+		return string;
+	}
+
+	function isAM (date) {
+		return getters.getHours.call(date) &lt; util.NOON;
+	}
+
+	replacers = {
+		&quot;d&quot;: function (date) {
+			return getters.getDate.call(date);
+		},
+
+		&quot;dd&quot;: function (date) {
+			var day = this.d(date);
+
+			return padZeros(2, day);
+		},
+
+		&quot;ddd&quot;: function (date) {
+			var weekday = this.dddd(date);
+
+			return weekday.slice(0, 3);
+		},
+
+		&quot;dddd&quot;: function (date) {
+			var weekdayNumber = getters.getDay.call(date);
+
+			return util.WEEKDAYS[weekdayNumber];
+		},
+
+		&quot;m&quot;: function (date) {
+			return getters.getMonth.call(date) + 1;
+		},
+
+		&quot;mm&quot;: function (date) {
+			var month = this.m(date);
+
+			return padZeros(2, month);
+		},
+
+		&quot;mmm&quot;: function (date) {
+			var monthName = this.mmmm(date);
+
+			return monthName.slice(0, 3);
+		},
+
+		&quot;mmmm&quot;: function (date) {
+			var monthNumber = getters.getMonth.call(date),
+				monthName = util.MONTHS[monthNumber];
+
+			return monthName;
+		},
+
+		&quot;yy&quot;: function (date) {
+			var year = this.yyyy(date).toString();
+
+			return year.slice(2);
+		},
+
+		&quot;yyyy&quot;: function (date) {
+			return getters.getFullYear.call(date);
+		},
+
+		&quot;h&quot;: function (date) {
+			var hour = this.H(date);
+
+			if (hour % util.MIDNIGHT === 0) {
+				hour = util.MIDNIGHT;
+			}
+
+			return hour;
+		},
+
+		&quot;hh&quot;: function (date) {
+			var hour = this.h(date);
+
+			return padZeros(2, hour);
+		},
+
+		&quot;H&quot;: function (date) {
+			return getters.getHours.call(date);
+		},
+
+		&quot;HH&quot;: function (date) {
+			var hour = this.H(date);
+
+			return padZeros(2, hour);
+		},
+
+		&quot;M&quot;: function (date) {
+			return getters.getMinutes.call(date);
+		},
+
+		&quot;MM&quot;: function (date) {
+			var minute = this.M(date);
+
+			return padZeros(2, minute);
+		},
+
+		&quot;s&quot;: function (date) {
+			return getters.getSeconds.call(date);
+		},
+
+		&quot;ss&quot;: function (date) {
+			var second = this.s(date);
+
+			return padZeros(2, second);
+		},
+
+		&quot;l&quot;: function (date) {
+			return getters.getMilliseconds.call(date);
+		},
+
+		&quot;L&quot;: function (date) {
+			var millisecond = this.l(date);
+
+			return padZeros(3, millisecond);
+		},
+
+		&quot;t&quot;: function (date) {
+			var period;
+
+			if (isAM(date)) {
+				period = &quot;a&quot;;
+
+			} else {
+				period = &quot;p&quot;;
+			}
+
+			return period;
+		},
+
+		&quot;tt&quot;: function (date) {
+			var period = this.t(date) + &quot;m&quot;;
+
+			return period;
+		},
+
+		&quot;T&quot;: function (date) {
+			var period = this.t(date);
+
+			return period.toUpperCase();
+		},
+
+		&quot;TT&quot;: function (date) {
+			var period = this.tt(date);
+
+			return period.toUpperCase();
+		},
+
+		&quot;r&quot;: function (date) {
+			var dayOfMonth = getters.getDate.call(date),
+				suffixes = [&quot;th&quot;, &quot;st&quot;, &quot;nd&quot;, &quot;rd&quot;],
+				index = dayOfMonth % 10;
+
+			if (index &gt; 3 || (dayOfMonth &gt; 10 &amp;&amp; dayOfMonth &lt; 14)) {
+				index = 0;
+			}
+
+			return suffixes[index];
+		}
+	};
+});</code></pre>			</div>
+			<div class="col-md-3"><h4 class="api-modules">modules</h4>
+
+<ul class="nav api-module-links">
+		<li class="">
+			<a >abstract</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/abstract/base.html">base</a>
+		</li>
+		<li class="">
+			<a href="../../modules/abstract/emitter.html">emitter</a>
+		</li>
+		<li class="">
+			<a href="../../modules/abstract/observable.html">observable</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/array.html">array</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/array/add.html">add</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/contains.html">contains</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/copy.html">copy</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/empty.html">empty</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/first.html">first</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/from.html">from</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/insert-at.html">insert-at</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/is-empty.html">is-empty</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/last.html">last</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/of.html">of</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/remove.html">remove</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/replace.html">replace</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/class.html">class</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/class/create.html">create</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/extend.html">extend</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/inject-super.html">inject-super</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/method.html">method</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/mixin.html">mixin</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/shim.html">shim</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/singleton.html">singleton</a>
+		</li>
+</ul>
+		</li>
+		<li class="active">
+			<a href="../../modules/date.html">date</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/date/compare.html">compare</a>
+		</li>
+		<li class="current active">
+			<a href="../../modules/date/format.html">format</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/hours-from-standard.html">hours-from-standard</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/is-daylight-savings.html">is-daylight-savings</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/is-leap-year.html">is-leap-year</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/move.html">move</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >error</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/error/create.html">create</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/event.html">event</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/event/callbacks.html">callbacks</a>
+		</li>
+		<li class="">
+			<a href="../../modules/event/engine.html">engine</a>
+		</li>
+		<li class="">
+			<a href="../../modules/event/listener.html">listener</a>
+		</li>
+		<li class="">
+			<a href="../../modules/event/listeners.html">listeners</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/function.html">function</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/function/abstract.html">abstract</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/constrict.html">constrict</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/curry.html">curry</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/debounce.html">debounce</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/default-args.html">default-args</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/get-name.html">get-name</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/overload.html">overload</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/throttle.html">throttle</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/validate-return-type.html">validate-return-type</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/meta.html">meta</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object.html">object</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/object/clone.html">clone</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/copy.html">copy</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/for-each.html">for-each</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/is-empty.html">is-empty</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/merge.html">merge</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/validate.html">validate</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >regexp</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/regexp/escape.html">escape</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >shim</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/shim/array.html">array</a>
+		</li>
+		<li class="">
+			<a href="../../modules/shim/date.html">date</a>
+		</li>
+		<li class="">
+			<a href="../../modules/shim/function.html">function</a>
+		</li>
+		<li class="">
+			<a href="../../modules/shim/object.html">object</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >string</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/string/contains.html">contains</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/contains-every.html">contains-every</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/contains-some.html">contains-some</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/interpolate.html">interpolate</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/repeat.html">repeat</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/trim.html">trim</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/type.html">type</a>
+		</li>
+		<li class="">
+			<a >util</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/util/bundle.html">bundle</a>
+		</li>
+		<li class="">
+			<a href="../../modules/util/id.html">id</a>
+		</li>
+</ul>
+		</li>
+</ul></div>
+		</div>
+		<small class="created-by text-muted">Page built with <a href="https://github.com/bob-gray/api-meta">api-meta</a></small>
+
+		<script src="../../js/prism.js"></script>
+	</body>
+</html>

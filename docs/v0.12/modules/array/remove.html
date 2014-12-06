@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>solv/array/remove API Documentation</title>
+
+		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../../css/api-meta.css" rel="stylesheet" />
+		<link href="../../css/code.css" rel="stylesheet" />
+		<link href="../../css/prism.css" rel="stylesheet" />
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<script src="../../js/jquery-1.11.0.min.js"></script>
+		<script src="../../js/bootstrap.min.js"></script>
+		<script src="../../js/api-meta.js"></script>
+	</head>
+	
+	<body>
+		<nav class="navbar navbar-fixed-top navbar-default api-project" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>-->
+					<a class="navbar-brand" href="../../index.html">solv</a>
+					<p class="navbar-text">API Documentation</p>
+				</div>
+
+				<!--<div class="collapse navbar-collapse" id="navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Help</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">v0.0.2 <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">v0.0.1</a></li>
+								<li><a href="#">v0.0.0</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>-->
+			</div>
+		</nav>
+		<!--<header class="api-project">
+			<div class="container">
+					<small class="pull-right api-version">version 0.12.0</small>
+
+				<h2>solv <small>API Documentation</small></h2>
+			</div>
+		</header>-->
+
+		<div class="container">	
+			<div class="row">
+				<div class="col-md-9"><h1 class="api-module">array/remove <small class="api-type">module</small></h1>
+
+<p class="api-description"></p>
+
+	<h3 class="api-section api-requires">requires</h3>
+	<ul class="list-inline api-requires">
+			<li>
+				<a href="../../modules/class/method.html" class="">class/method</a>
+			</li>
+			<li>
+				<a href="../../modules/meta.html" class="">meta</a>
+			</li>
+			<li>
+				<a href="../../modules/shim/array.html" class="">shim/array</a>
+			</li>
+	</ul>
+
+<ul class="list-unstyled api-module-contents">
+		<li>
+			<a class="api-anchor" id="class:Array"></a>
+			<code id="Array-class" class="api-code api-class"><strong>Array(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
+			<p class="api-description">
+				
+			</p>
+			<p>
+					<span class="label label-default">global</span>
+			</p>
+
+
+
+
+				<h3 class="api-section api-method">methods</h3>
+
+
+				<ul class="list-unstyled api-items">
+						<li>
+							<a class="api-anchor" id="method:remove"></a>
+							<code class="api-code api-method">
+								<strong>.remove(</strong><strong class="api-arg">item</strong><small class="api-arg-type">:any</small><strong>)</strong>
+							</code>
+							<p class="api-description">
+								Removes the first occurrence of an item
+							</p>
+							<p>
+							</p>
+						</li>
+				</ul>
+
+		</li>
+
+
+</ul>
+
+<h3 class="api-section api-src">code</h3>
+<pre class="language-javascript line-numbers"><code>/* istanbul ignore if */
+if (typeof define !== &quot;function&quot;) {
+	var define = require(&quot;amdefine&quot;)(module);
+}
+
+define(function (require) {
+	&quot;use strict&quot;;
+
+	/*meta({
+		&quot;name&quot;: &quot;Array&quot;,
+		&quot;type&quot;: &quot;class&quot;,
+		&quot;global&quot;: true
+	})*/
+
+	require(&quot;../class/method&quot;);
+	require(&quot;../shim/array&quot;);
+
+	var meta = require(&quot;../meta&quot;);
+	
+	Array.method(
+		meta({
+			&quot;name&quot;: &quot;remove&quot;,
+			&quot;description&quot;: &quot;Removes the first occurrence of an item&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;item&quot;,
+				&quot;type&quot;: &quot;any&quot;
+			}]
+		}),
+		remove
+	);
+	
+	function remove (item) {
+		var index = this.indexOf(item);
+		
+		if (isFound(index)) {
+			this.splice(index, 1);
+		}
+	}
+	
+	function isFound (index) {
+		return index &gt; -1;
+	}
+});</code></pre>			</div>
+			<div class="col-md-3"><h4 class="api-modules">modules</h4>
+
+<ul class="nav api-module-links">
+		<li class="">
+			<a >abstract</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/abstract/base.html">base</a>
+		</li>
+		<li class="">
+			<a href="../../modules/abstract/emitter.html">emitter</a>
+		</li>
+		<li class="">
+			<a href="../../modules/abstract/observable.html">observable</a>
+		</li>
+</ul>
+		</li>
+		<li class="active">
+			<a href="../../modules/array.html">array</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/array/add.html">add</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/contains.html">contains</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/copy.html">copy</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/empty.html">empty</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/first.html">first</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/from.html">from</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/insert-at.html">insert-at</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/is-empty.html">is-empty</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/last.html">last</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/of.html">of</a>
+		</li>
+		<li class="current active">
+			<a href="../../modules/array/remove.html">remove</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/replace.html">replace</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/class.html">class</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/class/create.html">create</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/extend.html">extend</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/inject-super.html">inject-super</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/method.html">method</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/mixin.html">mixin</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/shim.html">shim</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/singleton.html">singleton</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/date.html">date</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/date/compare.html">compare</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/format.html">format</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/hours-from-standard.html">hours-from-standard</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/is-daylight-savings.html">is-daylight-savings</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/is-leap-year.html">is-leap-year</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/move.html">move</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >error</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/error/create.html">create</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/event.html">event</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/event/callbacks.html">callbacks</a>
+		</li>
+		<li class="">
+			<a href="../../modules/event/engine.html">engine</a>
+		</li>
+		<li class="">
+			<a href="../../modules/event/listener.html">listener</a>
+		</li>
+		<li class="">
+			<a href="../../modules/event/listeners.html">listeners</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/function.html">function</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/function/abstract.html">abstract</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/constrict.html">constrict</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/curry.html">curry</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/debounce.html">debounce</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/default-args.html">default-args</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/get-name.html">get-name</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/overload.html">overload</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/throttle.html">throttle</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/validate-return-type.html">validate-return-type</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/meta.html">meta</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object.html">object</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/object/clone.html">clone</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/copy.html">copy</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/for-each.html">for-each</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/is-empty.html">is-empty</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/merge.html">merge</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/validate.html">validate</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >regexp</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/regexp/escape.html">escape</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >shim</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/shim/array.html">array</a>
+		</li>
+		<li class="">
+			<a href="../../modules/shim/date.html">date</a>
+		</li>
+		<li class="">
+			<a href="../../modules/shim/function.html">function</a>
+		</li>
+		<li class="">
+			<a href="../../modules/shim/object.html">object</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >string</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/string/contains.html">contains</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/contains-every.html">contains-every</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/contains-some.html">contains-some</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/interpolate.html">interpolate</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/repeat.html">repeat</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/trim.html">trim</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/type.html">type</a>
+		</li>
+		<li class="">
+			<a >util</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/util/bundle.html">bundle</a>
+		</li>
+		<li class="">
+			<a href="../../modules/util/id.html">id</a>
+		</li>
+</ul>
+		</li>
+</ul></div>
+		</div>
+		<small class="created-by text-muted">Page built with <a href="https://github.com/bob-gray/api-meta">api-meta</a></small>
+
+		<script src="../../js/prism.js"></script>
+	</body>
+</html>
