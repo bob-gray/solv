@@ -13,11 +13,11 @@ define(function (require) {
 		type = require("../type"),
 		util = require("./util");
 
-	meta({
+	/*meta({
 		"name": "Date",
 		"type": "class",
 		"global": true
-	});
+	})*/
 
 	Date.method(
 		meta({

@@ -16,7 +16,8 @@ define(function (require) {
 	require("../function/curry");
 	require("../regexp/escape");
 
-	var meta = require("../meta");
+	var meta = require("../meta"),
+		escape = RegExp.escape;
 
 	String.method(
 		meta({
@@ -50,7 +51,9 @@ define(function (require) {
 	}
 
 	function buildRegExp (beginning, ending) {
-		return new RegExp(RegExp.escape(beginning) +"(.*?)"+ RegExp.escape(ending), "g");
+		var source = escape(beginning) +"\\s*(.*?)\\s*"+ escape(ending);
+
+		return new RegExp(source, "g");
 	}
 
 	function replacer (scope, placeholder, key) {

@@ -8,7 +8,7 @@ define(function (require) {
 
 	/*meta({
 		"type": "module",
-		"description": "This module is a convenience module for loading all array submodules. Think of it as loading array/*"
+		"description": "A convenience module for loading all array submodules. Think of it as loading array/*"
 	})*/
 
 	require("./array/add");
@@ -22,5 +22,6 @@ define(function (require) {
 	require("./array/last");
 	require("./array/of");
 	require("./array/remove");
+	require("./array/replace");
 	require("./shim/array");
 });
