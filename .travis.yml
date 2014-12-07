@@ -28,3 +28,4 @@ deploy:
   on:
     tags: true
     repo: bob-gray/solv
+    all_branches: true
