@@ -25,7 +25,7 @@
     "type": "git",
     "url": "https://github.com/bob-gray/solv.git"
   },
-  files: [
+  "files": [
     "LICENSE",
     "README.md",
     "src/"
