@@ -1,6 +1,6 @@
 {
   "name": "solv",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "homepage": "http://bob-gray.github.io/solv/",
   "author": {
     "name": "Bob Gray",
@@ -25,6 +25,11 @@
     "type": "git",
     "url": "https://github.com/bob-gray/solv.git"
   },
+  files: [
+    "LICENSE",
+    "README.md",
+    "src/"
+  ],
   "scripts": {
     "test": "grunt test"
   },
