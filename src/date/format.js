@@ -218,9 +218,9 @@ define(function (require) {
 		},
 
 		"h": function (date) {
-			var hour = this.H(date);
+			var hour = this.H(date) % util.MIDNIGHT;
 
-			if (hour % util.MIDNIGHT === 0) {
+			if (hour === 0) {
 				hour = util.MIDNIGHT;
 			}
 
