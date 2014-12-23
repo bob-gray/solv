@@ -19,17 +19,17 @@ define(function (require) {
 	
 	Array.method(
 		meta({
-			"name": "remove",
+			"name": "removeFirst",
 			"description": "Removes the first occurrence of an item",
 			"arguments": [{
 				"name": "item",
 				"type": "any"
 			}]
 		}),
-		remove
+		removeFirst
 	);
 	
-	function remove (item) {
+	function removeFirst (item) {
 		var index = this.indexOf(item);
 		
 		if (isFound(index)) {
