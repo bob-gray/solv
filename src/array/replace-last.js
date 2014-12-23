@@ -20,8 +20,8 @@ define(function(require) {
 
 	Array.method(
 		meta({
-			"name": "replaceFirst",
-			"description": "Replaces the first occurence of an item",
+			"name": "replaceLast",
+			"description": "Replaces the last occurence of an item",
 			"arguments": [{
 				"name": "item",
 				"type": "any"
@@ -31,11 +31,11 @@ define(function(require) {
 				"repeating": true
 			}]
 		}),
-		replaceFirst
+		replaceLast
 	);
 
-	function replaceFirst (item) {
-		var index = this.indexOf(item),
+	function replaceLast (item) {
+		var index = this.lastIndexOf(item),
 			replacements = Array.from(arguments).slice(1),
 			args;
 

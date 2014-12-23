@@ -21,9 +21,11 @@ define(function (require) {
 	require("./array/is-empty");
 	require("./array/last");
 	require("./array/of");
-	require("./array/remove");
 	require("./array/remove-first");
 	require("./array/remove-last");
+	require("./array/remove");
 	require("./array/replace-first");
+	require("./array/replace-last");
+	require("./array/replace");
 	require("./shim/array");
 });

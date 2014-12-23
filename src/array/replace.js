@@ -13,15 +13,14 @@ define(function(require) {
 	})*/
 
 	require("../class/method");
-	require("../shim/array");
 	require("../array/from");
 
 	var meta = require("../meta");
 
 	Array.method(
 		meta({
-			"name": "replaceFirst",
-			"description": "Replaces the first occurence of an item",
+			"name": "replace",
+			"description": "Replaces all occurences of an item",
 			"arguments": [{
 				"name": "item",
 				"type": "any"
@@ -31,21 +30,21 @@ define(function(require) {
 				"repeating": true
 			}]
 		}),
-		replaceFirst
+		replace
 	);
 
-	function replaceFirst (item) {
-		var index = this.indexOf(item),
+	function replace (item) {
+		var index = this.length,
 			replacements = Array.from(arguments).slice(1),
 			args;
 
-		if (isFound(index)) {
-			args = [index, 1].concat(replacements);
-			this.splice.apply(this, args);
-		}
-	}
+		while (index) {
+			index -= 1;
 
-	function isFound (index) {
-		return index > -1;
+			if (this[index] === item) {
+				args = [index, 1].concat(replacements);
+				this.splice.apply(this, args);
+			}
+		}
 	}
 });
