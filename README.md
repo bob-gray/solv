@@ -1,4 +1,4 @@
-![Solv](https://raw.github.com/bob-gray/solv/0.12.1/logo/solv-500x200.png)
+![Solv](https://raw.github.com/bob-gray/solv/v0.13.0/logo/solv-500x200.png)
 
 [![Build Status](https://travis-ci.org/bob-gray/solv.svg?branch=master)](https://travis-ci.org/bob-gray/solv)
 [![Code Climate](https://codeclimate.com/github/bob-gray/solv.png)](https://codeclimate.com/github/bob-gray/solv)

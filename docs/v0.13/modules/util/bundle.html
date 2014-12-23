@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>solv/util/bundle API Documentation</title>
+
+		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../../css/api-meta.css" rel="stylesheet" />
+		<link href="../../css/code.css" rel="stylesheet" />
+		<link href="../../css/prism.css" rel="stylesheet" />
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<script src="../../js/jquery-1.11.0.min.js"></script>
+		<script src="../../js/bootstrap.min.js"></script>
+		<script src="../../js/api-meta.js"></script>
+	</head>
+	
+	<body>
+		<nav class="navbar navbar-fixed-top navbar-default api-project" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>-->
+					<a class="navbar-brand" href="../../index.html">solv</a>
+					<p class="navbar-text">API Documentation</p>
+				</div>
+
+				<!--<div class="collapse navbar-collapse" id="navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Help</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">v0.0.2 <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">v0.0.1</a></li>
+								<li><a href="#">v0.0.0</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>-->
+			</div>
+		</nav>
+		<!--<header class="api-project">
+			<div class="container">
+					<small class="pull-right api-version">version 0.13.0</small>
+
+				<h2>solv <small>API Documentation</small></h2>
+			</div>
+		</header>-->
+
+		<div class="container">	
+			<div class="row">
+				<div class="col-md-9"><h1 class="api-module">util/bundle <small class="api-type">module</small></h1>
+
+<p class="api-description"></p>
+
+	<h3 class="api-section api-requires">requires</h3>
+	<ul class="list-inline api-requires">
+			<li>
+				<a href="../../modules/abstract/base.html" class="">abstract/base</a>
+			</li>
+			<li>
+				<a href="../../modules/array/add.html" class="">array/add</a>
+			</li>
+			<li>
+				<a href="../../modules/array/copy.html" class="">array/copy</a>
+			</li>
+			<li>
+				<a href="../../modules/array/empty.html" class="">array/empty</a>
+			</li>
+			<li>
+				<a href="../../modules/array/remove.html" class="">array/remove</a>
+			</li>
+			<li>
+				<a href="../../modules/array/replace.html" class="">array/replace</a>
+			</li>
+			<li>
+				<a href="../../modules/class/create.html" class="">class/create</a>
+			</li>
+			<li>
+				<a href="../../modules/function/constrict.html" class="">function/constrict</a>
+			</li>
+			<li>
+				<a href="../../modules/meta.html" class="">meta</a>
+			</li>
+			<li>
+				<a href="../../modules/shim/array.html" class="">shim/array</a>
+			</li>
+			<li>
+				<a href="../../modules/shim/function.html" class="">shim/function</a>
+			</li>
+	</ul>
+
+<ul class="list-unstyled api-module-contents">
+		<li>
+			<a class="api-anchor" id="class:Bundle"></a>
+			<code id="Bundle-class" class="api-code api-class"><strong>Bundle(</strong><small><strong class="api-arg">identity</strong><small class="api-arg-type">:string|null|undefined?</small><strong class="api-arg">, items</strong><small class="api-arg-type">:array|null|undefined?</small></small><strong>)<small class="api-type"> class</small></strong></code>
+			<p class="api-description">
+				A set of objects
+			</p>
+			<p>
+			</p>
+
+				<div class="panel panel-default">
+					<dl class="panel-body">
+							<dt><code class="api-term"><span class="api-class">extends</span></code></dt>
+							<dd class="api-description">
+									../abstract/base
+							</dd>
+								<dt>
+									<code class="api-term"><span class="api-class">identity</span>
+											<small class="api-arg-type">defaults to id</small>
+									</code>
+								</dt>
+								<dd class="api-description">
+									Name of the identity property of the items to be stored in the bundle.
+									<dl>
+									</dl>
+								</dd>
+								<dt>
+									<code class="api-term"><span class="api-class">items</span>
+											<small class="api-arg-type">defaults to </small>
+									</code>
+								</dt>
+								<dd class="api-description">
+									Initial items of the bundle.
+									<dl>
+									</dl>
+								</dd>
+					</dl>
+				</div>
+
+
+				<h3 class="api-section api-method">static methods</h3>
+
+				<ul class="list-unstyled api-items">
+						<li>
+							<a class="api-anchor" id="method:ascending"></a>
+							<code class="api-code api-method">
+								<strong>Bundle.ascending(</strong><strong class="api-arg">a</strong><small class="api-arg-type">:object</small><strong class="api-arg">, b</strong><small class="api-arg-type">:object</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">number</small>
+							</code>
+							<p class="api-description">
+								Compares two items by their identity.
+									Returns -1 if a&#x27;s identity is less than b and 1 if greater.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:descending"></a>
+							<code class="api-code api-method">
+								<strong>Bundle.descending(</strong><strong class="api-arg">a</strong><small class="api-arg-type">:object</small><strong class="api-arg">, b</strong><small class="api-arg-type">:object</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">number</small>
+							</code>
+							<p class="api-description">
+								Compares two items by their identity.
+									Returns 1 if a&#x27;s identity is less than b and -1 if greater.
+							</p>
+							<p>
+							</p>
+						</li>
+				</ul>
+
+				<h3 class="api-section api-method">methods</h3>
+
+
+				<ul class="list-unstyled api-items">
+						<li>
+							<a class="api-anchor" id="method:add"></a>
+							<code class="api-code api-method">
+								<strong>.add(</strong><strong class="api-arg">item</strong><small class="api-arg-type">:object</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong>bundle</strong><small class="api-arg-type">:object</small>
+							</code>
+							<p class="api-description">
+								Adds item to the bundle. Overrides exisitng item of the same id.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:each"></a>
+							<code class="api-code api-method">
+								<strong>.each(</strong><strong class="api-arg">callback</strong><small class="api-arg-type">:function</small><strong>)</strong>
+							</code>
+							<p class="api-description">
+								Executes callback for each item in the bundle. Callback signature is (item, index, bundle). The this context of the callback is the item.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:empty"></a>
+							<code class="api-code api-method">
+								<strong>.empty(</strong><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong>bundle</strong><small class="api-arg-type">:object</small>
+							</code>
+							<p class="api-description">
+								Removes all items from the bundle.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:every"></a>
+							<code class="api-code api-method">
+								<strong>.every(</strong><strong class="api-arg">callback</strong><small class="api-arg-type">:function</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">boolean</small>
+							</code>
+							<p class="api-description">
+								Executes callback for each item in the bundle or until callback returns a falsy value. Callback signature is (item, index, bundle). The this context of the callback is the item.
+									Returns true unless callback returns a falsy value.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:excludes"></a>
+							<code class="api-code api-method">
+								<strong>.excludes(</strong><strong class="api-arg">id</strong><small class="api-arg-type">:string|number</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">boolean</small>
+							</code>
+							<p class="api-description">
+								Determines whether an item with a given id is not contained in the bundle.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:filter"></a>
+							<code class="api-code api-method">
+								<strong>.filter(</strong><strong class="api-arg">callback</strong><small class="api-arg-type">:function</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong>bundle</strong><small class="api-arg-type">:object</small>
+							</code>
+							<p class="api-description">
+								Executes callback for each item in the bundle and creates a new bundle including the items for which callback returns true. Callback signature is (item, index, bundle). The this context of the callback is the item.
+									Returns a new bundle.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:get"></a>
+							<code class="api-code api-method">
+								<strong>.get(</strong><strong class="api-arg">id</strong><small class="api-arg-type">:string|number</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong>item</strong><small class="api-arg-type">:object|undefined</small>
+							</code>
+							<p class="api-description">
+								Gets an item by it&#x27;s id. Items are stored directly on the bundle and can alternately be accessed directly with bracket or dot notations. Such as bundle[id] or bundle.someId
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:getLength"></a>
+							<code class="api-code api-method">
+								<strong>.getLength(</strong><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">number</small>
+							</code>
+							<p class="api-description">
+								
+									Returns number of items in bundle.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:includes"></a>
+							<code class="api-code api-method">
+								<strong>.includes(</strong><strong class="api-arg">id</strong><small class="api-arg-type">:string|number</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">boolean</small>
+							</code>
+							<p class="api-description">
+								Determines whether an item with a given id is contained in the bundle.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:isEmpty"></a>
+							<code class="api-code api-method">
+								<strong>.isEmpty(</strong><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">boolean</small>
+							</code>
+							<p class="api-description">
+								Returns true if a bundle contains no items.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:map"></a>
+							<code class="api-code api-method">
+								<strong>.map(</strong><strong class="api-arg">callback</strong><small class="api-arg-type">:function</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">array</small>
+							</code>
+							<p class="api-description">
+								Executes callback for each item in the bundle and creates an array of the return values. Callback signature is (item, index, bundle). The this context of the callback is the item.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:reduce"></a>
+							<code class="api-code api-method">
+								<strong>.reduce(</strong><strong class="api-arg">callback</strong><small class="api-arg-type">:function</small><strong class="api-arg">, initialValue</strong><small class="api-arg-type">:any?</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">any</small>
+							</code>
+							<p class="api-description">
+								Executes callback for each item in the bundle to act as an accumulator. Callback signature is (reducedValue, item, index, bundle). The this context of the callback is the item.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:remove"></a>
+							<code class="api-code api-method">
+								<strong>.remove(</strong><strong class="api-arg">identity</strong><small class="api-arg-type">:string|number</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong>item</strong><small class="api-arg-type">:object|undefined</small>
+							</code>
+							<p class="api-description">
+								Removes and returns an item from the bundle.
+									Returns undefined if item is not included in the bundle.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:reverse"></a>
+							<code class="api-code api-method">
+								<strong>.reverse(</strong><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong>bundle</strong><small class="api-arg-type">:object</small>
+							</code>
+							<p class="api-description">
+								Delegates to the native reverse method of the internal catalog array. Reverses the order the items will be iterated over.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:some"></a>
+							<code class="api-code api-method">
+								<strong>.some(</strong><strong class="api-arg">callback</strong><small class="api-arg-type">:function</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">boolean</small>
+							</code>
+							<p class="api-description">
+								Executes callback for each item in the bundle or until callback returns a truthy value. Callback signature is (item, index, bundle). The this context of the callback is the item.
+									Returns false unless callback returns a truthy value.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:sort"></a>
+							<code class="api-code api-method">
+								<strong>.sort(</strong><strong class="api-arg">compare</strong><small class="api-arg-type">:function</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong>bundle</strong><small class="api-arg-type">:object</small>
+							</code>
+							<p class="api-description">
+								Delegates to the native sort method of the internal catalog array. Items will be iterated in this order with subsequent calls to each, map, some, every, filter, etc. Items added after the sort will be added to the bottom.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:toArray"></a>
+							<code class="api-code api-method">
+								<strong>.toArray(</strong><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">array</small>
+							</code>
+							<p class="api-description">
+								Returns items as native array.
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:toJSON"></a>
+							<code class="api-code api-method">
+								<strong>.toJSON(</strong><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">array</small>
+							</code>
+							<p class="api-description">
+								
+							</p>
+							<p>
+							</p>
+						</li>
+				</ul>
+
+		</li>
+
+
+</ul>
+
+<h3 class="api-section api-src">code</h3>
+<pre class="language-javascript line-numbers"><code>/* istanbul ignore if */
+if (typeof define !== &quot;function&quot;) {
+	var define = require(&quot;amdefine&quot;)(module);
+}
+
+define(function (require) {
+	&quot;use strict&quot;;
+
+	require(&quot;../abstract/base&quot;);
+	require(&quot;../shim/array&quot;);
+	require(&quot;../shim/function&quot;);
+	require(&quot;../function/constrict&quot;);
+	require(&quot;../array/copy&quot;);
+	require(&quot;../array/empty&quot;);
+	require(&quot;../array/add&quot;);
+	require(&quot;../array/remove&quot;);
+	require(&quot;../array/replace&quot;);
+
+	var meta = require(&quot;../meta&quot;),
+		createClass = require(&quot;../class/create&quot;),
+		Bundle;
+
+	meta.setRequire(require);
+
+	Bundle = createClass(
+		meta({
+			&quot;name&quot;: &quot;Bundle&quot;,
+			&quot;type&quot;: &quot;class&quot;,
+			&quot;extends&quot;: &quot;../abstract/base&quot;,
+			&quot;description&quot;: &quot;A set of objects&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;identity&quot;,
+				&quot;type&quot;: &quot;string&quot;,
+				&quot;default&quot;: &quot;id&quot;,
+				&quot;description&quot;: &quot;Name of the identity property of the items to be stored in the bundle.&quot;
+			}, {
+				&quot;name&quot;: &quot;items&quot;,
+				&quot;type&quot;: &quot;array&quot;,
+				&quot;default&quot;: [],
+				&quot;description&quot;: &quot;Initial items of the bundle.&quot;
+			}]
+		}),
+		init
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;get&quot;,
+			&quot;description&quot;: &quot;Gets an item by it&#x27;s id. Items are stored directly on the bundle and can alternately be accessed directly with bracket or dot notations. Such as bundle[id] or bundle.someId&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;id&quot;,
+				&quot;type&quot;: &quot;string|number&quot;
+			}],
+			&quot;returns&quot;: {
+				&quot;name&quot;: &quot;item&quot;,
+				&quot;type&quot;: &quot;object|undefined&quot;
+			}
+		}),
+		get
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;add&quot;,
+			&quot;description&quot;: &quot;Adds item to the bundle. Overrides exisitng item of the same id.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;item&quot;,
+				&quot;type&quot;: &quot;object&quot;
+			}],
+			&quot;returns&quot;: {
+				&quot;name&quot;: &quot;bundle&quot;,
+				&quot;type&quot;: &quot;object&quot;
+			}
+		}),
+		add
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;remove&quot;,
+			&quot;description&quot;: &quot;Removes and returns an item from the bundle.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;identity&quot;,
+				&quot;type&quot;: &quot;string|number&quot;
+			}],
+			&quot;returns&quot;: {
+				&quot;name&quot;: &quot;item&quot;,
+				&quot;type&quot;: &quot;object|undefined&quot;,
+				&quot;description&quot;: &quot;undefined if item is not included in the bundle.&quot;
+			}
+		}),
+		remove
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;empty&quot;,
+			&quot;description&quot;: &quot;Removes all items from the bundle.&quot;,
+			&quot;arguments&quot;: [],
+			&quot;returns&quot;: {
+				&quot;name&quot;: &quot;bundle&quot;,
+				&quot;type&quot;: &quot;object&quot;
+			}
+		}),
+		empty
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;includes&quot;,
+			&quot;description&quot;: &quot;Determines whether an item with a given id is contained in the bundle.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;id&quot;,
+				&quot;type&quot;: &quot;string|number&quot;
+			}],
+			&quot;returns&quot;: &quot;boolean&quot;
+		}),
+		includes
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;excludes&quot;,
+			&quot;description&quot;: &quot;Determines whether an item with a given id is not contained in the bundle.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;id&quot;,
+				&quot;type&quot;: &quot;string|number&quot;
+			}],
+			&quot;returns&quot;: &quot;boolean&quot;
+		}),
+		excludes
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;isEmpty&quot;,
+			&quot;description&quot;: &quot;Returns true if a bundle contains no items.&quot;,
+			&quot;arguments&quot;: [],
+			&quot;returns&quot;: &quot;boolean&quot;
+		}),
+		isEmpty
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;each&quot;,
+			&quot;description&quot;: &quot;Executes callback for each item in the bundle. Callback signature is (item, index, bundle). The this context of the callback is the item.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;callback&quot;,
+				&quot;type&quot;: &quot;function&quot;
+			}]
+		}),
+		each
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;map&quot;,
+			&quot;description&quot;: &quot;Executes callback for each item in the bundle and creates an array of the return values. Callback signature is (item, index, bundle). The this context of the callback is the item.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;callback&quot;,
+				&quot;type&quot;: &quot;function&quot;
+			}],
+			&quot;returns&quot;: &quot;array&quot;
+		}),
+		map
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;filter&quot;,
+			&quot;description&quot;: &quot;Executes callback for each item in the bundle and creates a new bundle including the items for which callback returns true. Callback signature is (item, index, bundle). The this context of the callback is the item.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;callback&quot;,
+				&quot;type&quot;: &quot;function&quot;
+			}],
+			&quot;returns&quot;: {
+				&quot;name&quot;: &quot;bundle&quot;,
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;description&quot;: &quot;a new bundle.&quot;
+			}
+		}),
+		filter
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;every&quot;,
+			&quot;description&quot;: &quot;Executes callback for each item in the bundle or until callback returns a falsy value. Callback signature is (item, index, bundle). The this context of the callback is the item.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;callback&quot;,
+				&quot;type&quot;: &quot;function&quot;
+			}],
+			&quot;returns&quot;: {
+				&quot;type&quot;: &quot;boolean&quot;,
+				&quot;description&quot;: &quot;true unless callback returns a falsy value.&quot;
+			}
+		}),
+		every
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;some&quot;,
+			&quot;description&quot;: &quot;Executes callback for each item in the bundle or until callback returns a truthy value. Callback signature is (item, index, bundle). The this context of the callback is the item.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;callback&quot;,
+				&quot;type&quot;: &quot;function&quot;
+			}],
+			&quot;returns&quot;: {
+				&quot;type&quot;: &quot;boolean&quot;,
+				&quot;description&quot;: &quot;false unless callback returns a truthy value.&quot;
+			}
+		}),
+		some
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;reduce&quot;,
+			&quot;description&quot;: &quot;Executes callback for each item in the bundle to act as an accumulator. Callback signature is (reducedValue, item, index, bundle). The this context of the callback is the item.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;callback&quot;,
+				&quot;type&quot;: &quot;function&quot;
+			}, {
+				&quot;name&quot;: &quot;initialValue&quot;,
+				&quot;type&quot;: &quot;any&quot;,
+				&quot;required&quot;: false
+			}],
+			&quot;returns&quot;: &quot;any&quot;
+		}),
+		reduce
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;sort&quot;,
+			&quot;description&quot;: &quot;Delegates to the native sort method of the internal catalog array. Items will be iterated in this order with subsequent calls to each, map, some, every, filter, etc. Items added after the sort will be added to the bottom.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;compare&quot;,
+				&quot;type&quot;: &quot;function&quot;
+			}],
+			&quot;returns&quot;: {
+				&quot;name&quot;: &quot;bundle&quot;,
+				&quot;type&quot;: &quot;object&quot;
+			}
+		}),
+		sort
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;reverse&quot;,
+			&quot;description&quot;: &quot;Delegates to the native reverse method of the internal catalog array. Reverses the order the items will be iterated over.&quot;,
+			&quot;arguments&quot;: [],
+			&quot;returns&quot;: {
+				&quot;name&quot;: &quot;bundle&quot;,
+				&quot;type&quot;: &quot;object&quot;
+			}
+		}),
+		reverse
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;getLength&quot;,
+			&quot;arguments&quot;: [],
+			&quot;returns&quot;: {
+				&quot;type&quot;: &quot;number&quot;,
+				&quot;description&quot;: &quot;number of items in bundle.&quot;
+			}
+		}),
+		getLength
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;toArray&quot;,
+			&quot;description&quot;: &quot;Returns items as native array.&quot;,
+			&quot;arguments&quot;: [],
+			&quot;returns&quot;: &quot;array&quot;
+		}),
+		toArray
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;toJSON&quot;,
+			&quot;arguments&quot;: [],
+			&quot;returns&quot;: &quot;array&quot;
+		}),
+		toArray
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;ascending&quot;,
+			&quot;static&quot;: true,
+			&quot;description&quot;: &quot;Compares two items by their identity.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;a&quot;,
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;description&quot;: &quot;item in bundle&quot;
+			}, {
+				&quot;name&quot;: &quot;b&quot;,
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;description&quot;: &quot;other item in bundle&quot;
+			}],
+			&quot;returns&quot;: {
+				&quot;type&quot;: &quot;number&quot;,
+				&quot;description&quot;: &quot;-1 if a&#x27;s identity is less than b and 1 if greater.&quot;
+			}
+		}),
+		ascending
+	);
+
+	Bundle.method(
+		meta({
+			&quot;name&quot;: &quot;descending&quot;,
+			&quot;static&quot;: true,
+			&quot;description&quot;: &quot;Compares two items by their identity.&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;a&quot;,
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;description&quot;: &quot;item in bundle&quot;
+			}, {
+				&quot;name&quot;: &quot;b&quot;,
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;description&quot;: &quot;other item in bundle&quot;
+			}],
+			&quot;returns&quot;: {
+				&quot;type&quot;: &quot;number&quot;,
+				&quot;description&quot;: &quot;1 if a&#x27;s identity is less than b and -1 if greater.&quot;
+			}
+		}),
+		descending
+	);
+
+	function init (identity, items) {
+		this.identity = identity;
+		this.catalog = [];
+		items.forEach(this.add.bind(this).constrict(0, 1));
+	}
+
+	function get (id) {
+		return this[id];
+	}
+
+	function add (item) {
+		var id = item[this.identity],
+			existing = this[id];
+
+		if (existing) {
+			this.catalog.replace(existing, item);
+		} else {
+			this.catalog.add(item);
+		}
+
+		this[id] = item;
+
+		return this;
+	}
+
+	function remove (id) {
+		var item = this[id];
+
+		this.catalog.remove(item);
+		delete this[id];
+
+		return item;
+	}
+
+	function empty () {
+		this.catalog.forEach(this.proxy(drop));
+		this.catalog.empty();
+
+		return this;
+	}
+
+	function drop (item) {
+		var id = item[this.identity];
+
+		delete this[id];
+	}
+
+	function includes (id) {
+		return id in this;
+	}
+
+	function excludes (id) {
+		return !this.includes(id);
+	}
+
+	function isEmpty () {
+		return this.getLength() === 0;
+	}
+
+	function each (callback) {
+		this.catalog.forEach(proxy(this, callback));
+	}
+
+	function map (callback) {
+		return this.catalog.map(proxy(this, callback));
+	}
+
+	function filter (callback) {
+		var items = this.catalog.filter(proxy(this, callback));
+
+		return new Bundle(this.identity, items);
+	}
+
+	function every (callback) {
+		return this.catalog.every(proxy(this, callback));
+	}
+
+	function some (callback) {
+		return this.catalog.some(proxy(this, callback));
+	}
+
+	function proxy (bundle, callback) {
+		return function (item, index) {
+			return callback.call(item, item, index, bundle);
+		};
+	}
+
+	function reduce (callback, initialValue) {
+		return this.catalog.reduce(reduceProxy(this, callback), initialValue);
+	}
+
+	function reduceProxy (bundle, callback) {
+		return function (value, item, index) {
+			return callback.call(item, value, item, index, bundle);
+		};
+	}
+
+	function toArray () {
+		return this.catalog.copy();
+	}
+
+	function getLength () {
+		return this.catalog.length;
+	}
+
+	function sort (compare) {
+		this.catalog.sort(compare.bind(this));
+
+		return this;
+	}
+
+	function reverse () {
+		this.catalog.reverse();
+
+		return this;
+	}
+
+	function ascending (a, b) {
+		var identity = this.identity;
+
+		return a[identity] &gt; b[identity] ? 1 : -1;
+	}
+
+	function descending (a, b) {
+		var identity = this.identity;
+
+		return a[identity] &lt; b[identity] ? 1 : -1;
+	}
+
+	return Bundle;
+});</code></pre>			</div>
+			<div class="col-md-3"><h4 class="api-modules">modules</h4>
+
+<ul class="nav api-module-links">
+		<li class="">
+			<a >abstract</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/abstract/base.html">base</a>
+		</li>
+		<li class="">
+			<a href="../../modules/abstract/emitter.html">emitter</a>
+		</li>
+		<li class="">
+			<a href="../../modules/abstract/observable.html">observable</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/array.html">array</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/array/add.html">add</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/contains.html">contains</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/copy.html">copy</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/empty.html">empty</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/first.html">first</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/from.html">from</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/insert-at.html">insert-at</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/is-empty.html">is-empty</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/last.html">last</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/of.html">of</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/remove.html">remove</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/remove-first.html">remove-first</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/remove-last.html">remove-last</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/replace.html">replace</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/replace-first.html">replace-first</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/replace-last.html">replace-last</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/class.html">class</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/class/create.html">create</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/extend.html">extend</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/inject-super.html">inject-super</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/method.html">method</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/mixin.html">mixin</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/shim.html">shim</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/singleton.html">singleton</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/date.html">date</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/date/compare.html">compare</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/format.html">format</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/hours-from-standard.html">hours-from-standard</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/is-daylight-savings.html">is-daylight-savings</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/is-leap-year.html">is-leap-year</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/move.html">move</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >error</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/error/create.html">create</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/event.html">event</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/event/callbacks.html">callbacks</a>
+		</li>
+		<li class="">
+			<a href="../../modules/event/engine.html">engine</a>
+		</li>
+		<li class="">
+			<a href="../../modules/event/listener.html">listener</a>
+		</li>
+		<li class="">
+			<a href="../../modules/event/listeners.html">listeners</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/function.html">function</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/function/abstract.html">abstract</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/constrict.html">constrict</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/curry.html">curry</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/debounce.html">debounce</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/default-args.html">default-args</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/get-name.html">get-name</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/overload.html">overload</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/throttle.html">throttle</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/validate-return-type.html">validate-return-type</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/meta.html">meta</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object.html">object</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/object/clone.html">clone</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/copy.html">copy</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/for-each.html">for-each</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/is-empty.html">is-empty</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/merge.html">merge</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/validate.html">validate</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >regexp</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/regexp/escape.html">escape</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >shim</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/shim/array.html">array</a>
+		</li>
+		<li class="">
+			<a href="../../modules/shim/date.html">date</a>
+		</li>
+		<li class="">
+			<a href="../../modules/shim/function.html">function</a>
+		</li>
+		<li class="">
+			<a href="../../modules/shim/object.html">object</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >string</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/string/contains.html">contains</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/contains-every.html">contains-every</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/contains-some.html">contains-some</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/interpolate.html">interpolate</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/repeat.html">repeat</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/trim.html">trim</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/type.html">type</a>
+		</li>
+		<li class="active">
+			<a >util</a>
+				<ul class="nav api-module-links">		<li class="current active">
+			<a href="../../modules/util/bundle.html">bundle</a>
+		</li>
+		<li class="">
+			<a href="../../modules/util/id.html">id</a>
+		</li>
+</ul>
+		</li>
+</ul></div>
+		</div>
+		<small class="created-by text-muted">Page built with <a href="https://github.com/bob-gray/api-meta">api-meta</a></small>
+
+		<script src="../../js/prism.js"></script>
+	</body>
+</html>
