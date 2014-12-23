@@ -24,6 +24,6 @@ define(function (require) {
 	require("./array/remove");
 	require("./array/remove-first");
 	require("./array/remove-last");
-	require("./array/replace");
+	require("./array/replace-first");
 	require("./shim/array");
 });
