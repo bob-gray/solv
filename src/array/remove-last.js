@@ -19,18 +19,18 @@ define(function (require) {
 
 	Array.method(
 		meta({
-			"name": "removeFirst",
-			"description": "Removes the first occurrence of an item",
+			"name": "removeLast",
+			"description": "Removes the last occurrence of an item",
 			"arguments": [{
 				"name": "item",
 				"type": "any"
 			}]
 		}),
-		removeFirst
+		removeLast
 	);
 
-	function removeFirst (item) {
-		var index = this.indexOf(item);
+	function removeLast (item) {
+		var index = this.lastIndexOf(item);
 
 		if (isFound(index)) {
 			this.splice(index, 1);

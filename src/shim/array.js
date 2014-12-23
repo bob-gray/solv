@@ -34,7 +34,23 @@ define(function (require) {
 		"description": "Returns the first index at which a given element can be found in the array, or -1 if it is not present.",
 		"arguments": [{
 			"name": "element",
-			"type": "start"
+			"type": "any"
+		}, {
+			"name": "from",
+			"type": "number",
+			"required": false,
+			"description": "The index to start the search"
+		}],
+		"returns": "number"
+	})
+
+	meta({
+		"name": "lastIndexOf",
+		"shim": true,
+		"description": "Returns the last index at which a given element can be found in the array, or -1 if it is not present.",
+		"arguments": [{
+			"name": "element",
+			"type": "any"
 		}, {
 			"name": "from",
 			"type": "number",
@@ -171,15 +187,15 @@ define(function (require) {
 		return value;
 	};
 
-	shims.indexOf = function (element, start) {
+	shims.indexOf = function (element, from) {
 		var length = this.length,
 			found = -1,
-			i = normalizeStart(start || 0, length);		
+			index = normalizeFrom(from || 0, length);		
 
-		for (; i < length; i += 1) {
+		for (; index < length; index += 1) {
 
-			if (this[i] === element) {
-				found = i;
+			if (this[index] === element) {
+				found = index;
 				break;
 			}
 		}
@@ -187,12 +203,28 @@ define(function (require) {
 		return found;
 	};
 
-	function normalizeStart (start, length) {
-		if (start < 0) {
-			start = atLeastZero(start + length);
+	shims.lastIndexOf = function (element, from) {
+		var length = this.length,
+			found = -1,
+			index = normalizeFrom(from || length, length);		
+
+		for (; index >= 0; index -= 1) {
+
+			if (this[index] === element) {
+				found = index;
+				break;
+			}
 		}
 
-		return start;
+		return found;
+	};
+
+	function normalizeFrom (from, length) {
+		if (from < 0) {
+			from = atLeastZero(from + length);
+		}
+
+		return from;
 	}
 
 	function atLeastZero (number) {
