@@ -13,14 +13,15 @@ define(function(require) {
 	})*/
 
 	require("../class/method");
+	require("../shim/array");
 	require("../array/from");
 
 	var meta = require("../meta");
 
 	Array.method(
 		meta({
-			"name": "replace",
-			"description": "Replaces all occurences of an item",
+			"name": "replaceLast",
+			"description": "Replaces the last occurence of an item",
 			"arguments": [{
 				"name": "item",
 				"type": "any"
@@ -30,21 +31,21 @@ define(function(require) {
 				"repeating": true
 			}]
 		}),
-		replace
+		replaceLast
 	);
 
-	function replace (item) {
-		var index = this.length,
+	function replaceLast (item) {
+		var index = this.lastIndexOf(item),
 			replacements = Array.from(arguments).slice(1),
 			args;
 
-		while (index) {
-			index -= 1;
-
-			if (this[index] === item) {
-				args = [index, 1].concat(replacements);
-				this.splice.apply(this, args);
-			}
+		if (isFound(index)) {
+			args = [index, 1].concat(replacements);
+			this.splice.apply(this, args);
 		}
+	}
+
+	function isFound (index) {
+		return index > -1;
 	}
 });

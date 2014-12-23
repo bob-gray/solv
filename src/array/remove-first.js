@@ -13,30 +13,31 @@ define(function (require) {
 	})*/
 
 	require("../class/method");
+	require("../shim/array");
 
 	var meta = require("../meta");
 
 	Array.method(
 		meta({
-			"name": "remove",
-			"description": "Removes the all occurrence of an item",
+			"name": "removeFirst",
+			"description": "Removes the first occurrence of an item",
 			"arguments": [{
 				"name": "item",
 				"type": "any"
 			}]
 		}),
-		remove
+		removeFirst
 	);
-	
-	function remove (item) {
-		var index = this.length;
 
-		while (index) {
-			index -= 1;
+	function removeFirst (item) {
+		var index = this.indexOf(item);
 
-			if (this[index] === item) {
-				this.splice(index, 1);
-			}
+		if (isFound(index)) {
+			this.splice(index, 1);
 		}
+	}
+
+	function isFound (index) {
+		return index > -1;
 	}
 });

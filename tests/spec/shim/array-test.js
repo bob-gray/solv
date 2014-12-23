@@ -179,7 +179,7 @@ define(["solv/shim/array"], function (arrayShims) {
 
 		indexOf: function () {
 			it("return the first index of a matching element", function () {
-				var array = ["a", "b", "c"],
+				var array = ["a", "b", "c", "b"],
 					found = array.indexOf("b");
 				expect(found).toBe(1);
 				expect(array[found]).toBe("b");
@@ -200,6 +200,34 @@ define(["solv/shim/array"], function (arrayShims) {
 			it("starting index can be negative", function () {
 				var notFound = ["a","b","c"].indexOf("a", -1),
 					found = ["a","b","c"].indexOf("b", -3);
+				expect(notFound).toBe(-1);
+				expect(found).toBe(1);
+			});
+		},
+
+		lastIndexOf: function () {
+			it("return the last index of a matching element", function () {
+				var array = ["a", "b", "c", "b"],
+					found = array.lastIndexOf("b");
+				expect(found).toBe(3);
+				expect(array[found]).toBe("b");
+			});
+
+			it("returns -1 if not found", function () {
+				var notFound = ["a", "b", "c"].lastIndexOf("z");
+				expect(notFound).toBe(-1);
+			});
+
+			it("optionally accepts a starting index", function () {
+				var found = ["a","b","c"].lastIndexOf("c", 2),
+					notFound = ["a","b","c"].lastIndexOf("c", 1);
+				expect(found).toBe(2);
+				expect(notFound).toBe(-1);
+			});
+
+			it("starting index can be negative", function () {
+				var notFound = ["a","b","c"].indexOf("c", -1),
+					found = ["a","b","c"].indexOf("a", -2);
 				expect(notFound).toBe(-1);
 				expect(found).toBe(1);
 			});
