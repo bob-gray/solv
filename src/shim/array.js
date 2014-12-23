@@ -154,6 +154,7 @@ define(function (require) {
 			"forEach",
 			"reduce",
 			"indexOf",
+			"lastIndexOf",
 			"map",
 			"filter",
 			"every",
