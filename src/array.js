@@ -12,6 +12,7 @@ define(function (require) {
 	})*/
 
 	require("./array/add");
+	require("./array/average");
 	require("./array/contains");
 	require("./array/copy");
 	require("./array/empty");
@@ -20,6 +21,8 @@ define(function (require) {
 	require("./array/insert-at");
 	require("./array/is-empty");
 	require("./array/last");
+	require("./array/max");
+	require("./array/min");
 	require("./array/of");
 	require("./array/remove-first");
 	require("./array/remove-last");
@@ -27,5 +30,6 @@ define(function (require) {
 	require("./array/replace-first");
 	require("./array/replace-last");
 	require("./array/replace");
+	require("./array/sum");
 	require("./shim/array");
 });
