@@ -27,11 +27,10 @@ define(function (require) {
 	);
 
 	function average () {
-		var sum = this.sum(),
-			avg = 0;
+		var avg = 0;
 
-		if (sum) {
-			avg = sum / this.length;
+		if (this.length) {
+			avg = this.sum() / this.length;
 		}
 
 		return avg;
