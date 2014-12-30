@@ -15,7 +15,7 @@ define(function (require) {
 	require("../class/method");
 
 	var meta = require("../meta");
-	
+
 	Array.method(
 		meta({
 			"name": "first",
@@ -25,7 +25,7 @@ define(function (require) {
 		}),
 		first
 	);
-	
+
 	function first () {
 		return this[0];
 	}
