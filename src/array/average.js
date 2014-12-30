@@ -28,7 +28,7 @@ define(function (require) {
 
 	function average () {
 		var sum = this.sum(),
-			avg;
+			avg = 0;
 
 		if (sum) {
 			avg = sum / this.length;
