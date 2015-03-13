@@ -19,7 +19,8 @@ define(function (require) {
 		InvalidEventParams = require("../error/invalid-event-params"),
 		signatures = require("../function/signatures"),
 		Id = require("../util/id"),
-		id = new Id();
+		id = new Id(),
+		wildcard = "*";
 
 	meta.setRequire(require);
 
@@ -42,7 +43,8 @@ define(function (require) {
 				"type": "object"
 			}, {
 				"name": "eventName",
-				"type": "string"
+				"type": "string",
+				"description": "An asterisk \"*\" can be used to listen to all events"
 			}, {
 				"name": "handler",
 				"type": "function"
@@ -54,7 +56,7 @@ define(function (require) {
 		}),
 		addListener
 	);
-	
+
 	EventEngine.method(
 		meta({
 			"name": "addListenerOnce",
@@ -64,7 +66,8 @@ define(function (require) {
 				"type": "object"
 			}, {
 				"name": "eventName",
-				"type": "string"
+				"type": "string",
+				"description": "An asterisk \"*\" can be used to listen to all events"
 			}, {
 				"name": "handler",
 				"type": "function"
@@ -76,7 +79,7 @@ define(function (require) {
 		}),
 		addListenerOnce
 	);
-	
+
 	EventEngine.method(
 		meta({
 			"name": "removeListener",
@@ -92,7 +95,7 @@ define(function (require) {
 		}),
 		removeListener
 	);
-	
+
 	EventEngine.method(
 		meta({
 			"name": "removeListeners",
@@ -107,7 +110,7 @@ define(function (require) {
 		}),
 		removeListeners
 	);
-	
+
 	EventEngine.method(
 		meta({
 			"name": "removeAllListeners",
@@ -119,11 +122,11 @@ define(function (require) {
 		}),
 		removeAllListeners
 	);
-	
+
 	EventEngine.method(
 		meta({
 			"name": "trigger",
-			"description": "Executes all handler functions listening for the event on an object ",
+			"description": "Executes all handler functions listening for the event on an object",
 			"arguments": [{
 				"name": "target",
 				"type": "object",
@@ -141,11 +144,11 @@ define(function (require) {
 		}),
 		trigger
 	);
-	
+
 	EventEngine.method(
 		meta({
 			"name": "trigger",
-			"description": "Executes all handler functions listening for the event on an object ",
+			"description": "Executes all handler functions listening for the event on an object",
 			"arguments": [{
 				"name": "target",
 				"type": "object",
@@ -168,42 +171,42 @@ define(function (require) {
 		}),
 		triggerWithOptions
 	);
-	
+
 	function init () {
 		this.expando = "events-"+ Date.now();
 		this.registry = {};
 		this.listeners = new Listeners();
 	}
-	
+
 	function addListener (target, eventName, handler) {
 		var targetId = this.invoke(getId, target),
 			listenerKey = this.listeners.add(targetId, eventName, handler),
 			callbacks = this.invoke(getCallbacks, targetId, eventName);
-		
+
 		if (!callbacks) {
 			callbacks = this.invoke(makeCallbacks, targetId, eventName);
 		}
-		
+
 		callbacks.add(handler);
-		
+
 		return listenerKey;
 	}
-	
+
 	function addListenerOnce (target, eventName, handler) {
 		var listenerKey = this.addListener(target, eventName, executeAndRemove),
 			remove = this.proxy("removeListener", target, listenerKey);
-		
+
 		function executeAndRemove () {
 			handler.apply(this, arguments);
 			remove();
 		}
-		
+
 		return listenerKey;
 	}
-	
+
 	function removeListener (target, listenerKey) {
 		var listener = this.listeners.get(listenerKey);
-		
+
 		if (listener) {
 			this.invoke(removeHandler, listener);
 			this.listeners.remove(listenerKey);
@@ -218,11 +221,11 @@ define(function (require) {
 		if (targetId) {
 			this.listeners.remove(targetId, eventName);
 			handlers = this.registry[targetId];
-			
+
 			if (handlers) {
 				delete handlers[eventName];
 			}
-			
+
 			if (handlers && Object.isEmpty(handlers)) {
 				delete this.registry[targetId];
 			}
@@ -231,32 +234,36 @@ define(function (require) {
 
 	function removeAllListeners (target) {
 		var targetId = target[this.expando];
-			
+
 		if (targetId) {
 			this.listeners.remove(targetId);
 			delete this.registry[targetId];
 			delete target[this.expando];
 		}
-		
 	}
-	
+
 	function trigger (target, eventName) {
 		var targetId = this.invoke(getId, target),
 			callbacks = this.invoke(getCallbacks, targetId, eventName),
+			wildcards = this.invoke(getCallbacks, targetId, wildcard),
 			eventArgs = Array.from(arguments).slice(2);
-		
+
 		if (callbacks) {
 			callbacks.execute(target, eventArgs);
 		}
+
+		if (wildcards) {
+			wildcards.execute(target, eventArgs);
+		}
 	}
-	
+
 	function triggerWithOptions (target, options) {
 		var eventParams = Array.from(arguments).slice(2),
 			triggerArgs = [
 				target,
 				options.name
 			];
-			
+
 		if (options.params) {
 			validateEventParams(eventParams, options.params, options.name);
 		}
@@ -264,7 +271,7 @@ define(function (require) {
 		triggerArgs = triggerArgs.concat(eventParams);
 		this.trigger.apply(this, triggerArgs);
 	}
-	
+
 	function validateEventParams (eventParams, paramsMeta, eventName) {
 		var eventSignature = signatures.getSignatureFromMeta(paramsMeta),
 			tester = signatures.compileImplementationSignature(eventSignature),
@@ -291,62 +298,62 @@ define(function (require) {
 
 		return paramsSignature;
 	}
-	
+
 	function getId (target) {
 		this.invoke(stamp, target);
 		return target[this.expando];
 	}
-	
+
 	function getCallbacks (targetId, eventName) {
 		var handlers = this.registry[targetId],
 			callbacks;
-		
+
 		if (handlers) {
 			callbacks = handlers[eventName];
 		}
-		
+
 		return callbacks;
 	}
-	
+
 	function makeCallbacks (targetId, eventName) {
 		var handlers = this.registry[targetId],
 			callbacks = new Callbacks();
-		
+
 		if (!handlers) {
 			handlers = {};
 			this.registry[targetId] = handlers;
 		}
-		
+
 		handlers[eventName] = callbacks;
-		
+
 		return callbacks;
 	}
-	
+
 	function removeHandler (listener) {
 		var callbacks = this.invoke(getCallbacks, listener.targetId, listener.eventName);
-		
+
 		if (callbacks) {
 			callbacks.remove(listener.handler);
 		}
 	}
-	
+
 	function cleanup (listener) {
 		var handlers = this.registry[listener.targetId],
 			callbacks;
-		
+
 		if (handlers) {
 			callbacks = handlers[listener.eventName];
-			
+
 			if (callbacks && callbacks.isEmpty()) {
 				delete handlers[listener.eventName];
 			}
-			
+
 			if (Object.isEmpty(handlers)) {
 				delete this.registry[listener.targetId];
 			}
 		}
 	}
-	
+
 	function stamp (target) {
 		if (!target[this.expando]) {
 			target[this.expando] = id.getNext();
@@ -360,6 +367,6 @@ define(function (require) {
 	function isObject (value) {
 		return type.is("object", value);
 	}
-	
+
 	return EventEngine;
 });
