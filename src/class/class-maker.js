@@ -88,7 +88,7 @@ define(function (require) {
 	ClassMaker.method("setConstructor", function (Constructor) {
 		this.Constructor = Constructor;
 		this.extendSuperClass();
-		this.setSuperInit();
+		this.injectSuperConstructor();
 		Constructor.init = this.init;
 		this.injectMixins();
 		this.injectDefaultArgs();
@@ -118,7 +118,7 @@ define(function (require) {
 	});
 
 	ClassMaker.method("hasInit", function () {
-		return notNull(this.init);
+		return isFunction(this.init);
 	});
 
 	ClassMaker.method("extendSuperClass", function () {
@@ -127,14 +127,12 @@ define(function (require) {
 		}
 	});
 
-	ClassMaker.method("setSuperInit", function () {
-		this.superInit = getSuperInit(this.Constructor);
-
+	ClassMaker.method("injectSuperConstructor", function () {
 		if (this.hasInit()) {
-			this.init = this.init.injectSuper(this.superInit);
+			this.init = this.init.injectSuper(this.Constructor.Super);
 
-		} else if (this.superInit) {
-			this.init = this.superInit;
+		} else {
+			this.init = this.Constructor.Super;
 		}
 	});
 
@@ -175,7 +173,7 @@ define(function (require) {
 	ClassMaker.method("hasMixins", function () {
 		return isDefined(this.mixins);
 	});
-	
+
 	ClassMaker.method("hasPropertiesArg", function () {
 		return isFound(this.propsArgIndex);
 	});
@@ -196,10 +194,6 @@ define(function (require) {
 		return type.is.not("array", value);
 	}
 
-	function notNull (value) {
-		return type.is.not("null", value);
-	}
-
 	function isNull (value) {
 		return type.is("null", value);
 	}
@@ -209,13 +203,14 @@ define(function (require) {
 	}
 
 	function isNotFunction (value) {
-		return type.is.not("function", value);
+		return !isFunction(value);
 	}
 
 	function findPropertiesArgIndex (result, arg, index) {
 		if (notFound(result) && isPropertiesArg(arg)) {
 			result = index;
 		}
+
 		return result;
 	}
 
@@ -233,13 +228,14 @@ define(function (require) {
 
 	function notEmptyObject (object) {
 		var empty;
-		
+
 		if (!object) {
 			empty = true;
+
 		} else {
 			empty = Object.isEmpty(object);
 		}
-		
+
 		return !empty;
 	}
 
@@ -249,30 +245,6 @@ define(function (require) {
 
 	function isPropertiesArg (arg) {
 		return "properties" === arg.name && "object" === arg.type;
-	}
-
-	function getSuperInit (Constructor) {
-		var Super = Constructor.Super,
-			superInit;
-
-		if (Super) {
-			superInit = getInit(Super);
-		}
-		
-		return superInit;
-	}
-
-	function getInit (Super) {
-		var init = Super.init;
-
-		if (isNull(init)) {
-			init = getSuperInit(Super);
-
-		} else if (isNotFunction(init)) {
-			init = Super;
-		}
-
-		return init;
 	}
 
 	return ClassMaker;
