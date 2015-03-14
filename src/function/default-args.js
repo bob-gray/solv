@@ -10,14 +10,15 @@ define(function (require) {
 	require("../object/merge");
 	require("../array/from");
 
-	var meta = require("../meta");
+	var meta = require("../meta"),
+		type = require("../type");
 
 	meta({
 		"name": "Function",
 		"type": "class",
 		"global": true
 	});
-	
+
 	meta({
 		"name": "defaultArgs",
 		"shim": true,
@@ -29,18 +30,36 @@ define(function (require) {
 		}],
 		"returns": "any"
 	});
-	
+
 	Function.shim("defaultArgs", defaultArgs);
-	
+
 	function defaultArgs () {
 		var fn = this,
 			defaults = Array.from(arguments);
-		
+
 		return function () {
-			var args = Array.from(arguments),
-				defaultFilled = Object.merge.deep([], defaults, args);
+			var args = Array.from(arguments).reduce(split, {
+					withoutDefaults: [],
+					withDefaults: []
+				}),
+				defaultFilled = Object.merge.deep(
+					args.withoutDefaults,
+					defaults,
+					args.withDefaults
+				);
 			
 			return fn.apply(this, defaultFilled);
 		};
+
+		function split (args, arg, index) {
+			if (type.is("undefined", defaults[index])) {
+				args.withoutDefaults[index] = arg;
+
+			} else {
+				args.withDefaults[index] = arg;
+			}
+
+			return args;
+		}
 	}
 });
