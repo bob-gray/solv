@@ -59,6 +59,31 @@ define(["solv/event/engine"], function (EventEngine) {
 			expect(handler1.calls.length).toBe(1);
 		});
 
+		it(".addListener method can request an event arg to be passed to the handler", function () {
+			eventEngine.addListener(target1, "*", handler1, true);
+
+			eventEngine.trigger(target1, "idle");
+			eventEngine.trigger(target1, "changed");
+			eventEngine.trigger(target1, "explode");
+
+			expect(handler1.calls[0].args[0].name).toBe("idle");
+			expect(handler1.calls[1].args[0].name).toBe("changed");
+			expect(handler1.calls[2].args[0].name).toBe("explode");
+		});
+
+		it(".addListener method can request an event arg to be passed to the handler", function () {
+			eventEngine.addListener(target1, "*", cancel, true);
+			eventEngine.addListener(target1, "*", handler1, true);
+
+			eventEngine.trigger(target1, "changed");
+
+			expect(handler1).not.toHaveBeenCalled();
+
+			function cancel (event) {
+				event.cancel();
+			}
+		});
+
 		it(".remove method removes listeners added with .addListenerOnce", function () {
 			var listener = eventEngine.addListenerOnce(target1, "idle", handler1);
 

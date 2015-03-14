@@ -9,6 +9,9 @@ define(function (require) {
 	require("../abstract/base");
 	require("../shim/date");
 	require("../object/is-empty");
+	require("../array/from");
+	require("../shim/function");
+	require("../function/constrict");
 
 	var EventEngine,
 		meta = require("../meta"),
@@ -48,6 +51,10 @@ define(function (require) {
 			}, {
 				"name": "handler",
 				"type": "function"
+			}, {
+				"name": "passEventArg",
+				"type": "boolean",
+				"default": false
 			}],
 			"returns": {
 				"type": "object",
@@ -71,6 +78,10 @@ define(function (require) {
 			}, {
 				"name": "handler",
 				"type": "function"
+			}, {
+				"name": "passEventArg",
+				"type": "boolean",
+				"default": false
 			}],
 			"returns": {
 				"type": "object",
@@ -172,16 +183,35 @@ define(function (require) {
 		triggerWithOptions
 	);
 
+	/*meta({
+		"name": "Event",
+		"opaque": true,
+		"properties": {
+			"name": "string"
+		}
+	})
+
+	meta({
+		"name": "cancel",
+		"arguments": []
+	})*/
+
 	function init () {
 		this.expando = "events-"+ Date.now();
 		this.registry = {};
 		this.listeners = new Listeners();
 	}
 
-	function addListener (target, eventName, handler) {
+	function addListener (target, eventName, handler, passEventArg) {
 		var targetId = this.invoke(getId, target),
-			listenerKey = this.listeners.add(targetId, eventName, handler),
-			callbacks = this.invoke(getCallbacks, targetId, eventName);
+			callbacks = this.invoke(getCallbacks, targetId, eventName),
+			listenerKey;
+
+		if (!passEventArg) {
+			handler = handler.constrict(1);
+		}
+
+		listenerKey = this.listeners.add(targetId, eventName, handler);
 
 		if (!callbacks) {
 			callbacks = this.invoke(makeCallbacks, targetId, eventName);
@@ -192,8 +222,8 @@ define(function (require) {
 		return listenerKey;
 	}
 
-	function addListenerOnce (target, eventName, handler) {
-		var listenerKey = this.addListener(target, eventName, executeAndRemove),
+	function addListenerOnce (target, eventName, handler, passEventArg) {
+		var listenerKey = this.addListener(target, eventName, executeAndRemove, passEventArg),
 			remove = this.proxy("removeListener", target, listenerKey);
 
 		function executeAndRemove () {
@@ -244,17 +274,21 @@ define(function (require) {
 
 	function trigger (target, eventName) {
 		var targetId = this.invoke(getId, target),
-			callbacks = this.invoke(getCallbacks, targetId, eventName),
-			wildcards = this.invoke(getCallbacks, targetId, wildcard),
-			eventArgs = Array.from(arguments).slice(2);
+			callbacks = this.invoke(getTriggerCallbacks, targetId, eventName),
+			eventArgs,
+			event;
 
 		if (callbacks) {
+			event = new Event(eventName, callbacks);
+			eventArgs = Array.from(arguments).slice(2);
+			eventArgs.unshift(event);
 			callbacks.execute(target, eventArgs);
 		}
+	}
 
-		if (wildcards) {
-			wildcards.execute(target, eventArgs);
-		}
+	function Event (eventName, callbacks) {
+		this.name = eventName;
+		this.cancel = callbacks.abort.bind(callbacks);
 	}
 
 	function triggerWithOptions (target, options) {
@@ -310,6 +344,20 @@ define(function (require) {
 
 		if (handlers) {
 			callbacks = handlers[eventName];
+		}
+
+		return callbacks;
+	}
+
+	function getTriggerCallbacks (targetId, eventName) {
+		var callbacks = this.invoke(getCallbacks, targetId, eventName),
+			wildcards = this.invoke(getCallbacks, targetId, wildcard);
+
+		if (callbacks && wildcards) {
+			callbacks = callbacks.concat(wildcards);
+
+		} else if (wildcards) {
+			callbacks = wildcards;
 		}
 
 		return callbacks;
