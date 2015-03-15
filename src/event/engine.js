@@ -3,6 +3,7 @@ if (typeof define !== "function") {
 	var define = require("amdefine")(module);
 }
 
+/* jshint -W072 */ // addListener & addListenerOnce have 4 params
 define(function (require) {
 	"use strict";
 
@@ -233,6 +234,8 @@ define(function (require) {
 
 		return listenerKey;
 	}
+
+	/* jshint +W072 */
 
 	function removeListener (target, listenerKey) {
 		var listener = this.listeners.get(listenerKey);
