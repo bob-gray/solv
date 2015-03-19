@@ -145,7 +145,7 @@ define(function (require) {
 	}
 
 	function offByListener (listenerKey) {
-		event.removeListener(this, listenerKey);
+		event.removeListener(listenerKey);
 	}
 
 	function offByEventName (eventName) {

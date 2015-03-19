@@ -20,6 +20,7 @@ define(function (require) {
 		createClass = require("../class"),
 		Callbacks = require("./callbacks"),
 		Listeners = require("./listeners"),
+		EventName = require("./name"),
 		InvalidEventParams = require("../error/invalid-event-params"),
 		signatures = require("../function/signatures"),
 		Id = require("../util/id"),
@@ -36,6 +37,28 @@ define(function (require) {
 			"extends": "../abstract/base"
 		}),
 		init
+	);
+
+	EventEngine.method(
+		meta({
+			"name": "addListener",
+			"description": "Adds a listener to an object",
+			"arguments": [{
+				"name": "options",
+				"type": "object",
+				"properties": {
+					"target": "object",
+					"eventName": "string",
+					"handler": "function",
+					"passEventArg": "boolean"
+				}
+			}],
+			"returns": {
+				"type": "object",
+				"description": "Event listener key; can be used to remove listener"
+			}
+		}),
+		addListenerWithOptions
 	);
 
 	EventEngine.method(
@@ -70,6 +93,28 @@ define(function (require) {
 			"name": "addListenerOnce",
 			"description": "Adds a listener to an object which will be removed after the first trigger",
 			"arguments": [{
+				"name": "options",
+				"type": "object",
+				"properties": {
+					"target": "object",
+					"eventName": "string",
+					"handler": "function",
+					"passEventArg": "boolean"
+				}
+			}],
+			"returns": {
+				"type": "object",
+				"description": "Event listener key; can be used to remove listener"
+			}
+		}),
+		addListenerOnceWithOptions
+	);
+
+	EventEngine.method(
+		meta({
+			"name": "addListenerOnce",
+			"description": "Adds a listener to an object which will be removed after the first trigger",
+			"arguments": [{
 				"name": "target",
 				"type": "object"
 			}, {
@@ -97,9 +142,6 @@ define(function (require) {
 			"name": "removeListener",
 			"description": "Removes a listener from an object",
 			"arguments": [{
-				"name": "target",
-				"type": "object"
-			}, {
 				"name": "listenerKey",
 				"type": "object",
 				"description": "Returned from addListener or addListenerOnce"
@@ -203,12 +245,24 @@ define(function (require) {
 		this.listeners = new Listeners();
 	}
 
+	function addListenerWithOptions (options) {
+		return this.addListener(
+			options.target,
+			options.eventName,
+			options.handler,
+			options.passEventArg
+		);
+	}
+
 	function addListener (target, eventName, handler, passEventArg) {
 		var targetId = this.invoke(getId, target),
 			callbacks = this.invoke(getCallbacks, targetId, eventName),
 			listenerKey;
 
-		if (!passEventArg) {
+		if (passEventArg) {
+			handler = wrap(handler);
+
+		} else {
 			handler = handler.constrict(1);
 		}
 
@@ -223,9 +277,18 @@ define(function (require) {
 		return listenerKey;
 	}
 
+	function addListenerOnceWithOptions (options) {
+		return this.addListenerOnce(
+			options.target,
+			options.eventName,
+			options.handler,
+			options.passEventArg
+		);
+	}
+
 	function addListenerOnce (target, eventName, handler, passEventArg) {
 		var listenerKey = this.addListener(target, eventName, executeAndRemove, passEventArg),
-			remove = this.proxy("removeListener", target, listenerKey);
+			remove = this.proxy("removeListener", listenerKey);
 
 		function executeAndRemove () {
 			handler.apply(this, arguments);
@@ -237,7 +300,7 @@ define(function (require) {
 
 	/* jshint +W072 */
 
-	function removeListener (target, listenerKey) {
+	function removeListener (listenerKey) {
 		var listener = this.listeners.get(listenerKey);
 
 		if (listener) {
@@ -249,19 +312,11 @@ define(function (require) {
 
 	function removeListeners (target, eventName) {
 		var targetId = target[this.expando],
-			handlers;
+			eventNames;
 
 		if (targetId) {
-			this.listeners.remove(targetId, eventName);
-			handlers = this.registry[targetId];
-
-			if (handlers) {
-				delete handlers[eventName];
-			}
-
-			if (handlers && Object.isEmpty(handlers)) {
-				delete this.registry[targetId];
-			}
+			eventNames = this.invoke(getEventNames, targetId, eventName);
+			eventNames.forEach(this.proxy(removeListenersByEventName, targetId));
 		}
 	}
 
@@ -286,6 +341,39 @@ define(function (require) {
 			eventArgs = Array.from(arguments).slice(2);
 			eventArgs.unshift(event);
 			callbacks.execute(target, eventArgs);
+		}
+	}
+
+	function getEventNames (targetId, eventName) {
+		var handlers = this.registry[targetId],
+			eventNames = [];
+
+		if (handlers) {
+			eventNames = Object.keys(handlers);
+			eventName = new EventName(eventName);
+
+			if (eventName.isNamespaced()) {
+				eventNames = eventName.filter(eventNames);
+
+			} else {
+				eventNames.push(eventName.toString());
+			}
+		}
+
+		return eventNames;
+	}
+
+	function removeListenersByEventName (targetId, eventName) {
+		var handlers = this.registry[targetId];
+
+		this.listeners.remove(targetId, eventName);
+
+		if (handlers) {
+			delete handlers[eventName];
+		}
+
+		if (handlers && Object.isEmpty(handlers)) {
+			delete this.registry[targetId];
 		}
 	}
 
@@ -353,7 +441,7 @@ define(function (require) {
 	}
 
 	function getTriggerCallbacks (targetId, eventName) {
-		var callbacks = this.invoke(getCallbacks, targetId, eventName),
+		var callbacks = this.invoke(getCallbacksByNamespace, targetId, eventName),
 			wildcards = this.invoke(getCallbacks, targetId, wildcard);
 
 		if (callbacks && wildcards) {
@@ -361,6 +449,22 @@ define(function (require) {
 
 		} else if (wildcards) {
 			callbacks = wildcards;
+		}
+
+		return callbacks;
+	}
+
+	function getCallbacksByNamespace (targetId, eventName) {
+		var toCallbacks = this.proxy(getCallbacks, targetId),
+			callbacks;
+
+		eventName = new EventName(eventName);
+
+		if (eventName.isNamespaced()) {
+			callbacks = eventName.expand().map(toCallbacks).filter(whereFound).reduce(toMerged, new Callbacks());
+
+		} else {
+			callbacks = toCallbacks(eventName.toString());
 		}
 
 		return callbacks;
@@ -411,12 +515,26 @@ define(function (require) {
 		}
 	}
 
+	function wrap (handler) {
+		return function () {
+			return handler.apply(this, arguments);
+		};
+	}
+
 	function isArray (value) {
 		return type.is("array", value);
 	}
 
 	function isObject (value) {
 		return type.is("object", value);
+	}
+
+	function whereFound (callbacks) {
+		return !!callbacks;
+	}
+
+	function toMerged (merged, callbacks) {
+		return merged.concat(callbacks);
 	}
 
 	return EventEngine;

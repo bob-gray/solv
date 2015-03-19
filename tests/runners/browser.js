@@ -46,6 +46,7 @@ require(
 		"spec/event/engine-test",
 		"spec/event/listener-test",
 		"spec/event/listeners-test",
+		"spec/event/name-test",
 		"spec/function/abstract-test",
 		"spec/function/constrict-test",
 		"spec/function/debounce-test",

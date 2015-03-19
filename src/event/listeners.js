@@ -139,9 +139,9 @@ define(function (require) {
 
 	function removeByTargetAndEventName (targetId, eventName) {
 		var listeners = this.invoke(toArray),
-			forTargetAndEvent = this.proxy(isTargetAndEvent, targetId, eventName);
+			whereTargetAndEvent = this.proxy(isTargetAndEvent, targetId, eventName);
 
-		listeners.filter(forTargetAndEvent).forEach(removeListener, this);
+		listeners.filter(whereTargetAndEvent).forEach(removeListener, this);
 	}
 
 	function removeListener (listener) {

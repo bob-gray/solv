@@ -25,9 +25,42 @@ define(["solv/event/engine"], function (EventEngine) {
 			expect(handler1).toHaveBeenCalled();
 		});
 
+		it(".addListener method adds a namespaced listener to a target", function () {
+			eventEngine.addListener(target1, "idle.foo", handler1);
+			eventEngine.trigger(target1, "idle.foo");
+
+			expect(handler1).toHaveBeenCalled();
+		});
+
+		it(".addListener method accepts an options object", function () {
+			eventEngine.addListener({
+				target: target1,
+				eventName: "idle",
+				handler: handler1
+			});
+			eventEngine.trigger(target1, "idle");
+
+			expect(handler1).toHaveBeenCalled();
+		});
+
 		it(".addListenerOnce method adds a listener to a target "+
 				"that only executes once", function () {
 			eventEngine.addListenerOnce(target1, "idle", handler1);
+
+			eventEngine.trigger(target1, "idle");
+			eventEngine.trigger(target1, "idle");
+			eventEngine.trigger(target1, "idle");
+
+			expect(handler1.calls.length).toBe(1);
+		});
+
+		it(".addListenerOnce method adds a listener to a target "+
+				"that only executes once", function () {
+			eventEngine.addListenerOnce({
+				target: target1,
+				eventName: "idle",
+				handler: handler1
+			});
 
 			eventEngine.trigger(target1, "idle");
 			eventEngine.trigger(target1, "idle");
@@ -87,7 +120,7 @@ define(["solv/event/engine"], function (EventEngine) {
 		it(".remove method removes listeners added with .addListenerOnce", function () {
 			var listener = eventEngine.addListenerOnce(target1, "idle", handler1);
 
-			eventEngine.removeListener(target1, listener);
+			eventEngine.removeListener(listener);
 
 			eventEngine.trigger(target1, "idle");
 			eventEngine.trigger(target1, "idle");
@@ -100,11 +133,11 @@ define(["solv/event/engine"], function (EventEngine) {
 				listener2 = eventEngine.addListener(target2, "changed", handler2),
 				listener3 = eventEngine.addListener(target1, "changed", handler3);
 
-			eventEngine.removeListener(target1, listener1);
-			eventEngine.removeListener(target1, {});
-			eventEngine.removeListener(target2, listener2);
-			eventEngine.removeListener(target2, listener2);
-			eventEngine.removeListener({}, listener2);
+			eventEngine.removeListener(listener1);
+			eventEngine.removeListener({});
+			eventEngine.removeListener(listener2);
+			eventEngine.removeListener(listener2);
+			eventEngine.removeListener(listener2);
 
 			eventEngine.trigger(target1, "idle");
 			eventEngine.trigger(target1, "changed");
@@ -115,8 +148,7 @@ define(["solv/event/engine"], function (EventEngine) {
 			expect(handler3).toHaveBeenCalled();
 		});
 
-		it(".removeListeners method removes a listener from a target "+
-				"that only executes once", function () {
+		it(".removeListeners method removes listeners from a target", function () {
 			eventEngine.addListener(target1, "idle", handler1);
 			eventEngine.addListener(target1, "idle", handler2);
 			eventEngine.addListener(target1, "idle", handler3);
@@ -134,8 +166,41 @@ define(["solv/event/engine"], function (EventEngine) {
 			expect(handler3).not.toHaveBeenCalled();
 		});
 
-		it(".removeAllListeners method removes a listener from a target "+
-				"that only executes once", function () {
+		it(".removeListeners method removes listeners by top level namespace", function () {
+			eventEngine.addListener(target1, "idle", handler1);
+			eventEngine.addListener(target1, "idle.init", handler2);
+			eventEngine.addListener(target1, "idle.foo.baz", handler3);
+
+			eventEngine.removeListeners(target1, "idle");
+
+			eventEngine.trigger(target1, "idle");
+			eventEngine.trigger(target1, "idle.init");
+			eventEngine.trigger(target1, "idle.foo");
+			eventEngine.trigger(target1, "idle.foo.baz");
+
+			expect(handler1).not.toHaveBeenCalled();
+			expect(handler2).not.toHaveBeenCalled();
+			expect(handler3).not.toHaveBeenCalled();
+		});
+
+		it(".removeListeners method removes listeners by nested namespace", function () {
+			eventEngine.addListener(target1, "idle", handler1);
+			eventEngine.addListener(target1, "idle.init", handler2);
+			eventEngine.addListener(target1, "idle.init.baz", handler3);
+
+			eventEngine.removeListeners(target1, "idle.init");
+
+			eventEngine.trigger(target1, "idle");
+			eventEngine.trigger(target1, "idle.init");
+			eventEngine.trigger(target1, "idle.foo");
+			eventEngine.trigger(target1, "idle.foo.baz");
+
+			expect(handler1).toHaveBeenCalled();
+			expect(handler2).not.toHaveBeenCalled();
+			expect(handler3).not.toHaveBeenCalled();
+		});
+
+		it(".removeAllListeners method removes a listener from a target", function () {
 			eventEngine.addListener(target1, "idle", handler1);
 			eventEngine.addListener(target2, "idle", handler2);
 			eventEngine.addListener(target1, "changed", handler2);
@@ -170,6 +235,15 @@ define(["solv/event/engine"], function (EventEngine) {
 			eventEngine.addListener(target2, "changed", handler2);
 			eventEngine.trigger(target2, "changed", true, [], false);
 			expect(handler2).toHaveBeenCalledWith(true, [], false);
+		});
+
+		it(".trigger method fires handlers up the event namespace chain", function () {
+			eventEngine.addListener(target1, "idle.foo", handler1);
+			eventEngine.trigger(target1, "idle.foo.bar.baz", 1, "two", false);
+			eventEngine.trigger(target1, "idle.foo", 1, "two", false);
+
+			expect(handler1).toHaveBeenCalledWith(1, "two", false);
+			expect(handler1.calls.length).toBe(2);
 		});
 
 		it(".trigger method can be call with options object", function () {

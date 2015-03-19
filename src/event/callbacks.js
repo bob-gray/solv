@@ -16,7 +16,8 @@ define(function (require) {
 
 	var Callbacks,
 		meta = require("../meta"),
-		createClass = require("../class");
+		createClass = require("../class"),
+		type = require("../type");
 
 	meta.setRequire(require);
 
@@ -181,11 +182,15 @@ define(function (require) {
 	}
 
 	function getQueues (args) {
-		return Array.from(args).map(toQueues);
+		return Array.from(args).map(toQueues).filter(whereDefined);
 	}
 
 	function toQueues (callbacks) {
-		return callbacks.queue;
+		return callbacks && callbacks.queue;
+	}
+
+	function whereDefined (item) {
+		return type.is.not("undefined", item);
 	}
 
 	return Callbacks;
