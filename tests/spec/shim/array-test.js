@@ -240,7 +240,7 @@ define(["solv/shim/array"], function (arrayShims) {
 						return num;
 					});
 				expect(isArray(other)).toBe(true);
-				expect(other).toNotBe(array);
+				expect(other).not.toBe(array);
 			});
 
 			it("new array is filled with items returned from callback", function () {
@@ -291,7 +291,7 @@ define(["solv/shim/array"], function (arrayShims) {
 						return false;
 					});
 				expect(isArray(other)).toBe(true);
-				expect(other).toNotBe(array);
+				expect(other).not.toBe(array);
 			});
 
 			it("new array is filled with items that produced a truthy response from callback", function () {

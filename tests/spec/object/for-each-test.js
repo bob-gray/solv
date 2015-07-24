@@ -29,7 +29,7 @@ define(["solv/object/for-each"], function () {
 		it("should not loop over inherited properties", function () {
 			Object.forEach(bob, callback);
 
-			expect(callback.calls.length).toBe(2);
+			expect(callback.calls.count()).toBe(2);
 		});
 
 		it("should call callback with passed in context", function () {

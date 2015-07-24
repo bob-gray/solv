@@ -86,155 +86,121 @@ define(["solv/abstract/base"], function (Base) {
 			expect(typeof callback).toBe("function");
 		});
 
-		it("delay method can be passed a public method name", function () {
+		it("delay method can be passed a public method name", function (done) {
 			var base = new Base();
 
 			base.test = jasmine.createSpy("test");
+			base.delay("test", 1, "foo");
 
-			runs(function () {
-				base.delay("test", 1, "foo");
-			});
-
-			waitsFor(function () {
-				return base.test.calls.length > 0;
-			}, "test should be called", 750);
-
-			runs(function () {
+			setTimeout(function () {
 				expect(base.test).toHaveBeenCalledWith(1, "foo");
-			});
+				done();
+			}, 30);
 		});
 
-		it("delay method can be passed a private function", function () {
+		it("delay method can be passed a private function", function (done) {
 			var base = new Base(),
 				callback = jasmine.createSpy("test");
 
-			runs(function () {
-				base.delay(callback, 1, "foo");
-			});
+			base.delay(callback, 1, "foo");
 
-			waitsFor(function () {
-				return callback.calls.length > 0;
-			}, "callback should be called", 750);
-
-			runs(function () {
+			setTimeout(function () {
 				expect(callback).toHaveBeenCalledWith(1, "foo");
-			});
+				done();
+			}, 30);
 		});
 
-		it("delay method can be passed a wait time", function () {
+		it("delay method can be passed a wait time", function (done) {
 			var base = new Base(),
 				tick = new Date().getTime(),
 				wait = 250;
 
 			base.test = jasmine.createSpy("test");
+			base.delay(wait, "test", 1, "foo");
+			base.delay(wait + 200, "test", 1, "foo");
 
-			runs(function () {
-				base.delay(wait, "test", 1, "foo");
-			});
-
-			waitsFor(function () {
-				return base.test.calls.length > 0;
-			}, "test should be called", 1000);
-
-			runs(function () {
+			setTimeout(function () {
 				var after = new Date().getTime();
 
 				expect(base.test).toHaveBeenCalledWith(1, "foo");
 				expect(after - tick).toBeGreaterThan(wait);
-			});
+				done();
+			}, wait + 50);
 		});
 
-		it("debounce method should return a debounce method", function () {
-			var base = new Base();
+		it("debounce method should return a debounce method", function (done) {
+			var base = new Base(),
+				debounced,
+				i = 0;
 
 			base.test = jasmine.createSpy("test");
+			debounced = base.debounce("test", 100);
 
-			runs(function () {
-				var debounced = base.debounce("test", 100),
-					i = 0;
+			for (; i < 50; i += 1) {
+				debounced();
+			}
 
-				for (; i < 50; i += 1) {
-					debounced();
-				}
-			});
-
-			waitsFor(function () {
-				return base.test.wasCalled;
-			}, "base.test should be called", 200);
-
-			runs(function () {
-				expect(base.test.callCount).toEqual(1);
-			});
+			setTimeout(function () {
+				expect(base.test.calls.count()).toEqual(1);
+				done();
+			}, 150);
 		});
 
-		it("debounce method return should be invoked with instance as context", function () {
-			var base = new Base();
+		it("debounce method return should be invoked with instance as context", function (done) {
+			var base = new Base(),
+				debounced,
+				i = 0;
 
 			base.test = jasmine.createSpy("test");
+			debounced = base.debounce("test", 100);
 
-			runs(function () {
-				var debounced = base.debounce("test", 100),
-					i = 0;
+			for (; i < 50; i += 1) {
+				debounced();
+			}
 
-				for (; i < 50; i += 1) {
-					debounced();
-				}
-			});
-
-			waitsFor(function () {
-				return base.test.wasCalled;
-			}, "base.test should be called", 200);
-
-			runs(function () {
-				expect(base.test.calls[0].object).toEqual(base);
-			});
+			setTimeout(function () {
+				expect(base.test.calls.first().object).toEqual(base);
+				done();
+			}, 150);
 		});
 
-		it("debounce method should return a debounce method when passed a function", function () {
+		it("debounce method should return a debounce method when passed a function", function (done) {
 			var base = new Base(),
-				test = jasmine.createSpy("test");
+				test = jasmine.createSpy("test"),
+				debounced,
+				i = 0;
 
-			runs(function () {
-				var debounced = base.debounce(test, 100),
-					i = 0;
+			debounced = base.debounce(test, 100);
 
-				for (; i < 50; i += 1) {
-					debounced();
-				}
-			});
+			for (; i < 50; i += 1) {
+				debounced();
+			}
 
-			waitsFor(function () {
-				return test.wasCalled;
-			}, "base.test should be called", 200);
-
-			runs(function () {
-				expect(test.callCount).toEqual(1);
-			});
+			setTimeout(function () {
+				expect(test.calls.count()).toEqual(1);
+				done();
+			}, 150);
 		});
 
-		it("debounce method, when passed a function, return should be invoked with instance as context", function () {
+		it("debounce method, when passed a function, return should be invoked with instance as context", function (done) {
 			var base = new Base(),
-				test = jasmine.createSpy("test");
+				test = jasmine.createSpy("test"),
+				debounced,
+				i = 0;
 
-			runs(function () {
-				var debounced = base.debounce(test, 100),
-					i = 0;
+			debounced = base.debounce(test, 100);
 
-				for (; i < 50; i += 1) {
-					debounced();
-				}
-			});
+			for (; i < 50; i += 1) {
+				debounced();
+			}
 
-			waitsFor(function () {
-				return test.wasCalled;
-			}, "base.test should be called", 200);
-
-			runs(function () {
-				expect(test.calls[0].object).toEqual(base);
-			});
+			setTimeout(function () {
+				expect(test.calls.first().object).toEqual(base);
+				done();
+			}, 150);
 		});
 
-		it("throttle method return should call function each time buffer is elapsed", function () {
+		it("throttle method return should call function each time buffer is elapsed", function (done) {
 			var base = new Base(),
 				throttled,
 				i = 0;
@@ -242,27 +208,22 @@ define(["solv/abstract/base"], function (Base) {
 			base.test = jasmine.createSpy("test");
 			throttled = base.throttle("test", 50);
 
-			runs(function() {
-				for (; i < 4; i += 1) {
-					setTimeout(loop, i * 30);
-				}
-			});
+			for (; i < 4; i += 1) {
+				setTimeout(loop, i * 30);
+			}
 
 			function loop () {
 				throttled();
 				i -= 1;
 			}
 
-			waitsFor(function () {
-				return i === 0;
-			}, "throttled function should be called", 300);
-
-			runs(function () {
-				expect(base.test.callCount).toEqual(2);
-			});
+			setTimeout(function () {
+				expect(base.test.calls.count()).toEqual(2);
+				done();
+			}, 150);
 		});
 
-		it("throttle method return should be invoked with instance as context", function () {
+		it("throttle method return should be invoked with instance as context", function (done) {
 			var base = new Base(),
 				throttled,
 				i = 0;
@@ -270,27 +231,22 @@ define(["solv/abstract/base"], function (Base) {
 			base.test = jasmine.createSpy("test");
 			throttled = base.throttle("test", 50);
 
-			runs(function() {
-				for (; i < 4; i += 1) {
-					setTimeout(loop, i * 30);
-				}
-			});
+			for (; i < 4; i += 1) {
+				setTimeout(loop, i * 30);
+			}
 
 			function loop () {
 				throttled();
 				i -= 1;
 			}
 
-			waitsFor(function () {
-				return i === 0;
-			}, "throttled function should be called", 300);
-
-			runs(function () {
-				expect(base.test.calls[0].object).toEqual(base);
-			});
+			setTimeout(function () {
+				expect(base.test.calls.first().object).toEqual(base);
+				done();
+			}, 150);
 		});
 
-		it("throttle method, when passed a function, return should call function each time buffer is elapsed", function () {
+		it("throttle method, when passed a function, return should call function each time buffer is elapsed", function (done) {
 			var base = new Base(),
 				throttled,
 				i = 0,
@@ -298,27 +254,22 @@ define(["solv/abstract/base"], function (Base) {
 
 			throttled = base.throttle(test, 50);
 
-			runs(function() {
-				for (; i < 4; i += 1) {
-					setTimeout(loop, i * 30);
-				}
-			});
+			for (; i < 4; i += 1) {
+				setTimeout(loop, i * 30);
+			}
 
 			function loop () {
 				throttled();
 				i -= 1;
 			}
 
-			waitsFor(function () {
-				return i === 0;
-			}, "throttled function should be called", 300);
-
-			runs(function () {
-				expect(test.callCount).toEqual(2);
-			});
+			setTimeout(function () {
+				expect(test.calls.count()).toEqual(2);
+				done();
+			}, 150);
 		});
 
-		it("throttle method, when passed a function, return should be invoked with instance as context", function () {
+		it("throttle method, when passed a function, return should be invoked with instance as context", function (done) {
 			var base = new Base(),
 				throttled,
 				i = 0,
@@ -326,24 +277,19 @@ define(["solv/abstract/base"], function (Base) {
 
 			throttled = base.throttle(test, 50);
 
-			runs(function() {
-				for (; i < 4; i += 1) {
-					setTimeout(loop, i * 30);
-				}
-			});
+			for (; i < 4; i += 1) {
+				setTimeout(loop, i * 30);
+			}
 
 			function loop () {
 				throttled();
 				i -= 1;
 			}
 
-			waitsFor(function () {
-				return i === 0;
-			}, "throttled function should be called", 300);
-
-			runs(function () {
-				expect(test.calls[0].object).toEqual(base);
-			});
+			setTimeout(function () {
+				expect(test.calls.first().object).toEqual(base);
+				done();
+			}, 150);
 		});
 	});
 });

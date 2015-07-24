@@ -51,7 +51,7 @@ define(["solv/event/engine"], function (EventEngine) {
 			eventEngine.trigger(target1, "idle");
 			eventEngine.trigger(target1, "idle");
 
-			expect(handler1.calls.length).toBe(1);
+			expect(handler1.calls.count()).toBe(1);
 		});
 
 		it(".addListenerOnce method adds a listener to a target "+
@@ -66,7 +66,7 @@ define(["solv/event/engine"], function (EventEngine) {
 			eventEngine.trigger(target1, "idle");
 			eventEngine.trigger(target1, "idle");
 
-			expect(handler1.calls.length).toBe(1);
+			expect(handler1.calls.count()).toBe(1);
 		});
 
 		it(".addListener method can listen to all events when eventName=*", function () {
@@ -78,7 +78,7 @@ define(["solv/event/engine"], function (EventEngine) {
 			eventEngine.trigger(target1, "changed");
 			eventEngine.trigger(target1, "explode");
 
-			expect(handler1.calls.length).toBe(4);
+			expect(handler1.calls.count()).toBe(4);
 		});
 
 		it(".addListenerOnce method adds a listener "+
@@ -89,7 +89,7 @@ define(["solv/event/engine"], function (EventEngine) {
 			eventEngine.trigger(target2, "idle");
 			eventEngine.trigger(target1, "changed");
 
-			expect(handler1.calls.length).toBe(1);
+			expect(handler1.calls.count()).toBe(1);
 		});
 
 		it(".addListener method can request an event arg to be passed to the handler", function () {
@@ -99,9 +99,9 @@ define(["solv/event/engine"], function (EventEngine) {
 			eventEngine.trigger(target1, "changed");
 			eventEngine.trigger(target1, "explode");
 
-			expect(handler1.calls[0].args[0].name).toBe("idle");
-			expect(handler1.calls[1].args[0].name).toBe("changed");
-			expect(handler1.calls[2].args[0].name).toBe("explode");
+			expect(handler1.calls.argsFor(0)[0].name).toBe("idle");
+			expect(handler1.calls.argsFor(1)[0].name).toBe("changed");
+			expect(handler1.calls.argsFor(2)[0].name).toBe("explode");
 		});
 
 		it(".addListener method can request an event arg to be passed to the handler", function () {
@@ -228,7 +228,7 @@ define(["solv/event/engine"], function (EventEngine) {
 			eventEngine.trigger(target1, "idle", 1, "two", false);
 			expect(handler1).toHaveBeenCalledWith(1, "two", false);
 
-			handler2 = handler2.andCallFake(function () {
+			handler2 = handler2.and.callFake(function () {
 				expect(this).toBe(target2);
 			});
 
@@ -243,7 +243,7 @@ define(["solv/event/engine"], function (EventEngine) {
 			eventEngine.trigger(target1, "idle.foo", 1, "two", false);
 
 			expect(handler1).toHaveBeenCalledWith(1, "two", false);
-			expect(handler1.calls.length).toBe(2);
+			expect(handler1.calls.count()).toBe(2);
 		});
 
 		it(".trigger method can be call with options object", function () {

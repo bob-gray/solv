@@ -14,8 +14,12 @@ define(["solv/array/empty"], function () {
 		});
 
 		it("should not error when called an already empty array", function () {
-			array.empty();
-			array.empty();
+			expect(doubleEmpty).not.toThrow();
+
+			function doubleEmpty () {
+				array.empty();
+				array.empty();
+			}
 		});
 
 		it("should empty the array in place", function () {
