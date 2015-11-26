@@ -113,7 +113,7 @@ define(function (require) {
 
 		if (this.hasPropertiesArg()) {
 			properties = this.getPropertiesFromArgs(args);
-			Object.merge.deep(instance, properties);	
+			Object.merge(instance, properties);	
 		}
 	});
 
