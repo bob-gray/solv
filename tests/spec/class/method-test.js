@@ -4,13 +4,16 @@ define(["solv/class/method"], function () {
 	describe("Constructor.method", function () {
 		it("attaches a class instance method", function () {
 			var Bob = new Person("Bob", 33);
+
 			function Person (name, age) {
 				this.name = name;
 				this.age = age;
 			}
+
 			Person.method("greet", function () {
 				return "Hello, I'm "+ this.name +"!";
 			});
+
 			expect(Bob.name).toBe("Bob");
 			expect(Bob.greet()).toBe("Hello, I'm Bob!");
 		});
@@ -20,26 +23,31 @@ define(["solv/class/method"], function () {
 				this.name = name;
 				this.age = age;
 			}
+
 			Person.method({
 				name: "sort",
 				static: true
 			}, function (a, b) {
 				return a.age > b.age ? 1 : -1;
 			});
+
 			expect(typeof Person.sort).toBe("function");
 		});
 
 		it("attaches a class shim method only if method doesn't already exist", function () {
 			var shim = function () {};
+
 			Array.method({
 				name: "sort",
 				shim: true
 			}, shim);
-			expect(Array.prototype.sort).not.toBe(shim);
+
 			Array.method({
 				name: "fooey",
 				shim: true
 			}, shim);
+
+			expect(Array.prototype.sort).not.toBe(shim);
 			expect(Array.prototype.fooey).toBe(shim);
 			delete Array.prototype.fooey;
 		});
@@ -50,10 +58,12 @@ define(["solv/class/method"], function () {
 					called = true;
 				},
 				sort = Array.prototype.sort;
+
 			Array.method({
 				name: "sort",
 				override: true
 			}, override);
+
 			expect(Array.prototype.sort).not.toBe(sort);
 			[].sort();
 			expect(called).toBe(true);
@@ -66,11 +76,13 @@ define(["solv/class/method"], function () {
 					called = true;
 				},
 				parse = Date.parse;
+
 			Date.method({
 				name: "parse",
 				static: true,
 				override: true
 			}, override);
+
 			expect(Date.parse).not.toBe(parse);
 			Date.parse();
 			expect(called).toBe(true);
@@ -82,12 +94,15 @@ define(["solv/class/method"], function () {
 				this.id = id;
 				this.options = {};
 			}
+
 			Widget.method("option", function (key, value) {
 				this.options[key] = value;
 			});
+
 			Widget.method("option", function (key) {
 				return this.options[key];
 			});
+
 			Widget.method({
 				name: "option",
 				signature: "object"
@@ -98,16 +113,19 @@ define(["solv/class/method"], function () {
 					}
 				}
 			});
+
 			Widget.method("option", function () {
 				return this.options;
 			});
 
 			var thingy = new Widget(1);
+
 			thingy.option({
 				name: "wizbang",
 				rating: "awesome"
 			});
 			thingy.option("state", "chillin");
+
 			expect(thingy instanceof Widget).toBe(true);
 			expect(thingy.option()).toBe(thingy.options);
 			expect(thingy.option("name")).toBe("wizbang");
@@ -120,21 +138,25 @@ define(["solv/class/method"], function () {
 				this.name = name;
 				this.age = age;
 			}
+
 			Person.method({
 				name: "sort",
 				static: true
 			}, function (a, b) {
 				return a.age > b.age ? 1 : -1;
 			});
+
 			Person.method({
 				name: "sort",
 				static: true
 			}, function () {
 				throw "Person.sort should be call with 2 arguments";
 			});
+
 			var Bob = new Person("Bob", 33),
 				Joe = new Person("Joe", 31),
 				people = [Bob, Joe];
+
 			people.sort(Person.sort);
 			expect(people[0]).toBe(Joe);
 			expect(Person.sort).toThrow();
@@ -145,12 +167,14 @@ define(["solv/class/method"], function () {
 				this.name = name;
 				this.age = age;
 			}
+
 			Person.method({
 				name: "getAge",
 				"returns": "number"
 			}, function () {
 				return this.age;
 			});
+
 			Person.method({
 				name: "getName",
 				"returns": {
@@ -159,13 +183,24 @@ define(["solv/class/method"], function () {
 			}, function () {
 				return this.name;
 			});
-			var Bob = new Person("Bob", 33);
-			expect(Bob.getAge()).toBe(33);
-			Bob.age = "";
-			expect(Bob.getAge).toThrow();
-			expect(Bob.getName()).toBe("Bob");
-			Bob.name = null;
-			expect(Bob.getName).toThrow();
+
+			var bob = new Person("Bob", 33);
+
+			expect(bob.getAge()).toBe(33);
+			expect(bob.getName()).toBe("Bob");
+
+			bob.age = "";
+			bob.name = null;
+			expect(getAge).toThrow();
+			expect(getName).toThrow();
+
+			function getAge () {
+				bob.getAge();
+			}
+
+			function getName () {
+				bob.getName();
+			}
 		});
 
 		it("allows invocation signature validation", function () {
@@ -173,6 +208,7 @@ define(["solv/class/method"], function () {
 				this.name = name;
 				this.value = value;
 			}
+
 			Field.method({
 				name: "val",
 				"arguments": [{
@@ -182,13 +218,16 @@ define(["solv/class/method"], function () {
 			}, function (value) {
 				this.value = value;
 			});
+
 			Field.method({
 				name: "val",
 				"arguments": []
 			}, function () {
 				return this.value;
 			});
+
 			var field = new Field("amount", 0);
+
 			expect(field.name).toBe("amount");
 			expect(field.value).toBe(0);
 			expect(field.val()).toBe(0);
@@ -201,7 +240,7 @@ define(["solv/class/method"], function () {
 					this.name = name;
 					this.age = age;
 				},
-				Bob = new Person("Bob", 33);
+				bob = new Person("Bob", 33);
 
 			Person.method({
 				"name": "greet",
@@ -215,13 +254,23 @@ define(["solv/class/method"], function () {
 					"type": "string"
 				}
 			});
+
 			Person.method({
 				"name": "beAwesome"
 			});
-			expect(typeof Bob.greet).toBe("function");
-			expect(Bob.greet).toThrow();
-			expect(typeof Bob.beAwesome).toBe("function");
-			expect(Bob.beAwesome).toThrow();
+
+			expect(typeof bob.greet).toBe("function");
+			expect(typeof bob.beAwesome).toBe("function");
+			expect(greet).toThrow();
+			expect(beAwesome).toThrow();
+
+			function greet () {
+				bob.greet();
+			}
+
+			function beAwesome () {
+				bob.beAwesome();
+			}
 		});
 
 		it("create an abstract static method", function () {
@@ -229,6 +278,7 @@ define(["solv/class/method"], function () {
 				this.name = name;
 				this.age = age;
 			}
+
 			Person.method({
 				"name": "greet",
 				"abstract": true,
@@ -242,6 +292,7 @@ define(["solv/class/method"], function () {
 					"type": "string"
 				}
 			});
+
 			expect(typeof Person.greet).toBe("function");
 			expect(Person.greet).toThrow();
 		});
