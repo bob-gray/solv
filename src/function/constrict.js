@@ -7,35 +7,46 @@ define(function (require) {
 	"use strict";
 
 	require("../array/from");
-	require("../class/shim");
+	require("../class/method");
 
 	var meta = require("../meta"),
 		type = require("../type");
 
-	meta({
+	/*meta({
 		"name": "Function",
 		"type": "class",
 		"global": true
-	});
+	})*/
 	
-	meta({
-		"name": "constrict",
-		"shim": true,
-		"description": "Higher-order function that returns a proxy which slices arguments passed to original function",
-		"arguments": [{
-			"name": "begin",
-			"type": "number",
-			"required": false
-		}, {
-			"name": "end",
-			"type": "number",
-			"required": false
-		}],
-		"returns": "function"
-	});
+	Function.method(
+		meta({
+			"name": "constrict",
+			"description": "Higher-order function that returns a proxy which slices arguments passed to original function",
+			"arguments": [{
+				"name": "begin",
+				"type": "number"
+			}, {
+				"name": "end",
+				"type": "number",
+				"required": false
+			}],
+			"returns": "function"
+		}),
+		constrict
+	);
+	
+	Function.method(
+		{
+			"name": "constrict",
+			"arguments": []
+		},
+		fullConstrict
+	);
 
-	Function.shim("constrict", constrict);
-	
+	function fullConstrict () {
+		return this.constrict(0, 0);
+	}
+
 	function constrict (begin, end) {
 		var fn = this,
 			noEnd = type.is("undefined", end);

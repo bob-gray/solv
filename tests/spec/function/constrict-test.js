@@ -31,5 +31,11 @@ define(["solv/function/constrict"], function () {
 			constricted("zero", "one", "two");
 			expect(fn).toHaveBeenCalledWith("one");
 		});
+		
+		it("doesn't pass along any arguments when called without start and end", function () {
+			var constricted = fn.constrict();
+			constricted("zero", "one", "two");
+			expect(fn.calls.mostRecent().args.length).toBe(0);
+		});
 	});
 });
