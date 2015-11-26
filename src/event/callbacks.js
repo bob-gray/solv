@@ -7,7 +7,7 @@ define(function (require) {
 	"use strict";
 
 	require("../abstract/base");
-	require("../shim/array");
+	require("../array/shim");
 	require("../array/copy");
 	require("../array/empty");
 	require("../array/is-empty");

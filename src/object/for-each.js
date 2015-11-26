@@ -7,7 +7,7 @@ define(function (require) {
 	"use strict";
 
 	require("../class/shim");
-	require("../shim/array");
+	require("../array/shim");
 
 	var meta = require("../meta");
 

@@ -26,7 +26,7 @@ define(function (require) {
 		}
 	})*/
 
-	require("../shim/object");
+	require("../object/shim");
 
 	Function.prototype.extend = function (Super) {
 		this.prototype = Object.create(Super.prototype);

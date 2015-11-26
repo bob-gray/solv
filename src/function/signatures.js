@@ -6,7 +6,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../shim/array");
+	require("../array/shim");
 	require("../array/from");
 
 	var type = require("../type"),

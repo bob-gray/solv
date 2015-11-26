@@ -8,7 +8,7 @@ define(function (require) {
 
 	require("../function/abstract");
 	require("../object/for-each");
-	require("../shim/array");
+	require("../array/shim");
 	require("../function/overload");
 
 	var type = require("../type"),

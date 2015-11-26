@@ -1,4 +1,4 @@
-define(["solv/shim/function"], function (functionShims) {
+define(["solv/function/shim"], function (functionShims) {
 	"use strict";
 
 	var nativeBind;

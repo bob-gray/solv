@@ -6,7 +6,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../shim/function");
+	require("../function/shim");
 	require("../array/from");
 	require("../function/debounce");
 	require("../function/throttle");

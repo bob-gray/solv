@@ -1,4 +1,4 @@
-define(["solv/shim/date"], function (dateShims) {
+define(["solv/date/shim"], function (dateShims) {
 	"use strict";
 
 	describe("Date.now", function () {

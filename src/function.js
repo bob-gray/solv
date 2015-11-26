@@ -20,5 +20,5 @@ define(function (require) {
 	require("./function/overload");
 	require("./function/throttle");
 	require("./function/validate-return-type");
-	require("./shim/function");
+	require("./function/shim");
 });

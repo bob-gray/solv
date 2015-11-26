@@ -7,7 +7,7 @@ define(function (require) {
 	"use strict";
 
 	require("../class/method");
-	require("../shim/function");
+	require("../function/shim");
 
 	var meta = require("../meta"),
 		type = require("../type"),

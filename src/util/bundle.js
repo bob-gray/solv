@@ -7,8 +7,8 @@ define(function (require) {
 	"use strict";
 
 	require("../abstract/base");
-	require("../shim/array");
-	require("../shim/function");
+	require("../array/shim");
+	require("../function/shim");
 	require("../function/constrict");
 	require("../array/copy");
 	require("../array/empty");

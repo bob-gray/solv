@@ -7,7 +7,7 @@ define(function (require) {
 	"use strict";
 
 	require("../class/method");
-	require("../shim/date");
+	require("../date/shim");
 
 	var meta = require("../meta");
 

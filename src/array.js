@@ -31,5 +31,5 @@ define(function (require) {
 	require("./array/replace-last");
 	require("./array/replace");
 	require("./array/sum");
-	require("./shim/array");
+	require("./array/shim");
 });

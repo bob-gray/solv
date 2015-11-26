@@ -13,7 +13,7 @@ define(function (require) {
 	})*/
 
 	require("../class/method");
-	require("../shim/array");
+	require("../array/shim");
 
 	var meta = require("../meta");
 	

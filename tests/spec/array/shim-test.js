@@ -1,4 +1,4 @@
-define(["solv/shim/array"], function (arrayShims) {
+define(["solv/array/shim"], function (arrayShims) {
 	"use strict";
 
 	var nativeMethods = {},

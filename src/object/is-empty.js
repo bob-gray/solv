@@ -6,7 +6,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../shim/object");
+	require("../object/shim");
 	require("../class/shim");
 
 	/*meta({

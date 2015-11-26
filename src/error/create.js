@@ -40,7 +40,7 @@ define(function (require) {
 	})*/
 
 	require("../class/extend");
-	require("../shim/function");
+	require("../function/shim");
 
 	var type = require("../type"),
 		placeholders = /\{\{([^}]+)\}\}/g;

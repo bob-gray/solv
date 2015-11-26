@@ -7,8 +7,8 @@ define(function (require) {
 	"use strict";
 
 	require("../abstract/base");
-	require("../shim/array");
-	require("../shim/object");
+	require("../array/shim");
+	require("../object/shim");
 
 	var Listeners,
 		meta = require("../meta"),

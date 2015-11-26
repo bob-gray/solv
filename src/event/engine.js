@@ -8,10 +8,10 @@ define(function (require) {
 	"use strict";
 
 	require("../abstract/base");
-	require("../shim/date");
+	require("../date/shim");
 	require("../object/is-empty");
 	require("../array/from");
-	require("../shim/function");
+	require("../function/shim");
 	require("../function/constrict");
 
 	var EventEngine,

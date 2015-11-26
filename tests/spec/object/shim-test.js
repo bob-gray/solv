@@ -1,4 +1,4 @@
-define(["solv/shim/object"], function (objectShims) {
+define(["solv/object/shim"], function (objectShims) {
 	"use strict";
 
 	var nativeMethods = {};
