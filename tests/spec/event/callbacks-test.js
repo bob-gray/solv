@@ -84,5 +84,26 @@ define(["solv/event/callbacks"], function (Callbacks) {
 			expect(array.length).toBe(1);
 			expect(array[0]).toBe(callback);
 		});
+
+		it(".concat returns a new callbacks instance with merged queues", function () {
+			var other = new Callbacks();
+
+			callbacks.add(callback);
+			other.add(callback);
+
+			expect(callbacks.concat(other).toArray().length).toBe(2);
+			expect(callbacks.concat(other)).not.toBe(callbacks);
+		});
+
+		it(".concat can contactenate multiple callback instances", function () {
+			var other = new Callbacks(),
+				another = new Callbacks();
+
+			callbacks.add(callback);
+			other.add(callback);
+			another.add(callback);
+
+			expect(callbacks.concat(other, another).toArray().length).toBe(3);
+		});
 	});
 });

@@ -7,62 +7,47 @@ define(["solv/function/debounce"], function () {
 		beforeEach(function () {
 			fn = jasmine.createSpy("fn");
 		});
-		
-		it("should call function once on trailing edge", function () {
-			runs(function() {
-				var debounced = fn.debounce(100),
-					i = 0;
 
-				for (; i < 50; i += 1) {
-					debounced();
-				}
-			});
+		it("should call function once on trailing edge", function (done) {
+			var debounced = fn.debounce(100),
+				i = 0;
 
-			waitsFor(function () {
-				return fn.wasCalled;
-			}, "Debounced function should be called", 200);
+			for (; i < 50; i += 1) {
+				debounced();
+			}
 
-			runs(function () {
-				expect(fn.callCount).toEqual(1);
-			});
+			setTimeout(function () {
+				expect(fn.calls.count()).toEqual(1);
+				done();
+			}, 200);
 		});
 
-		it("should call function once on leading edge", function () {
-			runs(function() {
-				var debounced = fn.debounce(100, true),
-					i = 0;
+		it("should call function once on leading edge", function (done) {
+			var debounced = fn.debounce(100, true),
+				i = 0;
 
-				for (; i < 50; i += 1) {
-					debounced();
-				}
-			});
+			for (; i < 50; i += 1) {
+				debounced();
+			}
 
-			waitsFor(function () {
-				return fn.wasCalled;
-			}, "Debounced function should be called", 200);
-
-			runs(function () {
-				expect(fn.callCount).toEqual(1);
-			});
+			setTimeout(function () {
+				expect(fn.calls.count()).toEqual(1);
+				done();
+			}, 200);
 		});
 
-		it("should call function again after lapse", function () {
-			runs(function() {
-				var debounced = fn.debounce(10),
-					i = 0;
+		it("should call function again after lapse", function (done) {
+			var debounced = fn.debounce(10),
+				i = 0;
 
-				for (; i < 3; i += 1) {
-					setTimeout(debounced, i * 50);
-				}
-			});
+			for (; i < 3; i += 1) {
+				setTimeout(debounced, i * 50);
+			}
 
-			waitsFor(function () {
-				return fn.callCount === 3;
-			}, "Debounced function should be called", 200);
-
-			runs(function () {
-				expect(fn.callCount).toEqual(3);
-			});
+			setTimeout(function () {
+				expect(fn.calls.count()).toEqual(3);
+				done();
+			}, 300);
 		});
 	});
 });

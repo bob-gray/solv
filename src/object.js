@@ -17,5 +17,5 @@ define(function (require) {
 	require("./object/is-empty");
 	require("./object/merge");
 	require("./object/validate");
-	require("./shim/object");
+	require("./object/shim");
 });

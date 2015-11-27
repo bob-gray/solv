@@ -7,8 +7,8 @@ define(function (require) {
 	"use strict";
 
 	require("../abstract/base");
-	require("../shim/array");
-	require("../shim/object");
+	require("../array/shim");
+	require("../object/shim");
 
 	var Listeners,
 		meta = require("../meta"),
@@ -47,7 +47,7 @@ define(function (require) {
 		}),
 		add
 	);
-	
+
 	Listeners.method(
 		meta({
 			"name": "get",
@@ -63,7 +63,7 @@ define(function (require) {
 		}),
 		get
 	);
-	
+
 	Listeners.method(
 		meta({
 			"name": "remove",
@@ -75,7 +75,7 @@ define(function (require) {
 		}),
 		remove
 	);
-	
+
 	Listeners.method(
 		meta({
 			"name": "remove",
@@ -87,7 +87,7 @@ define(function (require) {
 		}),
 		removeByTargetId
 	);
-	
+
 	Listeners.method(
 		meta({
 			"name": "remove",
@@ -102,7 +102,7 @@ define(function (require) {
 		}),
 		removeByTargetAndEventName
 	);
-	
+
 	function init (targetId, eventName, handler) {
 		this.catalog = {};
 	}
@@ -110,9 +110,9 @@ define(function (require) {
 	function add (targetId, eventName, handler) {
 		var listener = new Listener(targetId, eventName, handler),
 			listenerKey = listener.getKey();
-			
+
 		this.catalog[listenerKey.listenerId] = listener;
-		
+
 		return listenerKey;
 	}
 
@@ -129,21 +129,21 @@ define(function (require) {
 			this.catalog[listenerId] = null;
 		}
 	}
-	
+
 	function removeByTargetId (targetId) {
 		var listeners = this.invoke(toArray),
 			forTarget = this.proxy(isTarget, targetId);
-		
+
 		listeners.filter(forTarget).forEach(removeListener, this);
 	}
 
 	function removeByTargetAndEventName (targetId, eventName) {
 		var listeners = this.invoke(toArray),
-			forTargetAndEvent = this.proxy(isTargetAndEvent, targetId, eventName);
-		
-		listeners.filter(forTargetAndEvent).forEach(removeListener, this);
+			whereTargetAndEvent = this.proxy(isTargetAndEvent, targetId, eventName);
+
+		listeners.filter(whereTargetAndEvent).forEach(removeListener, this);
 	}
-	
+
 	function removeListener (listener) {
 		this.invoke(remove, listener.getKey());
 	}
@@ -159,11 +159,11 @@ define(function (require) {
 	function isTarget (targetId, listener) {
 		return listener && listener.targetId === targetId;
 	}
-	
+
 	function isTargetAndEvent (targetId, eventName, listener) {
 		return listener && listener.targetId === targetId &&
-				listener.eventName === eventName;
+			listener.eventName === eventName;
 	}
-	
+
 	return Listeners;
 });

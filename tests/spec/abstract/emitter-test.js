@@ -78,7 +78,7 @@ define(["solv/abstract/emitter"], function (Emitter) {
 			expect(handler).toHaveBeenCalled();
 
 			emitter.trigger("message");
-			expect(handler.calls.length).toBe(1);
+			expect(handler.calls.count()).toBe(1);
 		});
 
 		it("should remove listeners added with .on", function () {
@@ -86,7 +86,7 @@ define(["solv/abstract/emitter"], function (Emitter) {
 			emitter.off(listenerKey);
 			emitter.trigger("message");
 	
-			expect(handler.calls.length).toBe(0);
+			expect(handler).not.toHaveBeenCalled();
 		});
 
 		it("should remove listeners added with .once", function () {
@@ -94,7 +94,7 @@ define(["solv/abstract/emitter"], function (Emitter) {
 			emitter.off(listenerKey);
 			emitter.trigger("message");
 	
-			expect(handler.calls.length).toBe(0);
+			expect(handler).not.toHaveBeenCalled();
 		});
 
 		it("should remove listeners by event name", function () {
@@ -102,7 +102,7 @@ define(["solv/abstract/emitter"], function (Emitter) {
 			emitter.off("message");
 			emitter.trigger("message");
 	
-			expect(handler.calls.length).toBe(0);
+			expect(handler).not.toHaveBeenCalled();
 		});
 
 		it("should remove listeners by event name when added with once", function () {
@@ -110,7 +110,7 @@ define(["solv/abstract/emitter"], function (Emitter) {
 			emitter.off("message");
 			emitter.trigger("message");
 	
-			expect(handler.calls.length).toBe(0);
+			expect(handler).not.toHaveBeenCalled();
 		});
 
 		it("should remove all listeners", function () {
@@ -118,7 +118,7 @@ define(["solv/abstract/emitter"], function (Emitter) {
 			emitter.off();
 			emitter.trigger("message");
 	
-			expect(handler.calls.length).toBe(0);
+			expect(handler).not.toHaveBeenCalled();
 		});
 
 		it("should remove all listeners when added with once", function () {
@@ -126,7 +126,7 @@ define(["solv/abstract/emitter"], function (Emitter) {
 			emitter.off();
 			emitter.trigger("message");
 	
-			expect(handler.calls.length).toBe(0);
+			expect(handler).not.toHaveBeenCalled();
 		});
 
 		it("should remove all listeners when more than one listener", function () {
@@ -139,7 +139,7 @@ define(["solv/abstract/emitter"], function (Emitter) {
 			emitter.off(listenerKey);
 			emitter.trigger("message");
 	
-			expect(handler.calls.length).toBe(0);
+			expect(handler).not.toHaveBeenCalled();
 		});
 	});
 });

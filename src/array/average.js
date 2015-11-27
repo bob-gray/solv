@@ -18,15 +18,21 @@ define(function (require) {
 
 	Array.method(
 		meta({
-			"name": "first",
-			"description": "Gets the first item in array",
+			"name": "average",
+			"description": "Calcuates the average of the values in the array",
 			"arguments": [],
-			"returns": "any"
+			"returns": "number"
 		}),
-		first
+		average
 	);
 
-	function first () {
-		return this[0];
+	function average () {
+		var avg = 0;
+
+		if (this.length) {
+			avg = this.sum() / this.length;
+		}
+
+		return avg;
 	}
 });

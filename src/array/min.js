@@ -18,15 +18,15 @@ define(function (require) {
 
 	Array.method(
 		meta({
-			"name": "first",
-			"description": "Gets the first item in array",
+			"name": "min",
+			"description": "Gets the smallest numeric value in the array",
 			"arguments": [],
-			"returns": "any"
+			"returns": "number"
 		}),
-		first
+		min
 	);
 
-	function first () {
-		return this[0];
+	function min () {
+		return Math.min.apply(Math, this);
 	}
 });

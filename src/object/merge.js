@@ -6,8 +6,8 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../shim/object");
-	require("../shim/array");
+	require("../object/shim");
+	require("../array/shim");
 	require("../array/from");
 	require("../class/shim");
 	require("../function/curry");

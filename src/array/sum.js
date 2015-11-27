@@ -18,15 +18,19 @@ define(function (require) {
 
 	Array.method(
 		meta({
-			"name": "first",
-			"description": "Gets the first item in array",
+			"name": "sum",
+			"description": "Sum of values in the array",
 			"arguments": [],
-			"returns": "any"
+			"returns": "number"
 		}),
-		first
+		sum
 	);
 
-	function first () {
-		return this[0];
+	function sum () {
+		return this.reduce(total, 0);
+	}
+
+	function total (sum, value) {
+		return +value + sum;
 	}
 });

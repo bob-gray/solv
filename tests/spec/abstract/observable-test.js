@@ -36,7 +36,7 @@ define(["solv/abstract/observable"], function (Observable) {
 			account.on("balance-change", handler);
 			account.on("change", handler);
 			account.set("balance", 100);
-			expect(handler.calls.length).toBe(0);
+			expect(handler).not.toHaveBeenCalled();
 		});
 	});
 });

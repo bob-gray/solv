@@ -8,39 +8,36 @@ define(function (require) {
 
 	require("../function/abstract");
 	require("../object/for-each");
-	require("../shim/array");
+	require("../array/shim");
 	require("../function/overload");
 
 	var type = require("../type"),
 		getDefaults = Function.Abstract("getDefaults");
-	
+
 	function getDefaultsObject (items) {
 		var defaults = {};
-		
+
 		Object.forEach(items, populate, defaults);
-		
+
 		return defaults;
 	}
-	
+
 	function getDefaultsArray (items) {
 		var defaults = [];
-		
+
 		items.forEach(populate, defaults);
-		
+
 		return defaults;
 	}
-	
+
 	function populate (item, key) {
 		var defaultValue = item["default"];
-		
-		if (type.is.not("object", item)) {
-			this[key] = item;
-	
-		} else if (type.is.not("undefined", defaultValue)) {
+
+		if (type.is.not("undefined", defaultValue)) {
 			this[key] = defaultValue;
 		}
 	}
-	
+
 	return getDefaults
 			.overload("object", getDefaultsObject)
 			.overload("array", getDefaultsArray);

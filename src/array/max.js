@@ -18,15 +18,15 @@ define(function (require) {
 
 	Array.method(
 		meta({
-			"name": "first",
-			"description": "Gets the first item in array",
+			"name": "max",
+			"description": "Gets the largest numeric value in the array",
 			"arguments": [],
-			"returns": "any"
+			"returns": "number"
 		}),
-		first
+		max
 	);
 
-	function first () {
-		return this[0];
+	function max () {
+		return Math.max.apply(Math, this);
 	}
 });

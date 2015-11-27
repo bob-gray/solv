@@ -6,7 +6,7 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../shim/array");
+	require("../array/shim");
 
 	var dateUtil = {
 		MILLISECONDS_IN_SECOND: 1000,

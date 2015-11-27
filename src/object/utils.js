@@ -6,9 +6,9 @@ if (typeof define !== "function") {
 define(function (require) {
 	"use strict";
 
-	require("../shim/object");
-	require("../shim/array");
-	require("../shim/function");
+	require("../object/shim");
+	require("../array/shim");
+	require("../function/shim");
 
 	var empties = {
 		object: function () {

@@ -24,7 +24,7 @@ define(function (require) {
 			"arguments": [{
 				"name": "index",
 				"type": "number",
-				"description": "Where to insert items. Any number greater than array.length will be set to length. Negative number will insert from the end of array."
+				"description": "Where to insert items. Negative number will insert from the end of array."
 			}, {
 				"name": "item",
 				"type": "any",
@@ -35,12 +35,18 @@ define(function (require) {
 		insertAt
 	);
 	
-	function insertAt () {
-		var args = Array.from(arguments);
+	function insertAt (index) {
+		var args = Array.from(arguments),
+			deleteCount = 0;
 
-		// howMany = 0 into args so no items are removed
-		args.splice(1, 0, 0);
+		if (index > this.length) {
+			// ensure insert occurs at index by forcing sparse array
+			this[index - 1] = void 0; 
+		}
 
-		return this.splice.apply(this, args);
+		// insert zero deleteCount with zero deleteCount
+		args.splice(1, deleteCount, deleteCount);
+
+		this.splice.apply(this, args);
 	}
 });

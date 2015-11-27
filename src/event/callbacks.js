@@ -5,17 +5,19 @@ if (typeof define !== "function") {
 
 define(function (require) {
 	"use strict";
-	
+
 	require("../abstract/base");
-	require("../shim/array");
+	require("../array/shim");
 	require("../array/copy");
 	require("../array/empty");
 	require("../array/is-empty");
 	require("../array/remove");
+	require("../array/from");
 
 	var Callbacks,
 		meta = require("../meta"),
-		createClass = require("../class");
+		createClass = require("../class"),
+		type = require("../type");
 
 	meta.setRequire(require);
 
@@ -27,7 +29,7 @@ define(function (require) {
 		}),
 		init
 	);
-	
+
 	Callbacks.method(
 		meta({
 			"name": "add",
@@ -39,7 +41,7 @@ define(function (require) {
 		}),
 		add
 	);
-	
+
 	Callbacks.method(
 		meta({
 			"name": "remove",
@@ -51,7 +53,7 @@ define(function (require) {
 		}),
 		remove
 	);
-	
+
 	Callbacks.method(
 		meta({
 			"name": "empty",
@@ -60,7 +62,7 @@ define(function (require) {
 		}),
 		empty
 	);
-	
+
 	Callbacks.method(
 		meta({
 			"name": "execute",
@@ -77,7 +79,7 @@ define(function (require) {
 		}),
 		execute
 	);
-	
+
 	Callbacks.method(
 		meta({
 			"name": "abort",
@@ -86,7 +88,7 @@ define(function (require) {
 		}),
 		abort
 	);
-	
+
 	Callbacks.method(
 		meta({
 			"name": "toArray",
@@ -96,7 +98,7 @@ define(function (require) {
 		}),
 		toArray
 	);
-	
+
 	Callbacks.method(
 		meta({
 			"name": "isEmpty",
@@ -106,50 +108,90 @@ define(function (require) {
 		}),
 		isEmpty
 	);
-	
+
+	Callbacks.method(
+		meta({
+			"name": "concat",
+			"description": "Creates a new Callbacks instance with merged queues",
+			"arguments": [{
+				"name": "callbacks",
+				"type": "object",
+				"required": false,
+				"repeating": true,
+				"description": "Must be Callback instance(s)"
+			}],
+			"returns": {
+				"name": "callbacks",
+				"type": "object"
+			}
+		}),
+		concat
+	);
+
 	function init () {
 		this.queue = [];
 		this.invoke(reset);
 	}
-	
+
 	function add (callback) {
 		this.queue.push(callback);
 	}
-	
+
 	function remove (callback) {
 		this.queue.remove(callback);
 	}
-	
+
 	function empty () {
 		this.queue.empty();
 	}
-	
+
 	function execute (context, args) {
 		this.invoke(reset);
 		this.queue.forEach(this.proxy(apply, context, args));
 	}
-	
+
 	function abort () {
 		this.aborted = true;
 	}
-	
+
 	function reset () {
 		this.aborted = false;
 	}
-	
+
 	function apply (context, args, callback) {
 		if (!this.aborted) {
 			callback.apply(context, args);
 		}
 	}
-	
+
 	function toArray () {
 		return this.queue.copy();
 	}
-	
+
 	function isEmpty () {
 		return this.queue.isEmpty();
 	}
-	
+
+	function concat () {
+		var queues = getQueues(arguments),
+			callbacks = new Callbacks();
+
+		callbacks.queue = this.queue.concat.apply(this.queue, queues);
+
+		return callbacks;
+	}
+
+	function getQueues (args) {
+		return Array.from(args).map(toQueues).filter(whereDefined);
+	}
+
+	function toQueues (callbacks) {
+		return callbacks && callbacks.queue;
+	}
+
+	function whereDefined (item) {
+		return type.is.not("undefined", item);
+	}
+
 	return Callbacks;
 });

@@ -12,8 +12,8 @@ define(function (require) {
 		"global": true
 	})*/
 
-	require("../shim/object");
-	require("../shim/array");
+	require("../object/shim");
+	require("../array/shim");
 	require("../class/method");
 
 	var meta = require("../meta"),

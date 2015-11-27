@@ -19,9 +19,9 @@ define(function (require) {
 
 	require("./method");
 	require("../function/constrict");
-	require("../shim/object");
-	require("../shim/array");
-	require("../shim/function");
+	require("../object/shim");
+	require("../array/shim");
+	require("../function/shim");
 	
 	var meta = require("../meta"),
 		type = require("../type");

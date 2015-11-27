@@ -17,5 +17,5 @@ define(function (require) {
 	require("./date/is-daylight-savings");
 	require("./date/is-leap-year");
 	require("./date/move");
-	require("./shim/date");
+	require("./date/shim");
 });

@@ -30,7 +30,7 @@ define(function (require) {
 		}),
 		init
 	);
-	
+
 	Listener.method(
 		meta({
 			"name": "getKey",
@@ -44,19 +44,19 @@ define(function (require) {
 		}),
 		getKey
 	);
-	
+
 	function init (targetId, eventName, handler) {
 		this.id = id.getNext();
 		this.targetId = targetId;
 		this.eventName = eventName;
 		this.handler = handler;
 	}
-	
+
 	function getKey () {
 		return {
 			listenerId: this.id
 		};
 	}
-	
+
 	return Listener;
 });

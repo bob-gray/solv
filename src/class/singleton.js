@@ -27,7 +27,7 @@ define(function (require) {
 		}
 	})*/
 
-	require("../shim/function");
+	require("../function/shim");
 	require("../array/from");
 	
 	Function.prototype.singleton = function () {

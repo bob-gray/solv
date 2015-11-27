@@ -1,4 +1,4 @@
-define(["solv/shim/function"], function (functionShims) {
+define(["solv/function/shim"], function (functionShims) {
 	"use strict";
 
 	var nativeBind;
@@ -80,7 +80,7 @@ define(["solv/shim/function"], function (functionShims) {
 				instance = new Bound();
 			instance = new obj.Fn();
 			function Func (one, two) {
-				expect(this).toNotBe(context);
+				expect(this).not.toBe(context);
 				expect(one).toBe(1);
 				expect(two).toBe(2);
 				expect(this instanceof Bound).toBe(true);

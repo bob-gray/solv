@@ -18,43 +18,59 @@ define(["solv/object/validate"], function () {
 		});
 
 		it("should not error if object has all required properties", function () {
-			Object.validate(vehicle, {
-				make: "string",
-				model: "string",
-				year: "number"
-			});
+			expect(validate).not.toThrow();
+
+			function validate () {
+				Object.validate(vehicle, {
+					make: "string",
+					model: "string",
+					year: "number"
+				});
+			}
 		});
 
 		it("should not error if object has extra properties", function () {
-			vehicle.damaged = true;
+			expect(validate).not.toThrow();
 
-			Object.validate(vehicle, {
-				make: "string",
-				model: "string",
-				year: "number"
-			});
+			function validate () {
+				vehicle.damaged = true;
+
+				Object.validate(vehicle, {
+					make: "string",
+					model: "string",
+					year: "number"
+				});
+			}
 		});
 
 		it("should accept property description as object {type, required}", function () {
-			Object.validate(vehicle, {
-				make: {
-					type: "string",
-					required: true
-				},
-				options: {
-					type: "array",
-					required: false
-				}
-			});
+			expect(validate).not.toThrow();
+
+			function validate () {
+				Object.validate(vehicle, {
+					make: {
+						type: "string",
+						required: true
+					},
+					options: {
+						type: "array",
+						required: false
+					}
+				});
+			}
 		});
 
 		it("should set required to false", function () {
-			Object.validate(vehicle, {
-				owner: {
-					type: "object",
-					required: false
-				}
-			});
+			expect(validate).not.toThrow();
+
+			function validate () {
+				Object.validate(vehicle, {
+					owner: {
+						type: "object",
+						required: false
+					}
+				});
+			}
 		});
 
 		it("should error if object is missing required properties", function () {
@@ -80,11 +96,15 @@ define(["solv/object/validate"], function () {
 		});
 
 		it("should default property type to any", function () {
-			Object.validate(vehicle, {
-				make: {
-					required: true
-				}
-			});
+			expect(validate).not.toThrow();
+
+			function validate () {
+				Object.validate(vehicle, {
+					make: {
+						required: true
+					}
+				});
+			}
 		});
 
 		it("should error if property is wrong type", function () {
