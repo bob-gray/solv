@@ -188,6 +188,9 @@ define(function (require) {
 			"indexOf",
 			"lastIndexOf",
 			"map",
+			"fill",
+			"find",
+			"findIndex",
 			"filter",
 			"every",
 			"some"
@@ -341,9 +344,9 @@ define(function (require) {
 	shims.fill = function (element, from, to) {
 		var length = this.length,
 			index = normalizeFrom(from || 0, length),
-			to = normalizeFrom(to || length, length);
+			end = normalizeFrom(to || length, length);
 
-		for (; index < to; index += 1) {
+		for (; index < end; index += 1) {
 			this[index] = element;
 		}
 

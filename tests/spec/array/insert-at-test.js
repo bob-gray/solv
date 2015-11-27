@@ -30,7 +30,7 @@ define(["solv/array/insert-at"], function () {
 
 		it("should insert at index even if index is greater than array.length", function () {
 			array.insertAt(100, "end");
-			expect(array.length).toBe(101)
+			expect(array.length).toBe(101);
 			expect(array.pop()).toBe("end");
 		});
 
