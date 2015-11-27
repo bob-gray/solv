@@ -15,6 +15,8 @@ define(function (require) {
 		createClass = require("solv/class"),
 		meta = require("../meta");
 
+	meta.setRequire(require);
+
 	EventName = createClass(
 		meta({
 			"name": "EventName",
