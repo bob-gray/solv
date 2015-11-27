@@ -28,8 +28,9 @@ define(["solv/array/insert-at"], function () {
 			expect(array.pop()).toBe("end");
 		});
 
-		it("should insert at end if index is greater than array.length", function () {
+		it("should insert at index even if index is greater than array.length", function () {
 			array.insertAt(100, "end");
+			expect(array.length).toBe(101)
 			expect(array.pop()).toBe("end");
 		});
 
