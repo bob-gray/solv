@@ -93,6 +93,38 @@ define(function (require) {
 	})
 
 	meta({
+		"name": "find",
+		"shim": true,
+		"description": "Finds the first value that returns true from the callback.",
+		"arguments": [{
+			"name": "callback",
+			"type": "function",
+			"description": "Function to test each element of the array."
+		}, {
+			"name": "context",
+			"type": "object",
+			"description": "Object to use as this when executing callback."
+		}],
+		"returns": "any"
+	})
+
+	meta({
+		"name": "findIndex",
+		"shim": true,
+		"description": "Finds the index of the first value that returns true from the callback",
+		"arguments": [{
+			"name": "callback",
+			"type": "function",
+			"description": "Function to test each element of the array."
+		}, {
+			"name": "context",
+			"type": "object",
+			"description": "Object to use as this when executing callback."
+		}],
+		"returns": "number"
+	})
+
+	meta({
 		"name": "reduce",
 		"shim": true,
 		"description": "Apply a function against an accumulator and each value of the array (from left-to-right) as to reduce it to a single value.",
@@ -255,6 +287,31 @@ define(function (require) {
 		}, []);
 	};
 
+	shims.find = function (callback, context) {
+		var index = this.findIndex(callback, context);
+
+		return this[index];
+	};
+
+	shims.findIndex = function (callback, context) {
+		var length = this.length,
+			index = 0,
+			element,
+			found = -1;		
+
+		for (; index < length; index += 1) {
+			element = this[index];
+
+			/* jshint -W072 */ //native APIs have 4 parameters
+			if (callback.call(context, element, index, this)) {
+				found = index;
+				break;
+			}
+		}
+
+		return found;
+	};
+
 	shims.every = function (callback, context) {
 
 		/* jshint -W072 */ //native APIs have 4 parameters
@@ -279,6 +336,18 @@ define(function (require) {
 
 			return result;
 		}, false);
+	};
+
+	shims.fill = function (element, from, to) {
+		var length = this.length,
+			index = normalizeFrom(from || 0, length),
+			to = normalizeFrom(to || length, length);
+
+		for (; index < to; index += 1) {
+			this[index] = element;
+		}
+
+		return this;
 	};
 
 	Array.shim("forEach", shims.forEach);

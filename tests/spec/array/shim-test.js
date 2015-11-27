@@ -7,7 +7,10 @@ define(["solv/array/shim"], function (arrayShims) {
 			"reduce",
 			"indexOf",
 			"map",
+			"fill",
 			"filter",
+			"find",
+			"findIndex",
 			"every",
 			"some"
 		];
@@ -281,6 +284,108 @@ define(["solv/array/shim"], function (arrayShims) {
 				array.map(function (num, index, arr) {
 					expect(this).toBe(context);
 				}, context);
+			});
+		},
+
+		fill: function () {
+			it("fills entire array with static value and returns array", function () {
+				var array = new Array(5).fill("x");
+
+				expect(array.join("")).toBe("xxxxx");
+			});
+
+			it("fills array from from to to with static value", function () {
+				var array = [0, 0, 0, 0, 0];
+
+				array.fill("x", 1, 4);
+
+				expect(array.join("")).toBe("0xxx0");
+			});
+
+			it("fills array with a negative from argument", function () {
+				var array = [0, 0, 0, 0, 0];
+
+				array.fill("x", -2);
+
+				expect(array.join("")).toBe("000xx");
+			});
+
+			it("fills array with a negative to argument", function () {
+				var array = [0, 0, 0, 0, 0];
+
+				array.fill("x", 0, -2);
+
+				expect(array.join("")).toBe("xxx00");
+			});
+		},
+
+		find: function () {
+			it("returns value that returns true from callback", function () {
+				var array = [1, 2, 3],
+					two = array.find(function (num, index, arr) {
+						return num === 2;
+					});
+				expect(two).toBe(2);
+			});
+
+			it("returns first value that returns true from callback", function () {
+				var array = [1, 2, 3],
+					two = array.find(function (num, index, arr) {
+						return num > 1;
+					});
+				expect(two).toBe(2);
+			});
+
+			it("returns undefined if no value found that returns true from callback", function () {
+				var array = [1, 2, 3],
+					notFound = array.find(function (num, index, arr) {
+						return num === 4;
+					});
+				expect(notFound).toBeUndefined();
+			});
+
+			it("can accept a context for the callback", function () {
+				var array = [1, 2, 3],
+					callback = jasmine.createSpy("callback"),
+					context = {};
+
+				array.find(callback, context);
+				expect(callback.calls.mostRecent().object).toBe(context);
+			});
+		},
+
+		findIndex: function () {
+			it("returns index that returns true from callback", function () {
+				var array = [1, 2, 3],
+					one = array.findIndex(function (num, index, arr) {
+						return num === 2;
+					});
+				expect(one).toBe(1);
+			});
+
+			it("returns index of first value that returns true from callback", function () {
+				var array = [1, 2, 3],
+					one = array.findIndex(function (num, index, arr) {
+						return num > 1;
+					});
+				expect(one).toBe(1);
+			});
+
+			it("returns -1 if no value found that returns true from callback", function () {
+				var array = [1, 2, 3],
+					notFound = array.findIndex(function (num, index, arr) {
+						return num === 4;
+					});
+				expect(notFound).toBe(-1);
+			});
+
+			it("can accept a context for the callback", function () {
+				var array = [1, 2, 3],
+					callback = jasmine.createSpy("callback"),
+					context = {};
+
+				array.findIndex(callback, context);
+				expect(callback.calls.mostRecent().object).toBe(context);
 			});
 		},
 
