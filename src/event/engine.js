@@ -453,8 +453,16 @@ define(function (require) {
 
 	function getCallbacksByNamespace (targetId, eventName) {
 		var toCallbacks = this.proxy(getCallbacks, targetId),
-			eventNames = this.invoke(getEventNames, targetId, eventName),
-			callbacks = eventNames.map(toCallbacks).reduce(toMerged, new Callbacks());
+			callbacks;
+
+		eventName = new EventName(eventName);
+
+		if (eventName.isNamespaced()) {
+			callbacks = eventName.expand().map(toCallbacks).filter(whereFound).reduce(toMerged, new Callbacks());
+
+		} else {
+			callbacks = toCallbacks(eventName.toString());
+		}
 
 		return callbacks;
 	}
@@ -516,6 +524,10 @@ define(function (require) {
 
 	function isObject (value) {
 		return type.is("object", value);
+	}
+
+	function whereFound (callbacks) {
+		return !!callbacks;
 	}
 
 	function toMerged (merged, callbacks) {
