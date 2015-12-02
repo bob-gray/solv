@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>solv/event/engine API Documentation</title>
+
+		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../../css/api-meta.css" rel="stylesheet" />
+		<link href="../../css/code.css" rel="stylesheet" />
+		<link href="../../css/prism.css" rel="stylesheet" />
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<script src="../../js/jquery-1.11.0.min.js"></script>
+		<script src="../../js/bootstrap.min.js"></script>
+		<script src="../../js/api-meta.js"></script>
+	</head>
+	
+	<body>
+		<nav class="navbar navbar-fixed-top navbar-default api-project" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>-->
+					<a class="navbar-brand" href="../../index.html">solv</a>
+					<p class="navbar-text">API Documentation</p>
+				</div>
+
+				<!--<div class="collapse navbar-collapse" id="navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Help</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">v0.0.2 <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">v0.0.1</a></li>
+								<li><a href="#">v0.0.0</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>-->
+			</div>
+		</nav>
+		<!--<header class="api-project">
+			<div class="container">
+					<small class="pull-right api-version">version 1.1.0</small>
+
+				<h2>solv <small>API Documentation</small></h2>
+			</div>
+		</header>-->
+
+		<div class="container">	
+			<div class="row">
+				<div class="col-md-9"><h1 class="api-module">event/engine <small class="api-type">module</small></h1>
+
+<p class="api-description"></p>
+
+	<h3 class="api-section api-requires">requires</h3>
+	<ul class="list-inline api-requires">
+			<li>
+				<a href="../../modules/abstract/base.html" class="">abstract/base</a>
+			</li>
+			<li>
+				<a href="../../modules/array/from.html" class="">array/from</a>
+			</li>
+			<li>
+				<a href="../../modules/class.html" class="">class</a>
+			</li>
+			<li>
+				<a href="../../modules/date/shim.html" class="">date/shim</a>
+			</li>
+			<li>
+				<a  class="private">error/invalid-event-params</a>
+			</li>
+			<li>
+				<a href="../../modules/event/callbacks.html" class="">event/callbacks</a>
+			</li>
+			<li>
+				<a href="../../modules/event/listeners.html" class="">event/listeners</a>
+			</li>
+			<li>
+				<a href="../../modules/event/name.html" class="">event/name</a>
+			</li>
+			<li>
+				<a href="../../modules/function/constrict.html" class="">function/constrict</a>
+			</li>
+			<li>
+				<a href="../../modules/function/shim.html" class="">function/shim</a>
+			</li>
+			<li>
+				<a  class="private">function/signatures</a>
+			</li>
+			<li>
+				<a href="../../modules/meta.html" class="">meta</a>
+			</li>
+			<li>
+				<a href="../../modules/object/is-empty.html" class="">object/is-empty</a>
+			</li>
+			<li>
+				<a href="../../modules/type.html" class="">type</a>
+			</li>
+			<li>
+				<a href="../../modules/util/id.html" class="">util/id</a>
+			</li>
+	</ul>
+
+<ul class="list-unstyled api-module-contents">
+		<li>
+			<a class="api-anchor" id="class:EventEngine"></a>
+			<code id="EventEngine-class" class="api-code api-class"><strong>EventEngine(</strong><small></small><strong>)<small class="api-type"> class</small></strong></code>
+			<p class="api-description">
+				Custom event system
+			</p>
+			<p>
+			</p>
+
+				<div class="panel panel-default">
+					<dl class="panel-body">
+							<dt><code class="api-term"><span class="api-class">extends</span></code></dt>
+							<dd class="api-description">
+									../abstract/base
+							</dd>
+					</dl>
+				</div>
+
+
+
+				<h3 class="api-section api-method">methods</h3>
+
+
+				<ul class="list-unstyled api-items">
+						<li>
+							<a class="api-anchor" id="method:addListener"></a>
+							<code class="api-code api-method">
+								<strong>.addListener(</strong><strong class="api-arg">options</strong><small class="api-arg-type">:object</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">object</small>
+							</code>
+							<p class="api-description">
+								Adds a listener to an object
+									Returns Event listener key; can be used to remove listener
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:addListener"></a>
+							<code class="api-code api-method">
+								<strong>.addListener(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong class="api-arg">, eventName</strong><small class="api-arg-type">:string</small><strong class="api-arg">, handler</strong><small class="api-arg-type">:function</small><strong class="api-arg">, passEventArg</strong><small class="api-arg-type">:boolean|null|undefined?</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">object</small>
+							</code>
+							<p class="api-description">
+								Adds a listener to an object
+									Returns Event listener key; can be used to remove listener
+							</p>
+							<p>
+							</p>
+								<div class="panel panel-default">
+									<dl class="panel-body">
+												<dt>
+													<code class="api-term"><span class="api-method">eventName</span>
+													</code>
+												</dt>
+												<dd class="api-description">An asterisk &quot;*&quot; can be used to listen to all events</dd>
+									</dl>
+								</div>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:addListenerOnce"></a>
+							<code class="api-code api-method">
+								<strong>.addListenerOnce(</strong><strong class="api-arg">options</strong><small class="api-arg-type">:object</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">object</small>
+							</code>
+							<p class="api-description">
+								Adds a listener to an object which will be removed after the first trigger
+									Returns Event listener key; can be used to remove listener
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:addListenerOnce"></a>
+							<code class="api-code api-method">
+								<strong>.addListenerOnce(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong class="api-arg">, eventName</strong><small class="api-arg-type">:string</small><strong class="api-arg">, handler</strong><small class="api-arg-type">:function</small><strong class="api-arg">, passEventArg</strong><small class="api-arg-type">:boolean|null|undefined?</small><strong>)</strong>
+									<small class="api-arg-type">returns</small>
+									<strong></strong><small class="api-arg-type">object</small>
+							</code>
+							<p class="api-description">
+								Adds a listener to an object which will be removed after the first trigger
+									Returns Event listener key; can be used to remove listener
+							</p>
+							<p>
+							</p>
+								<div class="panel panel-default">
+									<dl class="panel-body">
+												<dt>
+													<code class="api-term"><span class="api-method">eventName</span>
+													</code>
+												</dt>
+												<dd class="api-description">An asterisk &quot;*&quot; can be used to listen to all events</dd>
+									</dl>
+								</div>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:cancel"></a>
+							<code class="api-code api-method">
+								<strong>.cancel(</strong><strong>)</strong>
+							</code>
+							<p class="api-description">
+								
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:removeAllListeners"></a>
+							<code class="api-code api-method">
+								<strong>.removeAllListeners(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong>)</strong>
+							</code>
+							<p class="api-description">
+								Removes all listeners from an object
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:removeListener"></a>
+							<code class="api-code api-method">
+								<strong>.removeListener(</strong><strong class="api-arg">listenerKey</strong><small class="api-arg-type">:object</small><strong>)</strong>
+							</code>
+							<p class="api-description">
+								Removes a listener from an object
+							</p>
+							<p>
+							</p>
+								<div class="panel panel-default">
+									<dl class="panel-body">
+												<dt>
+													<code class="api-term"><span class="api-method">listenerKey</span>
+													</code>
+												</dt>
+												<dd class="api-description">Returned from addListener or addListenerOnce</dd>
+									</dl>
+								</div>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:removeListeners"></a>
+							<code class="api-code api-method">
+								<strong>.removeListeners(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong class="api-arg">, eventName</strong><small class="api-arg-type">:string</small><strong>)</strong>
+							</code>
+							<p class="api-description">
+								Removes all listeners of an event name from an object
+							</p>
+							<p>
+							</p>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:trigger"></a>
+							<code class="api-code api-method">
+								<strong>.trigger(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong class="api-arg">, eventName</strong><small class="api-arg-type">:string</small><strong class="api-arg">, nArgs</strong><small class="api-arg-type">:any*</small><strong>)</strong>
+							</code>
+							<p class="api-description">
+								Executes all handler functions listening for the event on an object
+							</p>
+							<p>
+							</p>
+								<div class="panel panel-default">
+									<dl class="panel-body">
+												<dt>
+													<code class="api-term"><span class="api-method">target</span>
+													</code>
+												</dt>
+												<dd class="api-description">thisArg within handlers</dd>
+												<dt>
+													<code class="api-term"><span class="api-method">nArgs</span>
+													</code>
+												</dt>
+												<dd class="api-description">Arguments to pass to handler functions</dd>
+									</dl>
+								</div>
+						</li>
+						<li>
+							<a class="api-anchor" id="method:trigger"></a>
+							<code class="api-code api-method">
+								<strong>.trigger(</strong><strong class="api-arg">target</strong><small class="api-arg-type">:object</small><strong class="api-arg">, options</strong><small class="api-arg-type">:object</small><strong class="api-arg">, nArgs</strong><small class="api-arg-type">:any*</small><strong>)</strong>
+							</code>
+							<p class="api-description">
+								Executes all handler functions listening for the event on an object
+							</p>
+							<p>
+							</p>
+								<div class="panel panel-default">
+									<dl class="panel-body">
+												<dt>
+													<code class="api-term"><span class="api-method">target</span>
+													</code>
+												</dt>
+												<dd class="api-description">thisArg within handlers</dd>
+												<dt>
+													<code class="api-term"><span class="api-method">nArgs</span>
+													</code>
+												</dt>
+												<dd class="api-description">Arguments to pass to handler functions</dd>
+									</dl>
+								</div>
+						</li>
+				</ul>
+
+		</li>
+
+
+</ul>
+
+<h3 class="api-section api-src">code</h3>
+<pre class="language-javascript line-numbers"><code>/* istanbul ignore if */
+if (typeof define !== &quot;function&quot;) {
+	var define = require(&quot;amdefine&quot;)(module);
+}
+
+/* jshint -W072 */ // addListener &amp; addListenerOnce have 4 params
+define(function (require) {
+	&quot;use strict&quot;;
+
+	require(&quot;../abstract/base&quot;);
+	require(&quot;../date/shim&quot;);
+	require(&quot;../object/is-empty&quot;);
+	require(&quot;../array/from&quot;);
+	require(&quot;../function/shim&quot;);
+	require(&quot;../function/constrict&quot;);
+
+	var EventEngine,
+		meta = require(&quot;../meta&quot;),
+		type = require(&quot;../type&quot;),
+		createClass = require(&quot;../class&quot;),
+		Callbacks = require(&quot;./callbacks&quot;),
+		Listeners = require(&quot;./listeners&quot;),
+		EventName = require(&quot;./name&quot;),
+		InvalidEventParams = require(&quot;../error/invalid-event-params&quot;),
+		signatures = require(&quot;../function/signatures&quot;),
+		Id = require(&quot;../util/id&quot;),
+		id = new Id(),
+		wildcard = &quot;*&quot;;
+
+	meta.setRequire(require);
+
+	EventEngine = createClass(
+		meta({
+			&quot;name&quot;: &quot;EventEngine&quot;,
+			&quot;type&quot;: &quot;class&quot;,
+			&quot;description&quot;: &quot;Custom event system&quot;,
+			&quot;extends&quot;: &quot;../abstract/base&quot;
+		}),
+		init
+	);
+
+	EventEngine.method(
+		meta({
+			&quot;name&quot;: &quot;addListener&quot;,
+			&quot;description&quot;: &quot;Adds a listener to an object&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;options&quot;,
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;properties&quot;: {
+					&quot;target&quot;: &quot;object&quot;,
+					&quot;eventName&quot;: &quot;string&quot;,
+					&quot;handler&quot;: &quot;function&quot;,
+					&quot;passEventArg&quot;: &quot;boolean&quot;
+				}
+			}],
+			&quot;returns&quot;: {
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;description&quot;: &quot;Event listener key; can be used to remove listener&quot;
+			}
+		}),
+		addListenerWithOptions
+	);
+
+	EventEngine.method(
+		meta({
+			&quot;name&quot;: &quot;addListener&quot;,
+			&quot;description&quot;: &quot;Adds a listener to an object&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;target&quot;,
+				&quot;type&quot;: &quot;object&quot;
+			}, {
+				&quot;name&quot;: &quot;eventName&quot;,
+				&quot;type&quot;: &quot;string&quot;,
+				&quot;description&quot;: &quot;An asterisk \&quot;*\&quot; can be used to listen to all events&quot;
+			}, {
+				&quot;name&quot;: &quot;handler&quot;,
+				&quot;type&quot;: &quot;function&quot;
+			}, {
+				&quot;name&quot;: &quot;passEventArg&quot;,
+				&quot;type&quot;: &quot;boolean&quot;,
+				&quot;default&quot;: false
+			}],
+			&quot;returns&quot;: {
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;description&quot;: &quot;Event listener key; can be used to remove listener&quot;
+			}
+		}),
+		addListener
+	);
+
+	EventEngine.method(
+		meta({
+			&quot;name&quot;: &quot;addListenerOnce&quot;,
+			&quot;description&quot;: &quot;Adds a listener to an object which will be removed after the first trigger&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;options&quot;,
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;properties&quot;: {
+					&quot;target&quot;: &quot;object&quot;,
+					&quot;eventName&quot;: &quot;string&quot;,
+					&quot;handler&quot;: &quot;function&quot;,
+					&quot;passEventArg&quot;: &quot;boolean&quot;
+				}
+			}],
+			&quot;returns&quot;: {
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;description&quot;: &quot;Event listener key; can be used to remove listener&quot;
+			}
+		}),
+		addListenerOnceWithOptions
+	);
+
+	EventEngine.method(
+		meta({
+			&quot;name&quot;: &quot;addListenerOnce&quot;,
+			&quot;description&quot;: &quot;Adds a listener to an object which will be removed after the first trigger&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;target&quot;,
+				&quot;type&quot;: &quot;object&quot;
+			}, {
+				&quot;name&quot;: &quot;eventName&quot;,
+				&quot;type&quot;: &quot;string&quot;,
+				&quot;description&quot;: &quot;An asterisk \&quot;*\&quot; can be used to listen to all events&quot;
+			}, {
+				&quot;name&quot;: &quot;handler&quot;,
+				&quot;type&quot;: &quot;function&quot;
+			}, {
+				&quot;name&quot;: &quot;passEventArg&quot;,
+				&quot;type&quot;: &quot;boolean&quot;,
+				&quot;default&quot;: false
+			}],
+			&quot;returns&quot;: {
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;description&quot;: &quot;Event listener key; can be used to remove listener&quot;
+			}
+		}),
+		addListenerOnce
+	);
+
+	EventEngine.method(
+		meta({
+			&quot;name&quot;: &quot;removeListener&quot;,
+			&quot;description&quot;: &quot;Removes a listener from an object&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;listenerKey&quot;,
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;description&quot;: &quot;Returned from addListener or addListenerOnce&quot;
+			}]
+		}),
+		removeListener
+	);
+
+	EventEngine.method(
+		meta({
+			&quot;name&quot;: &quot;removeListeners&quot;,
+			&quot;description&quot;: &quot;Removes all listeners of an event name from an object&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;target&quot;,
+				&quot;type&quot;: &quot;object&quot;
+			}, {
+				&quot;name&quot;: &quot;eventName&quot;,
+				&quot;type&quot;: &quot;string&quot;
+			}]
+		}),
+		removeListeners
+	);
+
+	EventEngine.method(
+		meta({
+			&quot;name&quot;: &quot;removeAllListeners&quot;,
+			&quot;description&quot;: &quot;Removes all listeners from an object&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;target&quot;,
+				&quot;type&quot;: &quot;object&quot;
+			}]
+		}),
+		removeAllListeners
+	);
+
+	EventEngine.method(
+		meta({
+			&quot;name&quot;: &quot;trigger&quot;,
+			&quot;description&quot;: &quot;Executes all handler functions listening for the event on an object&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;target&quot;,
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;description&quot;: &quot;thisArg within handlers&quot;
+			}, {
+				&quot;name&quot;: &quot;eventName&quot;,
+				&quot;type&quot;: &quot;string&quot;
+			}, {
+				&quot;name&quot;: &quot;nArgs&quot;,
+				&quot;type&quot;: &quot;any&quot;,
+				&quot;required&quot;: false,
+				&quot;repeating&quot;: true,
+				&quot;description&quot;: &quot;Arguments to pass to handler functions&quot;
+			}]
+		}),
+		trigger
+	);
+
+	EventEngine.method(
+		meta({
+			&quot;name&quot;: &quot;trigger&quot;,
+			&quot;description&quot;: &quot;Executes all handler functions listening for the event on an object&quot;,
+			&quot;arguments&quot;: [{
+				&quot;name&quot;: &quot;target&quot;,
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;description&quot;: &quot;thisArg within handlers&quot;
+			}, {
+				&quot;name&quot;: &quot;options&quot;,
+				&quot;type&quot;: &quot;object&quot;,
+				&quot;properties&quot;: {
+					&quot;name&quot;: &quot;string&quot;,
+					&quot;when&quot;: &quot;string&quot;,
+					&quot;params&quot;: &quot;array&quot;
+				}
+			}, {
+				&quot;name&quot;: &quot;nArgs&quot;,
+				&quot;type&quot;: &quot;any&quot;,
+				&quot;required&quot;: false,
+				&quot;repeating&quot;: true,
+				&quot;description&quot;: &quot;Arguments to pass to handler functions&quot;
+			}]
+		}),
+		triggerWithOptions
+	);
+
+	/*meta({
+		&quot;name&quot;: &quot;Event&quot;,
+		&quot;opaque&quot;: true,
+		&quot;properties&quot;: {
+			&quot;name&quot;: &quot;string&quot;
+		}
+	})
+
+	meta({
+		&quot;name&quot;: &quot;cancel&quot;,
+		&quot;arguments&quot;: []
+	})*/
+
+	function init () {
+		this.expando = &quot;events-&quot;+ Date.now();
+		this.registry = {};
+		this.listeners = new Listeners();
+	}
+
+	function addListenerWithOptions (options) {
+		return this.addListener(
+			options.target,
+			options.eventName,
+			options.handler,
+			options.passEventArg
+		);
+	}
+
+	function addListener (target, eventName, handler, passEventArg) {
+		var targetId = this.invoke(getId, target),
+			callbacks = this.invoke(getCallbacks, targetId, eventName),
+			listenerKey;
+
+		if (passEventArg) {
+			handler = wrap(handler);
+
+		} else {
+			handler = handler.constrict(1);
+		}
+
+		listenerKey = this.listeners.add(targetId, eventName, handler);
+
+		if (!callbacks) {
+			callbacks = this.invoke(makeCallbacks, targetId, eventName);
+		}
+
+		callbacks.add(handler);
+
+		return listenerKey;
+	}
+
+	function addListenerOnceWithOptions (options) {
+		return this.addListenerOnce(
+			options.target,
+			options.eventName,
+			options.handler,
+			options.passEventArg
+		);
+	}
+
+	function addListenerOnce (target, eventName, handler, passEventArg) {
+		var listenerKey = this.addListener(target, eventName, executeAndRemove, passEventArg),
+			remove = this.proxy(&quot;removeListener&quot;, listenerKey);
+
+		function executeAndRemove () {
+			handler.apply(this, arguments);
+			remove();
+		}
+
+		return listenerKey;
+	}
+
+	/* jshint +W072 */
+
+	function removeListener (listenerKey) {
+		var listener = this.listeners.get(listenerKey);
+
+		if (listener) {
+			this.invoke(removeHandler, listener);
+			this.listeners.remove(listenerKey);
+			this.invoke(cleanup, listener);
+		}
+	}
+
+	function removeListeners (target, eventName) {
+		var targetId = target[this.expando],
+			eventNames;
+
+		if (targetId) {
+			eventNames = this.invoke(getEventNames, targetId, eventName);
+			eventNames.forEach(this.proxy(removeListenersByEventName, targetId));
+		}
+	}
+
+	function removeAllListeners (target) {
+		var targetId = target[this.expando];
+
+		if (targetId) {
+			this.listeners.remove(targetId);
+			delete this.registry[targetId];
+			delete target[this.expando];
+		}
+	}
+
+	function trigger (target, eventName) {
+		var targetId = this.invoke(getId, target),
+			callbacks = this.invoke(getTriggerCallbacks, targetId, eventName),
+			eventArgs,
+			event;
+
+		if (callbacks) {
+			event = new Event(eventName, callbacks);
+			eventArgs = Array.from(arguments).slice(2);
+			eventArgs.unshift(event);
+			callbacks.execute(target, eventArgs);
+		}
+	}
+
+	function getEventNames (targetId, eventName) {
+		var handlers = this.registry[targetId],
+			eventNames = [];
+
+		if (handlers) {
+			eventName = new EventName(eventName);
+			eventNames = Object.keys(handlers);
+			eventNames = eventName.filter(eventNames);
+
+		} else {
+			eventNames.push(eventName);
+		}
+
+		return eventNames;
+	}
+
+	function removeListenersByEventName (targetId, eventName) {
+		var handlers = this.registry[targetId];
+
+		this.listeners.remove(targetId, eventName);
+
+		if (handlers) {
+			delete handlers[eventName];
+		}
+
+		if (handlers &amp;&amp; Object.isEmpty(handlers)) {
+			delete this.registry[targetId];
+		}
+	}
+
+	function Event (eventName, callbacks) {
+		this.name = eventName;
+		this.cancel = callbacks.abort.bind(callbacks);
+	}
+
+	function triggerWithOptions (target, options) {
+		var eventParams = Array.from(arguments).slice(2),
+			triggerArgs = [
+				target,
+				options.name
+			];
+
+		if (options.params) {
+			validateEventParams(eventParams, options.params, options.name);
+		}
+
+		triggerArgs = triggerArgs.concat(eventParams);
+		this.trigger.apply(this, triggerArgs);
+	}
+
+	function validateEventParams (eventParams, paramsMeta, eventName) {
+		var eventSignature = signatures.getSignatureFromMeta(paramsMeta),
+			tester = signatures.compileImplementationSignature(eventSignature),
+			paramsSignature = getParamsSignature(eventParams, paramsMeta);
+
+		if (!tester.test(paramsSignature)) {
+			throw new InvalidEventParams({
+				eventName: eventName,
+				expected: eventSignature,
+				actual: paramsSignature
+			});
+		}
+	}
+
+	function getParamsSignature (eventParams, paramsMeta) {
+		var paramsSignature;
+
+		if (isArray(paramsMeta)) {
+			paramsSignature = signatures.getInvocationSignature(eventParams);
+
+		} else if (isObject(paramsMeta)) {
+			paramsSignature = signatures.getObjectSignature(eventParams[0]);
+		}
+
+		return paramsSignature;
+	}
+
+	function getId (target) {
+		this.invoke(stamp, target);
+		return target[this.expando];
+	}
+
+	function getCallbacks (targetId, eventName) {
+		var handlers = this.registry[targetId],
+			callbacks;
+
+		if (handlers) {
+			callbacks = handlers[eventName];
+		}
+
+		return callbacks;
+	}
+
+	function getTriggerCallbacks (targetId, eventName) {
+		var callbacks = this.invoke(getCallbacksByNamespace, targetId, eventName),
+			wildcards = this.invoke(getCallbacks, targetId, wildcard);
+
+		if (callbacks &amp;&amp; wildcards) {
+			callbacks = callbacks.concat(wildcards);
+
+		} else if (wildcards) {
+			callbacks = wildcards;
+		}
+
+		return callbacks;
+	}
+
+	function getCallbacksByNamespace (targetId, eventName) {
+		var toCallbacks = this.proxy(getCallbacks, targetId),
+			eventNames = this.invoke(getEventNames, targetId, eventName),
+			callbacks = eventNames.map(toCallbacks).reduce(toMerged, new Callbacks());
+
+		return callbacks;
+	}
+
+	function makeCallbacks (targetId, eventName) {
+		var handlers = this.registry[targetId],
+			callbacks = new Callbacks();
+
+		if (!handlers) {
+			handlers = {};
+			this.registry[targetId] = handlers;
+		}
+
+		handlers[eventName] = callbacks;
+
+		return callbacks;
+	}
+
+	function removeHandler (listener) {
+		var callbacks = this.invoke(getCallbacks, listener.targetId, listener.eventName);
+
+		if (callbacks) {
+			callbacks.remove(listener.handler);
+		}
+	}
+
+	function cleanup (listener) {
+		var handlers = this.registry[listener.targetId],
+			callbacks;
+
+		if (handlers) {
+			callbacks = handlers[listener.eventName];
+
+			if (callbacks &amp;&amp; callbacks.isEmpty()) {
+				delete handlers[listener.eventName];
+			}
+
+			if (Object.isEmpty(handlers)) {
+				delete this.registry[listener.targetId];
+			}
+		}
+	}
+
+	function stamp (target) {
+		if (!target[this.expando]) {
+			target[this.expando] = id.getNext();
+		}
+	}
+
+	function wrap (handler) {
+		return function () {
+			return handler.apply(this, arguments);
+		};
+	}
+
+	function isArray (value) {
+		return type.is(&quot;array&quot;, value);
+	}
+
+	function isObject (value) {
+		return type.is(&quot;object&quot;, value);
+	}
+
+	function toMerged (merged, callbacks) {
+		return merged.concat(callbacks);
+	}
+
+	return EventEngine;
+});</code></pre>			</div>
+			<div class="col-md-3"><h4 class="api-modules">modules</h4>
+
+<ul class="nav api-module-links">
+		<li class="">
+			<a >abstract</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/abstract/base.html">base</a>
+		</li>
+		<li class="">
+			<a href="../../modules/abstract/emitter.html">emitter</a>
+		</li>
+		<li class="">
+			<a href="../../modules/abstract/observable.html">observable</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/array.html">array</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/array/add.html">add</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/average.html">average</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/contains.html">contains</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/copy.html">copy</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/empty.html">empty</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/first.html">first</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/from.html">from</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/insert-at.html">insert-at</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/is-empty.html">is-empty</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/last.html">last</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/max.html">max</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/min.html">min</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/of.html">of</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/remove.html">remove</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/remove-first.html">remove-first</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/remove-last.html">remove-last</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/replace.html">replace</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/replace-first.html">replace-first</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/replace-last.html">replace-last</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/shim.html">shim</a>
+		</li>
+		<li class="">
+			<a href="../../modules/array/sum.html">sum</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/class.html">class</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/class/create.html">create</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/extend.html">extend</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/inject-super.html">inject-super</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/method.html">method</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/mixin.html">mixin</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/shim.html">shim</a>
+		</li>
+		<li class="">
+			<a href="../../modules/class/singleton.html">singleton</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/date.html">date</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/date/compare.html">compare</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/format.html">format</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/hours-from-standard.html">hours-from-standard</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/is-daylight-savings.html">is-daylight-savings</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/is-leap-year.html">is-leap-year</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/move.html">move</a>
+		</li>
+		<li class="">
+			<a href="../../modules/date/shim.html">shim</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >error</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/error/create.html">create</a>
+		</li>
+</ul>
+		</li>
+		<li class="active">
+			<a href="../../modules/event.html">event</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/event/callbacks.html">callbacks</a>
+		</li>
+		<li class="current active">
+			<a href="../../modules/event/engine.html">engine</a>
+		</li>
+		<li class="">
+			<a href="../../modules/event/listener.html">listener</a>
+		</li>
+		<li class="">
+			<a href="../../modules/event/listeners.html">listeners</a>
+		</li>
+		<li class="">
+			<a href="../../modules/event/name.html">name</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/function.html">function</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/function/abstract.html">abstract</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/constrict.html">constrict</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/curry.html">curry</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/debounce.html">debounce</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/default-args.html">default-args</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/get-name.html">get-name</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/overload.html">overload</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/shim.html">shim</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/throttle.html">throttle</a>
+		</li>
+		<li class="">
+			<a href="../../modules/function/validate-return-type.html">validate-return-type</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/meta.html">meta</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object.html">object</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/object/clone.html">clone</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/copy.html">copy</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/for-each.html">for-each</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/is-empty.html">is-empty</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/merge.html">merge</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/shim.html">shim</a>
+		</li>
+		<li class="">
+			<a href="../../modules/object/validate.html">validate</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >regexp</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/regexp/escape.html">escape</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a >string</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/string/contains.html">contains</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/contains-every.html">contains-every</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/contains-some.html">contains-some</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/interpolate.html">interpolate</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/repeat.html">repeat</a>
+		</li>
+		<li class="">
+			<a href="../../modules/string/trim.html">trim</a>
+		</li>
+</ul>
+		</li>
+		<li class="">
+			<a href="../../modules/type.html">type</a>
+		</li>
+		<li class="">
+			<a >util</a>
+				<ul class="nav api-module-links">		<li class="">
+			<a href="../../modules/util/bundle.html">bundle</a>
+		</li>
+		<li class="">
+			<a href="../../modules/util/id.html">id</a>
+		</li>
+</ul>
+		</li>
+</ul></div>
+		</div>
+		<small class="created-by text-muted">Page built with <a href="https://github.com/bob-gray/api-meta">api-meta</a></small>
+
+		<script src="../../js/prism.js"></script>
+	</body>
+</html>
