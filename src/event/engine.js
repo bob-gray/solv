@@ -349,15 +349,12 @@ define(function (require) {
 			eventNames = [];
 
 		if (handlers) {
-			eventNames = Object.keys(handlers);
 			eventName = new EventName(eventName);
+			eventNames = Object.keys(handlers);
+			eventNames = eventName.filter(eventNames);
 
-			if (eventName.isNamespaced()) {
-				eventNames = eventName.filter(eventNames);
-
-			} else {
-				eventNames.push(eventName.toString());
-			}
+		} else {
+			eventNames.push(eventName);
 		}
 
 		return eventNames;
@@ -456,16 +453,8 @@ define(function (require) {
 
 	function getCallbacksByNamespace (targetId, eventName) {
 		var toCallbacks = this.proxy(getCallbacks, targetId),
-			callbacks;
-
-		eventName = new EventName(eventName);
-
-		if (eventName.isNamespaced()) {
-			callbacks = eventName.expand().map(toCallbacks).filter(whereFound).reduce(toMerged, new Callbacks());
-
-		} else {
-			callbacks = toCallbacks(eventName.toString());
-		}
+			eventNames = this.invoke(getEventNames, targetId, eventName),
+			callbacks = eventNames.map(toCallbacks).reduce(toMerged, new Callbacks());
 
 		return callbacks;
 	}
@@ -527,10 +516,6 @@ define(function (require) {
 
 	function isObject (value) {
 		return type.is("object", value);
-	}
-
-	function whereFound (callbacks) {
-		return !!callbacks;
 	}
 
 	function toMerged (merged, callbacks) {
