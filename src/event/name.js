@@ -39,16 +39,6 @@ define(function (require) {
 
 	EventName.method(
 		meta({
-			"name": "expand",
-			"description": "Expands this.name into all possible event name segments",
-			"arguments": [],
-			"returns": "array"
-		}),
-		expand
-	);
-
-	EventName.method(
-		meta({
 			"name": "filter",
 			"description": "Filters an array of event names returning those that are under the namespace of this.name",
 			"arguments": [{
@@ -58,16 +48,6 @@ define(function (require) {
 			"returns": "array"
 		}),
 		filter
-	);
-
-	EventName.method(
-		meta({
-			"name": "isNamespaced",
-			"description": "Tests for the presence of this.delimiter in this.name",
-			"arguments": [],
-			"returns": "boolean"
-		}),
-		isNamespaced
 	);
 
 	EventName.method(
@@ -85,25 +65,13 @@ define(function (require) {
 		this.delimiter = delimiter;
 	}
 
-	function expand () {
-		return this.name.split(this.delimiter).map(toExpanded, this);
-	}
-
 	function filter (eventNames) {
 		this.invoke(createTester);
 		return eventNames.filter(underNamespace, this);
 	}
 
-	function isNamespaced () {
-		return this.name.contains(this.delimiter);
-	}
-
 	function toString () {
 		return this.name;
-	}
-
-	function toExpanded (segment, index, segments) {
-		return segments.slice(0, index + 1).join(this.delimiter);
 	}
 
 	function createTester () {

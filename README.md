@@ -81,7 +81,7 @@ Solv has a fairly extensive test suite that is continuing to grow. To run tests
 [Node.js](http://nodejs.org) and [npm](https://npmjs.org) must be installed and
 a couple sets of commands need to be run.
 
-###Test from Command Line
+### Test from Command Line
   
 1. Run `npm install -g grunt-cli` to install grunt command line interface
 2. Run `npm install` to install test dependencies
@@ -89,7 +89,7 @@ a couple sets of commands need to be run.
 
 *See Gruntfile for more test and analysis options.*
 
-###Test in Browser
+### Test in Browser
 
 1. Run `npm install -g bower` to install bower 
 2. Run `bower install` to install test dependencies

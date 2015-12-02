@@ -188,6 +188,7 @@ define(["solv/event/engine"], function (EventEngine) {
 			eventEngine.addListener(target1, "idle.init", handler2);
 			eventEngine.addListener(target1, "idle.init.baz", handler3);
 
+			eventEngine.removeListeners(target1, "init");
 			eventEngine.removeListeners(target1, "idle.init");
 
 			eventEngine.trigger(target1, "idle");
@@ -240,10 +241,10 @@ define(["solv/event/engine"], function (EventEngine) {
 		it(".trigger method fires handlers up the event namespace chain", function () {
 			eventEngine.addListener(target1, "idle.foo", handler1);
 			eventEngine.trigger(target1, "idle.foo.bar.baz", 1, "two", false);
-			eventEngine.trigger(target1, "idle.foo", 1, "two", false);
+			eventEngine.trigger(target1, "idle.foo", 2, "two", false);
 
-			expect(handler1).toHaveBeenCalledWith(1, "two", false);
-			expect(handler1.calls.count()).toBe(2);
+			expect(handler1).toHaveBeenCalledWith(2, "two", false);
+			expect(handler1.calls.count()).toBe(1);
 		});
 
 		it(".trigger method can be call with options object", function () {
