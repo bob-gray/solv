@@ -12,7 +12,7 @@ define(function (require) {
 	require("../regexp/escape");
 
 	var EventName,
-		createClass = require("solv/class"),
+		createClass = require("../class"),
 		meta = require("../meta");
 
 	meta.setRequire(require);
