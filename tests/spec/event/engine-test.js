@@ -26,8 +26,8 @@ define(["solv/event/engine"], function (EventEngine) {
 		});
 
 		it(".addListener method adds a namespaced listener to a target", function () {
-			eventEngine.addListener(target1, "idle.foo", handler1);
-			eventEngine.trigger(target1, "idle.foo");
+			eventEngine.addListener(target1, "stocks.tech", handler1);
+			eventEngine.trigger(target1, "stocks.tech");
 
 			expect(handler1).toHaveBeenCalled();
 		});
@@ -167,34 +167,31 @@ define(["solv/event/engine"], function (EventEngine) {
 		});
 
 		it(".removeListeners method removes listeners by top level namespace", function () {
-			eventEngine.addListener(target1, "idle", handler1);
-			eventEngine.addListener(target1, "idle.init", handler2);
-			eventEngine.addListener(target1, "idle.foo.baz", handler3);
+			eventEngine.addListener(target1, "stocks.tech", handler1);
+			eventEngine.addListener(target1, "stocks.tech.google", handler2);
 
-			eventEngine.removeListeners(target1, "idle");
+			eventEngine.removeListeners(target1, "stocks");
 
-			eventEngine.trigger(target1, "idle");
-			eventEngine.trigger(target1, "idle.init");
-			eventEngine.trigger(target1, "idle.foo");
-			eventEngine.trigger(target1, "idle.foo.baz");
+			eventEngine.trigger(target1, "stocks");
+			eventEngine.trigger(target1, "stocks.tech");
+			eventEngine.trigger(target1, "stocks.tech.google");
 
 			expect(handler1).not.toHaveBeenCalled();
 			expect(handler2).not.toHaveBeenCalled();
-			expect(handler3).not.toHaveBeenCalled();
 		});
 
 		it(".removeListeners method removes listeners by nested namespace", function () {
-			eventEngine.addListener(target1, "idle", handler1);
-			eventEngine.addListener(target1, "idle.init", handler2);
-			eventEngine.addListener(target1, "idle.init.baz", handler3);
+			eventEngine.addListener(target1, "stocks", handler1);
+			eventEngine.addListener(target1, "stocks.tech", handler2);
+			eventEngine.addListener(target1, "stocks.tech.google", handler3);
 
-			eventEngine.removeListeners(target1, "init");
-			eventEngine.removeListeners(target1, "idle.init");
+			eventEngine.removeListeners(target1, "tech");
+			eventEngine.removeListeners(target1, "stocks.tech");
 
-			eventEngine.trigger(target1, "idle");
-			eventEngine.trigger(target1, "idle.init");
-			eventEngine.trigger(target1, "idle.foo");
-			eventEngine.trigger(target1, "idle.foo.baz");
+			eventEngine.trigger(target1, "tech");
+			eventEngine.trigger(target1, "stocks");
+			eventEngine.trigger(target1, "stocks.tech");
+			eventEngine.trigger(target1, "stocks.tech.google");
 
 			expect(handler1).toHaveBeenCalled();
 			expect(handler2).not.toHaveBeenCalled();
@@ -238,13 +235,21 @@ define(["solv/event/engine"], function (EventEngine) {
 			expect(handler2).toHaveBeenCalledWith(true, [], false);
 		});
 
-		it(".trigger method fires handlers up the event namespace chain", function () {
-			eventEngine.addListener(target1, "idle.foo", handler1);
-			eventEngine.trigger(target1, "idle.foo.bar.baz", 1, "two", false);
-			eventEngine.trigger(target1, "idle.foo", 2, "two", false);
+		it(".trigger method fires namespace parent handlers", function () {
+			eventEngine.addListener(target1, "stocks", handler1);
 
-			expect(handler1).toHaveBeenCalledWith(2, "two", false);
+			eventEngine.trigger(target1, "stocks.tech", 1, "one");
+
+			expect(handler1).toHaveBeenCalledWith(1, "one");
 			expect(handler1.calls.count()).toBe(1);
+		});
+
+		it(".trigger method does not fire namespace children handlers", function () {
+			eventEngine.addListener(target1, "stocks.tech.google", handler1);
+
+			eventEngine.trigger(target1, "stocks.tech", 1, "one");
+
+			expect(handler1).not.toHaveBeenCalled();
 		});
 
 		it(".trigger method can be call with options object", function () {
