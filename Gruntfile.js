@@ -173,7 +173,7 @@ function configureTasks (grunt) {
 		},
 		coveralls: {
 			options: {
-				coverage_dir: "coverage",
+				coverageDir: "coverage",
 				recursive: true
 			}
 		},
