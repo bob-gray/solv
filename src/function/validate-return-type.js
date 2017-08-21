@@ -69,14 +69,15 @@ define(function (require) {
 
 	function validateWithOptions (options) {
 		var compiledReturnSignature = signatures.compileReturnSignature(options.signature),
-			fn = this;
-
-		if ("any" === options.signature) {
-			proxy = fn;
-		}
+			fn = this,
+			result = proxy;
 
 		if (!options.functionName) {
 			options.functionName = "";
+		}
+
+		if ("any" === options.signature) {
+			result = fn;
 		}
 
 		function proxy () {
@@ -95,6 +96,6 @@ define(function (require) {
 			}
 		}
 
-		return proxy;
+		return result;
 	}
 });
