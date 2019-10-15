@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/bob-gray/solv.png)](https://codeclimate.com/github/bob-gray/solv)
 [![Sauce Test Status](https://saucelabs.com/buildstatus/solv)](https://saucelabs.com/u/solv)
 [![Coverage Status](https://img.shields.io/coveralls/bob-gray/solv.svg)](https://coveralls.io/r/bob-gray/solv)
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.svg)](http://gruntjs.com/)
 
 [![NPM version](https://badge.fury.io/js/solv.svg)](http://badge.fury.io/js/solv)
 [![Dependency Status](https://david-dm.org/bob-gray/solv.svg)](https://david-dm.org/bob-gray/solv)
