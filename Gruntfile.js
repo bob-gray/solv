@@ -163,8 +163,6 @@ function configureTasks (grunt) {
 					"sauce_chrome",
 					"sauce_firefox",
 					"sauce_safari",
-					"sauce_ie_9",
-					"sauce_ie_10",
 					"sauce_ie_11",
 					"sauce_edge"
 				],
