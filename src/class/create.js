@@ -8,7 +8,7 @@ define(function (require) {
 
 	require("../function/overload");
 	require("../function/abstract");
-	
+
 	var ClassMaker = require("./class-maker");
 
 	/*meta({
@@ -37,7 +37,7 @@ define(function (require) {
 			"description": "Class constructor. Use constructor for other class setup tasks such as creating methods and setting up inheritance. Invoke this constructor with the new operator to create class instances."
 		}
 	})*/
-	
+
 	var createClass = new Function.Abstract("createClass")
 			.overload("function?", createWithoutOptions)
 			.overload("object,function?", create);
@@ -59,13 +59,17 @@ define(function (require) {
 
 	function constructorFactory (Class) {
 		function Constructor () {
+			var initResult = this;
+
 			Class.validateContext(this);
 			Class.injectDefaultProperties(this);
 			Class.injectPropertiesFromArgs(this, arguments);
-			
+
 			if (Class.hasInit()) {
-				Class.init.apply(this, arguments);
+				initResult = Class.init.apply(this, arguments);
 			}
+
+			return initResult;
 		}
 
 		if (Class.hasName()) {
