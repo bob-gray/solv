@@ -20,8 +20,8 @@ module.exports = function (config) {
 			"PhantomJS",
 			"Chrome",
 			"Firefox",
-			"Safari",
-			"IE"
+			"IE",
+			"Edge"
 		],
 		reporters: [
 			"dots"
