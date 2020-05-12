@@ -3,7 +3,7 @@ define(["solv/function/debounce"], function () {
 
 	describe("function.debounce", function () {
 		var fn;
-		
+
 		beforeEach(function () {
 			fn = jasmine.createSpy("fn");
 		});
@@ -37,12 +37,17 @@ define(["solv/function/debounce"], function () {
 		});
 
 		it("should call function again after lapse", function (done) {
-			var debounced = fn.debounce(10),
-				i = 0;
+			var debounced = fn.debounce(20),
+				i = 3;
 
-			for (; i < 3; i += 1) {
-				setTimeout(debounced, i * 50);
-			}
+			(function loop () {
+				debounced();
+				i -= 1;
+
+				if (i) {
+					setTimeout(loop, 75);
+				}
+			}());
 
 			setTimeout(function () {
 				expect(fn.calls.count()).toEqual(3);

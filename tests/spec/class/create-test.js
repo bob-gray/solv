@@ -1,4 +1,4 @@
-define(["solv/class"], function (createClass) {
+define(["solv/class", "solv/object/shim"], function (createClass) {
 	"use strict";
 
 	describe("createClass()", function () {
@@ -110,7 +110,7 @@ define(["solv/class"], function (createClass) {
 			useClass(Bar);
 			expect(new Foo().getId()).toBe(1);
 		});
-		
+
 		it("can have default property values automatically assigned", function () {
 			var Person = createClass({
 				name: "Person",
@@ -125,12 +125,12 @@ define(["solv/class"], function (createClass) {
 					}
 				}
 			});
-			
+
 			useClass(Person);
 			expect(new Person().name).toBe("John Doe");
 			expect(new Person().hometown).toBe("unknown");
 		});
-		
+
 		it("can have default property values overridden by constructor argument", function () {
 			var Person = createClass({
 				name: "Person",
@@ -149,11 +149,11 @@ define(["solv/class"], function (createClass) {
 					type: "object"
 				}]
 			});
-			
+
 			useClass(Person);
 			expect(new Person({name: "Bob"}).name).toBe("Bob");
 		});
-		
+
 		it("can have default property values automatically assigned", function () {
 			var Person = createClass({
 				name: "Person",
@@ -168,12 +168,12 @@ define(["solv/class"], function (createClass) {
 					}
 				}
 			});
-			
+
 			useClass(Person);
 			expect(new Person().name).toBe("John Doe");
 			expect(new Person().hometown).toBe("unknown");
 		});
-		
+
 		it("can have default argument values", function () {
 			var personInit = jasmine.createSpy("personInit"),
 				Person = createClass({
@@ -188,14 +188,14 @@ define(["solv/class"], function (createClass) {
 					}]
 				}, personInit),
 				person = new Person();
-			
+
 			useClass(Person);
 			expect(personInit).toHaveBeenCalledWith({
 				name: "John Doe",
 				hometown: "unknown"
 			});
 		});
-		
+
 		it("can have default arguments overridden", function () {
 			var personInit = jasmine.createSpy("personInit"),
 				Person = createClass({
@@ -212,7 +212,7 @@ define(["solv/class"], function (createClass) {
 				person = new Person({
 					name: "Bob Gray"
 				});
-			
+
 			useClass(Person);
 			expect(personInit).toHaveBeenCalledWith({
 				name: "Bob Gray",
@@ -236,6 +236,16 @@ define(["solv/class"], function (createClass) {
 				foo = new Foo();
 			useClass(Foo);
 			expect(foo.id).toBe(1);
+		});
+
+		it("return init result from constructor", function () {
+			var instance = {},
+				Foo = createClass(function () {
+					return Object.setPrototypeOf(instance, Foo.prototype);
+				}),
+				foo = new Foo();
+			useClass(Foo);
+			expect(foo).toBe(instance);
 		});
 
 		it("init function can call this.superCall or this.superApply", function () {
