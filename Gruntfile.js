@@ -13,19 +13,19 @@ function registerTasks (grunt) {
 		"complexity",
 		"test"
 	]);
-	
+
 	grunt.registerTask("lint", [
 		"jshint"
 	]);
-	
+
 	grunt.registerTask("test", [
 		"karma:local"
 	]);
-	
+
 	grunt.registerTask("coverage", [
 		"karma:coverage"
 	]);
-	
+
 	grunt.registerTask("start-watch", [
 		"karma:watch:start",
 		"watch"
@@ -173,7 +173,7 @@ function configureTasks (grunt) {
 		},
 		coveralls: {
 			options: {
-				coverage_dir: "coverage",
+				coverageDir: "coverage",
 				recursive: true
 			}
 		},

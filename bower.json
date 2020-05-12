@@ -27,7 +27,8 @@
     "tests",
     "Gruntfile.js",
     "karma.conf.js",
-    "package.json"
+    "package.json",
+    "package-lock.json"
   ],
   "devDependencies": {
   	"requirejs": "^2.1.15",

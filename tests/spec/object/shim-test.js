@@ -97,6 +97,27 @@ define(["solv/object/shim"], function (objectShims) {
 					child = Object.create(parent);
 				expect(child.lastName).toBe("Gray");
 			});
+		},
+
+		setPrototypeOf: function () {
+			it("set the prototype of an object", function () {
+				expect(Object.setPrototypeOf({}, {
+					proto: true
+				}).proto).toBe(true);
+			});
+		},
+
+		assign: function () {
+			it("assigns properties from more than on source to a target", function () {
+				var object = Object.assign({}, {
+					source1: true
+				}, {
+					source2: true
+				});
+
+				expect(object.source1).toBe(true);
+				expect(object.source2).toBe(true);
+			});
 		}
 	};
 

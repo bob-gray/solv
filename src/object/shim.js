@@ -7,6 +7,7 @@ define(function (require) {
 	"use strict";
 
 	require("../class/shim");
+	require("../array/shim");
 
 	var meta = require("../meta");
 
@@ -40,9 +41,40 @@ define(function (require) {
 		"returns": "object"
 	});
 
+	meta({
+		"name": "setPrototypeOf",
+		"static": true,
+		"shim": true,
+		"description": "Sets the prototype of an object to another object",
+		"arguments": [{
+			"name": "object",
+			"type": "object"
+		}, {
+			"name": "proto",
+			"type": "object"
+		}],
+		"returns": "object"
+	});
+
+	meta({
+		"name": "assign",
+		"static": true,
+		"shim": true,
+		"description": "Copies all enumerable own properties from one or more source objects to a target object",
+		"arguments": [{
+			"name": "target",
+			"type": "object"
+		}, {
+			"name": "source",
+			"type": "object",
+			"repeating": "true"
+		}],
+		"returns": "object"
+	});
+
 	var shims = {};
 
-	shims.keys = function(object) {
+	shims.keys = function (object) {
 		throwIfNonObject(object);
 
 		return getKeys(object);
@@ -54,6 +86,35 @@ define(function (require) {
 		return new Surrogate();
 	};
 
+	shims.setPrototypeOf = function (object, proto) {
+		var result = object;
+
+		throwIfNonObject(object);
+
+		/* jshint -W103 */
+		if (object.__proto__) {
+			object.__proto__ = proto;
+		} else {
+			result = Object.assign(Object.create(proto), object);
+		}
+
+		return result;
+	};
+
+	shims.assign = function (target) {
+		var sources = Array.from(arguments).slice(1);
+
+		throwIfNonObject(target);
+
+		sources.forEach(function (source) {
+			Object.keys(source).forEach(function (key) {
+				target[key] = source[key];
+			});
+		});
+
+		return target;
+	};
+
 	function Surrogate () {}
 
 	function getKeys (object) {
@@ -61,7 +122,6 @@ define(function (require) {
 			key;
 
 		for (key in object) {
-
 			if (object.hasOwnProperty(key)) {
 				keys.push(key);
 			}
@@ -78,11 +138,14 @@ define(function (require) {
 
 	function isNonObject (value) {
 		var type = typeof value;
+
 		return value === null || (type !== "object" && type !== "function");
 	}
 
 	Object.shimStatic("keys", shims.keys);
 	Object.shimStatic("create", shims.create);
+	Object.shimStatic("setPrototypeOf", shims.setPrototypeOf);
+	Object.shimStatic("assign", shims.assign);
 
 	return shims;
 });

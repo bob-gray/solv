@@ -13,8 +13,7 @@ define(["solv/function/get-name"], function () {
 		});
 
 		it("returns undefined for an anonymous function expression", function () {
-			var anonymous = function () {};
-			expect(anonymous.getName()).toBeUndefined();
+			expect((function () {}).getName()).toBeUndefined();
 		});
 	});
 });

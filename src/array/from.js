@@ -3,6 +3,8 @@ if (typeof define !== "function") {
 	var define = require("amdefine")(module);
 }
 
+var Symbol;
+
 define(function (require) {
 	"use strict";
 
@@ -27,7 +29,34 @@ define(function (require) {
 
 	require("../class/shim");
 
-	Array.shimStatic("from", function (arrayLike) {
-		return this.prototype.slice.call(arrayLike);
+	var type = require("../type");
+
+	Array.shimStatic("from", function (arrayLike, map, context) {
+		var array;
+
+		if (type.is.not("array", arrayLike) && Symbol && Symbol.iterator && arrayLike[Symbol.iterator]) {
+			array = fromIterator(arrayLike);
+		} else {
+			array = this.prototype.slice.call(arrayLike);
+		}
+
+		if (map) {
+			array = array.map(map, context);
+		}
+
+		return array;
 	});
+
+	function fromIterator (arrayLike) {
+		var array = [],
+			iterator = arrayLike[Symbol.iterator](),
+			item = iterator.next();
+
+		while (!item.done) {
+			array.push(item.value);
+			item = iterator.next();
+		}
+
+		return array;
+	}
 });

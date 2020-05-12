@@ -203,24 +203,24 @@ define(["solv/abstract/base"], function (Base) {
 		it("throttle method return should call function each time buffer is elapsed", function (done) {
 			var base = new Base(),
 				throttled,
-				i = 0;
+				i = 6;
 
 			base.test = jasmine.createSpy("test");
-			throttled = base.throttle("test", 50);
+			throttled = base.throttle("test", 100);
 
-			for (; i < 4; i += 1) {
-				setTimeout(loop, i * 30);
-			}
-
-			function loop () {
+			(function loop () {
 				throttled();
 				i -= 1;
-			}
+
+				if (i) {
+					setTimeout(loop, 20);
+				}
+			}());
 
 			setTimeout(function () {
 				expect(base.test.calls.count()).toEqual(2);
 				done();
-			}, 150);
+			}, 200);
 		});
 
 		it("throttle method return should be invoked with instance as context", function (done) {
