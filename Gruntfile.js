@@ -179,7 +179,6 @@ function configureTasks (grunt) {
 			bump: {
 				src: [
 					"package.json",
-					"package-lock.json",
 					"bower.json"
 				]
 			}
