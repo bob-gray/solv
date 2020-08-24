@@ -1,9 +1,8 @@
+/* global Symbol */
 /* istanbul ignore if */
 if (typeof define !== "function") {
 	var define = require("amdefine")(module);
 }
-
-var Symbol;
 
 define(function (require) {
 	"use strict";
@@ -34,7 +33,7 @@ define(function (require) {
 	Array.shimStatic("from", function (arrayLike, map, context) {
 		var array;
 
-		if (type.is.not("array", arrayLike) && Symbol && Symbol.iterator && arrayLike[Symbol.iterator]) {
+		if (type.is.not("array", arrayLike) && typeof Symbol === "function" && Symbol.iterator && arrayLike[Symbol.iterator]) {
 			array = fromIterator(arrayLike);
 		} else {
 			array = this.prototype.slice.call(arrayLike);
