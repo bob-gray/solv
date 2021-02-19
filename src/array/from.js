@@ -30,6 +30,7 @@ define(function (require) {
 
 	var type = require("../type");
 
+	/* jshint -W074 */
 	Array.shimStatic("from", function (arrayLike, map, context) {
 		var array;
 
@@ -45,6 +46,7 @@ define(function (require) {
 
 		return array;
 	});
+	/* jshint +W074 */
 
 	function fromIterator (arrayLike) {
 		var array = [],
